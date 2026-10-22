@@ -31,16 +31,24 @@ def element_of(text):
         if n and (best is None or n > best[1]): best = (e, n)
     return best[0] if best else None
 
-def geocode(name):
+TOWN_TYPES = ("city", "town", "village", "hamlet", "locality", "suburb", "isolated_dwelling")
+def geocode(name, prefer_state=None):
+    """A town/locality in Australia -> (lat, lon, state code). Prefers the state named next to it in the text."""
     time.sleep(1.1)
-    r = get("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=3&countrycodes=au&addressdetails=1&q=" + urllib.parse.quote(name), timeout=30, tries=2)
+    r = get("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&countrycodes=au&addressdetails=1&q=" + urllib.parse.quote(name), timeout=30, tries=2)
+    best = None
     for x in r:
-        if (x.get("category") or x.get("class")) in ("place", "natural", "landuse", "boundary", "industrial", "man_made", "historic"):
-            st = (x.get("address") or {}).get("state", "")
-            code = next((k for k, v in STATES.items() if v == st), None)
-            if code:
-                return float(x["lat"]), float(x["lon"]), code
-    return None
+        if (x.get("category") or x.get("class")) not in ("place", "boundary") or (x.get("type") not in TOWN_TYPES and x.get("addresstype") not in TOWN_TYPES):
+            continue
+        st = (x.get("address") or {}).get("state", "")
+        code = next((k for k, v in STATES.items() if v == st), None)
+        if not code:
+            continue
+        cand = (float(x["lat"]), float(x["lon"]), code)
+        if prefer_state and code == prefer_state:
+            return cand
+        best = best or cand
+    return best
 
 FILE = "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/"
 DOCS = re.compile(r"prospectus|quarterly|activities|presentation|project|acquisition|exploration update|investor", re.I)
@@ -66,7 +74,7 @@ def place_from_text(txt):
         ctx = txt[m.end(): m.end() + 60]
         st = next((k for k, rx in STATE_RX.items() if rx.search(ctx)), None) or max(STATES, key=lambda k: len(STATE_RX[k].findall(txt)))
         try:
-            g = geocode(f"{town}, {STATES[st]}")
+            g = geocode(town, st)
         except Exception:
             g = None
         if not g: continue
