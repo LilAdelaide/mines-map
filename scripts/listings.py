@@ -81,7 +81,7 @@ def place_from_text(txt):
         except Exception as e:
             print("geocode", town, e, flush=True); g = None
         # only trust it when the town is in the state the document is about
-        if not g or g[2] != st or len(STATE_RX[st].findall(txt)) < 2: continue
+        if not g or len(STATE_RX[g[2]].findall(txt)) < 2: continue
         dy = sum(DIRV[ch][0] for ch in d if ch in DIRV); dx = sum(DIRV[ch][1] for ch in d if ch in DIRV)
         n = (dy * dy + dx * dx) ** 0.5 or 1
         lat = g[0] + dy / n * km / 111; lon = g[1] + dx / n * km / (111 * max(0.3, abs(__import__("math").cos(__import__("math").radians(g[0])))))
