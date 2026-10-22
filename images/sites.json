@@ -1,0 +1,30 @@
+{
+"kcgm-super-pit-fimiston": {
+"ok": true,
+"lat": -30.778,
+"lon": 121.503,
+"how": "map",
+"km": 5.2
+},
+"agnew-incl-lawlers": {
+"ok": true,
+"lat": -28.0,
+"lon": 120.5,
+"how": "map",
+"km": 12
+},
+"telfer": {
+"ok": true,
+"lat": -21.72,
+"lon": 122.21,
+"how": "map",
+"km": 5.2
+},
+"boddington": {
+"ok": true,
+"lat": -32.75,
+"lon": 116.37,
+"how": "map",
+"km": 5.2
+}
+}
