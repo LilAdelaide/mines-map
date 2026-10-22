@@ -38,7 +38,7 @@ jobs:
         run: |
           cd app/android && chmod +x gradlew
           set -o pipefail
-          ./gradlew --no-daemon assembleDebug 2>&1 | tee build.log || { grep -E "What went wrong|error:|Error|> " build.log | tail -25 | while IFS= read -r l; do echo "::error::$l"; done; exit 1; }
+          ./gradlew --no-daemon assembleDebug 2>&1 | tee build.log || { { grep -E "error:|ERROR:" build.log | head -5; grep -A8 "What went wrong" build.log | head -9; } | grep -v "^> Task" | while IFS= read -r l; do echo "::error::$l"; done; exit 1; }
       - name: Name it
         run: cp app/android/app/build/outputs/apk/debug/app-debug.apk MinesMap.apk
       - uses: actions/upload-artifact@v4
