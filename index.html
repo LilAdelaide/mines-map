@@ -84,7 +84,8 @@ select{width:100%;min-width:0;background:var(--ink);border:1px solid var(--borde
 main{position:relative;min-width:0;min-height:0;background:var(--ink)}
 #mapwrap{position:absolute;inset:0;overflow:hidden;cursor:grab;touch-action:none;background:var(--ink)}
 #mapwrap:active{cursor:grabbing}
-svg#map{width:100%;height:100%;display:block;background:var(--ink);transform-origin:0 0;will-change:transform}
+svg#map{width:100%;height:100%;display:block;background:var(--ink);transform-origin:0 0;will-change:transform;overflow:visible}
+#mapwrap.b-terrain{background:#70a6d1} #mapwrap.b-satellite{background:#00113a} #mapwrap.b-topo{background:#4786bf}
 .state{fill:var(--land);stroke:var(--coast);stroke-width:.8;vector-effect:non-scaling-stroke;stroke-linejoin:round}
 .state.hl{fill:#1d1d1d}
 .stlabel{fill:#4a4a4a;font-family:var(--f-display);font-weight:600;letter-spacing:.2em;text-transform:uppercase;pointer-events:none;font-size:calc(13px * var(--inv1,1))}
@@ -1595,7 +1596,7 @@ function drawBase(){
   gBase.selectAll("image").data(BASE === "dark" ? [] : [BASE], d => d).join("image")
     .attr("href", d => `tiles/${d}.jpg`).attr("preserveAspectRatio","none")
     .attr("x", a[0]).attr("y", a[1]).attr("width", b[0] - a[0]).attr("height", b[1] - a[1]);
-  svgEl.classList.remove("b-terrain","b-satellite","b-topo"); if (BASE !== "dark") svgEl.classList.add("b-" + BASE);
+  svgEl.classList.remove("b-terrain","b-satellite","b-topo"); wrapEl.classList.remove("b-terrain","b-satellite","b-topo"); if (BASE !== "dark") { svgEl.classList.add("b-" + BASE); wrapEl.classList.add("b-" + BASE); }
   const lg = document.querySelector(".legend"); if (lg) lg.classList.toggle("has-topo", BASE === "topo");
   const cr = document.getElementById("basecredit"); cr.hidden = BASE === "dark"; cr.textContent = BASE_CREDIT[BASE] || "";
   document.querySelectorAll(".basesw button[data-base]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.base === BASE)));
@@ -1649,7 +1650,7 @@ const zoom = d3.zoom().scaleExtent([1, 80]).on("start", () => { gesturing = true
 .on("zoom", ev => {
   pendingT = ev.transform;
   if (!raf) raf = requestAnimationFrame(() => { raf = 0; const t = pendingT, s = t.k / tc.k;
-    if (s > 1.6 || s < 0.62) { commitT(t); return; }
+    if (s > 1.8 || s < 0.45) { commitT(t); return; }
     svgEl.style.transform = `translate(${t.x - s * tc.x}px,${t.y - s * tc.y}px) scale(${s})`; });
 }).on("end", () => { cancelAnimationFrame(raf); raf = 0; gesturing = false; svgEl.classList.remove("panning"); commitT(d3.zoomTransform(wrapEl)); updGE(); });
 wrap.call(zoom).on("dblclick.zoom", null);
