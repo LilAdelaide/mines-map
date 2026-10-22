@@ -1,8 +1,7 @@
-2026-10-22T16:49:28+08:00
+2026-10-22T16:51:27+08:00
 pyrenees	blank	
 macedon	blank	
 barossa-darwin-lng	blank	
 ningaloo-vision-van-gogh-coniston	blank	
 dorado	blank	
 bass-strait-gippsland	blank	
-swedish	osm	3.2
