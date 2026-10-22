@@ -43,9 +43,9 @@
 },
 "carosue-dam": {
 "ok": true,
-"lat": -30.17,
-"lon": 122.28,
-"how": "map",
+"lat": -30.15314,
+"lon": 122.35218,
+"how": "wikidata",
 "km": 5.2
 },
 "st-ives": {
@@ -57,9 +57,9 @@
 },
 "mungari-incl-kundana": {
 "ok": true,
-"lat": -30.85,
-"lon": 121.12,
-"how": "map",
+"lat": -30.7037,
+"lon": 121.2295,
+"how": "wikidata",
 "km": 5.2
 },
 "beta-hunt": {
@@ -78,9 +78,9 @@
 },
 "mt-monger-daisy-milano": {
 "ok": true,
-"lat": -30.95,
-"lon": 121.96,
-"how": "map",
+"lat": -31.0,
+"lon": 121.917,
+"how": "wikidata",
 "km": 5.2
 },
 "bullabulling": {
@@ -169,10 +169,10 @@
 },
 "king-of-the-hills": {
 "ok": true,
-"lat": -28.65,
-"lon": 121.4,
-"how": "map",
-"km": 12
+"lat": -28.6667,
+"lon": 121.167,
+"how": "wikidata",
+"km": 5.2
 },
 "darlot": {
 "ok": true,
@@ -239,9 +239,9 @@
 },
 "jundee": {
 "ok": true,
-"lat": -26.35,
-"lon": 120.65,
-"how": "map",
+"lat": -26.35792,
+"lon": 120.61839,
+"how": "wikidata",
 "km": 5.2
 },
 "bronzewing": {
@@ -274,10 +274,10 @@
 },
 "dalgaranga-never-never": {
 "ok": true,
-"lat": -27.8,
-"lon": 117.07,
-"how": "map",
-"km": 12
+"lat": -27.84726,
+"lon": 117.27511,
+"how": "wikidata",
+"km": 5.2
 },
 "penny": {
 "ok": true,
@@ -456,10 +456,10 @@
 },
 "mt-rawdon": {
 "ok": true,
-"lat": -25.1,
-"lon": 151.7,
-"how": "map",
-"km": 12
+"lat": -25.26625,
+"lon": 151.75981,
+"how": "osm",
+"km": 4.4
 },
 "cracow": {
 "ok": true,
