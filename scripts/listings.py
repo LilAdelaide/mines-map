@@ -69,15 +69,19 @@ def place_from_text(txt):
     if len(ABROAD.findall(txt)) > oz:
         return None
     for m in NEAR.finditer(txt):
-        km, d, town = int(m.group(1)), m.group(2).lower().replace("-", "").replace(" ", ""), m.group(3).strip()
+        km, town = int(m.group(1)), m.group(3).strip()
+        d = m.group(2).lower().replace("-", "").replace(" ", "")
+        d = d.replace("north", "n").replace("south", "s").replace("east", "e").replace("west", "w")
         if km > 300 or town.lower() in ("the", "perth city"): continue
         ctx = txt[m.end(): m.end() + 60]
-        st = next((k for k, rx in STATE_RX.items() if rx.search(ctx)), None) or max(STATES, key=lambda k: len(STATE_RX[k].findall(txt)))
+        main_st = max(STATES, key=lambda k: len(STATE_RX[k].findall(txt)))
+        st = next((k for k, rx in STATE_RX.items() if rx.search(ctx)), None) or main_st
         try:
             g = geocode(town, st)
-        except Exception:
-            g = None
-        if not g: continue
+        except Exception as e:
+            print("geocode", town, e, flush=True); g = None
+        # only trust it when the town is in the state the document is about
+        if not g or g[2] != st or len(STATE_RX[st].findall(txt)) < 2: continue
         dy = sum(DIRV[ch][0] for ch in d if ch in DIRV); dx = sum(DIRV[ch][1] for ch in d if ch in DIRV)
         n = (dy * dy + dx * dx) ** 0.5 or 1
         lat = g[0] + dy / n * km / 111; lon = g[1] + dx / n * km / (111 * max(0.3, abs(__import__("math").cos(__import__("math").radians(g[0])))))
