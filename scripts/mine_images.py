@@ -107,6 +107,8 @@ if __name__ == "__main__":
         im.save(os.path.join(OUT, m["k"] + ".jpg"), quality=80, optimize=True, progressive=True)
         idx[m["k"]] = {"ok": True, "lat": round(lat, 5), "lon": round(lon, 5), "how": how, "km": round(half * 2, 1)}
         done += 1
-        print(m["k"], how, round(half * 2, 1), "km")
+        print(m["k"], how, round(half * 2, 1), "km", flush=True)
+        if done % 10 == 0:
+            json.dump(idx, open(IDX, "w"), indent=0)
     json.dump(idx, open(IDX, "w"), indent=0)
     print("pictures made", done, "of", len(MINES), now_iso())

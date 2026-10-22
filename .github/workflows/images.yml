@@ -14,14 +14,15 @@ concurrency:
 jobs:
   pictures:
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 170
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install -q pillow
-      - run: python scripts/mine_images.py ${{ github.event.inputs.only }}
+      - run: timeout 150m python scripts/mine_images.py ${{ github.event.inputs.only }} || true
       - name: Publish
+        if: always()
         run: |
           git config user.name "mines-map-bot"; git config user.email "actions@users.noreply.github.com"
           git add images
