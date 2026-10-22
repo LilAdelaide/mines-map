@@ -1,0 +1,47 @@
+# Builds the Android app (APK). The app opens the live GitHub Pages site, so it always has the newest data and features.
+name: Android APK
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: "21" }
+      - uses: android-actions/setup-android@v3
+      - name: Create the Android project
+        run: |
+          SITE="https://${GITHUB_REPOSITORY_OWNER,,}.github.io/${GITHUB_REPOSITORY#*/}/"
+          mkdir -p app/www && cd app
+          cp ../index.html ../manifest.webmanifest www/ && cp -r ../tiles ../icons ../data www/
+          npm init -y >/dev/null
+          npm i -s @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6 @capacitor/assets@3
+          cat > capacitor.config.json <<JSON
+          {"appId":"io.github.minesmap","appName":"Mines Map","webDir":"www",
+           "server":{"url":"$SITE","cleartext":false,"errorPath":"index.html"},
+           "android":{"backgroundColor":"#0b0e10"}}
+          JSON
+          npx cap add android
+          mkdir -p assets && cp ../icons/icon-1024.png assets/icon-only.png && cp ../icons/icon-1024.png assets/icon-foreground.png
+          npx @capacitor/assets generate --android --iconBackgroundColor "#111417" --splashBackgroundColor "#0b0e10" || true
+          npx cap sync android
+      - name: Build APK
+        run: cd app/android && chmod +x gradlew && ./gradlew --no-daemon assembleDebug
+      - name: Name it
+        run: cp app/android/app/build/outputs/apk/debug/app-debug.apk MinesMap.apk
+      - uses: actions/upload-artifact@v4
+        with: { name: MinesMap-apk, path: MinesMap.apk }
+      - name: Attach to a release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('build-{0}', github.run_number) }}
+          name: Mines Map ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('build {0}', github.run_number) }}
+          files: MinesMap.apk
