@@ -2304,30 +2304,23 @@
 "ty": "Onshore wells"
 },
 {
-"k": "swedish",
-"n": "Swedish",
-"lat": -29.047,
-"lon": 115.3512,
-"e": "uranium",
+"k": "shoobridge-gold-project",
+"n": "Shoobridge Gold Project",
+"lat": -13.6312,
+"lon": 130.84,
+"e": "gold",
 "s": "D",
-"ty": "Exploration"
+"ty": "Exploration",
+"auto": true
 },
 {
 "k": "huckitta-project",
 "n": "Huckitta Project",
-"lat": -16.8693,
-"lon": 127.0595,
+"lat": -21.5341,
+"lon": 136.2454,
 "e": "gold",
 "s": "D",
-"ty": "Exploration"
-},
-{
-"k": "shoobridge-gold-project",
-"n": "Shoobridge Gold Project",
-"lat": -24.4818,
-"lon": 152.1688,
-"e": "gold",
-"s": "D",
-"ty": "Exploration"
+"ty": "Exploration",
+"auto": true
 }
 ]

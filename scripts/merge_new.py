@@ -49,12 +49,12 @@ for s, e, txt in parts:
     html = html[:s] + txt + html[e:]
 open(OUT, "w", encoding="utf8").write(html)
 # mine-picture list: add the new sites so the picture job covers them
-mp = os.path.join(ROOT, "scripts", "mines.json"); mines = json.load(open(mp))
+mp = os.path.join(ROOT, "scripts", "mines.json"); mines = [m for m in json.load(open(mp)) if not m.get("auto")]
 have = {m["k"] for m in mines}
 slug = lambda n: re.sub(r"[^a-z0-9]+", "-", n.lower().replace("–", "-")).strip("-")
 for ms in ALL.values():
     for m in ms:
         if m.get("auto") and slug(m["n"]) not in have:
-            mines.append({"k": slug(m["n"]), "n": m["n"], "lat": m["lat"], "lon": m["lon"], "e": next(k for k, v in ALL.items() if m in v), "s": m["s"], "ty": m["ty"]})
+            mines.append({"k": slug(m["n"]), "n": m["n"], "lat": m["lat"], "lon": m["lon"], "e": next(k for k, v in ALL.items() if m in v), "s": m["s"], "ty": m["ty"], "auto": True})
 json.dump(mines, open(mp, "w"), indent=0, ensure_ascii=False)
 print("auto-added on the map:", added or "none")
