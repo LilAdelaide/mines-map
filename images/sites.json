@@ -1,23 +1,23 @@
 {
 "kcgm-super-pit-fimiston": {
 "ok": true,
-"lat": -30.778,
-"lon": 121.503,
-"how": "map",
+"lat": -30.7747,
+"lon": 121.509,
+"how": "wikidata",
 "km": 5.2
 },
 "telfer": {
 "ok": true,
-"lat": -21.72,
-"lon": 122.21,
-"how": "map",
+"lat": -21.73111,
+"lon": 122.20993,
+"how": "wikidata",
 "km": 5.2
 },
 "boddington": {
 "ok": true,
-"lat": -32.75,
-"lon": 116.37,
-"how": "map",
+"lat": -32.77804,
+"lon": 116.3126,
+"how": "wikidata",
 "km": 5.2
 },
 "mt-charlotte": {
@@ -29,16 +29,16 @@
 },
 "menzies-brightstar": {
 "ok": true,
-"lat": -29.69,
-"lon": 121.03,
-"how": "map",
+"lat": -29.70389,
+"lon": 121.02694,
+"how": "wikidata",
 "km": 5.2
 },
 "kanowna-belle": {
 "ok": true,
-"lat": -30.603,
-"lon": 121.606,
-"how": "map",
+"lat": -30.61083,
+"lon": 121.57667,
+"how": "wikidata",
 "km": 5.2
 },
 "carosue-dam": {
@@ -50,10 +50,10 @@
 },
 "st-ives": {
 "ok": true,
-"lat": -31.2,
-"lon": 121.7,
-"how": "map",
-"km": 12
+"lat": -31.32056,
+"lon": 121.74028,
+"how": "wikidata",
+"km": 5.2
 },
 "mungari-incl-kundana": {
 "ok": true,
@@ -64,16 +64,16 @@
 },
 "beta-hunt": {
 "ok": true,
-"lat": -31.25,
-"lon": 121.68,
-"how": "map",
+"lat": -31.218,
+"lon": 121.679,
+"how": "wikidata",
 "km": 5.2
 },
 "higginsville": {
 "ok": true,
-"lat": -31.73,
-"lon": 121.73,
-"how": "map",
+"lat": -31.73444,
+"lon": 121.72417,
+"how": "wikidata",
 "km": 5.2
 },
 "mt-monger-daisy-milano": {
@@ -92,16 +92,16 @@
 },
 "norseman": {
 "ok": true,
-"lat": -32.2,
-"lon": 121.78,
-"how": "map",
-"km": 12
+"lat": -32.19556,
+"lon": 121.79472,
+"how": "wikidata",
+"km": 5.2
 },
 "davyhurst-riverina": {
 "ok": true,
-"lat": -30.04,
-"lon": 120.65,
-"how": "map",
+"lat": -30.03624,
+"lon": 120.67045,
+"how": "wikidata",
 "km": 5.2
 },
 "bardoc": {
@@ -134,16 +134,16 @@
 },
 "boorara-kalgoorlie-projects": {
 "ok": true,
-"lat": -30.78,
-"lon": 121.64,
-"how": "map",
+"lat": -31.03889,
+"lon": 121.61472,
+"how": "wikidata",
 "km": 5.2
 },
 "gwalia": {
 "ok": true,
-"lat": -28.89,
-"lon": 121.33,
-"how": "map",
+"lat": -28.91871,
+"lon": 121.33338,
+"how": "wikidata",
 "km": 5.2
 },
 "leonora-mill-ulysses": {
@@ -155,10 +155,10 @@
 },
 "mt-morgans": {
 "ok": true,
-"lat": -28.8,
-"lon": 122.13,
-"how": "map",
-"km": 12
+"lat": -28.76535,
+"lon": 122.0597,
+"how": "wikidata",
+"km": 5.2
 },
 "lady-julie": {
 "ok": true,
@@ -169,59 +169,59 @@
 },
 "king-of-the-hills": {
 "ok": true,
-"lat": -28.6667,
-"lon": 121.167,
+"lat": -28.67139,
+"lon": 121.16389,
 "how": "wikidata",
 "km": 5.2
 },
 "darlot": {
 "ok": true,
-"lat": -27.88,
-"lon": 121.27,
-"how": "map",
+"lat": -27.8833,
+"lon": 121.267,
+"how": "wikidata",
 "km": 5.2
 },
 "granny-smith": {
 "ok": true,
-"lat": -28.8,
-"lon": 122.37,
-"how": "map",
-"km": 12
+"lat": -28.81056,
+"lon": 122.41444,
+"how": "wikidata",
+"km": 5.2
 },
 "gruyere": {
 "ok": true,
-"lat": -28.0,
-"lon": 123.85,
-"how": "map",
-"km": 12
+"lat": -27.99246,
+"lon": 123.85215,
+"how": "wikidata",
+"km": 5.2
 },
 "laverton-brightstar": {
 "ok": true,
-"lat": -28.63,
-"lon": 122.4,
-"how": "map",
-"km": 12
+"lat": -28.62114,
+"lon": 122.48976,
+"how": "wikidata",
+"km": 5.2
 },
 "tropicana": {
 "ok": true,
-"lat": -29.25,
-"lon": 124.55,
-"how": "map",
-"km": 5.2
+"lat": -29.24039,
+"lon": 124.53839,
+"how": "osm",
+"km": 3.2
 },
 "apollo-hill": {
 "ok": true,
-"lat": -29.15,
-"lon": 121.68,
-"how": "map",
+"lat": -28.91813,
+"lon": 121.8092,
+"how": "wikidata",
 "km": 5.2
 },
 "agnew-incl-lawlers": {
 "ok": true,
-"lat": -28.0,
-"lon": 120.5,
-"how": "map",
-"km": 12
+"lat": -28.00722,
+"lon": 120.50778,
+"how": "wikidata",
+"km": 5.2
 },
 "bellevue": {
 "ok": true,
@@ -246,24 +246,24 @@
 },
 "bronzewing": {
 "ok": true,
-"lat": -27.38,
-"lon": 121.03,
-"how": "map",
+"lat": -27.3847,
+"lon": 121.009,
+"how": "wikidata",
 "km": 5.2
 },
 "duketon-south-garden-well-rosemont": {
 "ok": true,
-"lat": -27.95,
-"lon": 122.35,
-"how": "map",
+"lat": -27.8974,
+"lon": 122.3623,
+"how": "wikidata",
 "km": 5.2
 },
 "duketon-north-moolart-well": {
 "ok": true,
-"lat": -27.6,
-"lon": 122.33,
-"how": "map",
-"km": 12
+"lat": -27.6125,
+"lon": 122.35896,
+"how": "wikidata",
+"km": 5.2
 },
 "mt-magnet": {
 "ok": true,
@@ -295,51 +295,51 @@
 },
 "big-bell-cue": {
 "ok": true,
-"lat": -27.33,
-"lon": 117.65,
-"how": "map",
+"lat": -27.31659,
+"lon": 117.65147,
+"how": "wikidata",
 "km": 5.2
 },
 "tuckabianna-mill-fender": {
 "ok": true,
-"lat": -27.48,
-"lon": 118.05,
-"how": "map",
+"lat": -27.47778,
+"lon": 118.13472,
+"how": "wikidata",
 "km": 5.2
 },
 "meekatharra-bluebird": {
 "ok": true,
-"lat": -26.62,
-"lon": 118.5,
-"how": "map",
-"km": 12
+"lat": -26.71472,
+"lon": 118.43083,
+"how": "wikidata",
+"km": 5.2
 },
 "fortnum-starlight": {
 "ok": true,
-"lat": -25.4,
-"lon": 118.4,
-"how": "map",
-"km": 12
+"lat": -25.32886,
+"lon": 118.35563,
+"how": "wikidata",
+"km": 5.2
 },
 "andy-well-murchison-gold": {
 "ok": true,
-"lat": -26.35,
-"lon": 118.55,
-"how": "map",
+"lat": -26.22329,
+"lon": 118.68024,
+"how": "wikidata",
 "km": 5.2
 },
 "youanmi": {
 "ok": true,
-"lat": -28.62,
-"lon": 118.83,
-"how": "map",
+"lat": -28.61111,
+"lon": 118.84028,
+"how": "wikidata",
 "km": 5.2
 },
 "plutonic": {
 "ok": true,
-"lat": -25.33,
-"lon": 119.43,
-"how": "map",
+"lat": -25.31611,
+"lon": 119.44417,
+"how": "wikidata",
 "km": 5.2
 },
 "deflector": {
@@ -351,10 +351,10 @@
 },
 "mt-gibson": {
 "ok": true,
-"lat": -29.62,
-"lon": 117.18,
-"how": "map",
-"km": 5.2
+"lat": -29.57011,
+"lon": 117.15995,
+"how": "osm",
+"km": 7.0
 },
 "karlawinda-bibra": {
 "ok": true,
@@ -372,30 +372,30 @@
 },
 "paulsens": {
 "ok": true,
-"lat": -22.62,
-"lon": 116.08,
-"how": "map",
+"lat": -22.58134,
+"lon": 116.24138,
+"how": "wikidata",
 "km": 5.2
 },
 "havieron": {
 "ok": true,
-"lat": -21.7,
-"lon": 122.66,
-"how": "map",
-"km": 12
+"lat": -21.72605,
+"lon": 122.63433,
+"how": "osm",
+"km": 4.5
 },
 "coyote": {
 "ok": true,
-"lat": -20.13,
-"lon": 128.74,
-"how": "map",
+"lat": -19.89332,
+"lon": 128.8365,
+"how": "wikidata",
 "km": 5.2
 },
 "edna-may-tampia": {
 "ok": true,
-"lat": -31.28,
-"lon": 118.68,
-"how": "map",
+"lat": -31.28495,
+"lon": 118.69497,
+"how": "wikidata",
 "km": 5.2
 },
 "katanning": {
@@ -414,23 +414,23 @@
 },
 "olympic-dam": {
 "ok": true,
-"lat": -30.44,
-"lon": 136.88,
-"how": "map",
+"lat": -30.4444,
+"lon": 136.867,
+"how": "wikidata",
 "km": 5.2
 },
 "prominent-hill": {
 "ok": true,
-"lat": -29.72,
-"lon": 135.57,
-"how": "map",
+"lat": -29.7194,
+"lon": 135.583,
+"how": "wikidata",
 "km": 5.2
 },
 "carrapateena": {
 "ok": true,
-"lat": -31.25,
-"lon": 137.48,
-"how": "map",
+"lat": -31.24,
+"lon": 137.5,
+"how": "wikidata",
 "km": 5.2
 },
 "challenger": {
@@ -449,10 +449,10 @@
 },
 "ernest-henry": {
 "ok": true,
-"lat": -20.44,
-"lon": 140.7,
-"how": "map",
-"km": 12
+"lat": -20.585,
+"lon": 140.62278,
+"how": "wikidata",
+"km": 5.2
 },
 "mt-rawdon": {
 "ok": true,
@@ -477,31 +477,31 @@
 },
 "cadia-valley": {
 "ok": true,
-"lat": -33.45,
-"lon": 148.99,
-"how": "map",
+"lat": -33.467,
+"lon": 148.993,
+"how": "wikidata",
 "km": 5.2
 },
 "cowal": {
 "ok": true,
-"lat": -33.63,
-"lon": 147.42,
-"how": "map",
+"lat": -33.63963,
+"lon": 147.40374,
+"how": "wikidata",
 "km": 5.2
 },
 "northparkes": {
 "ok": true,
-"lat": -32.92,
-"lon": 148.03,
-"how": "map",
+"lat": -32.91052,
+"lon": 148.03722,
+"how": "wikidata",
 "km": 5.2
 },
 "tomingley": {
 "ok": true,
-"lat": -32.6,
-"lon": 148.22,
-"how": "map",
-"km": 12
+"lat": -32.58693,
+"lon": 148.22478,
+"how": "wikidata",
+"km": 5.2
 },
 "boda-kaiser": {
 "ok": true,
@@ -519,10 +519,10 @@
 },
 "peak-cobar": {
 "ok": true,
-"lat": -31.5,
-"lon": 145.85,
-"how": "map",
-"km": 12
+"lat": -31.49956,
+"lon": 145.84244,
+"how": "wikidata",
+"km": 5.2
 },
 "hillgrove": {
 "ok": true,
@@ -540,10 +540,10 @@
 },
 "costerfield": {
 "ok": true,
-"lat": -36.87,
-"lon": 144.8,
-"how": "map",
-"km": 12
+"lat": -36.888,
+"lon": 144.798,
+"how": "wikidata",
+"km": 5.2
 },
 "sunday-creek": {
 "ok": true,
@@ -554,9 +554,9 @@
 },
 "henty": {
 "ok": true,
-"lat": -41.88,
-"lon": 145.62,
-"how": "map",
+"lat": -41.87444,
+"lon": 145.55111,
+"how": "wikidata",
 "km": 5.2
 },
 "kalkaroo": {
@@ -568,9 +568,9 @@
 },
 "comet-vale-vivien": {
 "ok": true,
-"lat": -29.93,
-"lon": 121.12,
-"how": "map",
+"lat": -29.96,
+"lon": 121.13,
+"how": "wikidata",
 "km": 5.2
 },
 "montague": {
@@ -582,9 +582,9 @@
 },
 "central-tanami": {
 "ok": true,
-"lat": -19.95,
-"lon": 129.75,
-"how": "map",
+"lat": -19.98333,
+"lon": 129.71667,
+"how": "wikidata",
 "km": 5.2
 },
 "mt-ida": {
@@ -624,9 +624,9 @@
 },
 "hopes-hill": {
 "ok": true,
-"lat": -31.25,
-"lon": 119.33,
-"how": "map",
+"lat": -31.17889,
+"lon": 119.28083,
+"how": "wikidata",
 "km": 5.2
 },
 "twin-hills-drummond-basin": {
@@ -645,10 +645,10 @@
 },
 "fountain-head-mt-bundey": {
 "ok": true,
-"lat": -13.55,
-"lon": 131.5,
-"how": "map",
-"km": 12
+"lat": -13.46667,
+"lon": 131.50833,
+"how": "wikidata",
+"km": 5.2
 },
 "redcastle": {
 "ok": true,
@@ -715,17 +715,17 @@
 },
 "ballarat-exploration": {
 "ok": true,
-"lat": -37.5,
-"lon": 143.9,
-"how": "map",
-"km": 12
+"lat": -37.58,
+"lon": 143.858,
+"how": "wikidata",
+"km": 5.2
 },
 "zuleika": {
 "ok": true,
-"lat": -30.6,
-"lon": 121.1,
-"how": "map",
-"km": 12
+"lat": -30.53,
+"lon": 121.06083,
+"how": "wikidata",
+"km": 5.2
 },
 "wallbrook": {
 "ok": true,
@@ -736,9 +736,9 @@
 },
 "egina-becher": {
 "ok": true,
-"lat": -20.95,
-"lon": 118.25,
-"how": "map",
+"lat": -21.09977,
+"lon": 118.2219,
+"how": "wikidata",
 "km": 5.2
 },
 "hill-end-reward": {
@@ -785,9 +785,9 @@
 },
 "gullewa": {
 "ok": true,
-"lat": -28.55,
-"lon": 116.15,
-"how": "map",
+"lat": -28.6593,
+"lon": 116.3136,
+"how": "wikidata",
 "km": 5.2
 },
 "gold-duke": {
@@ -806,10 +806,10 @@
 },
 "spring-hill": {
 "ok": true,
-"lat": -13.6,
-"lon": 131.85,
-"how": "map",
-"km": 12
+"lat": -13.60417,
+"lon": 131.71806,
+"how": "wikidata",
+"km": 5.2
 },
 "koonenberry": {
 "ok": true,
@@ -827,17 +827,17 @@
 },
 "ranger": {
 "ok": true,
-"lat": -12.68,
-"lon": 132.91,
-"how": "map",
+"lat": -12.6833,
+"lon": 132.917,
+"how": "wikidata",
 "km": 5.2
 },
 "jabiluka": {
 "ok": true,
-"lat": -12.53,
-"lon": 132.9,
-"how": "map",
-"km": 12
+"lat": -12.4987,
+"lon": 132.914,
+"how": "wikidata",
+"km": 5.2
 },
 "mulga-rock": {
 "ok": true,
@@ -848,10 +848,10 @@
 },
 "wiluna-lake-maitland": {
 "ok": true,
-"lat": -26.95,
-"lon": 120.4,
-"how": "map",
-"km": 12
+"lat": -26.7011,
+"lon": 120.358,
+"how": "wikidata",
+"km": 5.2
 },
 "manyingee": {
 "ok": true,
@@ -862,10 +862,10 @@
 },
 "valhalla-mount-isa-project": {
 "ok": true,
-"lat": -20.52,
-"lon": 139.5,
-"how": "map",
-"km": 12
+"lat": -20.7161,
+"lon": 139.476,
+"how": "wikidata",
+"km": 5.2
 },
 "westmoreland": {
 "ok": true,
@@ -897,10 +897,10 @@
 },
 "nabarlek-area": {
 "ok": true,
-"lat": -12.3,
-"lon": 133.32,
-"how": "map",
-"km": 12
+"lat": -12.3048,
+"lon": 133.323,
+"how": "wikidata",
+"km": 5.2
 },
 "yanrey": {
 "ok": true,
@@ -911,23 +911,23 @@
 },
 "goonyella-riverside": {
 "ok": true,
-"lat": -21.8,
-"lon": 147.97,
-"how": "map",
-"km": 12
+"lat": -21.66944,
+"lon": 147.95556,
+"how": "wikidata",
+"km": 5.2
 },
 "broadmeadow": {
 "ok": true,
-"lat": -21.87,
-"lon": 147.99,
-"how": "map",
-"km": 5.2
+"lat": -21.81579,
+"lon": 148.15024,
+"how": "osm",
+"km": 10.3
 },
 "peak-downs": {
 "ok": true,
-"lat": -22.25,
-"lon": 148.18,
-"how": "map",
+"lat": -22.2544,
+"lon": 148.181,
+"how": "wikidata",
 "km": 5.2
 },
 "caval-ridge": {
@@ -939,31 +939,31 @@
 },
 "saraji": {
 "ok": true,
-"lat": -22.42,
-"lon": 148.28,
-"how": "map",
+"lat": -22.3739,
+"lon": 148.274,
+"how": "wikidata",
 "km": 5.2
 },
 "mt-arthur": {
 "ok": true,
-"lat": -32.35,
-"lon": 150.87,
-"how": "map",
+"lat": -32.3304,
+"lon": 150.861,
+"how": "wikidata",
 "km": 5.2
 },
 "blackwater": {
 "ok": true,
-"lat": -23.58,
-"lon": 148.88,
-"how": "map",
+"lat": -23.68929,
+"lon": 148.80031,
+"how": "wikidata",
 "km": 5.2
 },
 "daunia": {
 "ok": true,
-"lat": -22.05,
-"lon": 148.25,
-"how": "map",
-"km": 5.2
+"lat": -22.07988,
+"lon": 148.29916,
+"how": "osm",
+"km": 14
 },
 "maules-creek": {
 "ok": true,
@@ -981,31 +981,31 @@
 },
 "tarrawonga": {
 "ok": true,
-"lat": -30.62,
-"lon": 150.18,
-"how": "map",
-"km": 5.2
+"lat": -30.63675,
+"lon": 150.1728,
+"how": "osm",
+"km": 6.2
 },
 "vickery": {
 "ok": true,
-"lat": -30.73,
-"lon": 150.17,
-"how": "map",
-"km": 5.2
+"lat": -30.75902,
+"lon": 150.18283,
+"how": "osm",
+"km": 12.9
 },
 "south-walker-creek": {
 "ok": true,
-"lat": -21.85,
-"lon": 148.45,
-"how": "map",
+"lat": -21.7487,
+"lon": 148.432,
+"how": "wikidata",
 "km": 5.2
 },
 "poitrel": {
 "ok": true,
-"lat": -22.02,
-"lon": 148.27,
-"how": "map",
-"km": 5.2
+"lat": -22.06919,
+"lon": 148.24456,
+"how": "osm",
+"km": 14
 },
 "isaac-plains": {
 "ok": true,
@@ -1016,44 +1016,44 @@
 },
 "curragh": {
 "ok": true,
-"lat": -23.48,
-"lon": 148.88,
-"how": "map",
+"lat": -23.4746,
+"lon": 148.867,
+"how": "wikidata",
 "km": 5.2
 },
 "kestrel": {
 "ok": true,
-"lat": -23.25,
-"lon": 148.4,
-"how": "map",
-"km": 12
+"lat": -23.2406,
+"lon": 148.365,
+"how": "wikidata",
+"km": 5.2
 },
 "middlemount": {
 "ok": true,
-"lat": -22.8,
-"lon": 148.68,
-"how": "map",
-"km": 12
+"lat": -22.88194,
+"lon": 148.63944,
+"how": "wikidata",
+"km": 5.2
 },
 "yarrabee": {
 "ok": true,
-"lat": -23.33,
-"lon": 149.1,
-"how": "map",
-"km": 12
+"lat": -23.2731,
+"lon": 149.023,
+"how": "wikidata",
+"km": 5.2
 },
 "moolarben": {
 "ok": true,
-"lat": -32.35,
-"lon": 149.78,
-"how": "map",
+"lat": -32.24887,
+"lon": 149.77487,
+"how": "wikidata",
 "km": 5.2
 },
 "mt-thorley-warkworth": {
 "ok": true,
-"lat": -32.62,
-"lon": 151.08,
-"how": "map",
+"lat": -32.6447,
+"lon": 151.07,
+"how": "wikidata",
 "km": 5.2
 },
 "hunter-valley-operations": {
@@ -1065,65 +1065,65 @@
 },
 "ashton": {
 "ok": true,
-"lat": -32.53,
-"lon": 151.1,
-"how": "map",
-"km": 12
+"lat": -32.46906,
+"lon": 151.07795,
+"how": "wikidata",
+"km": 5.2
 },
 "premier-collie": {
 "ok": true,
-"lat": -33.35,
-"lon": 116.18,
-"how": "map",
+"lat": -33.43611,
+"lon": 116.31083,
+"how": "wikidata",
 "km": 5.2
 },
 "blair-athol": {
 "ok": true,
-"lat": -22.68,
-"lon": 147.53,
-"how": "map",
+"lat": -22.6969,
+"lon": 147.546,
+"how": "wikidata",
 "km": 5.2
 },
 "new-acland": {
 "ok": true,
-"lat": -27.28,
-"lon": 151.7,
-"how": "map",
-"km": 12
+"lat": -27.3,
+"lon": 151.63,
+"how": "wikidata",
+"km": 5.2
 },
 "bengalla": {
 "ok": true,
-"lat": -32.3,
-"lon": 150.83,
-"how": "map",
-"km": 12
+"lat": -32.2731,
+"lon": 150.843,
+"how": "wikidata",
+"km": 5.2
 },
 "loy-yang": {
 "ok": true,
-"lat": -38.25,
-"lon": 146.58,
-"how": "map",
+"lat": -38.2425,
+"lon": 146.56694,
+"how": "wikidata",
 "km": 5.2
 },
 "cannington": {
 "ok": true,
-"lat": -21.87,
-"lon": 140.92,
-"how": "map",
+"lat": -21.8564,
+"lon": 140.907,
+"how": "wikidata",
 "km": 5.2
 },
 "rasp-broken-hill": {
 "ok": true,
-"lat": -31.96,
-"lon": 141.47,
-"how": "map",
+"lat": -31.95,
+"lon": 141.45,
+"how": "wikidata",
 "km": 5.2
 },
 "pinnacles": {
 "ok": true,
-"lat": -32.02,
-"lon": 141.25,
-"how": "map",
+"lat": -32.05004,
+"lon": 141.32994,
+"how": "wikidata",
 "km": 5.2
 },
 "endeavor": {
@@ -1142,16 +1142,16 @@
 },
 "woodlawn": {
 "ok": true,
-"lat": -35.08,
-"lon": 149.58,
-"how": "map",
+"lat": -35.06083,
+"lon": 149.58111,
+"how": "wikidata",
 "km": 5.2
 },
 "golden-grove": {
 "ok": true,
-"lat": -28.77,
-"lon": 116.97,
-"how": "map",
+"lat": -28.7333,
+"lon": 116.95,
+"how": "wikidata",
 "km": 5.2
 },
 "bowdens": {
@@ -1184,23 +1184,23 @@
 },
 "cadia": {
 "ok": true,
-"lat": -33.46,
-"lon": 149.0,
-"how": "map",
-"km": 12
+"lat": -33.467,
+"lon": 148.993,
+"how": "wikidata",
+"km": 5.2
 },
 "tritton": {
 "ok": true,
-"lat": -31.53,
-"lon": 146.78,
-"how": "map",
+"lat": -31.39564,
+"lon": 146.72126,
+"how": "wikidata",
 "km": 5.2
 },
 "eloise": {
 "ok": true,
-"lat": -20.97,
-"lon": 140.98,
-"how": "map",
+"lat": -20.9531,
+"lon": 140.979,
+"how": "wikidata",
 "km": 5.2
 },
 "capricorn-copper": {
@@ -1212,23 +1212,23 @@
 },
 "nifty": {
 "ok": true,
-"lat": -21.67,
-"lon": 121.58,
-"how": "map",
+"lat": -21.66,
+"lon": 121.57,
+"how": "wikidata",
 "km": 5.2
 },
 "degrussa": {
 "ok": true,
-"lat": -25.53,
-"lon": 119.3,
-"how": "map",
-"km": 12
+"lat": -25.5459,
+"lon": 119.32561,
+"how": "wikidata",
+"km": 5.2
 },
 "jervois": {
 "ok": true,
-"lat": -22.65,
-"lon": 136.25,
-"how": "map",
+"lat": -22.65278,
+"lon": 136.26444,
+"how": "wikidata",
 "km": 5.2
 },
 "winu": {
@@ -1254,17 +1254,17 @@
 },
 "great-australia-cloncurry": {
 "ok": true,
-"lat": -20.68,
-"lon": 140.5,
-"how": "map",
-"km": 12
+"lat": -20.71833,
+"lon": 140.51111,
+"how": "wikidata",
+"km": 5.2
 },
 "mt-chalmers": {
 "ok": true,
-"lat": -23.3,
-"lon": 150.65,
-"how": "map",
-"km": 12
+"lat": -23.30056,
+"lon": 150.65325,
+"how": "osm",
+"km": 3.2
 },
 "anthill": {
 "ok": true,
@@ -1275,9 +1275,9 @@
 },
 "argyle": {
 "ok": true,
-"lat": -16.71,
-"lon": 128.39,
-"how": "map",
+"lat": -16.71222,
+"lon": 128.3975,
+"how": "wikidata",
 "km": 5.2
 },
 "ellendale": {
@@ -1296,31 +1296,31 @@
 },
 "mt-carbine": {
 "ok": true,
-"lat": -16.53,
-"lon": 145.13,
-"how": "map",
-"km": 5.2
+"lat": -16.51972,
+"lon": 145.1257,
+"how": "osm",
+"km": 3.2
 },
 "wolfram-camp": {
 "ok": true,
-"lat": -17.08,
-"lon": 145.03,
-"how": "map",
-"km": 5.2
+"lat": -17.08397,
+"lon": 144.97031,
+"how": "osm",
+"km": 3.2
 },
 "dolphin-king-island": {
 "ok": true,
-"lat": -39.98,
-"lon": 143.88,
-"how": "map",
+"lat": -40.0542,
+"lon": 144.061,
+"how": "wikidata",
 "km": 5.2
 },
 "mt-mulgine": {
 "ok": true,
-"lat": -29.2,
-"lon": 116.97,
-"how": "map",
-"km": 12
+"lat": -29.17889,
+"lon": 116.97861,
+"how": "wikidata",
+"km": 5.2
 },
 "hatches-creek": {
 "ok": true,
@@ -1366,177 +1366,177 @@
 },
 "cleveland": {
 "ok": true,
-"lat": -41.48,
-"lon": 145.38,
-"how": "map",
+"lat": -41.4825,
+"lon": 145.38528,
+"how": "wikidata",
 "km": 5.2
 },
 "tom-price": {
 "ok": true,
-"lat": -22.76,
-"lon": 117.79,
-"how": "map",
+"lat": -22.7495,
+"lon": 117.773,
+"how": "wikidata",
 "km": 5.2
 },
 "paraburdoo-eastern-range": {
 "ok": true,
-"lat": -23.26,
-"lon": 117.65,
-"how": "map",
+"lat": -23.3133,
+"lon": 117.785,
+"how": "wikidata",
 "km": 5.2
 },
 "western-range": {
 "ok": true,
-"lat": -23.2,
-"lon": 117.55,
-"how": "map",
-"km": 12
+"lat": -23.3133,
+"lon": 117.785,
+"how": "wikidata",
+"km": 5.2
 },
 "marandoo": {
 "ok": true,
-"lat": -22.63,
-"lon": 118.12,
-"how": "map",
+"lat": -22.6402,
+"lon": 118.121,
+"how": "wikidata",
 "km": 5.2
 },
 "brockman-4": {
 "ok": true,
-"lat": -22.48,
-"lon": 117.32,
-"how": "map",
-"km": 5.2
+"lat": -22.61344,
+"lon": 117.17383,
+"how": "osm",
+"km": 14
 },
 "nammuldi-silvergrass": {
 "ok": true,
-"lat": -22.4,
-"lon": 117.48,
-"how": "map",
-"km": 12
+"lat": -22.4186,
+"lon": 117.36,
+"how": "wikidata",
+"km": 5.2
 },
 "western-turner-syncline": {
 "ok": true,
-"lat": -22.7,
-"lon": 117.6,
-"how": "map",
-"km": 12
+"lat": -22.6981,
+"lon": 117.469,
+"how": "osm",
+"km": 13.1
 },
 "yandicoogina": {
 "ok": true,
-"lat": -22.75,
-"lon": 119.2,
-"how": "map",
-"km": 12
+"lat": -22.7691,
+"lon": 119.23,
+"how": "wikidata",
+"km": 5.2
 },
 "west-angelas": {
 "ok": true,
-"lat": -23.17,
-"lon": 118.73,
-"how": "map",
+"lat": -23.173,
+"lon": 118.765,
+"how": "wikidata",
 "km": 5.2
 },
 "gudai-darri": {
 "ok": true,
-"lat": -22.6,
-"lon": 119.15,
-"how": "map",
-"km": 12
+"lat": -22.50581,
+"lon": 119.02734,
+"how": "wikidata",
+"km": 5.2
 },
 "hope-downs-1": {
 "ok": true,
-"lat": -22.95,
-"lon": 119.03,
-"how": "map",
+"lat": -22.958,
+"lon": 119.126,
+"how": "wikidata",
 "km": 5.2
 },
 "hope-downs-4": {
 "ok": true,
-"lat": -23.12,
-"lon": 119.55,
-"how": "map",
-"km": 5.2
+"lat": -23.14537,
+"lon": 119.53129,
+"how": "osm",
+"km": 14
 },
 "robe-valley-mesa-a-mesa-j": {
 "ok": true,
-"lat": -21.75,
-"lon": 116.22,
-"how": "map",
+"lat": -21.7501,
+"lon": 116.242,
+"how": "wikidata",
 "km": 5.2
 },
 "rhodes-ridge": {
 "ok": true,
-"lat": -23.1,
-"lon": 119.4,
-"how": "map",
-"km": 12
+"lat": -23.09694,
+"lon": 119.36639,
+"how": "wikidata",
+"km": 5.2
 },
 "mining-area-c-south-flank": {
 "ok": true,
-"lat": -22.93,
-"lon": 118.98,
-"how": "map",
+"lat": -22.92,
+"lon": 118.974,
+"how": "wikidata",
 "km": 5.2
 },
 "newman-whaleback": {
 "ok": true,
-"lat": -23.37,
-"lon": 119.73,
-"how": "map",
+"lat": -23.3654,
+"lon": 119.675,
+"how": "wikidata",
 "km": 5.2
 },
 "eastern-ridge-ob-24-25": {
 "ok": true,
-"lat": -23.35,
-"lon": 119.85,
-"how": "map",
-"km": 5.2
+"lat": -23.31102,
+"lon": 119.7981,
+"how": "osm",
+"km": 3.2
 },
 "jimblebar": {
 "ok": true,
-"lat": -23.38,
-"lon": 120.13,
-"how": "map",
+"lat": -23.3843,
+"lon": 120.123,
+"how": "wikidata",
 "km": 5.2
 },
 "yandi": {
 "ok": true,
-"lat": -22.72,
-"lon": 119.05,
-"how": "map",
+"lat": -22.7337,
+"lon": 119.118,
+"how": "wikidata",
 "km": 5.2
 },
 "cloudbreak": {
 "ok": true,
-"lat": -22.3,
-"lon": 119.43,
-"how": "map",
-"km": 12
+"lat": -22.31323,
+"lon": 119.34694,
+"how": "osm",
+"km": 14
 },
 "christmas-creek": {
 "ok": true,
-"lat": -22.38,
-"lon": 119.75,
-"how": "map",
-"km": 5.2
+"lat": -22.38607,
+"lon": 119.77021,
+"how": "osm",
+"km": 14
 },
 "solomon-hub-firetail-kings-queens": {
 "ok": true,
-"lat": -22.15,
-"lon": 117.95,
-"how": "map",
+"lat": -22.12361,
+"lon": 117.91417,
+"how": "wikidata",
 "km": 5.2
 },
 "eliwana": {
 "ok": true,
-"lat": -22.4,
-"lon": 116.85,
-"how": "map",
-"km": 12
+"lat": -22.47111,
+"lon": 116.82778,
+"how": "wikidata",
+"km": 5.2
 },
 "iron-bridge": {
 "ok": true,
-"lat": -21.45,
-"lon": 118.85,
-"how": "map",
+"lat": -21.26,
+"lon": 119.04,
+"how": "wikidata",
 "km": 5.2
 },
 "onslow-iron-ken-s-bore": {
@@ -1548,9 +1548,9 @@
 },
 "yilgarn-hub-koolyanobbing": {
 "ok": true,
-"lat": -30.83,
-"lon": 119.53,
-"how": "map",
+"lat": -30.84444,
+"lon": 119.54528,
+"how": "wikidata",
 "km": 5.2
 },
 "koolan-island": {
@@ -1576,10 +1576,10 @@
 },
 "savage-river": {
 "ok": true,
-"lat": -41.48,
+"lat": -41.49,
 "lon": 145.2,
-"how": "map",
-"km": 12
+"how": "wikidata",
+"km": 5.2
 },
 "razorback": {
 "ok": true,
