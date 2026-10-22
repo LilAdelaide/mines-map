@@ -963,18 +963,12 @@
 "km": 14
 },
 "maules-creek": {
-"ok": true,
-"lat": -30.47,
-"lon": 150.11,
-"how": "checked",
-"km": 10
+"ok": false,
+"why": "no clear picture"
 },
 "narrabri": {
-"ok": true,
-"lat": -30.46,
-"lon": 149.93,
-"how": "checked",
-"km": 10
+"ok": false,
+"why": "no clear picture"
 },
 "tarrawonga": {
 "ok": true,
@@ -1272,11 +1266,8 @@
 "km": 5.2
 },
 "ellendale": {
-"ok": true,
-"lat": -17.4392,
-"lon": 124.6453,
-"how": "checked",
-"km": 10
+"ok": false,
+"why": "no clear picture"
 },
 "merlin": {
 "ok": true,
@@ -1695,11 +1686,8 @@
 "why": "no clear picture"
 },
 "otway-gas-plant": {
-"ok": true,
-"lat": -38.58,
-"lon": 143.03,
-"how": "checked",
-"km": 12
+"ok": false,
+"why": "no clear picture"
 },
 "walyering": {
 "ok": true,

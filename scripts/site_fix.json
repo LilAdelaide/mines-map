@@ -70,9 +70,7 @@
   "km": 8
  },
  "ellendale": {
-  "lat": -17.4392,
-  "lon": 124.6453,
-  "km": 10
+  "hide": true
  },
  "capricorn-copper": {
   "lat": -19.7028,
@@ -90,14 +88,10 @@
   "km": 12
  },
  "maules-creek": {
-  "lat": -30.47,
-  "lon": 150.11,
-  "km": 10
+  "hide": true
  },
  "narrabri": {
-  "lat": -30.46,
-  "lon": 149.93,
-  "km": 10
+  "hide": true
  },
  "karlawinda-bibra": {
   "lat": -23.77,
@@ -105,9 +99,7 @@
   "km": 14
  },
  "otway-gas-plant": {
-  "lat": -38.58,
-  "lon": 143.03,
-  "km": 12
+  "hide": true
  },
  "kathleen-valley": {
   "use": "map",
