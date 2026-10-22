@@ -15,38 +15,44 @@ STOP = {"mine", "mines", "project", "projects", "gold", "operations", "incl", "a
 def words(n):
     return [w for w in re.findall(r"[a-z]{4,}", n.lower()) if w not in STOP]
 
-def overpass(q):
+_OSM = None
+def osm_all():
+    """One Overpass request for every mapped pit / mine feature in Australia (much faster than one per mine)."""
+    global _OSM
+    if _OSM is not None:
+        return _OSM
+    q = """[out:json][timeout:600][maxsize:1073741824];
+(way["landuse"="quarry"](-44,112,-9,154); relation["landuse"="quarry"](-44,112,-9,154);
+ nwr["man_made"="mineshaft"](-44,112,-9,154); nwr["industrial"="mine"](-44,112,-9,154);
+ nwr["landuse"="industrial"]["name"~"[Mm]ine|[Gg]old|[Pp]it"](-44,112,-9,154););
+out center tags bb;"""
     for url in OVERPASS:
         try:
-            return get(url + "?data=" + urllib.parse.quote(q), timeout=90)["elements"]
-        except Exception:
-            time.sleep(3)
-    return []
+            _OSM = get(url, as_json=True, timeout=700, tries=2, data=urllib.parse.urlencode({"data": q}).encode())["elements"]
+            print("OSM features", len(_OSM), flush=True)
+            return _OSM
+        except Exception as e:
+            print("overpass failed", url, e, flush=True)
+    _OSM = []
+    return _OSM
 
 def dist(a, b, c, d):
     return math.hypot((a - c) * 111, (b - d) * 111 * math.cos(math.radians(a)))
 
 def locate(m, radius):
-    q = f"""[out:json][timeout:60];
-(way["landuse"="quarry"](around:{radius},{m['lat']},{m['lon']});
- relation["landuse"="quarry"](around:{radius},{m['lat']},{m['lon']});
- nwr["man_made"="mineshaft"](around:{radius},{m['lat']},{m['lon']});
- nwr["industrial"="mine"](around:{radius},{m['lat']},{m['lon']});
- nwr["landuse"="industrial"]["name"](around:{radius},{m['lat']},{m['lon']}););
-out center tags bb;"""
-    els = overpass(q)
     W = words(m["n"])
-    best, how = None, None
-    for e in els:
+    best = None
+    for e in osm_all():
         c = e.get("center") or ({"lat": e["lat"], "lon": e["lon"]} if "lat" in e else None)
-        if not c:
+        if not c or dist(c["lat"], c["lon"], m["lat"], m["lon"]) > radius / 1000:
             continue
-        name = (e.get("tags", {}).get("name") or "").lower()
+        tags = e.get("tags", {})
+        name = (tags.get("name") or "").lower()
         b = e.get("bounds")
         area = (b["maxlat"] - b["minlat"]) * (b["maxlon"] - b["minlon"]) if b else 0
         if W and any(w in name for w in W):
             score = (2, area)
-        elif e.get("tags", {}).get("landuse") == "quarry":
+        elif tags.get("landuse") == "quarry":
             score = (1, area)
         else:
             continue
@@ -73,42 +79,45 @@ def picture(lat, lon, half_w_km):
         return None
     return im
 
+def one(m):
+    coarse = len(str(m["lat"]).split(".")[-1]) <= 1 or len(str(m["lon"]).split(".")[-1]) <= 1
+    hit = None if m["e"] == "oil" else locate(m, 15000 if coarse else 6000)
+    lat, lon, how = (hit[0], hit[1], hit[2]) if hit else (m["lat"], m["lon"], "map")
+    half = 2.6
+    if hit and hit[3]:
+        b = hit[3]
+        span = max((b["maxlat"] - b["minlat"]) * 111, (b["maxlon"] - b["minlon"]) * 111 * math.cos(math.radians(lat)))
+        half = min(7, max(1.6, span * 0.8))
+    if how == "map" and coarse:
+        half = 6
+    im = picture(lat, lon, half)
+    if im is None:
+        return {"ok": False, "why": "blank"}
+    im.save(os.path.join(OUT, m["k"] + ".jpg"), quality=80, optimize=True, progressive=True)
+    return {"ok": True, "lat": round(lat, 5), "lon": round(lon, 5), "how": how, "km": round(half * 2, 1)}
+
 if __name__ == "__main__":
+    from concurrent.futures import ThreadPoolExecutor
     idx = {}
     try:
         idx = json.load(open(IDX))
     except Exception:
         pass
     only = set(sys.argv[1:])
-    done = 0
-    for m in MINES:
-        if only and m["k"] not in only:
-            continue
-        prev = idx.get(m["k"], {})
-        if not only and prev.get("ok") and os.path.exists(os.path.join(OUT, m["k"] + ".jpg")):
-            continue
-        coarse = len(str(m["lat"]).split(".")[-1]) <= 1 or len(str(m["lon"]).split(".")[-1]) <= 1
-        hit = None if m["e"] == "oil" else locate(m, 15000 if coarse else 6000)
-        time.sleep(1.2)
-        lat, lon, how = (hit[0], hit[1], hit[2]) if hit else (m["lat"], m["lon"], "map")
-        half = 2.6
-        if hit and hit[3]:
-            b = hit[3]
-            span = max((b["maxlat"] - b["minlat"]) * 111, (b["maxlon"] - b["minlon"]) * 111 * math.cos(math.radians(lat)))
-            half = min(7, max(1.6, span * 0.8))
-        if how == "map" and coarse:
-            half = 6
+    todo = [m for m in MINES if (m["k"] in only) if only] or [m for m in MINES if not (idx.get(m["k"], {}).get("ok") and os.path.exists(os.path.join(OUT, m["k"] + ".jpg")))]
+    osm_all()
+    log = []
+    def run(m):
         try:
-            im = picture(lat, lon, half)
+            return m, one(m)
         except Exception as e:
-            print("fail", m["k"], e); continue
-        if im is None:
-            idx[m["k"]] = {"ok": False, "why": "blank"}; continue
-        im.save(os.path.join(OUT, m["k"] + ".jpg"), quality=80, optimize=True, progressive=True)
-        idx[m["k"]] = {"ok": True, "lat": round(lat, 5), "lon": round(lon, 5), "how": how, "km": round(half * 2, 1)}
-        done += 1
-        print(m["k"], how, round(half * 2, 1), "km", flush=True)
-        if done % 10 == 0:
-            json.dump(idx, open(IDX, "w"), indent=0)
+            return m, {"ok": False, "why": str(e)[:120]}
+    with ThreadPoolExecutor(6) as ex:
+        for i, (m, r) in enumerate(ex.map(run, todo)):
+            idx[m["k"]] = r
+            log.append(f'{m["k"]}\t{r.get("how", r.get("why"))}\t{r.get("km", "")}')
+            if i % 20 == 0:
+                json.dump(idx, open(IDX, "w"), indent=0); print(i, flush=True)
     json.dump(idx, open(IDX, "w"), indent=0)
-    print("pictures made", done, "of", len(MINES), now_iso())
+    open(os.path.join(ROOT, "images", "log.txt"), "w").write(now_iso() + "\n" + "\n".join(log) + "\n")
+    print("done", sum(1 for v in idx.values() if v.get("ok")), "of", len(MINES))

@@ -13,11 +13,11 @@ ASX = "https://asx.api.markitdigital.com/asx-research/1.0/companies/"
 def now_iso():
     return datetime.now(PERTH).replace(microsecond=0).isoformat()
 
-def get(url, as_json=True, tries=3, timeout=25):
+def get(url, as_json=True, tries=3, timeout=25, data=None):
     last = None
     for i in range(tries):
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json, text/html, */*", "Cache-Control": "no-cache"})
+            req = urllib.request.Request(url, data=data, headers={"User-Agent": UA, "Accept": "application/json, text/html, */*", "Cache-Control": "no-cache"})
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 body = r.read()
             return json.loads(body) if as_json else body
