@@ -2730,7 +2730,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
       fn(JSON.parse(txt));
     } catch (e) {}
   }
-  const all = () => { FEEDS.forEach(([n, f]) => pull(n, f)); if (!SITEIMG) fetch("images/sites.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(j => { if (j) { SITEIMG = j; if (selected) select(selected, false); } }).catch(() => {}); };
+  const all = () => { FEEDS.forEach(([n, f]) => pull(n, f)); if (!SITEIMG) fetch(`images/sites.json?ts=${Date.now()}`, {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(j => { if (j) { SITEIMG = j; if (selected) select(selected, false); } }).catch(() => {}); };
   all();
   FEEDS.forEach(([n, f, m]) => setInterval(() => { if (!document.hidden) pull(n, f); }, m * 60000));
   document.addEventListener("visibilitychange", () => { if (!document.hidden) all(); });
