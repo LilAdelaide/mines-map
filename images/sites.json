@@ -1747,5 +1747,103 @@
 "lon": 136.2454,
 "how": "map",
 "km": 5.2
+},
+"greenbushes": {
+"ok": true,
+"lat": -33.86598,
+"lon": 116.06476,
+"how": "wikidata",
+"km": 5.2
+},
+"pilgangoora": {
+"ok": true,
+"lat": -21.05583,
+"lon": 118.905,
+"how": "wikidata",
+"km": 5.2
+},
+"ngungaju": {
+"ok": true,
+"lat": -21.07809,
+"lon": 118.89125,
+"how": "osm",
+"km": 3.2
+},
+"wodgina": {
+"ok": true,
+"lat": -21.1811,
+"lon": 118.675,
+"how": "wikidata",
+"km": 5.2
+},
+"mt-marion": {
+"ok": true,
+"lat": -31.07398,
+"lon": 121.4489,
+"how": "wikidata",
+"km": 5.2
+},
+"bald-hill": {
+"ok": true,
+"lat": -31.52556,
+"lon": 122.19222,
+"how": "wikidata",
+"km": 5.2
+},
+"mt-holland-earl-grey": {
+"ok": true,
+"lat": -32.093,
+"lon": 119.742,
+"how": "wikidata",
+"km": 5.2
+},
+"kathleen-valley": {
+"ok": true,
+"lat": -27.47,
+"lon": 120.57,
+"how": "map",
+"km": 5.2
+},
+"finniss": {
+"ok": true,
+"lat": -12.71,
+"lon": 130.79,
+"how": "wikidata",
+"km": 5.2
+},
+"mt-cattlin": {
+"ok": true,
+"lat": -33.562,
+"lon": 120.02,
+"how": "wikidata",
+"km": 5.2
+},
+"tabba-tabba": {
+"ok": true,
+"lat": -20.67056,
+"lon": 118.92306,
+"how": "wikidata",
+"km": 5.2
+},
+"yinnetharra": {
+"ok": true,
+"lat": -24.7,
+"lon": 116.15,
+"how": "map",
+"km": 12
+},
+"manna": {
+"ok": true,
+"lat": -30.73,
+"lon": 122.6,
+"how": "map",
+"km": 12
+},
+"marble-bar-lithium": {
+"ok": true,
+"lat": -21.17,
+"lon": 119.8,
+"how": "map",
+"km": 12
 }
 }

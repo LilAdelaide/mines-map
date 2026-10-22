@@ -1,9 +1,21 @@
-2026-10-22T17:08:48+08:00
+2026-10-22T18:17:27+08:00
 pyrenees	blank	
 macedon	blank	
 barossa-darwin-lng	blank	
 ningaloo-vision-van-gogh-coniston	blank	
 dorado	blank	
 bass-strait-gippsland	blank	
-shoobridge-gold-project	map	5.2
-huckitta-project	map	5.2
+greenbushes	wikidata	5.2
+pilgangoora	wikidata	5.2
+ngungaju	osm	3.2
+wodgina	wikidata	5.2
+mt-marion	wikidata	5.2
+bald-hill	wikidata	5.2
+mt-holland-earl-grey	wikidata	5.2
+kathleen-valley	map	5.2
+finniss	wikidata	5.2
+mt-cattlin	wikidata	5.2
+tabba-tabba	wikidata	5.2
+yinnetharra	map	12
+manna	map	12
+marble-bar-lithium	map	12
