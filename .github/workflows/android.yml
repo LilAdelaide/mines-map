@@ -35,7 +35,10 @@ jobs:
           npx @capacitor/assets generate --android --iconBackgroundColor "#111417" --splashBackgroundColor "#0b0e10" || true
           npx cap sync android
       - name: Build APK
-        run: cd app/android && chmod +x gradlew && ./gradlew --no-daemon assembleDebug
+        run: |
+          cd app/android && chmod +x gradlew
+          set -o pipefail
+          ./gradlew --no-daemon assembleDebug 2>&1 | tee build.log || { grep -E "What went wrong|error:|Error|> " build.log | tail -25 | while IFS= read -r l; do echo "::error::$l"; done; exit 1; }
       - name: Name it
         run: cp app/android/app/build/outputs/apk/debug/app-debug.apk MinesMap.apk
       - uses: actions/upload-artifact@v4
