@@ -280,11 +280,8 @@
 "km": 5.2
 },
 "penny": {
-"ok": true,
-"lat": -28.45,
-"lon": 119.7,
-"how": "map",
-"km": 12
+"ok": false,
+"why": "no clear picture"
 },
 "cue-break-of-day-lena": {
 "ok": true,
@@ -1127,11 +1124,8 @@
 "km": 5.2
 },
 "endeavor": {
-"ok": true,
-"lat": -31.37,
-"lon": 145.77,
-"how": "map",
-"km": 5.2
+"ok": false,
+"why": "no clear picture"
 },
 "federation": {
 "ok": true,
@@ -1267,11 +1261,8 @@
 "km": 3.2
 },
 "anthill": {
-"ok": true,
-"lat": -20.92,
-"lon": 139.53,
-"how": "map",
-"km": 5.2
+"ok": false,
+"why": "no clear picture"
 },
 "argyle": {
 "ok": true,
@@ -1540,11 +1531,8 @@
 "km": 5.2
 },
 "onslow-iron-ken-s-bore": {
-"ok": true,
-"lat": -22.43,
-"lon": 115.53,
-"how": "map",
-"km": 5.2
+"ok": false,
+"why": "no clear picture"
 },
 "yilgarn-hub-koolyanobbing": {
 "ok": true,
@@ -1639,7 +1627,7 @@
 },
 "pyrenees": {
 "ok": false,
-"why": "blank"
+"why": "no clear picture"
 },
 "macedon": {
 "ok": true,
@@ -1673,7 +1661,7 @@
 },
 "ningaloo-vision-van-gogh-coniston": {
 "ok": false,
-"why": "blank"
+"why": "no clear picture"
 },
 "varanus-island-reindeer": {
 "ok": true,
@@ -1684,7 +1672,7 @@
 },
 "dorado": {
 "ok": false,
-"why": "blank"
+"why": "no clear picture"
 },
 "cooper-basin-moomba": {
 "ok": true,
@@ -1701,11 +1689,8 @@
 "km": 5.2
 },
 "waitsia": {
-"ok": true,
-"lat": -29.2,
-"lon": 115.1,
-"how": "map",
-"km": 12
+"ok": false,
+"why": "no clear picture"
 },
 "otway-gas-plant": {
 "ok": true,
@@ -1737,11 +1722,8 @@
 "note": "Longford gas plants (onshore)"
 },
 "sole-orbost": {
-"ok": true,
-"lat": -37.75,
-"lon": 148.5,
-"how": "map",
-"km": 12
+"ok": false,
+"why": "no clear picture"
 },
 "glng-fairview-roma-csg": {
 "ok": true,

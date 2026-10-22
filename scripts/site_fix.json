@@ -48,5 +48,112 @@
   "lon": 114.97,
   "km": 10,
   "note": "Macedon gas plant area (onshore)"
+ },
+ "challenger": {
+  "lat": -29.8781,
+  "lon": 133.5878,
+  "km": 6
+ },
+ "merlin": {
+  "lat": -16.85,
+  "lon": 136.34,
+  "km": 8
+ },
+ "mineral-hill": {
+  "lat": -32.5789,
+  "lon": 146.9892,
+  "km": 6
+ },
+ "a1-gold-mine": {
+  "lat": -37.5,
+  "lon": 146.2,
+  "km": 8
+ },
+ "ellendale": {
+  "lat": -17.4392,
+  "lon": 124.6453,
+  "km": 10
+ },
+ "capricorn-copper": {
+  "lat": -19.7028,
+  "lon": 139.3689,
+  "km": 8
+ },
+ "pluto-lng": {
+  "lat": -20.6101,
+  "lon": 116.7755,
+  "km": 5.2
+ },
+ "mereenie": {
+  "lat": -23.8943,
+  "lon": 131.826,
+  "km": 12
+ },
+ "maules-creek": {
+  "lat": -30.47,
+  "lon": 150.11,
+  "km": 10
+ },
+ "narrabri": {
+  "lat": -30.46,
+  "lon": 149.93,
+  "km": 10
+ },
+ "karlawinda-bibra": {
+  "lat": -23.77,
+  "lon": 120.12,
+  "km": 14
+ },
+ "otway-gas-plant": {
+  "lat": -38.58,
+  "lon": 143.03,
+  "km": 12
+ },
+ "kathleen-valley": {
+  "use": "map",
+  "km": 5.2
+ },
+ "hunter-valley-operations": {
+  "use": "map",
+  "km": 5.2
+ },
+ "penny": {
+  "hide": true
+ },
+ "endeavor": {
+  "hide": true
+ },
+ "onslow-iron-ken-s-bore": {
+  "hide": true
+ },
+ "waitsia": {
+  "hide": true
+ },
+ "sole-orbost": {
+  "hide": true
+ },
+ "anthill": {
+  "hide": true
+ },
+ "pyrenees": {
+  "hide": true
+ },
+ "ningaloo-vision-van-gogh-coniston": {
+  "hide": true
+ },
+ "dorado": {
+  "hide": true
+ },
+ "scarborough": {
+  "lat": -20.6101,
+  "lon": 116.7755,
+  "km": 5.2,
+  "note": "Pluto LNG plant it will feed (onshore)"
+ },
+ "browse-torosa-brecknock": {
+  "lat": -20.6,
+  "lon": 116.78,
+  "km": 8,
+  "note": "Karratha gas plant area it would feed (onshore)"
  }
 }
