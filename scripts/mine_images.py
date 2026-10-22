@@ -15,44 +15,65 @@ STOP = {"mine", "mines", "project", "projects", "gold", "operations", "incl", "a
 def words(n):
     return [w for w in re.findall(r"[a-z]{4,}", n.lower()) if w not in STOP]
 
-def osm_near(m, radius):
-    q = f"""[out:json][timeout:40];
-(way["landuse"="quarry"](around:{radius},{m['lat']},{m['lon']}); relation["landuse"="quarry"](around:{radius},{m['lat']},{m['lon']});
- nwr["industrial"="mine"](around:{radius},{m['lat']},{m['lon']}); nwr["man_made"="mineshaft"]["name"](around:{radius},{m['lat']},{m['lon']}););
-out center tags bb;"""
-    for url in OVERPASS:
-        try:
-            return get(url, timeout=60, tries=1, data=urllib.parse.urlencode({"data": q}).encode())["elements"]
-        except Exception as e:
-            print("overpass", m["k"], e, flush=True); time.sleep(2)
-    return []
+_WD = None
+def wikidata():
+    """Every mine in Australia that Wikidata has coordinates for (one query)."""
+    global _WD
+    if _WD is not None:
+        return _WD
+    q = """SELECT ?l ?c WHERE { ?i wdt:P31/wdt:P279* wd:Q820477; wdt:P17 wd:Q408; wdt:P625 ?c; rdfs:label ?l. FILTER(LANG(?l)="en") }"""
+    try:
+        r = get("https://query.wikidata.org/sparql?format=json&query=" + urllib.parse.quote(q), timeout=90)
+        _WD = []
+        for x in r["results"]["bindings"]:
+            m = re.match(r"Point\(([-\d.]+) ([-\d.]+)\)", x["c"]["value"])
+            if m:
+                _WD.append((x["l"]["value"].lower(), float(m.group(2)), float(m.group(1))))
+        print("wikidata mines", len(_WD), flush=True)
+    except Exception as e:
+        print("wikidata failed", e, flush=True); _WD = []
+    return _WD
+
+def nominatim(m):
+    W = words(m["n"])
+    if not W:
+        return []
+    q = " ".join(W[:2])
+    lat, lon = m["lat"], m["lon"]
+    url = ("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=10&countrycodes=au&bounded=1"
+           f"&viewbox={lon-0.4},{lat+0.3},{lon+0.4},{lat-0.3}&q=" + urllib.parse.quote(q))
+    time.sleep(1.1)   # Nominatim fair-use: 1 request a second
+    try:
+        return get(url, timeout=30, tries=2)
+    except Exception as e:
+        print("nominatim", m["k"], e, flush=True); return []
 
 def dist(a, b, c, d):
     return math.hypot((a - c) * 111, (b - d) * 111 * math.cos(math.radians(a)))
 
-def locate(m, radius):
+MINE_KIND = {("landuse", "quarry"), ("industrial", "mine"), ("man_made", "mineshaft"), ("landuse", "industrial"), ("man_made", "adit"), ("historic", "mine")}
+def locate(m):
     W = words(m["n"])
     best = None
-    for e in osm_near(m, radius):
-        c = e.get("center") or ({"lat": e["lat"], "lon": e["lon"]} if "lat" in e else None)
-        if not c or dist(c["lat"], c["lon"], m["lat"], m["lon"]) > radius / 1000:
+    for name, lat, lon in wikidata():
+        d = dist(lat, lon, m["lat"], m["lon"])
+        if d < 30 and W and any(w in name for w in W):
+            best = (3 - d / 100, lat, lon, None, "wikidata")
+            break
+    for r in nominatim(m):
+        lat, lon = float(r["lat"]), float(r["lon"]); d = dist(lat, lon, m["lat"], m["lon"])
+        kind = (r.get("category") or r.get("class"), r.get("type"))
+        if d > 30 or kind not in MINE_KIND:
             continue
-        tags = e.get("tags", {})
-        name = (tags.get("name") or "").lower()
-        b = e.get("bounds")
+        bb = r.get("boundingbox")
+        b = {"minlat": float(bb[0]), "maxlat": float(bb[1]), "minlon": float(bb[2]), "maxlon": float(bb[3])} if bb else None
         area = (b["maxlat"] - b["minlat"]) * (b["maxlon"] - b["minlon"]) if b else 0
-        if W and any(w in name for w in W):
-            score = (2, area)
-        elif tags.get("landuse") == "quarry":
-            score = (1, area)
-        else:
-            continue
+        score = 2 + min(area * 50, 0.9)
         if best is None or score > best[0]:
-            best = (score, c["lat"], c["lon"], b)
+            best = (score, lat, lon, b, "osm")
     if not best:
         return None
-    (rank, area), lat, lon, b = best
-    return lat, lon, ("osm-name" if rank == 2 else "osm-pit"), b
+    return best[1], best[2], best[4], best[3]
 
 def merc(lat, lon):
     x = lon * 20037508.34 / 180
@@ -72,7 +93,7 @@ def picture(lat, lon, half_w_km):
 
 def one(m):
     coarse = len(str(m["lat"]).split(".")[-1]) <= 1 or len(str(m["lon"]).split(".")[-1]) <= 1
-    hit = locate(m, 15000) if coarse and m["e"] != "oil" else None
+    hit = locate(m) if m["e"] != "oil" else None
     lat, lon, how = (hit[0], hit[1], hit[2]) if hit else (m["lat"], m["lon"], "map")
     half = 2.6
     if hit and hit[3]:
@@ -95,14 +116,15 @@ if __name__ == "__main__":
     except Exception:
         pass
     only = set(sys.argv[1:])
-    todo = [m for m in MINES if (m["k"] in only) if only] or [m for m in MINES if not (idx.get(m["k"], {}).get("ok") and os.path.exists(os.path.join(OUT, m["k"] + ".jpg")))]
+    redo = os.environ.get("REDO") == "1"
+    todo = ([m for m in MINES if (m["k"] in only) if only] or MINES) if redo else [m for m in MINES if (m["k"] in only) if only] or [m for m in MINES if not (idx.get(m["k"], {}).get("ok") and os.path.exists(os.path.join(OUT, m["k"] + ".jpg")))]
     log = []
     def run(m):
         try:
             return m, one(m)
         except Exception as e:
             return m, {"ok": False, "why": str(e)[:120]}
-    with ThreadPoolExecutor(2) as ex:
+    with ThreadPoolExecutor(1) as ex:
         for i, (m, r) in enumerate(ex.map(run, todo)):
             idx[m["k"]] = r
             log.append(f'{m["k"]}\t{r.get("how", r.get("why"))}\t{r.get("km", "")}')
