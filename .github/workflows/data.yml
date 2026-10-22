@@ -57,7 +57,7 @@ jobs:
         name: New ASX listings
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
-          pip install -q pillow
+          pip install -q pillow pypdf
           python scripts/listings.py
           python scripts/merge_new.py
           python scripts/mine_images.py || true

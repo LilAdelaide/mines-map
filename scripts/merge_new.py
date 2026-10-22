@@ -27,7 +27,7 @@ for c, p in sorted(newcos.items()):
               "mcap": p.get("mcap") or 0, "price": p.get("price"), "h": "flat", "prod": False, "div": 0, "auto": True,
               "why": "Newly listed explorer: no production yet; progress depends on drilling results and funding.",
               "bio": f"{p['name']} is a newly listed ASX {LABEL[p['el']]} explorer (listed {year}). "
-                     + (f"Its main project is {p['project']} in {p['st']}. " if p.get("project") else "")
+                     + (f"Its main project{(' (' + p['project'] + ')') if p.get('project') else ''} is about {p['near']}, {p['st']}. " if p.get("near") else "")
                      + (f"In its own words: {p['desc']}" if p.get("desc") else "")
                      + " Added automatically from its ASX listing; details are limited until its first reports.",
               "listed": p.get("listed")}
@@ -36,7 +36,7 @@ for c, p in sorted(newcos.items()):
         GOLD[c] = {"name": p["name"], "mcap": p.get("mcap") or 0, "price": p.get("price")}
     site = {"id": next_id, "n": p.get("project") or p["name"], "lat": round(p["lat"], 4), "lon": round(p["lon"], 4), "st": p["st"],
             "s": "D", "ow": p["name"], "op": p["name"], "tk": c, "p": 0, "pt": "Exploration", "rs": "Not yet reported",
-            "ty": "Exploration", "b": f"Auto-added: {p['name']} listed on the ASX in {year}. Location is approximate (from the project name in its announcements).",
+            "ty": "Exploration", "b": f"Auto-added: {p['name']} listed on the ASX in {year}. Location is approximate ({p.get('near') or 'from its announcements'}).",
             "c": [c], "pc": c, "mk": {}, "auto": True}
     next_id += 1
     ALL[p["el"]].append(site)
