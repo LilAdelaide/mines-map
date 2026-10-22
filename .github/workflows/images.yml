@@ -1,0 +1,30 @@
+# Satellite picture of every mine site (EOxCloudless 2025, cloud-free Sentinel-2). Run by hand; re-run yearly for newer imagery.
+name: Mine site pictures
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Only these site slugs (space separated); blank = all missing"
+        default: ""
+permissions:
+  contents: write
+concurrency:
+  group: live-data
+  cancel-in-progress: false
+jobs:
+  pictures:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q pillow
+      - run: python scripts/mine_images.py ${{ github.event.inputs.only }}
+      - name: Publish
+        run: |
+          git config user.name "mines-map-bot"; git config user.email "actions@users.noreply.github.com"
+          git add images
+          git diff --cached --quiet && exit 0
+          git commit -q -m "Mine site pictures"
+          for i in 1 2 3; do git pull -q --rebase -X theirs && git push -q && break; sleep 5; done

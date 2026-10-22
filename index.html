@@ -965,6 +965,14 @@ svg#map .stlabel{font-size:calc(12px * var(--invk,1));font-stretch:100%;letter-s
 body.compact svg#map .stlabel{font-size:calc(10.5px * var(--invk,1));letter-spacing:.1em}
 svg#map.zooming .stlabel{opacity:0;transition:none}
 svg#map.stn-off .stlabel{display:none}
+
+/* mine site satellite picture */
+.msat{margin:8px 0 8px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:#0a0d0f}
+.msat img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#1a1f23}
+.msat figcaption{display:flex;justify-content:space-between;gap:8px;padding:5px 8px 0;font:500 11px var(--f-mono);color:var(--mute)}
+.msat figcaption a{color:var(--gold);text-decoration:none;white-space:nowrap}
+.msat small{display:block;padding:1px 8px 6px;font-size:9.5px;color:#6b737a}
+.tip .msat{display:none}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1384,8 +1392,18 @@ function spark(d, sel){
   return `<div class="spark"><div class="grp">Net profit FY20–FY26</div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Net profit by year"><line x1="0" x2="${W}" y1="${mid}" y2="${mid}" stroke="#333"/>${bars}</svg></div>`;
 }
 function fmtListed(s){ const d = new Date(s + "T00:00:00"); return isNaN(d) ? esc(s) : d.toLocaleDateString("en-AU", {day: "numeric", month: "short", year: "numeric"}); }
+// satellite picture of the site (standalone app only: images/sites.json lists the pictures the GitHub job made)
+let SITEIMG = null;
+const siteSlug = n => n.toLowerCase().replace(/–/g, "-").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+function siteImg(m){
+  const k = siteSlug(m.n), x = SITEIMG && SITEIMG[k]; if (!x || !x.ok) return "";
+  const live = `https://www.google.com/maps/@?api=1&map_action=map&center=${x.lat},${x.lon}&zoom=14&basemap=satellite`;
+  return `<figure class="msat"><a href="${live}" target="_blank" rel="noopener noreferrer" title="Open the live satellite view"><img src="images/sites/${k}.jpg" alt="Satellite picture of ${esc(m.n)}" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></a>
+    <figcaption><span>Satellite 2025 · ~${x.km} km across${x.how === "map" ? " · approx. location" : ""}</span><a href="${live}" target="_blank" rel="noopener noreferrer">Live view ↗</a></figcaption>
+    <small>EOxCloudless 2025 by EOX · Copernicus Sentinel-2 · CC BY-NC-SA 4.0</small></figure>`;
+}
 function info(m, full){
-  return `<h3>${esc(m.n)}</h3>${COMMOD === "all" ? `<div class="etag" style="--c:${THEMES[m.e].color}"><i></i>${esc(THEMES[m.e].label)}</div>` : ""}
+  return `<h3>${esc(m.n)}</h3>${siteImg(m)}${COMMOD === "all" ? `<div class="etag" style="--c:${THEMES[m.e].color}"><i></i>${esc(THEMES[m.e].label)}</div>` : ""}
   <div><span class="pill ${m.s}">${STATUS_NAME[m.s]}</span><span class="tk">${esc(m.tk)}</span></div>
   ${gradeLine(m)}
   ${healthLine(m)}
@@ -2712,7 +2730,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
       fn(JSON.parse(txt));
     } catch (e) {}
   }
-  const all = () => FEEDS.forEach(([n, f]) => pull(n, f));
+  const all = () => { FEEDS.forEach(([n, f]) => pull(n, f)); if (!SITEIMG) fetch("images/sites.json", {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(j => { if (j) { SITEIMG = j; if (selected) select(selected, false); } }).catch(() => {}); };
   all();
   FEEDS.forEach(([n, f, m]) => setInterval(() => { if (!document.hidden) pull(n, f); }, m * 60000));
   document.addEventListener("visibilitychange", () => { if (!document.hidden) all(); });

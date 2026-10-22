@@ -1,0 +1,112 @@
+"""Satellite picture of every mine site (data/sites + images/sites/<slug>.jpg).
+1. Find the mine on OpenStreetMap near the map coordinate (a named mine/pit first, else the biggest pit nearby).
+2. Cut a picture from EOxCloudless 2025 (cloud-free Sentinel-2, 10 m) centred on it.
+Licence: EOxCloudless by EOX IT Services GmbH, contains modified Copernicus Sentinel data 2025, CC BY-NC-SA 4.0 (non-commercial)."""
+import io, json, math, os, re, sys, time, urllib.parse
+from common import get, ROOT, now_iso
+from PIL import Image, ImageStat
+
+MINES = json.load(open(os.path.join(os.path.dirname(__file__), "mines.json")))
+OUT = os.path.join(ROOT, "images", "sites"); os.makedirs(OUT, exist_ok=True)
+IDX = os.path.join(ROOT, "images", "sites.json")
+OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.kumi.systems/api/interpreter"]
+STOP = {"mine", "mines", "project", "projects", "gold", "operations", "incl", "and", "the", "north", "south", "east", "west", "hub", "mill", "plant", "lng", "csg", "gas"}
+
+def words(n):
+    return [w for w in re.findall(r"[a-z]{4,}", n.lower()) if w not in STOP]
+
+def overpass(q):
+    for url in OVERPASS:
+        try:
+            return get(url + "?data=" + urllib.parse.quote(q), timeout=90)["elements"]
+        except Exception:
+            time.sleep(3)
+    return []
+
+def dist(a, b, c, d):
+    return math.hypot((a - c) * 111, (b - d) * 111 * math.cos(math.radians(a)))
+
+def locate(m, radius):
+    q = f"""[out:json][timeout:60];
+(way["landuse"="quarry"](around:{radius},{m['lat']},{m['lon']});
+ relation["landuse"="quarry"](around:{radius},{m['lat']},{m['lon']});
+ nwr["man_made"="mineshaft"](around:{radius},{m['lat']},{m['lon']});
+ nwr["industrial"="mine"](around:{radius},{m['lat']},{m['lon']});
+ nwr["landuse"="industrial"]["name"](around:{radius},{m['lat']},{m['lon']}););
+out center tags bb;"""
+    els = overpass(q)
+    W = words(m["n"])
+    best, how = None, None
+    for e in els:
+        c = e.get("center") or ({"lat": e["lat"], "lon": e["lon"]} if "lat" in e else None)
+        if not c:
+            continue
+        name = (e.get("tags", {}).get("name") or "").lower()
+        b = e.get("bounds")
+        area = (b["maxlat"] - b["minlat"]) * (b["maxlon"] - b["minlon"]) if b else 0
+        if W and any(w in name for w in W):
+            score = (2, area)
+        elif e.get("tags", {}).get("landuse") == "quarry":
+            score = (1, area)
+        else:
+            continue
+        if best is None or score > best[0]:
+            best = (score, c["lat"], c["lon"], b)
+    if not best:
+        return None
+    (rank, area), lat, lon, b = best
+    return lat, lon, ("osm-name" if rank == 2 else "osm-pit"), b
+
+def merc(lat, lon):
+    x = lon * 20037508.34 / 180
+    y = math.log(math.tan((90 + lat) * math.pi / 360)) * 20037508.34 / math.pi
+    return x, y
+
+def picture(lat, lon, half_w_km):
+    x, y = merc(lat, lon); k = 1 / math.cos(math.radians(lat))   # metres on the map per metre on the ground
+    hw = half_w_km * 1000 * k; hh = hw * 9 / 16
+    url = ("https://tiles.maps.eox.at/wms?service=WMS&request=GetMap&version=1.1.1&layers=s2cloudless-2025_3857&styles="
+           f"&srs=EPSG:3857&bbox={x-hw:.0f},{y-hh:.0f},{x+hw:.0f},{y+hh:.0f}&width=800&height=450&format=image/jpeg")
+    im = Image.open(io.BytesIO(get(url, as_json=False, timeout=60))).convert("RGB")
+    st = ImageStat.Stat(im)
+    if max(st.stddev) < 6:          # blank / all water
+        return None
+    return im
+
+if __name__ == "__main__":
+    idx = {}
+    try:
+        idx = json.load(open(IDX))
+    except Exception:
+        pass
+    only = set(sys.argv[1:])
+    done = 0
+    for m in MINES:
+        if only and m["k"] not in only:
+            continue
+        prev = idx.get(m["k"], {})
+        if not only and prev.get("ok") and os.path.exists(os.path.join(OUT, m["k"] + ".jpg")):
+            continue
+        coarse = len(str(m["lat"]).split(".")[-1]) <= 1 or len(str(m["lon"]).split(".")[-1]) <= 1
+        hit = None if m["e"] == "oil" else locate(m, 15000 if coarse else 6000)
+        time.sleep(1.2)
+        lat, lon, how = (hit[0], hit[1], hit[2]) if hit else (m["lat"], m["lon"], "map")
+        half = 2.6
+        if hit and hit[3]:
+            b = hit[3]
+            span = max((b["maxlat"] - b["minlat"]) * 111, (b["maxlon"] - b["minlon"]) * 111 * math.cos(math.radians(lat)))
+            half = min(7, max(1.6, span * 0.8))
+        if how == "map" and coarse:
+            half = 6
+        try:
+            im = picture(lat, lon, half)
+        except Exception as e:
+            print("fail", m["k"], e); continue
+        if im is None:
+            idx[m["k"]] = {"ok": False, "why": "blank"}; continue
+        im.save(os.path.join(OUT, m["k"] + ".jpg"), quality=80, optimize=True, progressive=True)
+        idx[m["k"]] = {"ok": True, "lat": round(lat, 5), "lon": round(lon, 5), "how": how, "km": round(half * 2, 1)}
+        done += 1
+        print(m["k"], how, round(half * 2, 1), "km")
+    json.dump(idx, open(IDX, "w"), indent=0)
+    print("pictures made", done, "of", len(MINES), now_iso())

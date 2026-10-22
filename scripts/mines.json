@@ -1,0 +1,2306 @@
+[
+{
+"k": "kcgm-super-pit-fimiston",
+"n": "KCGM Super Pit (Fimiston)",
+"lat": -30.778,
+"lon": 121.503,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG (Mt Charlotte)"
+},
+{
+"k": "mt-charlotte",
+"n": "Mt Charlotte",
+"lat": -30.746,
+"lon": 121.488,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "menzies-brightstar",
+"n": "Menzies (Brightstar)",
+"lat": -29.69,
+"lon": 121.03,
+"e": "gold",
+"s": "D",
+"ty": "Open pit + UG"
+},
+{
+"k": "kanowna-belle",
+"n": "Kanowna Belle",
+"lat": -30.603,
+"lon": 121.606,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "carosue-dam",
+"n": "Carosue Dam",
+"lat": -30.17,
+"lon": 122.28,
+"e": "gold",
+"s": "P",
+"ty": "UG + stockpiles"
+},
+{
+"k": "st-ives",
+"n": "St Ives",
+"lat": -31.2,
+"lon": 121.7,
+"e": "gold",
+"s": "P",
+"ty": "4 open pits + 3 UG"
+},
+{
+"k": "mungari-incl-kundana",
+"n": "Mungari (incl. Kundana)",
+"lat": -30.85,
+"lon": 121.12,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG"
+},
+{
+"k": "beta-hunt",
+"n": "Beta Hunt",
+"lat": -31.25,
+"lon": 121.68,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "higginsville",
+"n": "Higginsville",
+"lat": -31.73,
+"lon": 121.73,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + mill"
+},
+{
+"k": "mt-monger-daisy-milano",
+"n": "Mt Monger (Daisy Milano)",
+"lat": -30.95,
+"lon": 121.96,
+"e": "gold",
+"s": "P",
+"ty": "UG + open pit"
+},
+{
+"k": "bullabulling",
+"n": "Bullabulling",
+"lat": -31.05,
+"lon": 121.07,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "norseman",
+"n": "Norseman",
+"lat": -32.2,
+"lon": 121.78,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG"
+},
+{
+"k": "davyhurst-riverina",
+"n": "Davyhurst / Riverina",
+"lat": -30.04,
+"lon": 120.65,
+"e": "gold",
+"s": "P",
+"ty": "UG + open pit"
+},
+{
+"k": "bardoc",
+"n": "Bardoc",
+"lat": -30.32,
+"lon": 121.27,
+"e": "gold",
+"s": "D",
+"ty": "Open pit + UG"
+},
+{
+"k": "kal-east",
+"n": "Kal East",
+"lat": -30.87,
+"lon": 121.83,
+"e": "gold",
+"s": "D",
+"ty": "Open pit + UG"
+},
+{
+"k": "rebecca-roe",
+"n": "Rebecca–Roe",
+"lat": -30.1,
+"lon": 122.2,
+"e": "gold",
+"s": "D",
+"ty": "Open pit"
+},
+{
+"k": "mandilla",
+"n": "Mandilla",
+"lat": -31.29,
+"lon": 121.37,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "boorara-kalgoorlie-projects",
+"n": "Boorara / Kalgoorlie projects",
+"lat": -30.78,
+"lon": 121.64,
+"e": "gold",
+"s": "D",
+"ty": "Open pit"
+},
+{
+"k": "gwalia",
+"n": "Gwalia",
+"lat": -28.89,
+"lon": 121.33,
+"e": "gold",
+"s": "P",
+"ty": "Deep underground"
+},
+{
+"k": "leonora-mill-ulysses",
+"n": "Leonora mill / Ulysses",
+"lat": -28.96,
+"lon": 121.15,
+"e": "gold",
+"s": "P",
+"ty": "UG + open pit"
+},
+{
+"k": "mt-morgans",
+"n": "Mt Morgans",
+"lat": -28.8,
+"lon": 122.13,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG"
+},
+{
+"k": "lady-julie",
+"n": "Lady Julie",
+"lat": -28.75,
+"lon": 122.35,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "king-of-the-hills",
+"n": "King of the Hills",
+"lat": -28.65,
+"lon": 121.4,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG"
+},
+{
+"k": "darlot",
+"n": "Darlot",
+"lat": -27.88,
+"lon": 121.27,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "granny-smith",
+"n": "Granny Smith",
+"lat": -28.8,
+"lon": 122.37,
+"e": "gold",
+"s": "P",
+"ty": "Underground (Wallaby)"
+},
+{
+"k": "gruyere",
+"n": "Gruyere",
+"lat": -28.0,
+"lon": 123.85,
+"e": "gold",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "laverton-brightstar",
+"n": "Laverton (Brightstar)",
+"lat": -28.63,
+"lon": 122.4,
+"e": "gold",
+"s": "D",
+"ty": "Open pit + UG"
+},
+{
+"k": "tropicana",
+"n": "Tropicana",
+"lat": -29.25,
+"lon": 124.55,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG"
+},
+{
+"k": "apollo-hill",
+"n": "Apollo Hill",
+"lat": -29.15,
+"lon": 121.68,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "agnew-incl-lawlers",
+"n": "Agnew (incl. Lawlers)",
+"lat": -28.0,
+"lon": 120.5,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "bellevue",
+"n": "Bellevue",
+"lat": -27.62,
+"lon": 120.6,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "thunderbox",
+"n": "Thunderbox",
+"lat": -27.53,
+"lon": 120.6,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG (Wonder)"
+},
+{
+"k": "jundee",
+"n": "Jundee",
+"lat": -26.35,
+"lon": 120.65,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "bronzewing",
+"n": "Bronzewing",
+"lat": -27.38,
+"lon": 121.03,
+"e": "gold",
+"s": "C",
+"ty": "Mill + satellites"
+},
+{
+"k": "duketon-south-garden-well-rosemont",
+"n": "Duketon South (Garden Well/Rosemont)",
+"lat": -27.95,
+"lon": 122.35,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG"
+},
+{
+"k": "duketon-north-moolart-well",
+"n": "Duketon North (Moolart Well)",
+"lat": -27.6,
+"lon": 122.33,
+"e": "gold",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "mt-magnet",
+"n": "Mt Magnet",
+"lat": -28.06,
+"lon": 117.85,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG"
+},
+{
+"k": "dalgaranga-never-never",
+"n": "Dalgaranga (Never Never)",
+"lat": -27.8,
+"lon": 117.07,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "penny",
+"n": "Penny",
+"lat": -28.45,
+"lon": 119.7,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "cue-break-of-day-lena",
+"n": "Cue (Break of Day/Lena)",
+"lat": -27.3,
+"lon": 117.85,
+"e": "gold",
+"s": "D",
+"ty": "Open pit"
+},
+{
+"k": "big-bell-cue",
+"n": "Big Bell / Cue",
+"lat": -27.33,
+"lon": 117.65,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "tuckabianna-mill-fender",
+"n": "Tuckabianna mill / Fender",
+"lat": -27.48,
+"lon": 118.05,
+"e": "gold",
+"s": "P",
+"ty": "Mill + UG"
+},
+{
+"k": "meekatharra-bluebird",
+"n": "Meekatharra (Bluebird)",
+"lat": -26.62,
+"lon": 118.5,
+"e": "gold",
+"s": "P",
+"ty": "Underground + mill"
+},
+{
+"k": "fortnum-starlight",
+"n": "Fortnum (Starlight)",
+"lat": -25.4,
+"lon": 118.4,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "andy-well-murchison-gold",
+"n": "Andy Well (Murchison Gold)",
+"lat": -26.35,
+"lon": 118.55,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "youanmi",
+"n": "Youanmi",
+"lat": -28.62,
+"lon": 118.83,
+"e": "gold",
+"s": "D",
+"ty": "Underground"
+},
+{
+"k": "plutonic",
+"n": "Plutonic",
+"lat": -25.33,
+"lon": 119.43,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "deflector",
+"n": "Deflector",
+"lat": -28.66,
+"lon": 115.97,
+"e": "gold",
+"s": "P",
+"ty": "UG + open pit"
+},
+{
+"k": "mt-gibson",
+"n": "Mt Gibson",
+"lat": -29.62,
+"lon": 117.18,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "karlawinda-bibra",
+"n": "Karlawinda (Bibra)",
+"lat": -23.95,
+"lon": 120.1,
+"e": "gold",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "hemi",
+"n": "Hemi",
+"lat": -20.95,
+"lon": 118.85,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "paulsens",
+"n": "Paulsens",
+"lat": -22.62,
+"lon": 116.08,
+"e": "gold",
+"s": "C",
+"ty": "Underground"
+},
+{
+"k": "telfer",
+"n": "Telfer",
+"lat": -21.72,
+"lon": 122.21,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG"
+},
+{
+"k": "havieron",
+"n": "Havieron",
+"lat": -21.7,
+"lon": 122.66,
+"e": "gold",
+"s": "D",
+"ty": "Underground (planned)"
+},
+{
+"k": "coyote",
+"n": "Coyote",
+"lat": -20.13,
+"lon": 128.74,
+"e": "gold",
+"s": "C",
+"ty": "UG + open pit"
+},
+{
+"k": "boddington",
+"n": "Boddington",
+"lat": -32.75,
+"lon": 116.37,
+"e": "gold",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "edna-may-tampia",
+"n": "Edna May / Tampia",
+"lat": -31.28,
+"lon": 118.68,
+"e": "gold",
+"s": "D",
+"ty": "Mill + open pit"
+},
+{
+"k": "katanning",
+"n": "Katanning",
+"lat": -33.48,
+"lon": 117.75,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "tanami-callie",
+"n": "Tanami (Callie)",
+"lat": -20.6,
+"lon": 130.35,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "olympic-dam",
+"n": "Olympic Dam",
+"lat": -30.44,
+"lon": 136.88,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "prominent-hill",
+"n": "Prominent Hill",
+"lat": -29.72,
+"lon": 135.57,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "carrapateena",
+"n": "Carrapateena",
+"lat": -31.25,
+"lon": 137.48,
+"e": "gold",
+"s": "P",
+"ty": "Underground (block cave)"
+},
+{
+"k": "challenger",
+"n": "Challenger",
+"lat": -29.98,
+"lon": 134.32,
+"e": "gold",
+"s": "C",
+"ty": "Mill + UG"
+},
+{
+"k": "tunkillia",
+"n": "Tunkillia",
+"lat": -31.43,
+"lon": 135.57,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "ernest-henry",
+"n": "Ernest Henry",
+"lat": -20.44,
+"lon": 140.7,
+"e": "gold",
+"s": "P",
+"ty": "Underground (sub-level cave)"
+},
+{
+"k": "mt-rawdon",
+"n": "Mt Rawdon",
+"lat": -25.1,
+"lon": 151.7,
+"e": "gold",
+"s": "C",
+"ty": "Stockpile processing"
+},
+{
+"k": "cracow",
+"n": "Cracow",
+"lat": -25.3,
+"lon": 150.31,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "charters-towers",
+"n": "Charters Towers",
+"lat": -20.08,
+"lon": 146.27,
+"e": "gold",
+"s": "C",
+"ty": "Underground"
+},
+{
+"k": "cadia-valley",
+"n": "Cadia Valley",
+"lat": -33.45,
+"lon": 148.99,
+"e": "gold",
+"s": "P",
+"ty": "Underground (block cave)"
+},
+{
+"k": "cowal",
+"n": "Cowal",
+"lat": -33.63,
+"lon": 147.42,
+"e": "gold",
+"s": "P",
+"ty": "Open pit + UG"
+},
+{
+"k": "northparkes",
+"n": "Northparkes",
+"lat": -32.92,
+"lon": 148.03,
+"e": "gold",
+"s": "P",
+"ty": "Underground (block cave)"
+},
+{
+"k": "tomingley",
+"n": "Tomingley",
+"lat": -32.6,
+"lon": 148.22,
+"e": "gold",
+"s": "P",
+"ty": "UG + open pit"
+},
+{
+"k": "boda-kaiser",
+"n": "Boda–Kaiser",
+"lat": -32.5,
+"lon": 148.85,
+"e": "gold",
+"s": "D",
+"ty": "Planned"
+},
+{
+"k": "mcphillamys",
+"n": "McPhillamys",
+"lat": -33.4,
+"lon": 149.1,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "peak-cobar",
+"n": "Peak (Cobar)",
+"lat": -31.5,
+"lon": 145.85,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "hillgrove",
+"n": "Hillgrove",
+"lat": -30.57,
+"lon": 151.9,
+"e": "gold",
+"s": "D",
+"ty": "Underground"
+},
+{
+"k": "mineral-hill",
+"n": "Mineral Hill",
+"lat": -32.6,
+"lon": 147.37,
+"e": "gold",
+"s": "P",
+"ty": "Tailings + UG"
+},
+{
+"k": "costerfield",
+"n": "Costerfield",
+"lat": -36.87,
+"lon": 144.8,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "sunday-creek",
+"n": "Sunday Creek",
+"lat": -37.32,
+"lon": 145.0,
+"e": "gold",
+"s": "D",
+"ty": "Underground (planned)"
+},
+{
+"k": "henty",
+"n": "Henty",
+"lat": -41.88,
+"lon": 145.62,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "kalkaroo",
+"n": "Kalkaroo",
+"lat": -31.1,
+"lon": 140.3,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "comet-vale-vivien",
+"n": "Comet Vale / Vivien",
+"lat": -29.93,
+"lon": 121.12,
+"e": "gold",
+"s": "D",
+"ty": "UG + open pit"
+},
+{
+"k": "montague",
+"n": "Montague",
+"lat": -28.0,
+"lon": 119.75,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "central-tanami",
+"n": "Central Tanami",
+"lat": -19.95,
+"lon": 129.75,
+"e": "gold",
+"s": "D",
+"ty": "Open pit + UG"
+},
+{
+"k": "mt-ida",
+"n": "Mt Ida",
+"lat": -29.18,
+"lon": 120.58,
+"e": "gold",
+"s": "D",
+"ty": "Underground (planned)"
+},
+{
+"k": "paris",
+"n": "Paris",
+"lat": -31.45,
+"lon": 121.62,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "a1-gold-mine",
+"n": "A1 Gold Mine",
+"lat": -37.56,
+"lon": 146.25,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "mt-york",
+"n": "Mt York",
+"lat": -20.7,
+"lon": 118.95,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "pyramid-hill",
+"n": "Pyramid Hill",
+"lat": -36.05,
+"lon": 144.12,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "hopes-hill",
+"n": "Hopes Hill",
+"lat": -31.25,
+"lon": 119.33,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "twin-hills-drummond-basin",
+"n": "Twin Hills (Drummond Basin)",
+"lat": -21.38,
+"lon": 147.33,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "meekatharra-mindax",
+"n": "Meekatharra (Mindax)",
+"lat": -26.55,
+"lon": 118.62,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "fountain-head-mt-bundey",
+"n": "Fountain Head / Mt Bundey",
+"lat": -13.55,
+"lon": 131.5,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "redcastle",
+"n": "Redcastle",
+"lat": -29.4,
+"lon": 121.2,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "castlemaine",
+"n": "Castlemaine",
+"lat": -37.07,
+"lon": 144.22,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "yundamindera",
+"n": "Yundamindera",
+"lat": -29.13,
+"lon": 122.03,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "tuckanarra",
+"n": "Tuckanarra",
+"lat": -27.12,
+"lon": 118.08,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "munda",
+"n": "Munda",
+"lat": -31.5,
+"lon": 121.58,
+"e": "gold",
+"s": "D",
+"ty": "Open pit"
+},
+{
+"k": "moorefield-cargelligo",
+"n": "Moorefield / Cargelligo",
+"lat": -33.3,
+"lon": 146.4,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "west-tanami",
+"n": "West Tanami",
+"lat": -19.8,
+"lon": 128.7,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "ironstone-well",
+"n": "Ironstone Well",
+"lat": -27.15,
+"lon": 120.95,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "barimaia",
+"n": "Barimaia",
+"lat": -28.3,
+"lon": 117.9,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "ballarat-exploration",
+"n": "Ballarat exploration",
+"lat": -37.5,
+"lon": 143.9,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "zuleika",
+"n": "Zuleika",
+"lat": -30.6,
+"lon": 121.1,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "wallbrook",
+"n": "Wallbrook",
+"lat": -30.32,
+"lon": 122.08,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "egina-becher",
+"n": "Egina / Becher",
+"lat": -20.95,
+"lon": 118.25,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "hill-end-reward",
+"n": "Hill End / Reward",
+"lat": -33.03,
+"lon": 149.42,
+"e": "gold",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "trouser-legs",
+"n": "Trouser Legs",
+"lat": -28.85,
+"lon": 122.3,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "nagambie",
+"n": "Nagambie",
+"lat": -36.78,
+"lon": 145.15,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "northern-zone-kurnalpi",
+"n": "Northern Zone (Kurnalpi)",
+"lat": -30.53,
+"lon": 122.25,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "tanami-prodigy",
+"n": "Tanami (Prodigy)",
+"lat": -20.3,
+"lon": 129.5,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "mulgabbie",
+"n": "Mulgabbie",
+"lat": -30.27,
+"lon": 121.95,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "gullewa",
+"n": "Gullewa",
+"lat": -28.55,
+"lon": 116.15,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "gold-duke",
+"n": "Gold Duke",
+"lat": -26.65,
+"lon": 120.3,
+"e": "gold",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "stawell-corridor-tandarra",
+"n": "Stawell Corridor / Tandarra",
+"lat": -36.75,
+"lon": 142.85,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "spring-hill",
+"n": "Spring Hill",
+"lat": -13.6,
+"lon": 131.85,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "koonenberry",
+"n": "Koonenberry",
+"lat": -30.4,
+"lon": 142.6,
+"e": "gold",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "honeymoon",
+"n": "Honeymoon",
+"lat": -32.1,
+"lon": 140.66,
+"e": "uranium",
+"s": "P",
+"ty": "In-situ recovery (ISR)"
+},
+{
+"k": "ranger",
+"n": "Ranger",
+"lat": -12.68,
+"lon": 132.91,
+"e": "uranium",
+"s": "C",
+"ty": "Open pit (closed)"
+},
+{
+"k": "jabiluka",
+"n": "Jabiluka",
+"lat": -12.53,
+"lon": 132.9,
+"e": "uranium",
+"s": "C",
+"ty": "—"
+},
+{
+"k": "mulga-rock",
+"n": "Mulga Rock",
+"lat": -30.12,
+"lon": 123.62,
+"e": "uranium",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "wiluna-lake-maitland",
+"n": "Wiluna / Lake Maitland",
+"lat": -26.95,
+"lon": 120.4,
+"e": "uranium",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "manyingee",
+"n": "Manyingee",
+"lat": -22.47,
+"lon": 114.83,
+"e": "uranium",
+"s": "D",
+"ty": "In-situ recovery (planned)"
+},
+{
+"k": "valhalla-mount-isa-project",
+"n": "Valhalla (Mount Isa project)",
+"lat": -20.52,
+"lon": 139.5,
+"e": "uranium",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "westmoreland",
+"n": "Westmoreland",
+"lat": -17.33,
+"lon": 138.3,
+"e": "uranium",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "samphire",
+"n": "Samphire",
+"lat": -32.62,
+"lon": 137.3,
+"e": "uranium",
+"s": "D",
+"ty": "In-situ recovery (planned)"
+},
+{
+"k": "bigrlyi",
+"n": "Bigrlyi",
+"lat": -22.85,
+"lon": 132.52,
+"e": "uranium",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "angela",
+"n": "Angela",
+"lat": -23.98,
+"lon": 133.62,
+"e": "uranium",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "nabarlek-area",
+"n": "Nabarlek area",
+"lat": -12.3,
+"lon": 133.32,
+"e": "uranium",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "yanrey",
+"n": "Yanrey",
+"lat": -22.2,
+"lon": 114.72,
+"e": "uranium",
+"s": "D",
+"ty": "In-situ recovery (planned)"
+},
+{
+"k": "goonyella-riverside",
+"n": "Goonyella Riverside",
+"lat": -21.8,
+"lon": 147.97,
+"e": "coal",
+"s": "P",
+"ty": "Open cut + longwall"
+},
+{
+"k": "broadmeadow",
+"n": "Broadmeadow",
+"lat": -21.87,
+"lon": 147.99,
+"e": "coal",
+"s": "P",
+"ty": "Longwall underground"
+},
+{
+"k": "peak-downs",
+"n": "Peak Downs",
+"lat": -22.25,
+"lon": 148.18,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "caval-ridge",
+"n": "Caval Ridge",
+"lat": -22.13,
+"lon": 148.05,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "saraji",
+"n": "Saraji",
+"lat": -22.42,
+"lon": 148.28,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "mt-arthur",
+"n": "Mt Arthur",
+"lat": -32.35,
+"lon": 150.87,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "blackwater",
+"n": "Blackwater",
+"lat": -23.58,
+"lon": 148.88,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "daunia",
+"n": "Daunia",
+"lat": -22.05,
+"lon": 148.25,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "maules-creek",
+"n": "Maules Creek",
+"lat": -30.52,
+"lon": 150.3,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "narrabri",
+"n": "Narrabri",
+"lat": -30.45,
+"lon": 149.83,
+"e": "coal",
+"s": "P",
+"ty": "Longwall underground"
+},
+{
+"k": "tarrawonga",
+"n": "Tarrawonga",
+"lat": -30.62,
+"lon": 150.18,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "vickery",
+"n": "Vickery",
+"lat": -30.73,
+"lon": 150.17,
+"e": "coal",
+"s": "D",
+"ty": "Open cut (planned)"
+},
+{
+"k": "south-walker-creek",
+"n": "South Walker Creek",
+"lat": -21.85,
+"lon": 148.45,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "poitrel",
+"n": "Poitrel",
+"lat": -22.02,
+"lon": 148.27,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "isaac-plains",
+"n": "Isaac Plains",
+"lat": -22.05,
+"lon": 148.08,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "curragh",
+"n": "Curragh",
+"lat": -23.48,
+"lon": 148.88,
+"e": "coal",
+"s": "P",
+"ty": "Open cut + new UG"
+},
+{
+"k": "kestrel",
+"n": "Kestrel",
+"lat": -23.25,
+"lon": 148.4,
+"e": "coal",
+"s": "P",
+"ty": "Longwall underground"
+},
+{
+"k": "middlemount",
+"n": "Middlemount",
+"lat": -22.8,
+"lon": 148.68,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "yarrabee",
+"n": "Yarrabee",
+"lat": -23.33,
+"lon": 149.1,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "moolarben",
+"n": "Moolarben",
+"lat": -32.35,
+"lon": 149.78,
+"e": "coal",
+"s": "P",
+"ty": "Open cut + UG"
+},
+{
+"k": "mt-thorley-warkworth",
+"n": "Mt Thorley Warkworth",
+"lat": -32.62,
+"lon": 151.08,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "hunter-valley-operations",
+"n": "Hunter Valley Operations",
+"lat": -32.48,
+"lon": 151.0,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "ashton",
+"n": "Ashton",
+"lat": -32.53,
+"lon": 151.1,
+"e": "coal",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "premier-collie",
+"n": "Premier (Collie)",
+"lat": -33.35,
+"lon": 116.18,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "blair-athol",
+"n": "Blair Athol",
+"lat": -22.68,
+"lon": 147.53,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "new-acland",
+"n": "New Acland",
+"lat": -27.28,
+"lon": 151.7,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "bengalla",
+"n": "Bengalla",
+"lat": -32.3,
+"lon": 150.83,
+"e": "coal",
+"s": "P",
+"ty": "Open cut"
+},
+{
+"k": "loy-yang",
+"n": "Loy Yang",
+"lat": -38.25,
+"lon": 146.58,
+"e": "coal",
+"s": "P",
+"ty": "Open cut (brown coal)"
+},
+{
+"k": "cannington",
+"n": "Cannington",
+"lat": -21.87,
+"lon": 140.92,
+"e": "silver",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "rasp-broken-hill",
+"n": "Rasp (Broken Hill)",
+"lat": -31.96,
+"lon": 141.47,
+"e": "silver",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "pinnacles",
+"n": "Pinnacles",
+"lat": -32.02,
+"lon": 141.25,
+"e": "silver",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "endeavor",
+"n": "Endeavor",
+"lat": -31.37,
+"lon": 145.77,
+"e": "silver",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "federation",
+"n": "Federation",
+"lat": -32.03,
+"lon": 145.97,
+"e": "silver",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "woodlawn",
+"n": "Woodlawn",
+"lat": -35.08,
+"lon": 149.58,
+"e": "silver",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "golden-grove",
+"n": "Golden Grove",
+"lat": -28.77,
+"lon": 116.97,
+"e": "silver",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "bowdens",
+"n": "Bowdens",
+"lat": -32.7,
+"lon": 149.93,
+"e": "silver",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "kempfield",
+"n": "Kempfield",
+"lat": -33.8,
+"lon": 149.15,
+"e": "silver",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "sorby-hills",
+"n": "Sorby Hills",
+"lat": -15.45,
+"lon": 128.95,
+"e": "silver",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "webbs-conrad",
+"n": "Webbs & Conrad",
+"lat": -29.63,
+"lon": 151.08,
+"e": "silver",
+"s": "D",
+"ty": "Open pit + UG (planned)"
+},
+{
+"k": "cadia",
+"n": "Cadia",
+"lat": -33.46,
+"lon": 149.0,
+"e": "copper",
+"s": "P",
+"ty": "Block cave"
+},
+{
+"k": "tritton",
+"n": "Tritton",
+"lat": -31.53,
+"lon": 146.78,
+"e": "copper",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "eloise",
+"n": "Eloise",
+"lat": -20.97,
+"lon": 140.98,
+"e": "copper",
+"s": "P",
+"ty": "Underground"
+},
+{
+"k": "capricorn-copper",
+"n": "Capricorn Copper",
+"lat": -19.55,
+"lon": 139.33,
+"e": "copper",
+"s": "C",
+"ty": "Underground"
+},
+{
+"k": "nifty",
+"n": "Nifty",
+"lat": -21.67,
+"lon": 121.58,
+"e": "copper",
+"s": "C",
+"ty": "Open pit (planned)"
+},
+{
+"k": "degrussa",
+"n": "DeGrussa",
+"lat": -25.53,
+"lon": 119.3,
+"e": "copper",
+"s": "C",
+"ty": "Underground (closed)"
+},
+{
+"k": "jervois",
+"n": "Jervois",
+"lat": -22.65,
+"lon": 136.25,
+"e": "copper",
+"s": "D",
+"ty": "Open pit + UG (planned)"
+},
+{
+"k": "winu",
+"n": "Winu",
+"lat": -21.0,
+"lon": 121.47,
+"e": "copper",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "caravel",
+"n": "Caravel",
+"lat": -31.07,
+"lon": 116.35,
+"e": "copper",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "boda",
+"n": "Boda",
+"lat": -32.73,
+"lon": 148.6,
+"e": "copper",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "great-australia-cloncurry",
+"n": "Great Australia / Cloncurry",
+"lat": -20.68,
+"lon": 140.5,
+"e": "copper",
+"s": "D",
+"ty": "Open pit"
+},
+{
+"k": "mt-chalmers",
+"n": "Mt Chalmers",
+"lat": -23.3,
+"lon": 150.65,
+"e": "copper",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "anthill",
+"n": "Anthill",
+"lat": -20.92,
+"lon": 139.53,
+"e": "copper",
+"s": "P",
+"ty": "Open pit + SX-EW"
+},
+{
+"k": "argyle",
+"n": "Argyle",
+"lat": -16.71,
+"lon": 128.39,
+"e": "diamonds",
+"s": "C",
+"ty": "Open pit + block cave (closed)"
+},
+{
+"k": "ellendale",
+"n": "Ellendale",
+"lat": -17.92,
+"lon": 124.85,
+"e": "diamonds",
+"s": "C",
+"ty": "Open pit (closed)"
+},
+{
+"k": "merlin",
+"n": "Merlin",
+"lat": -16.38,
+"lon": 136.03,
+"e": "diamonds",
+"s": "C",
+"ty": "Open pit / UG (planned)"
+},
+{
+"k": "mt-carbine",
+"n": "Mt Carbine",
+"lat": -16.53,
+"lon": 145.13,
+"e": "tungsten",
+"s": "P",
+"ty": "Open pit + retreatment"
+},
+{
+"k": "wolfram-camp",
+"n": "Wolfram Camp",
+"lat": -17.08,
+"lon": 145.03,
+"e": "tungsten",
+"s": "C",
+"ty": "Open pit (historic)"
+},
+{
+"k": "dolphin-king-island",
+"n": "Dolphin (King Island)",
+"lat": -39.98,
+"lon": 143.88,
+"e": "tungsten",
+"s": "P",
+"ty": "Open pit → underground"
+},
+{
+"k": "mt-mulgine",
+"n": "Mt Mulgine",
+"lat": -29.2,
+"lon": 116.97,
+"e": "tungsten",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "hatches-creek",
+"n": "Hatches Creek",
+"lat": -20.95,
+"lon": 135.2,
+"e": "tungsten",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "watershed",
+"n": "Watershed",
+"lat": -16.45,
+"lon": 145.05,
+"e": "tungsten",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "kilba",
+"n": "Kilba",
+"lat": -23.25,
+"lon": 116.95,
+"e": "tungsten",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "big-hill",
+"n": "Big Hill",
+"lat": -21.4,
+"lon": 119.95,
+"e": "tungsten",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "molyhil",
+"n": "Molyhil",
+"lat": -22.75,
+"lon": 135.73,
+"e": "tungsten",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "o-callaghans",
+"n": "O'Callaghans",
+"lat": -21.8,
+"lon": 122.22,
+"e": "tungsten",
+"s": "D",
+"ty": "Underground (potential)"
+},
+{
+"k": "cleveland",
+"n": "Cleveland",
+"lat": -41.48,
+"lon": 145.38,
+"e": "tungsten",
+"s": "D",
+"ty": "Underground (historic)"
+},
+{
+"k": "tom-price",
+"n": "Tom Price",
+"lat": -22.76,
+"lon": 117.79,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "paraburdoo-eastern-range",
+"n": "Paraburdoo / Eastern Range",
+"lat": -23.26,
+"lon": 117.65,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "western-range",
+"n": "Western Range",
+"lat": -23.2,
+"lon": 117.55,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "marandoo",
+"n": "Marandoo",
+"lat": -22.63,
+"lon": 118.12,
+"e": "iron",
+"s": "P",
+"ty": "Open pit (below water table)"
+},
+{
+"k": "brockman-4",
+"n": "Brockman 4",
+"lat": -22.48,
+"lon": 117.32,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "nammuldi-silvergrass",
+"n": "Nammuldi / Silvergrass",
+"lat": -22.4,
+"lon": 117.48,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "western-turner-syncline",
+"n": "Western Turner Syncline",
+"lat": -22.7,
+"lon": 117.6,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "yandicoogina",
+"n": "Yandicoogina",
+"lat": -22.75,
+"lon": 119.2,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "west-angelas",
+"n": "West Angelas",
+"lat": -23.17,
+"lon": 118.73,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "gudai-darri",
+"n": "Gudai-Darri",
+"lat": -22.6,
+"lon": 119.15,
+"e": "iron",
+"s": "P",
+"ty": "Open pit (highly automated)"
+},
+{
+"k": "hope-downs-1",
+"n": "Hope Downs 1",
+"lat": -22.95,
+"lon": 119.03,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "hope-downs-4",
+"n": "Hope Downs 4",
+"lat": -23.12,
+"lon": 119.55,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "robe-valley-mesa-a-mesa-j",
+"n": "Robe Valley (Mesa A / Mesa J)",
+"lat": -21.75,
+"lon": 116.22,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "rhodes-ridge",
+"n": "Rhodes Ridge",
+"lat": -23.1,
+"lon": 119.4,
+"e": "iron",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "mining-area-c-south-flank",
+"n": "Mining Area C / South Flank",
+"lat": -22.93,
+"lon": 118.98,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "newman-whaleback",
+"n": "Newman (Whaleback)",
+"lat": -23.37,
+"lon": 119.73,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "eastern-ridge-ob-24-25",
+"n": "Eastern Ridge (OB 24/25)",
+"lat": -23.35,
+"lon": 119.85,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "jimblebar",
+"n": "Jimblebar",
+"lat": -23.38,
+"lon": 120.13,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "yandi",
+"n": "Yandi",
+"lat": -22.72,
+"lon": 119.05,
+"e": "iron",
+"s": "C",
+"ty": "Open pit"
+},
+{
+"k": "cloudbreak",
+"n": "Cloudbreak",
+"lat": -22.3,
+"lon": 119.43,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "christmas-creek",
+"n": "Christmas Creek",
+"lat": -22.38,
+"lon": 119.75,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "solomon-hub-firetail-kings-queens",
+"n": "Solomon Hub (Firetail / Kings / Queens)",
+"lat": -22.15,
+"lon": 117.95,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "eliwana",
+"n": "Eliwana",
+"lat": -22.4,
+"lon": 116.85,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "iron-bridge",
+"n": "Iron Bridge",
+"lat": -21.45,
+"lon": 118.85,
+"e": "iron",
+"s": "P",
+"ty": "Open pit + concentrator"
+},
+{
+"k": "onslow-iron-ken-s-bore",
+"n": "Onslow Iron (Ken's Bore)",
+"lat": -22.43,
+"lon": 115.53,
+"e": "iron",
+"s": "P",
+"ty": "Open pit + private haul road"
+},
+{
+"k": "yilgarn-hub-koolyanobbing",
+"n": "Yilgarn Hub (Koolyanobbing)",
+"lat": -30.83,
+"lon": 119.53,
+"e": "iron",
+"s": "C",
+"ty": "Open pit"
+},
+{
+"k": "koolan-island",
+"n": "Koolan Island",
+"lat": -16.13,
+"lon": 123.75,
+"e": "iron",
+"s": "C",
+"ty": "Open pit (closed)"
+},
+{
+"k": "iron-ridge",
+"n": "Iron Ridge",
+"lat": -27.1,
+"lon": 118.3,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "shine",
+"n": "Shine",
+"lat": -29.0,
+"lon": 117.35,
+"e": "iron",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "savage-river",
+"n": "Savage River",
+"lat": -41.48,
+"lon": 145.2,
+"e": "iron",
+"s": "P",
+"ty": "Open pit → underground"
+},
+{
+"k": "razorback",
+"n": "Razorback",
+"lat": -32.95,
+"lon": 139.55,
+"e": "iron",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "central-eyre-iron-project",
+"n": "Central Eyre Iron Project",
+"lat": -33.45,
+"lon": 135.75,
+"e": "iron",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "dampier",
+"n": "Dampier",
+"lat": -20.68,
+"lon": 116.7,
+"e": "salt",
+"s": "P",
+"ty": "Solar evaporation ponds"
+},
+{
+"k": "port-hedland",
+"n": "Port Hedland",
+"lat": -20.33,
+"lon": 118.6,
+"e": "salt",
+"s": "P",
+"ty": "Solar evaporation ponds"
+},
+{
+"k": "mardie",
+"n": "Mardie",
+"lat": -21.07,
+"lon": 116.05,
+"e": "salt",
+"s": "D",
+"ty": "Solar evaporation ponds"
+},
+{
+"k": "north-west-shelf-karratha-gas-plant",
+"n": "North West Shelf (Karratha Gas Plant)",
+"lat": -20.6,
+"lon": 116.78,
+"e": "oil",
+"s": "P",
+"ty": "Offshore platforms + onshore LNG"
+},
+{
+"k": "pluto-lng",
+"n": "Pluto LNG",
+"lat": -20.62,
+"lon": 116.82,
+"e": "oil",
+"s": "P",
+"ty": "Offshore + onshore LNG"
+},
+{
+"k": "scarborough",
+"n": "Scarborough",
+"lat": -19.9,
+"lon": 113.2,
+"e": "oil",
+"s": "D",
+"ty": "Floating production unit → Pluto Train 2"
+},
+{
+"k": "pyrenees",
+"n": "Pyrenees",
+"lat": -21.5,
+"lon": 113.95,
+"e": "oil",
+"s": "P",
+"ty": "FPSO"
+},
+{
+"k": "macedon",
+"n": "Macedon",
+"lat": -21.7,
+"lon": 114.5,
+"e": "oil",
+"s": "P",
+"ty": "Subsea → onshore plant"
+},
+{
+"k": "browse-torosa-brecknock",
+"n": "Browse (Torosa / Brecknock)",
+"lat": -14.0,
+"lon": 121.8,
+"e": "oil",
+"s": "D",
+"ty": "Planned"
+},
+{
+"k": "wheatstone-lng",
+"n": "Wheatstone LNG",
+"lat": -21.7,
+"lon": 114.97,
+"e": "oil",
+"s": "P",
+"ty": "Offshore platform → onshore LNG"
+},
+{
+"k": "barossa-darwin-lng",
+"n": "Barossa (→ Darwin LNG)",
+"lat": -10.0,
+"lon": 130.2,
+"e": "oil",
+"s": "P",
+"ty": "FPSO → pipeline to Darwin LNG"
+},
+{
+"k": "ningaloo-vision-van-gogh-coniston",
+"n": "Ningaloo Vision (Van Gogh / Coniston)",
+"lat": -21.45,
+"lon": 114.0,
+"e": "oil",
+"s": "P",
+"ty": "FPSO"
+},
+{
+"k": "varanus-island-reindeer",
+"n": "Varanus Island / Reindeer",
+"lat": -20.65,
+"lon": 115.57,
+"e": "oil",
+"s": "P",
+"ty": "Offshore → island & Devil Creek plants"
+},
+{
+"k": "dorado",
+"n": "Dorado",
+"lat": -19.0,
+"lon": 118.2,
+"e": "oil",
+"s": "D",
+"ty": "FPSO (planned)"
+},
+{
+"k": "cooper-basin-moomba",
+"n": "Cooper Basin (Moomba)",
+"lat": -28.11,
+"lon": 140.2,
+"e": "oil",
+"s": "P",
+"ty": "Onshore wells → Moomba plant"
+},
+{
+"k": "western-flank-oil",
+"n": "Western Flank oil",
+"lat": -27.95,
+"lon": 139.95,
+"e": "oil",
+"s": "P",
+"ty": "Onshore wells"
+},
+{
+"k": "waitsia",
+"n": "Waitsia",
+"lat": -29.2,
+"lon": 115.1,
+"e": "oil",
+"s": "P",
+"ty": "Onshore → gas plant"
+},
+{
+"k": "otway-gas-plant",
+"n": "Otway Gas Plant",
+"lat": -38.4,
+"lon": 142.9,
+"e": "oil",
+"s": "P",
+"ty": "Offshore wells → onshore plant"
+},
+{
+"k": "walyering",
+"n": "Walyering",
+"lat": -30.7,
+"lon": 115.45,
+"e": "oil",
+"s": "P",
+"ty": "Onshore wells"
+},
+{
+"k": "west-erregulla",
+"n": "West Erregulla",
+"lat": -29.35,
+"lon": 115.3,
+"e": "oil",
+"s": "D",
+"ty": "Onshore (planned)"
+},
+{
+"k": "bass-strait-gippsland",
+"n": "Bass Strait (Gippsland)",
+"lat": -38.3,
+"lon": 148.0,
+"e": "oil",
+"s": "P",
+"ty": "Offshore platforms"
+},
+{
+"k": "sole-orbost",
+"n": "Sole / Orbost",
+"lat": -37.75,
+"lon": 148.5,
+"e": "oil",
+"s": "P",
+"ty": "Subsea → Orbost plant"
+},
+{
+"k": "glng-fairview-roma-csg",
+"n": "GLNG (Fairview / Roma CSG)",
+"lat": -26.0,
+"lon": 148.7,
+"e": "oil",
+"s": "P",
+"ty": "CSG wells → Curtis Island LNG"
+},
+{
+"k": "aplng-surat-bowen-csg",
+"n": "APLNG (Surat / Bowen CSG)",
+"lat": -26.7,
+"lon": 150.2,
+"e": "oil",
+"s": "P",
+"ty": "CSG wells → Curtis Island LNG"
+},
+{
+"k": "mahalo",
+"n": "Mahalo",
+"lat": -24.4,
+"lon": 148.8,
+"e": "oil",
+"s": "D",
+"ty": "CSG wells (planned)"
+},
+{
+"k": "shenandoah-south-beetaloo",
+"n": "Shenandoah South (Beetaloo)",
+"lat": -16.5,
+"lon": 133.4,
+"e": "oil",
+"s": "P",
+"ty": "Onshore horizontal wells"
+},
+{
+"k": "carpentaria-beetaloo",
+"n": "Carpentaria (Beetaloo)",
+"lat": -16.2,
+"lon": 134.3,
+"e": "oil",
+"s": "D",
+"ty": "Onshore (planned)"
+},
+{
+"k": "mereenie",
+"n": "Mereenie",
+"lat": -23.9,
+"lon": 131.6,
+"e": "oil",
+"s": "P",
+"ty": "Onshore wells"
+}
+]
