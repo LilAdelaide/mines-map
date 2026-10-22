@@ -77,14 +77,17 @@
 "km": 5.2
 },
 "mt-monger-daisy-milano": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -31.0,
+"lon": 121.917,
+"how": "wikidata",
+"km": 5.2
 },
 "bullabulling": {
 "ok": true,
-"lat": -31.05,
-"lon": 121.07,
-"how": "map",
+"lat": -31.012,
+"lon": 120.871,
+"how": "wikipedia",
 "km": 5.2
 },
 "norseman": {
@@ -103,9 +106,9 @@
 },
 "bardoc": {
 "ok": true,
-"lat": -30.32,
-"lon": 121.27,
-"how": "map",
+"lat": -30.335,
+"lon": 121.294,
+"how": "wikipedia",
 "km": 5.2
 },
 "kal-east": {
@@ -145,9 +148,9 @@
 },
 "leonora-mill-ulysses": {
 "ok": true,
-"lat": -28.96,
-"lon": 121.15,
-"how": "map",
+"lat": -28.8845,
+"lon": 121.33081,
+"how": "wikipedia",
 "km": 5.2
 },
 "mt-morgans": {
@@ -265,8 +268,8 @@
 "mt-magnet": {
 "ok": true,
 "lat": -28.06,
-"lon": 117.85,
-"how": "map",
+"lon": 117.84611,
+"how": "wikipedia",
 "km": 5.2
 },
 "dalgaranga-never-never": {
@@ -277,8 +280,11 @@
 "km": 5.2
 },
 "penny": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -28.45,
+"lon": 119.7,
+"how": "map",
+"km": 12
 },
 "cue-break-of-day-lena": {
 "ok": true,
@@ -351,8 +357,11 @@
 "km": 7.0
 },
 "karlawinda-bibra": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -23.95,
+"lon": 120.1,
+"how": "map",
+"km": 12
 },
 "hemi": {
 "ok": true,
@@ -461,9 +470,9 @@
 },
 "charters-towers": {
 "ok": true,
-"lat": -20.08,
-"lon": 146.27,
-"how": "map",
+"lat": -20.0765,
+"lon": 146.2614,
+"how": "wikipedia",
 "km": 5.2
 },
 "cadia-valley": {
@@ -496,10 +505,10 @@
 },
 "boda-kaiser": {
 "ok": true,
-"lat": -32.5,
-"lon": 148.85,
-"how": "map",
-"km": 12
+"lat": -32.45033,
+"lon": 148.99897,
+"how": "wikipedia",
+"km": 5.2
 },
 "mcphillamys": {
 "ok": true,
@@ -517,14 +526,17 @@
 },
 "hillgrove": {
 "ok": true,
-"lat": -30.57,
+"lat": -30.56667,
 "lon": 151.9,
-"how": "map",
-"km": 12
+"how": "wikipedia",
+"km": 5.2
 },
 "mineral-hill": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -32.6,
+"lon": 147.37,
+"how": "map",
+"km": 12
 },
 "costerfield": {
 "ok": true,
@@ -590,8 +602,11 @@
 "km": 5.2
 },
 "a1-gold-mine": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -37.56,
+"lon": 146.25,
+"how": "map",
+"km": 5.2
 },
 "mt-york": {
 "ok": true,
@@ -623,9 +638,9 @@
 },
 "meekatharra-mindax": {
 "ok": true,
-"lat": -26.55,
-"lon": 118.62,
-"how": "map",
+"lat": -26.59361,
+"lon": 118.49528,
+"how": "wikipedia",
 "km": 5.2
 },
 "fountain-head-mt-bundey": {
@@ -651,16 +666,16 @@
 },
 "yundamindera": {
 "ok": true,
-"lat": -29.13,
-"lon": 122.03,
-"how": "map",
+"lat": -29.121,
+"lon": 122.039,
+"how": "wikipedia",
 "km": 5.2
 },
 "tuckanarra": {
 "ok": true,
-"lat": -27.12,
-"lon": 118.08,
-"how": "map",
+"lat": -27.11667,
+"lon": 118.08333,
+"how": "wikipedia",
 "km": 5.2
 },
 "munda": {
@@ -727,8 +742,11 @@
 "km": 5.2
 },
 "hill-end-reward": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -33.03,
+"lon": 149.42,
+"how": "map",
+"km": 5.2
 },
 "trouser-legs": {
 "ok": true,
@@ -739,9 +757,9 @@
 },
 "nagambie": {
 "ok": true,
-"lat": -36.78,
-"lon": 145.15,
-"how": "map",
+"lat": -36.77028,
+"lon": 145.155,
+"how": "wikipedia",
 "km": 5.2
 },
 "northern-zone-kurnalpi": {
@@ -781,9 +799,9 @@
 },
 "stawell-corridor-tandarra": {
 "ok": true,
-"lat": -36.75,
-"lon": 142.85,
-"how": "map",
+"lat": -37.05,
+"lon": 142.76667,
+"how": "wikipedia",
 "km": 5.2
 },
 "spring-hill": {
@@ -801,8 +819,11 @@
 "km": 12
 },
 "honeymoon": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -31.74248,
+"lon": 140.66324,
+"how": "osm",
+"km": 3.2
 },
 "ranger": {
 "ok": true,
@@ -883,10 +904,10 @@
 },
 "yanrey": {
 "ok": true,
-"lat": -22.2,
-"lon": 114.72,
-"how": "map",
-"km": 12
+"lat": -22.508,
+"lon": 114.794,
+"how": "wikipedia",
+"km": 5.2
 },
 "goonyella-riverside": {
 "ok": true,
@@ -945,12 +966,18 @@
 "km": 14
 },
 "maules-creek": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -30.52,
+"lon": 150.3,
+"how": "map",
+"km": 12
 },
 "narrabri": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -30.31667,
+"lon": 149.76667,
+"how": "wikipedia",
+"km": 5.2
 },
 "tarrawonga": {
 "ok": true,
@@ -1031,10 +1058,10 @@
 },
 "hunter-valley-operations": {
 "ok": true,
-"lat": -32.48,
-"lon": 151.0,
-"how": "map",
-"km": 12
+"lat": -32.56,
+"lon": 151.17083,
+"how": "wikipedia",
+"km": 5.2
 },
 "ashton": {
 "ok": true,
@@ -1100,12 +1127,18 @@
 "km": 5.2
 },
 "endeavor": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -31.37,
+"lon": 145.77,
+"how": "map",
+"km": 5.2
 },
 "federation": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -32.03,
+"lon": 145.97,
+"how": "map",
+"km": 5.2
 },
 "woodlawn": {
 "ok": true,
@@ -1507,8 +1540,11 @@
 "km": 5.2
 },
 "onslow-iron-ken-s-bore": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -22.43,
+"lon": 115.53,
+"how": "map",
+"km": 5.2
 },
 "yilgarn-hub-koolyanobbing": {
 "ok": true,
@@ -1519,9 +1555,9 @@
 },
 "koolan-island": {
 "ok": true,
-"lat": -16.13,
-"lon": 123.75,
-"how": "map",
+"lat": -16.09391,
+"lon": 123.60918,
+"how": "wikipedia",
 "km": 5.2
 },
 "iron-ridge": {
@@ -1533,10 +1569,10 @@
 },
 "shine": {
 "ok": true,
-"lat": -29.0,
-"lon": 117.35,
-"how": "map",
-"km": 12
+"lat": -28.85503,
+"lon": 116.92801,
+"how": "osm",
+"km": 3.7
 },
 "savage-river": {
 "ok": true,
@@ -1561,23 +1597,23 @@
 },
 "dampier": {
 "ok": true,
-"lat": -20.68,
-"lon": 116.7,
-"how": "map",
-"km": 12
+"lat": -20.66,
+"lon": 116.71,
+"how": "wikipedia",
+"km": 5.2
 },
 "port-hedland": {
 "ok": true,
-"lat": -20.33,
-"lon": 118.6,
-"how": "map",
-"km": 12
+"lat": -20.31,
+"lon": 118.60111,
+"how": "wikipedia",
+"km": 5.2
 },
 "mardie": {
 "ok": true,
-"lat": -21.07,
-"lon": 116.05,
-"how": "map",
+"lat": -21.18897,
+"lon": 115.97921,
+"how": "wikipedia",
 "km": 5.2
 },
 "north-west-shelf-karratha-gas-plant": {
@@ -1606,8 +1642,12 @@
 "why": "blank"
 },
 "macedon": {
-"ok": false,
-"why": "blank"
+"ok": true,
+"lat": -21.73,
+"lon": 114.97,
+"how": "checked",
+"km": 10,
+"note": "Macedon gas plant area (onshore)"
 },
 "browse-torosa-brecknock": {
 "ok": true,
@@ -1624,8 +1664,12 @@
 "km": 12
 },
 "barossa-darwin-lng": {
-"ok": false,
-"why": "blank"
+"ok": true,
+"lat": -12.535,
+"lon": 130.875,
+"how": "checked",
+"km": 6,
+"note": "Darwin LNG plant (onshore)"
 },
 "ningaloo-vision-van-gogh-coniston": {
 "ok": false,
@@ -1685,8 +1729,12 @@
 "km": 12
 },
 "bass-strait-gippsland": {
-"ok": false,
-"why": "blank"
+"ok": true,
+"lat": -38.215,
+"lon": 147.168,
+"how": "checked",
+"km": 6,
+"note": "Longford gas plants (onshore)"
 },
 "sole-orbost": {
 "ok": true,
@@ -1731,8 +1779,11 @@
 "km": 12
 },
 "mereenie": {
-"ok": false,
-"why": "no clear picture"
+"ok": true,
+"lat": -23.9,
+"lon": 131.6,
+"how": "map",
+"km": 12
 },
 "shoobridge-gold-project": {
 "ok": true,
@@ -1799,9 +1850,9 @@
 },
 "kathleen-valley": {
 "ok": true,
-"lat": -27.47,
-"lon": 120.57,
-"how": "map",
+"lat": -27.509,
+"lon": 120.564,
+"how": "wikipedia",
 "km": 5.2
 },
 "finniss": {
@@ -1842,8 +1893,8 @@
 "marble-bar-lithium": {
 "ok": true,
 "lat": -21.17,
-"lon": 119.8,
-"how": "map",
-"km": 12
+"lon": 119.74694,
+"how": "wikipedia",
+"km": 5.2
 }
 }
