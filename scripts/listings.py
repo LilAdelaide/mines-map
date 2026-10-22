@@ -1,6 +1,6 @@
 """Daily: find newly listed ASX mining / energy companies that fit the map's elements and build their profile
 (data/newcos.json). Free sources only: ASX company directory, header, about, announcements; OpenStreetMap Nominatim."""
-import re, time, urllib.parse
+import json, os, re, time, urllib.parse
 from common import *
 
 ELEMENTS = [  # element, keywords (checked in name + description + recent headlines)
@@ -32,8 +32,12 @@ def element_of(text):
     return best[0] if best else None
 
 TOWN_TYPES = ("city", "town", "village", "hamlet", "locality", "suburb", "isolated_dwelling")
+TOWNS = json.load(open(os.path.join(os.path.dirname(__file__), "towns.json")))
 def geocode(name, prefer_state=None):
-    """A town/locality in Australia -> (lat, lon, state code). Prefers the state named next to it in the text."""
+    """A town/locality in Australia -> (lat, lon, state code). Known mining towns first, then OpenStreetMap."""
+    t = TOWNS.get(name) or TOWNS.get(name.replace("Mt ", "Mount "))
+    if t:
+        return t[0], t[1], t[2]
     time.sleep(1.1)
     r = get("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&countrycodes=au&addressdetails=1&q=" + urllib.parse.quote(name), timeout=30, tries=2)
     best = None
@@ -72,7 +76,7 @@ def place_from_text(txt):
         km, town = int(m.group(1)), m.group(3).strip()
         d = m.group(2).lower().replace("-", "").replace(" ", "")
         d = d.replace("north", "n").replace("south", "s").replace("east", "e").replace("west", "w")
-        if km > 300 or town.lower() in ("the", "perth city"): continue
+        if km > 600 or town.lower() in ("the", "perth city"): continue
         ctx = txt[m.end(): m.end() + 60]
         main_st = max(STATES, key=lambda k: len(STATE_RX[k].findall(txt)))
         st = next((k for k, rx in STATE_RX.items() if rx.search(ctx)), None) or main_st
