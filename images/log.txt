@@ -1,8 +1,9 @@
-2026-10-22T17:07:45+08:00
+2026-10-22T17:08:48+08:00
 pyrenees	blank	
 macedon	blank	
 barossa-darwin-lng	blank	
 ningaloo-vision-van-gogh-coniston	blank	
 dorado	blank	
 bass-strait-gippsland	blank	
-shoobridge-gold-project	blank	
+shoobridge-gold-project	map	5.2
+huckitta-project	map	5.2

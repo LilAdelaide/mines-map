@@ -1733,5 +1733,19 @@
 "mereenie": {
 "ok": false,
 "why": "no clear picture"
+},
+"shoobridge-gold-project": {
+"ok": true,
+"lat": -13.6312,
+"lon": 130.84,
+"how": "map",
+"km": 5.2
+},
+"huckitta-project": {
+"ok": true,
+"lat": -21.5341,
+"lon": 136.2454,
+"how": "map",
+"km": 5.2
 }
 }
