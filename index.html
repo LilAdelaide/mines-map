@@ -1671,6 +1671,15 @@ const zoom = d3.zoom().scaleExtent([1, 80]).on("start", () => { gesturing = true
     svgEl.style.transform = `translate(${t.x - s * tc.x}px,${t.y - s * tc.y}px) scale(${s})`; });
 }).on("end", () => { cancelAnimationFrame(raf); raf = 0; gesturing = false; svgEl.classList.remove("panning"); commitT(d3.zoomTransform(wrapEl)); updGE(); });
 wrap.call(zoom).on("dblclick.zoom", null);
+// keep the map within Australia and its neighbours: panning and zooming out stop at this box
+function setZExtent(){
+  if (!proj) return;
+  const w = main.clientWidth, h = main.clientHeight, p0 = proj([106, -2]), p1 = proj([166, -47]);
+  zoom.translateExtent([[Math.min(p0[0], 0), Math.min(p0[1], 0)], [Math.max(p1[0], w), Math.max(p1[1], h)]]);
+  wrap.call(zoom.translateBy, 0, 0);
+}
+setZExtent();
+window.addEventListener("resize", () => requestAnimationFrame(setZExtent));
 svg.on("click", () => { if (selected) clearSel(); });
 document.getElementById("zin").onclick = () => wrap.transition().duration(300).call(zoom.scaleBy, 1.8);
 document.getElementById("zout").onclick = () => wrap.transition().duration(300).call(zoom.scaleBy, 1/1.8);
