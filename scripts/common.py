@@ -1,13 +1,17 @@
 """Shared helpers for the free data jobs (run by GitHub Actions; standard library only)."""
 import json, os, time, random, urllib.request, urllib.error
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(ROOT, "data")
 from datetime import datetime, timezone, timedelta
 from concurrent.futures import ThreadPoolExecutor
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "data")
 PERTH = timezone(timedelta(hours=8))
 UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Mobile Safari/537.36 MinesMap/1.0"
 CODES = json.load(open(os.path.join(os.path.dirname(__file__), "codes.json")))
+try:   # companies added automatically from new ASX listings get live data too
+    CODES += [c for c, p in json.load(open(os.path.join(DATA, "newcos.json"))).items() if p.get("lat") is not None and c not in CODES]
+except Exception:
+    pass
 ASX = "https://asx.api.markitdigital.com/asx-research/1.0/companies/"
 
 def now_iso():
