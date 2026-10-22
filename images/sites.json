@@ -1733,5 +1733,12 @@
 "mereenie": {
 "ok": false,
 "why": "no clear picture"
+},
+"swedish": {
+"ok": true,
+"lat": -29.04705,
+"lon": 115.35125,
+"how": "osm",
+"km": 3.2
 }
 }

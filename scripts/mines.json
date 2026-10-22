@@ -2302,5 +2302,14 @@
 "e": "oil",
 "s": "P",
 "ty": "Onshore wells"
+},
+{
+"k": "swedish",
+"n": "Swedish",
+"lat": -29.047,
+"lon": 115.3512,
+"e": "uranium",
+"s": "D",
+"ty": "Exploration"
 }
 ]

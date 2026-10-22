@@ -1,21 +1,8 @@
-2026-10-22T16:20:25+08:00
-mt-monger-daisy-milano	checked	16
-thunderbox	checked	8
-penny	checked	24
-deflector	checked	5.2
-karlawinda-bibra	checked	24
-boddington	checked	5.2
-tanami-callie	checked	6
-ernest-henry	checked	5.2
-cracow	checked	6
-mineral-hill	checked	12
-a1-gold-mine	checked	8
-hill-end-reward	checked	8
-honeymoon	checked	14
-maules-creek	checked	18
-narrabri	checked	10
-isaac-plains	checked	16
-endeavor	checked	10
-federation	checked	10
-onslow-iron-ken-s-bore	checked	20
-mereenie	checked	20
+2026-10-22T16:49:28+08:00
+pyrenees	blank	
+macedon	blank	
+barossa-darwin-lng	blank	
+ningaloo-vision-van-gogh-coniston	blank	
+dorado	blank	
+bass-strait-gippsland	blank	
+swedish	osm	3.2
