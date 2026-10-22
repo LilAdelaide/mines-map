@@ -959,6 +959,12 @@ body.compact .feed{display:none}
   body.compact .csheet{--sh:calc(100vh - var(--tabh) - 80px)}
   body.compact .card,body.compact .prof{max-height:calc(100vh - var(--tabh) - 80px)!important}
 }
+
+/* state names: small, constant on-screen size; hidden while pinching so they never balloon */
+svg#map .stlabel{font-size:calc(12px * var(--invk,1));font-stretch:100%;letter-spacing:.14em;font-weight:650;stroke-width:calc(2.5px * var(--invk,1));transition:opacity .15s}
+body.compact svg#map .stlabel{font-size:calc(10.5px * var(--invk,1));letter-spacing:.1em}
+svg#map.zooming .stlabel{opacity:0;transition:none}
+svg#map.stn-off .stlabel{display:none}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1098,6 +1104,12 @@ body.compact .feed{display:none}
         <button type="button" data-nogo="off" aria-pressed="true">Off</button>
         <button type="button" data-nogo="on" aria-pressed="false">With mines</button>
         <button type="button" data-nogo="only" aria-pressed="false">Only</button>
+      </div>
+      <div class="t">State names</div>
+      <div class="seg" id="stNameSeg">
+        <button type="button" data-stn="full" aria-pressed="true">Full</button>
+        <button type="button" data-stn="short" aria-pressed="false">WA, NT…</button>
+        <button type="button" data-stn="off" aria-pressed="false">Hide</button>
       </div>
       <div class="t uih"><span>Screen size</span><output id="uiVal">55%</output></div>
       <div class="seg uiseg">
@@ -1239,6 +1251,9 @@ const hOf = m => (m.pc && COS[m.pc] && COS[m.pc].h) || null;
 const hIcon = (h, cls="") => `<svg class="hi ${h || "none"} ${cls}" aria-hidden="true"><use href="#i-${h || "none"}"/></svg>`;
 const fmtM = (v, cur="A$") => { if (v == null) return null; const a = Math.abs(v), s = v < 0 ? "−" : ""; return a >= 1000 ? `${s}${cur}${(a/1000).toFixed(2)}B` : `${s}${cur}${Math.round(a)}M`; };
 const STATUS_NAME = {P:"Producing",D:"Development",C:"Care & maintenance"};
+const STATE_SHORT = {"Western Australia":"WA","Northern Territory":"NT","South Australia":"SA","Queensland":"QLD","New South Wales":"NSW","Victoria":"VIC","Tasmania":"TAS"};
+let STN = "full"; try { STN = localStorage.getItem("stName") || (window.matchMedia("(max-width:700px)").matches ? "short" : "full"); } catch (e) {}
+const stName = n => STN === "short" ? (STATE_SHORT[n] || n) : n;
 const STATE_FULL = {WA:"Western Australia",NT:"Northern Territory",SA:"South Australia",QLD:"Queensland",NSW:"New South Wales",VIC:"Victoria",TAS:"Tasmania"};
 const CITIES = [["Perth",-31.95,115.86],["Kalgoorlie",-30.75,121.47],["Darwin",-12.46,130.84],["Adelaide",-34.93,138.6],["Brisbane",-27.47,153.03],["Sydney",-33.87,151.21],["Melbourne",-37.81,144.96],["Hobart",-42.88,147.33],["Port Hedland",-20.31,118.6],["Townsville",-19.26,146.82],["Alice Springs",-23.7,133.88]];
 const COMPACT_MQ = "(max-width:1024px), (max-height:540px)";
@@ -1570,7 +1585,7 @@ function draw(){
   gLab.selectAll("text").data(STATES.features.filter(f => f.properties.name !== "Australian Capital Territory")).join("text")
     .attr("class","stlabel").attr("text-anchor","middle")
     .attr("transform", f => { const c = path.centroid(f), n = f.properties.name; const o = n==="Tasmania"?[0,34]:n==="Victoria"?[0,8]:n==="Queensland"?[10,30]:[0,0]; return `translate(${c[0]+o[0]},${c[1]+o[1]})`; })
-    .text(f => f.properties.name);
+    .text(f => stName(f.properties.name));
   gCities.selectAll("g.city").data(CITIES).join(e => { const c = e.append("g").attr("class","city"); const s = c.append("g").attr("class","s"); s.append("rect").attr("x",-2).attr("y",-2).attr("width",4).attr("height",4); s.append("text").attr("x",6).attr("y",-5).text(d => d[0]); return c; })
     .attr("transform", c => `translate(${proj([c[2],c[1]])})`);
   mineSel = gMines.selectAll("g.mine").data(MINES, m => m.id).join(enter => {
@@ -1638,6 +1653,7 @@ let lastLabels = null, lastDeep = null;
 function applyK(){
   svgEl.style.setProperty("--inv", (Math.pow(k, 0.18) / k).toFixed(5));
   svgEl.style.setProperty("--inv1", (1 / Math.pow(k, 0.6)).toFixed(5));
+  svgEl.style.setProperty("--invk", (1 / k).toFixed(5));
   const lab = k >= 3.2, deep = k > 6;
   if (lab !== lastLabels) { svgEl.classList.toggle("labels", lab); lastLabels = lab; }
   if (deep !== lastDeep) { svgEl.classList.toggle("deep", deep); lastDeep = deep; }
@@ -1645,12 +1661,13 @@ function applyK(){
 // Smooth panning: while a gesture runs, the whole map moves as one GPU layer (CSS transform, no repaint);
 // the real SVG transform is committed when the gesture ends, or when zooming far enough to blur.
 let raf = 0, pendingT = null, tc = d3.zoomIdentity, gesturing = false;
-function commitT(t){ svgEl.style.transform = ""; tc = t; g.attr("transform", t); k = t.k; applyK(); }
+function commitT(t){ svgEl.style.transform = ""; svgEl.classList.remove("zooming"); tc = t; g.attr("transform", t); k = t.k; applyK(); }
 const zoom = d3.zoom().scaleExtent([1, 80]).on("start", () => { gesturing = true; svgEl.classList.add("panning"); hideTip(); })
 .on("zoom", ev => {
   pendingT = ev.transform;
   if (!raf) raf = requestAnimationFrame(() => { raf = 0; const t = pendingT, s = t.k / tc.k;
     if (s > 1.8 || s < 0.45) { commitT(t); return; }
+    svgEl.classList.toggle("zooming", Math.abs(s - 1) > 0.02);
     svgEl.style.transform = `translate(${t.x - s * tc.x}px,${t.y - s * tc.y}px) scale(${s})`; });
 }).on("end", () => { cancelAnimationFrame(raf); raf = 0; gesturing = false; svgEl.classList.remove("panning"); commitT(d3.zoomTransform(wrapEl)); updGE(); });
 wrap.call(zoom).on("dblclick.zoom", null);
@@ -2691,6 +2708,19 @@ document.querySelectorAll(".uistep").forEach(btn => {
   FEEDS.forEach(([n, f, m]) => setInterval(() => { if (!document.hidden) pull(n, f); }, m * 60000));
   document.addEventListener("visibilitychange", () => { if (!document.hidden) all(); });
   window.addEventListener("online", all);
+})();
+
+// state names: Full / Short / Hide (saved per device)
+(function(){
+  const seg = document.getElementById("stNameSeg"); if (!seg) return;
+  function setStn(v, save){
+    STN = v; seg.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.stn === v)));
+    svgEl.classList.toggle("stn-off", v === "off");
+    gLab.selectAll("text").text(f => stName(f.properties.name));
+    if (save) try { localStorage.setItem("stName", v); } catch (e) {}
+  }
+  seg.addEventListener("click", ev => { const b = ev.target.closest("button[data-stn]"); if (b) setStn(b.dataset.stn, true); });
+  setStn(STN, false);
 })();
 </script>
 
