@@ -1401,7 +1401,7 @@ function siteImg(m){
   const k = siteSlug(m.n), x = SITEIMG && SITEIMG[k]; if (!x || !x.ok) return "";
   const live = `https://www.google.com/maps/@?api=1&map_action=map&center=${x.lat},${x.lon}&zoom=14&basemap=satellite`;
   return `<figure class="msat"><a href="${live}" target="_blank" rel="noopener noreferrer" title="Open the live satellite view"><img src="images/sites/${k}.jpg" alt="Satellite picture of ${esc(m.n)}" loading="lazy" decoding="async" onerror="this.closest('figure').remove()"></a>
-    <figcaption><span>Satellite 2025 · ~${x.km} km across${m.s === "D" ? " · project area, mine not built yet" : x.how === "map" ? " · approx. location" : ""}</span><a href="${live}" target="_blank" rel="noopener noreferrer">Live view ↗</a></figcaption>
+    <figcaption><span>Satellite 2025 · ~${x.km} km across${x.note ? " · shows " + esc(x.note) : m.s === "D" ? " · project area, mine not built yet" : x.how === "map" ? " · approx. location" : ""}</span><a href="${live}" target="_blank" rel="noopener noreferrer">Live view ↗</a></figcaption>
     <small>EOxCloudless 2025 by EOX · Copernicus Sentinel-2 · CC BY-NC-SA 4.0</small></figure>`;
 }
 function info(m, full){
