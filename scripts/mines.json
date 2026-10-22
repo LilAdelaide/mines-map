@@ -2304,26 +2304,6 @@
 "ty": "Onshore wells"
 },
 {
-"k": "shoobridge-gold-project",
-"n": "Shoobridge Gold Project",
-"lat": -13.6312,
-"lon": 130.84,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "huckitta-project",
-"n": "Huckitta Project",
-"lat": -21.5341,
-"lon": 136.2454,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
 "k": "greenbushes",
 "n": "Greenbushes",
 "lat": -33.86,
@@ -2448,5 +2428,25 @@
 "e": "lithium",
 "s": "D",
 "ty": "—"
+},
+{
+"k": "shoobridge-gold-project",
+"n": "Shoobridge Gold Project",
+"lat": -13.6312,
+"lon": 130.84,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "huckitta-project",
+"n": "Huckitta Project",
+"lat": -21.5341,
+"lon": 136.2454,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
 }
 ]
