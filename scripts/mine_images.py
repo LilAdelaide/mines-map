@@ -94,6 +94,8 @@ def picture(lat, lon, half_w_km):
 FIX = json.load(open(os.path.join(os.path.dirname(__file__), "site_fix.json")))
 def one(m):
     f = FIX.get(m["k"])
+    if f and f.get("hide"):   # no clear picture found: show none rather than a wrong one
+        return {"ok": False, "why": "no clear picture"}
     if f:   # checked by hand: exact spot and picture width
         lat, lon = (m["lat"], m["lon"]) if f.get("use") == "map" else (f["lat"], f["lon"])
         im = picture(lat, lon, f["km"] / 2)
@@ -126,7 +128,7 @@ if __name__ == "__main__":
         pass
     only = set(sys.argv[1:])
     redo = os.environ.get("REDO") == "1"
-    todo = ([m for m in MINES if (m["k"] in only) if only] or MINES) if redo else [m for m in MINES if (m["k"] in only) if only] or [m for m in MINES if not (idx.get(m["k"], {}).get("ok") and os.path.exists(os.path.join(OUT, m["k"] + ".jpg")))]
+    todo = ([m for m in MINES if (m["k"] in only) if only] or MINES) if redo else [m for m in MINES if (m["k"] in only) if only] or [m for m in MINES if not FIX.get(m["k"], {}).get("hide") and not (idx.get(m["k"], {}).get("ok") and os.path.exists(os.path.join(OUT, m["k"] + ".jpg")))]
     log = []
     def run(m):
         try:

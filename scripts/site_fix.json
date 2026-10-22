@@ -28,59 +28,46 @@
   "km": 6
  },
  "karlawinda-bibra": {
-  "use": "map",
-  "km": 24
+  "hide": true
  },
  "penny": {
-  "use": "map",
-  "km": 24
+  "hide": true
  },
  "maules-creek": {
-  "use": "map",
-  "km": 18
+  "hide": true
  },
  "isaac-plains": {
   "use": "map",
   "km": 16
  },
  "narrabri": {
-  "use": "map",
-  "km": 10
+  "hide": true
  },
  "mereenie": {
-  "use": "map",
-  "km": 20
+  "hide": true
  },
  "onslow-iron-ken-s-bore": {
-  "use": "map",
-  "km": 20
+  "hide": true
  },
  "honeymoon": {
-  "use": "map",
-  "km": 14
+  "hide": true
  },
  "endeavor": {
-  "use": "map",
-  "km": 10
+  "hide": true
  },
  "federation": {
-  "use": "map",
-  "km": 10
+  "hide": true
  },
  "mineral-hill": {
-  "use": "map",
-  "km": 12
+  "hide": true
  },
  "a1-gold-mine": {
-  "use": "map",
-  "km": 8
+  "hide": true
  },
  "hill-end-reward": {
-  "use": "map",
-  "km": 8
+  "hide": true
  },
  "mt-monger-daisy-milano": {
-  "use": "map",
-  "km": 16
+  "hide": true
  }
 }

@@ -77,11 +77,8 @@
 "km": 5.2
 },
 "mt-monger-daisy-milano": {
-"ok": true,
-"lat": -30.95,
-"lon": 121.96,
-"how": "checked",
-"km": 16
+"ok": false,
+"why": "no clear picture"
 },
 "bullabulling": {
 "ok": true,
@@ -280,11 +277,8 @@
 "km": 5.2
 },
 "penny": {
-"ok": true,
-"lat": -28.45,
-"lon": 119.7,
-"how": "checked",
-"km": 24
+"ok": false,
+"why": "no clear picture"
 },
 "cue-break-of-day-lena": {
 "ok": true,
@@ -357,11 +351,8 @@
 "km": 7.0
 },
 "karlawinda-bibra": {
-"ok": true,
-"lat": -23.95,
-"lon": 120.1,
-"how": "checked",
-"km": 24
+"ok": false,
+"why": "no clear picture"
 },
 "hemi": {
 "ok": true,
@@ -532,11 +523,8 @@
 "km": 12
 },
 "mineral-hill": {
-"ok": true,
-"lat": -32.6,
-"lon": 147.37,
-"how": "checked",
-"km": 12
+"ok": false,
+"why": "no clear picture"
 },
 "costerfield": {
 "ok": true,
@@ -602,11 +590,8 @@
 "km": 5.2
 },
 "a1-gold-mine": {
-"ok": true,
-"lat": -37.56,
-"lon": 146.25,
-"how": "checked",
-"km": 8
+"ok": false,
+"why": "no clear picture"
 },
 "mt-york": {
 "ok": true,
@@ -742,11 +727,8 @@
 "km": 5.2
 },
 "hill-end-reward": {
-"ok": true,
-"lat": -33.03,
-"lon": 149.42,
-"how": "checked",
-"km": 8
+"ok": false,
+"why": "no clear picture"
 },
 "trouser-legs": {
 "ok": true,
@@ -819,11 +801,8 @@
 "km": 12
 },
 "honeymoon": {
-"ok": true,
-"lat": -32.1,
-"lon": 140.66,
-"how": "checked",
-"km": 14
+"ok": false,
+"why": "no clear picture"
 },
 "ranger": {
 "ok": true,
@@ -966,18 +945,12 @@
 "km": 14
 },
 "maules-creek": {
-"ok": true,
-"lat": -30.52,
-"lon": 150.3,
-"how": "checked",
-"km": 18
+"ok": false,
+"why": "no clear picture"
 },
 "narrabri": {
-"ok": true,
-"lat": -30.45,
-"lon": 149.83,
-"how": "checked",
-"km": 10
+"ok": false,
+"why": "no clear picture"
 },
 "tarrawonga": {
 "ok": true,
@@ -1127,18 +1100,12 @@
 "km": 5.2
 },
 "endeavor": {
-"ok": true,
-"lat": -31.37,
-"lon": 145.77,
-"how": "checked",
-"km": 10
+"ok": false,
+"why": "no clear picture"
 },
 "federation": {
-"ok": true,
-"lat": -32.03,
-"lon": 145.97,
-"how": "checked",
-"km": 10
+"ok": false,
+"why": "no clear picture"
 },
 "woodlawn": {
 "ok": true,
@@ -1540,11 +1507,8 @@
 "km": 5.2
 },
 "onslow-iron-ken-s-bore": {
-"ok": true,
-"lat": -22.43,
-"lon": 115.53,
-"how": "checked",
-"km": 20
+"ok": false,
+"why": "no clear picture"
 },
 "yilgarn-hub-koolyanobbing": {
 "ok": true,
@@ -1767,10 +1731,7 @@
 "km": 12
 },
 "mereenie": {
-"ok": true,
-"lat": -23.9,
-"lon": 131.6,
-"how": "checked",
-"km": 20
+"ok": false,
+"why": "no clear picture"
 }
 }
