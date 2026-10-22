@@ -91,7 +91,16 @@ def picture(lat, lon, half_w_km):
         return None
     return im
 
+FIX = json.load(open(os.path.join(os.path.dirname(__file__), "site_fix.json")))
 def one(m):
+    f = FIX.get(m["k"])
+    if f:   # checked by hand: exact spot and picture width
+        lat, lon = (m["lat"], m["lon"]) if f.get("use") == "map" else (f["lat"], f["lon"])
+        im = picture(lat, lon, f["km"] / 2)
+        if im is None:
+            return {"ok": False, "why": "blank"}
+        im.save(os.path.join(OUT, m["k"] + ".jpg"), quality=80, optimize=True, progressive=True)
+        return {"ok": True, "lat": round(lat, 5), "lon": round(lon, 5), "how": "checked", "km": f["km"]}
     coarse = len(str(m["lat"]).split(".")[-1]) <= 1 or len(str(m["lon"]).split(".")[-1]) <= 1
     hit = locate(m) if m["e"] != "oil" else None
     lat, lon, how = (hit[0], hit[1], hit[2]) if hit else (m["lat"], m["lon"], "map")

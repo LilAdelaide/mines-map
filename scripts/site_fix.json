@@ -1,0 +1,86 @@
+{
+ "boddington": {
+  "use": "map",
+  "km": 5.2
+ },
+ "ernest-henry": {
+  "use": "map",
+  "km": 5.2
+ },
+ "thunderbox": {
+  "lat": -28.1811,
+  "lon": 121.0,
+  "km": 8
+ },
+ "deflector": {
+  "lat": -28.6669,
+  "lon": 116.3794,
+  "km": 5.2
+ },
+ "cracow": {
+  "lat": -25.2917,
+  "lon": 150.2847,
+  "km": 6
+ },
+ "tanami-callie": {
+  "lat": -20.5285,
+  "lon": 129.9248,
+  "km": 6
+ },
+ "karlawinda-bibra": {
+  "use": "map",
+  "km": 24
+ },
+ "penny": {
+  "use": "map",
+  "km": 24
+ },
+ "maules-creek": {
+  "use": "map",
+  "km": 18
+ },
+ "isaac-plains": {
+  "use": "map",
+  "km": 16
+ },
+ "narrabri": {
+  "use": "map",
+  "km": 10
+ },
+ "mereenie": {
+  "use": "map",
+  "km": 20
+ },
+ "onslow-iron-ken-s-bore": {
+  "use": "map",
+  "km": 20
+ },
+ "honeymoon": {
+  "use": "map",
+  "km": 14
+ },
+ "endeavor": {
+  "use": "map",
+  "km": 10
+ },
+ "federation": {
+  "use": "map",
+  "km": 10
+ },
+ "mineral-hill": {
+  "use": "map",
+  "km": 12
+ },
+ "a1-gold-mine": {
+  "use": "map",
+  "km": 8
+ },
+ "hill-end-reward": {
+  "use": "map",
+  "km": 8
+ },
+ "mt-monger-daisy-milano": {
+  "use": "map",
+  "km": 16
+ }
+}
