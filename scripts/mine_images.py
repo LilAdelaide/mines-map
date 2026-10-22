@@ -15,26 +15,17 @@ STOP = {"mine", "mines", "project", "projects", "gold", "operations", "incl", "a
 def words(n):
     return [w for w in re.findall(r"[a-z]{4,}", n.lower()) if w not in STOP]
 
-_OSM = None
-def osm_all():
-    """One Overpass request for every mapped pit / mine feature in Australia (much faster than one per mine)."""
-    global _OSM
-    if _OSM is not None:
-        return _OSM
-    q = """[out:json][timeout:600][maxsize:1073741824];
-(way["landuse"="quarry"](-44,112,-9,154); relation["landuse"="quarry"](-44,112,-9,154);
- nwr["man_made"="mineshaft"](-44,112,-9,154); nwr["industrial"="mine"](-44,112,-9,154);
- nwr["landuse"="industrial"]["name"~"[Mm]ine|[Gg]old|[Pp]it"](-44,112,-9,154););
+def osm_near(m, radius):
+    q = f"""[out:json][timeout:40];
+(way["landuse"="quarry"](around:{radius},{m['lat']},{m['lon']}); relation["landuse"="quarry"](around:{radius},{m['lat']},{m['lon']});
+ nwr["industrial"="mine"](around:{radius},{m['lat']},{m['lon']}); nwr["man_made"="mineshaft"]["name"](around:{radius},{m['lat']},{m['lon']}););
 out center tags bb;"""
     for url in OVERPASS:
         try:
-            _OSM = get(url, as_json=True, timeout=700, tries=2, data=urllib.parse.urlencode({"data": q}).encode())["elements"]
-            print("OSM features", len(_OSM), flush=True)
-            return _OSM
+            return get(url, timeout=60, tries=1, data=urllib.parse.urlencode({"data": q}).encode())["elements"]
         except Exception as e:
-            print("overpass failed", url, e, flush=True)
-    _OSM = []
-    return _OSM
+            print("overpass", m["k"], e, flush=True); time.sleep(2)
+    return []
 
 def dist(a, b, c, d):
     return math.hypot((a - c) * 111, (b - d) * 111 * math.cos(math.radians(a)))
@@ -42,7 +33,7 @@ def dist(a, b, c, d):
 def locate(m, radius):
     W = words(m["n"])
     best = None
-    for e in osm_all():
+    for e in osm_near(m, radius):
         c = e.get("center") or ({"lat": e["lat"], "lon": e["lon"]} if "lat" in e else None)
         if not c or dist(c["lat"], c["lon"], m["lat"], m["lon"]) > radius / 1000:
             continue
@@ -81,7 +72,7 @@ def picture(lat, lon, half_w_km):
 
 def one(m):
     coarse = len(str(m["lat"]).split(".")[-1]) <= 1 or len(str(m["lon"]).split(".")[-1]) <= 1
-    hit = None if m["e"] == "oil" else locate(m, 15000 if coarse else 6000)
+    hit = locate(m, 15000) if coarse and m["e"] != "oil" else None
     lat, lon, how = (hit[0], hit[1], hit[2]) if hit else (m["lat"], m["lon"], "map")
     half = 2.6
     if hit and hit[3]:
@@ -105,14 +96,13 @@ if __name__ == "__main__":
         pass
     only = set(sys.argv[1:])
     todo = [m for m in MINES if (m["k"] in only) if only] or [m for m in MINES if not (idx.get(m["k"], {}).get("ok") and os.path.exists(os.path.join(OUT, m["k"] + ".jpg")))]
-    osm_all()
     log = []
     def run(m):
         try:
             return m, one(m)
         except Exception as e:
             return m, {"ok": False, "why": str(e)[:120]}
-    with ThreadPoolExecutor(6) as ex:
+    with ThreadPoolExecutor(2) as ex:
         for i, (m, r) in enumerate(ex.map(run, todo)):
             idx[m["k"]] = r
             log.append(f'{m["k"]}\t{r.get("how", r.get("why"))}\t{r.get("km", "")}')
