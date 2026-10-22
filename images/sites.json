@@ -1747,5 +1747,9 @@
 "lon": 127.0595,
 "how": "map",
 "km": 5.2
+},
+"shoobridge-gold-project": {
+"ok": false,
+"why": "blank"
 }
 }

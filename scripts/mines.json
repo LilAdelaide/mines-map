@@ -2320,5 +2320,14 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration"
+},
+{
+"k": "shoobridge-gold-project",
+"n": "Shoobridge Gold Project",
+"lat": -24.4818,
+"lon": 152.1688,
+"e": "gold",
+"s": "D",
+"ty": "Exploration"
 }
 ]
