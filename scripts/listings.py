@@ -86,7 +86,9 @@ def profile(c, item):
         return None
     loc, near, proj = None, None, None
     dbg = {"docs": [], "near": [], "oz": 0, "abroad": 0}
-    for a in [a for a in anns if DOCS.search(a.get("headline", "")) and a.get("documentKey")][:3]:
+    picks = [a for a in anns if DOCS.search(a.get("headline", "")) and a.get("documentKey")][:3]
+    picks += [a for a in anns if a.get("isPriceSensitive") and a.get("documentKey") and a not in picks][:4 - len(picks)]
+    for a in picks:
         try:
             txt = pdf_text(a["documentKey"])
             dbg["docs"].append([a.get("headline", "")[:50], len(txt)])

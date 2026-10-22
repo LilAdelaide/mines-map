@@ -52,12 +52,12 @@ jobs:
       - if: steps.pick.outputs.stats == 'true'
         run: python scripts/stats.py
       - if: steps.pick.outputs.costs == 'true'
-        run: pip install -q pypdf && python scripts/costs.py
+        run: pip install -q pypdf cryptography && python scripts/costs.py
       - if: steps.pick.outputs.listings == 'true'
         name: New ASX listings
         env: { GH_TOKEN: "${{ github.token }}" }
         run: |
-          pip install -q pillow pypdf
+          pip install -q pillow pypdf cryptography
           python scripts/listings.py
           python scripts/merge_new.py
           python scripts/mine_images.py || true
