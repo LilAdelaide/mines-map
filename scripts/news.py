@@ -18,12 +18,13 @@ EL = {
  "uranium": "ASX uranium Paladin OR \"Boss Energy\" OR \"Deep Yellow\" OR Bannerman",
  "copper": "ASX copper Sandfire OR 29Metals OR \"AIC Mines\"",
  "silver": "ASX silver stocks",
+ "lithium": "ASX lithium PLS OR Liontown OR \"Mineral Resources\" OR IGO OR \"Core Lithium\" OR spodumene",
  "tungsten": "ASX tungsten",
  "salt": "\"BCI Minerals\" Mardie",
  "diamonds": "Australia diamond mine",
 }
 DRV = {"gold": "gold price", "iron": "iron ore price", "oil": "oil price Brent", "coal": "coal price Newcastle",
-       "uranium": "uranium price", "copper": "copper price", "silver": "silver price"}
+       "uranium": "uranium price", "lithium": "lithium price spodumene", "copper": "copper price", "silver": "silver price"}
 UP = re.compile(r"\b(rise|rises|rising|rose|jump|jumps|surge|surges|soar|soars|gain|gains|climb|climbs|rall(y|ies)|record high|higher|up|boost|strong)\b", re.I)
 DOWN = re.compile(r"\b(fall|falls|fell|drop|drops|slump|slumps|slide|slides|sink|sinks|plunge|plunges|lower|down|low|lows|weak|weaker|tumble|tumbles|decline|declines)\b", re.I)
 

@@ -2322,5 +2322,131 @@
 "s": "D",
 "ty": "Exploration",
 "auto": true
+},
+{
+"k": "greenbushes",
+"n": "Greenbushes",
+"lat": -33.86,
+"lon": 116.07,
+"e": "lithium",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "pilgangoora",
+"n": "Pilgangoora",
+"lat": -21.04,
+"lon": 118.9,
+"e": "lithium",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "ngungaju",
+"n": "Ngungaju",
+"lat": -21.06,
+"lon": 118.86,
+"e": "lithium",
+"s": "P",
+"ty": "Open pit (shared) + plant"
+},
+{
+"k": "wodgina",
+"n": "Wodgina",
+"lat": -21.19,
+"lon": 118.67,
+"e": "lithium",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "mt-marion",
+"n": "Mt Marion",
+"lat": -31.07,
+"lon": 121.41,
+"e": "lithium",
+"s": "P",
+"ty": "Open pit → underground"
+},
+{
+"k": "bald-hill",
+"n": "Bald Hill",
+"lat": -31.53,
+"lon": 122.08,
+"e": "lithium",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "mt-holland-earl-grey",
+"n": "Mt Holland (Earl Grey)",
+"lat": -32.12,
+"lon": 119.76,
+"e": "lithium",
+"s": "P",
+"ty": "Open pit"
+},
+{
+"k": "kathleen-valley",
+"n": "Kathleen Valley",
+"lat": -27.47,
+"lon": 120.57,
+"e": "lithium",
+"s": "P",
+"ty": "Underground (from open pit)"
+},
+{
+"k": "finniss",
+"n": "Finniss",
+"lat": -12.84,
+"lon": 130.66,
+"e": "lithium",
+"s": "P",
+"ty": "Open pit → underground"
+},
+{
+"k": "mt-cattlin",
+"n": "Mt Cattlin",
+"lat": -33.56,
+"lon": 120.04,
+"e": "lithium",
+"s": "C",
+"ty": "Open pit"
+},
+{
+"k": "tabba-tabba",
+"n": "Tabba Tabba",
+"lat": -20.78,
+"lon": 118.95,
+"e": "lithium",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "yinnetharra",
+"n": "Yinnetharra",
+"lat": -24.7,
+"lon": 116.15,
+"e": "lithium",
+"s": "D",
+"ty": "—"
+},
+{
+"k": "manna",
+"n": "Manna",
+"lat": -30.73,
+"lon": 122.6,
+"e": "lithium",
+"s": "D",
+"ty": "Open pit (planned)"
+},
+{
+"k": "marble-bar-lithium",
+"n": "Marble Bar lithium",
+"lat": -21.17,
+"lon": 119.8,
+"e": "lithium",
+"s": "D",
+"ty": "—"
 }
 ]
