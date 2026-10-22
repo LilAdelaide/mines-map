@@ -85,11 +85,16 @@ def profile(c, item):
     if not el:
         return None
     loc, near, proj = None, None, None
+    dbg = {"docs": [], "near": [], "oz": 0, "abroad": 0}
     for a in [a for a in anns if DOCS.search(a.get("headline", "")) and a.get("documentKey")][:3]:
         try:
             txt = pdf_text(a["documentKey"])
-        except Exception:
+            dbg["docs"].append([a.get("headline", "")[:50], len(txt)])
+        except Exception as e:
+            dbg["docs"].append([a.get("headline", "")[:50], "ERR " + str(e)[:60]])
             continue
+        dbg["near"] += [m.group(0)[:70] for m in NEAR.finditer(txt)][:3]
+        dbg["oz"] += sum(len(rx.findall(txt)) for rx in STATE_RX.values()) + txt.count("Australia"); dbg["abroad"] += len(ABROAD.findall(txt))
         el = element_of(f"{item.get('displayName','')} {desc} {heads} {txt[:20000]}") or el
         r = place_from_text(txt)
         if r:
@@ -102,7 +107,7 @@ def profile(c, item):
             "site": about.get("websiteUrl") or "", "price": hdr.get("priceLast"), "mcap": hdr.get("marketCap") or 0,
             "directors": [d.get("name") for d in (about.get("directors") or [])][:4],
             "project": proj, "near": near, "lat": loc[0] if loc else None, "lon": loc[1] if loc else None, "st": loc[2] if loc else None,
-            "added": now_iso()[:10]}
+            "added": now_iso()[:10], "dbg": dbg}
 
 if __name__ == "__main__":
     known = set(CODES)
