@@ -15,9 +15,9 @@
 },
 "boddington": {
 "ok": true,
-"lat": -32.77804,
-"lon": 116.3126,
-"how": "wikidata",
+"lat": -32.75,
+"lon": 116.37,
+"how": "checked",
 "km": 5.2
 },
 "mt-charlotte": {
@@ -78,10 +78,10 @@
 },
 "mt-monger-daisy-milano": {
 "ok": true,
-"lat": -31.0,
-"lon": 121.917,
-"how": "wikidata",
-"km": 5.2
+"lat": -30.95,
+"lon": 121.96,
+"how": "checked",
+"km": 16
 },
 "bullabulling": {
 "ok": true,
@@ -232,10 +232,10 @@
 },
 "thunderbox": {
 "ok": true,
-"lat": -27.53,
-"lon": 120.6,
-"how": "map",
-"km": 12
+"lat": -28.1811,
+"lon": 121.0,
+"how": "checked",
+"km": 8
 },
 "jundee": {
 "ok": true,
@@ -283,8 +283,8 @@
 "ok": true,
 "lat": -28.45,
 "lon": 119.7,
-"how": "map",
-"km": 12
+"how": "checked",
+"km": 24
 },
 "cue-break-of-day-lena": {
 "ok": true,
@@ -344,9 +344,9 @@
 },
 "deflector": {
 "ok": true,
-"lat": -28.66,
-"lon": 115.97,
-"how": "map",
+"lat": -28.6669,
+"lon": 116.3794,
+"how": "checked",
 "km": 5.2
 },
 "mt-gibson": {
@@ -360,8 +360,8 @@
 "ok": true,
 "lat": -23.95,
 "lon": 120.1,
-"how": "map",
-"km": 12
+"how": "checked",
+"km": 24
 },
 "hemi": {
 "ok": true,
@@ -407,10 +407,10 @@
 },
 "tanami-callie": {
 "ok": true,
-"lat": -20.6,
-"lon": 130.35,
-"how": "map",
-"km": 12
+"lat": -20.5285,
+"lon": 129.9248,
+"how": "checked",
+"km": 6
 },
 "olympic-dam": {
 "ok": true,
@@ -449,9 +449,9 @@
 },
 "ernest-henry": {
 "ok": true,
-"lat": -20.585,
-"lon": 140.62278,
-"how": "wikidata",
+"lat": -20.44,
+"lon": 140.7,
+"how": "checked",
 "km": 5.2
 },
 "mt-rawdon": {
@@ -463,10 +463,10 @@
 },
 "cracow": {
 "ok": true,
-"lat": -25.3,
-"lon": 150.31,
-"how": "map",
-"km": 12
+"lat": -25.2917,
+"lon": 150.2847,
+"how": "checked",
+"km": 6
 },
 "charters-towers": {
 "ok": true,
@@ -535,7 +535,7 @@
 "ok": true,
 "lat": -32.6,
 "lon": 147.37,
-"how": "map",
+"how": "checked",
 "km": 12
 },
 "costerfield": {
@@ -605,8 +605,8 @@
 "ok": true,
 "lat": -37.56,
 "lon": 146.25,
-"how": "map",
-"km": 5.2
+"how": "checked",
+"km": 8
 },
 "mt-york": {
 "ok": true,
@@ -745,8 +745,8 @@
 "ok": true,
 "lat": -33.03,
 "lon": 149.42,
-"how": "map",
-"km": 5.2
+"how": "checked",
+"km": 8
 },
 "trouser-legs": {
 "ok": true,
@@ -822,8 +822,8 @@
 "ok": true,
 "lat": -32.1,
 "lon": 140.66,
-"how": "map",
-"km": 12
+"how": "checked",
+"km": 14
 },
 "ranger": {
 "ok": true,
@@ -969,15 +969,15 @@
 "ok": true,
 "lat": -30.52,
 "lon": 150.3,
-"how": "map",
-"km": 12
+"how": "checked",
+"km": 18
 },
 "narrabri": {
 "ok": true,
 "lat": -30.45,
 "lon": 149.83,
-"how": "map",
-"km": 5.2
+"how": "checked",
+"km": 10
 },
 "tarrawonga": {
 "ok": true,
@@ -1011,8 +1011,8 @@
 "ok": true,
 "lat": -22.05,
 "lon": 148.08,
-"how": "map",
-"km": 5.2
+"how": "checked",
+"km": 16
 },
 "curragh": {
 "ok": true,
@@ -1130,15 +1130,15 @@
 "ok": true,
 "lat": -31.37,
 "lon": 145.77,
-"how": "map",
-"km": 5.2
+"how": "checked",
+"km": 10
 },
 "federation": {
 "ok": true,
 "lat": -32.03,
 "lon": 145.97,
-"how": "map",
-"km": 5.2
+"how": "checked",
+"km": 10
 },
 "woodlawn": {
 "ok": true,
@@ -1543,8 +1543,8 @@
 "ok": true,
 "lat": -22.43,
 "lon": 115.53,
-"how": "map",
-"km": 5.2
+"how": "checked",
+"km": 20
 },
 "yilgarn-hub-koolyanobbing": {
 "ok": true,
@@ -1770,7 +1770,7 @@
 "ok": true,
 "lat": -23.9,
 "lon": 131.6,
-"how": "map",
-"km": 12
+"how": "checked",
+"km": 20
 }
 }
