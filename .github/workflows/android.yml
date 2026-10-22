@@ -31,8 +31,8 @@ jobs:
            "android":{"backgroundColor":"#0b0e10"}}
           JSON
           npx cap add android
-          mkdir -p assets && cp ../icons/icon-1024.png assets/icon-only.png && cp ../icons/icon-1024.png assets/icon-foreground.png
-          npx @capacitor/assets generate --android --iconBackgroundColor "#111417" --splashBackgroundColor "#0b0e10" || true
+          mkdir -p assets && cp ../icons/icon-1024.png assets/icon-only.png && cp ../icons/icon-1024.png assets/icon-foreground.png && cp ../icons/icon-bg-1024.png assets/icon-background.png
+          npx @capacitor/assets generate --android --splashBackgroundColor "#0b0e10" --splashBackgroundColorDark "#0b0e10"
           npx cap sync android
       - name: Build APK
         run: |
