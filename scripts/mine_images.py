@@ -41,7 +41,7 @@ def nominatim(m):
     q = " ".join(W[:2])
     lat, lon = m["lat"], m["lon"]
     url = ("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=10&countrycodes=au&bounded=1"
-           f"&viewbox={lon-0.4},{lat+0.3},{lon+0.4},{lat-0.3}&q=" + urllib.parse.quote(q))
+           f"&viewbox={lon-0.8},{lat+0.6},{lon+0.8},{lat-0.6}&q=" + urllib.parse.quote(q))
     time.sleep(1.1)   # Nominatim fair-use: 1 request a second
     try:
         return get(url, timeout=30, tries=2)
@@ -50,6 +50,25 @@ def nominatim(m):
 
 def dist(a, b, c, d):
     return math.hypot((a - c) * 111, (b - d) * 111 * math.cos(math.radians(a)))
+
+def wikipedia(m):
+    """Wikipedia articles with coordinates whose title names the mine (free API)."""
+    W = words(m["n"]); out = []
+    if not W:
+        return out
+    for q in [f'{m["n"]} mine', m["n"], f"{W[0]} mine Australia"]:
+        try:
+            r = get("https://en.wikipedia.org/w/api.php?action=query&format=json&generator=search&gsrlimit=6&prop=coordinates&gsrsearch=" + urllib.parse.quote(q), timeout=30, tries=2)
+        except Exception:
+            continue
+        for pg in (r.get("query", {}).get("pages", {}) or {}).values():
+            co = (pg.get("coordinates") or [None])[0]
+            if co and any(w in pg.get("title", "").lower() for w in W):
+                out.append((pg["title"].lower(), co["lat"], co["lon"]))
+        if out:
+            break
+        time.sleep(0.5)
+    return out
 
 MINE_KIND = {("landuse", "quarry"), ("industrial", "mine"), ("man_made", "mineshaft"), ("landuse", "industrial"), ("man_made", "adit"), ("historic", "mine")}
 def locate(m):
@@ -60,10 +79,15 @@ def locate(m):
         if d < 30 and W and any(w in name for w in W):
             best = (3 - d / 100, lat, lon, None, "wikidata")
             break
+    if best is None:
+        for name, lat, lon in wikipedia(m):
+            d = dist(lat, lon, m["lat"], m["lon"])
+            if d < 60:
+                best = (2.5 - d / 100, lat, lon, None, "wikipedia"); break
     for r in nominatim(m):
         lat, lon = float(r["lat"]), float(r["lon"]); d = dist(lat, lon, m["lat"], m["lon"])
         kind = (r.get("category") or r.get("class"), r.get("type"))
-        if d > 30 or kind not in MINE_KIND:
+        if d > 60 or kind not in MINE_KIND:
             continue
         bb = r.get("boundingbox")
         b = {"minlat": float(bb[0]), "maxlat": float(bb[1]), "minlon": float(bb[2]), "maxlon": float(bb[3])} if bb else None
@@ -102,7 +126,9 @@ def one(m):
         if im is None:
             return {"ok": False, "why": "blank"}
         im.save(os.path.join(OUT, m["k"] + ".jpg"), quality=80, optimize=True, progressive=True)
-        return {"ok": True, "lat": round(lat, 5), "lon": round(lon, 5), "how": "checked", "km": f["km"]}
+        r = {"ok": True, "lat": round(lat, 5), "lon": round(lon, 5), "how": "checked", "km": f["km"]}
+        if f.get("note"): r["note"] = f["note"]
+        return r
     coarse = len(str(m["lat"]).split(".")[-1]) <= 1 or len(str(m["lon"]).split(".")[-1]) <= 1
     hit = locate(m) if m["e"] != "oil" else None
     lat, lon, how = (hit[0], hit[1], hit[2]) if hit else (m["lat"], m["lon"], "map")

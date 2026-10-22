@@ -27,47 +27,26 @@
   "lon": 129.9248,
   "km": 6
  },
- "karlawinda-bibra": {
-  "hide": true
- },
- "penny": {
-  "hide": true
- },
- "maules-creek": {
-  "hide": true
- },
  "isaac-plains": {
   "use": "map",
   "km": 16
  },
- "narrabri": {
-  "hide": true
+ "barossa-darwin-lng": {
+  "lat": -12.535,
+  "lon": 130.875,
+  "km": 6,
+  "note": "Darwin LNG plant (onshore)"
  },
- "mereenie": {
-  "hide": true
+ "bass-strait-gippsland": {
+  "lat": -38.215,
+  "lon": 147.168,
+  "km": 6,
+  "note": "Longford gas plants (onshore)"
  },
- "onslow-iron-ken-s-bore": {
-  "hide": true
- },
- "honeymoon": {
-  "hide": true
- },
- "endeavor": {
-  "hide": true
- },
- "federation": {
-  "hide": true
- },
- "mineral-hill": {
-  "hide": true
- },
- "a1-gold-mine": {
-  "hide": true
- },
- "hill-end-reward": {
-  "hide": true
- },
- "mt-monger-daisy-milano": {
-  "hide": true
+ "macedon": {
+  "lat": -21.73,
+  "lon": 114.97,
+  "km": 10,
+  "note": "Macedon gas plant area (onshore)"
  }
 }
