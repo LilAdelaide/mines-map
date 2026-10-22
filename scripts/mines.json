@@ -2311,5 +2311,14 @@
 "e": "uranium",
 "s": "D",
 "ty": "Exploration"
+},
+{
+"k": "huckitta-project",
+"n": "Huckitta Project",
+"lat": -16.8693,
+"lon": 127.0595,
+"e": "gold",
+"s": "D",
+"ty": "Exploration"
 }
 ]
