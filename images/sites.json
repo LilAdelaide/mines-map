@@ -355,10 +355,10 @@
 },
 "karlawinda-bibra": {
 "ok": true,
-"lat": -23.95,
-"lon": 120.1,
-"how": "map",
-"km": 12
+"lat": -23.77,
+"lon": 120.12,
+"how": "checked",
+"km": 14
 },
 "hemi": {
 "ok": true,
@@ -432,10 +432,10 @@
 },
 "challenger": {
 "ok": true,
-"lat": -29.98,
-"lon": 134.32,
-"how": "map",
-"km": 5.2
+"lat": -29.8781,
+"lon": 133.5878,
+"how": "checked",
+"km": 6
 },
 "tunkillia": {
 "ok": true,
@@ -530,10 +530,10 @@
 },
 "mineral-hill": {
 "ok": true,
-"lat": -32.6,
-"lon": 147.37,
-"how": "map",
-"km": 12
+"lat": -32.5789,
+"lon": 146.9892,
+"how": "checked",
+"km": 6
 },
 "costerfield": {
 "ok": true,
@@ -600,10 +600,10 @@
 },
 "a1-gold-mine": {
 "ok": true,
-"lat": -37.56,
-"lon": 146.25,
-"how": "map",
-"km": 5.2
+"lat": -37.5,
+"lon": 146.2,
+"how": "checked",
+"km": 8
 },
 "mt-york": {
 "ok": true,
@@ -964,17 +964,17 @@
 },
 "maules-creek": {
 "ok": true,
-"lat": -30.52,
-"lon": 150.3,
-"how": "map",
-"km": 12
+"lat": -30.47,
+"lon": 150.11,
+"how": "checked",
+"km": 10
 },
 "narrabri": {
 "ok": true,
-"lat": -30.31667,
-"lon": 149.76667,
-"how": "wikipedia",
-"km": 5.2
+"lat": -30.46,
+"lon": 149.93,
+"how": "checked",
+"km": 10
 },
 "tarrawonga": {
 "ok": true,
@@ -1055,9 +1055,9 @@
 },
 "hunter-valley-operations": {
 "ok": true,
-"lat": -32.56,
-"lon": 151.17083,
-"how": "wikipedia",
+"lat": -32.48,
+"lon": 151.0,
+"how": "checked",
 "km": 5.2
 },
 "ashton": {
@@ -1199,10 +1199,10 @@
 },
 "capricorn-copper": {
 "ok": true,
-"lat": -19.55,
-"lon": 139.33,
-"how": "map",
-"km": 5.2
+"lat": -19.7028,
+"lon": 139.3689,
+"how": "checked",
+"km": 8
 },
 "nifty": {
 "ok": true,
@@ -1273,17 +1273,17 @@
 },
 "ellendale": {
 "ok": true,
-"lat": -17.92,
-"lon": 124.85,
-"how": "map",
-"km": 5.2
+"lat": -17.4392,
+"lon": 124.6453,
+"how": "checked",
+"km": 10
 },
 "merlin": {
 "ok": true,
-"lat": -16.38,
-"lon": 136.03,
-"how": "map",
-"km": 5.2
+"lat": -16.85,
+"lon": 136.34,
+"how": "checked",
+"km": 8
 },
 "mt-carbine": {
 "ok": true,
@@ -1613,17 +1613,18 @@
 },
 "pluto-lng": {
 "ok": true,
-"lat": -20.62,
-"lon": 116.82,
-"how": "map",
+"lat": -20.6101,
+"lon": 116.7755,
+"how": "checked",
 "km": 5.2
 },
 "scarborough": {
 "ok": true,
-"lat": -19.9,
-"lon": 113.2,
-"how": "map",
-"km": 12
+"lat": -20.6101,
+"lon": 116.7755,
+"how": "checked",
+"km": 5.2,
+"note": "Pluto LNG plant it will feed (onshore)"
 },
 "pyrenees": {
 "ok": false,
@@ -1639,10 +1640,11 @@
 },
 "browse-torosa-brecknock": {
 "ok": true,
-"lat": -14.0,
-"lon": 121.8,
-"how": "map",
-"km": 12
+"lat": -20.6,
+"lon": 116.78,
+"how": "checked",
+"km": 8,
+"note": "Karratha gas plant area it would feed (onshore)"
 },
 "wheatstone-lng": {
 "ok": true,
@@ -1694,9 +1696,9 @@
 },
 "otway-gas-plant": {
 "ok": true,
-"lat": -38.4,
-"lon": 142.9,
-"how": "map",
+"lat": -38.58,
+"lon": 143.03,
+"how": "checked",
 "km": 12
 },
 "walyering": {
@@ -1762,9 +1764,9 @@
 },
 "mereenie": {
 "ok": true,
-"lat": -23.9,
-"lon": 131.6,
-"how": "map",
+"lat": -23.8943,
+"lon": 131.826,
+"how": "checked",
 "km": 12
 },
 "shoobridge-gold-project": {
@@ -1832,9 +1834,9 @@
 },
 "kathleen-valley": {
 "ok": true,
-"lat": -27.509,
-"lon": 120.564,
-"how": "wikipedia",
+"lat": -27.47,
+"lon": 120.57,
+"how": "checked",
 "km": 5.2
 },
 "finniss": {
