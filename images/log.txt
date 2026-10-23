@@ -1,27 +1,2 @@
-2026-10-22T18:48:02+08:00
-thunderbox	checked	8
-deflector	checked	5.2
-karlawinda-bibra	checked	14
-boddington	checked	5.2
-tanami-callie	checked	6
-challenger	checked	6
-ernest-henry	checked	5.2
-cracow	checked	6
-mineral-hill	checked	6
-a1-gold-mine	checked	8
-maules-creek	checked	10
-narrabri	checked	10
-isaac-plains	checked	16
-hunter-valley-operations	checked	5.2
-capricorn-copper	checked	8
-ellendale	checked	10
-merlin	checked	8
-pluto-lng	checked	5.2
-scarborough	checked	5.2
-macedon	checked	10
-browse-torosa-brecknock	checked	8
-barossa-darwin-lng	checked	6
-otway-gas-plant	checked	12
-bass-strait-gippsland	checked	6
-mereenie	checked	12
-kathleen-valley	checked	5.2
+2026-10-23T17:10:32+08:00
+
