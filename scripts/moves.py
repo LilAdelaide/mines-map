@@ -222,15 +222,20 @@ if __name__ == "__main__":
                   "w": W, "big": big, "dv": [x for x in s["dv"] if x[0] >= days[max(0, len(days) - 250)]]}
     # news for big days with no announcement (most recent / largest first, capped to stay polite)
     need_news.sort(key=lambda t: (-abs(t[1][1]) * (2 if t[1][0] >= (datetime.now(SYD).date() - timedelta(days=95)).isoformat() else 1)))
-    need_news = need_news[:160]
-    def one(i):
-        c, r = need_news[i]
-        return gnews(INFO[c]["n"], r[0])
-    got = pmap(one, list(range(len(need_news))), workers=4)
-    for i, (c, r) in enumerate(need_news):
-        n = got.get(i) or []
+    cache = load("movenews", {}) or {}
+    todo = [t for t in need_news if f"{t[0]}|{t[1][0]}" not in cache][:160]
+    got = pmap(lambda i: gnews(INFO[todo[i][0]]["n"], todo[i][1][0]), list(range(len(todo))), workers=4)
+    for i, t in enumerate(todo):
+        if i in got:   # failed lookups are retried next run
+            cache[f"{t[0]}|{t[1][0]}"] = got[i][0][:3] if got[i] else []
+    cut = (datetime.now(SYD).date() - timedelta(days=400)).isoformat()
+    cache = {k: v for k, v in cache.items() if k.split("|")[1] >= cut}
+    save("movenews", cache)
+    for c, r in need_news:
+        n = cache.get(f"{c}|{r[0]}")
         if n:
-            r += ["n", n[0][0][:160], n[0][1], n[0][2]]
-    print(f"::notice::moves for {len(out)} companies; news looked up for {len(need_news)} big days, found {sum(1 for v in got.values() if v)}")
+            r += ["n", n[0][:160], n[1], n[2]]
+    got = {i: 1 for i, t in enumerate(need_news) if cache.get(f"{t[0]}|{t[1][0]}")}
+    print(f"::notice::moves for {len(out)} companies; news looked up for {len(todo)} new big days, {len(need_news)} need news, found {sum(1 for v in got.values() if v)}")
     if len(out) >= 40:
         save("moves", {"asof": now_iso(), "src": "Yahoo Finance daily prices, ASX announcements, Google News (all free)", "m": out})
