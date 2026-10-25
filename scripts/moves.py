@@ -229,13 +229,49 @@ if __name__ == "__main__":
         if i in got:   # failed lookups are retried next run
             cache[f"{t[0]}|{t[1][0]}"] = got[i][0][:3] if got[i] else []
     cut = (datetime.now(SYD).date() - timedelta(days=400)).isoformat()
-    cache = {k: v for k, v in cache.items() if k.split("|")[1] >= cut}
+    cache = {k: v for k, v in cache.items() if k.startswith("R|") or k.split("|")[1] >= cut}
     save("movenews", cache)
     for c, r in need_news:
         n = cache.get(f"{c}|{r[0]}")
         if n:
             r += ["n", n[0][:160], n[1], n[2]]
     got = {i: 1 for i, t in enumerate(need_news) if cache.get(f"{t[0]}|{t[1][0]}")}
+    # ---- the single most likely headline behind each stock's move
+    def gnews_range(name, d0, d1, up):
+        words = "(rise OR rises OR jumps OR surges OR soars OR rally OR higher)" if up else "(fall OR falls OR drops OR slumps OR plunges OR tumbles OR lower)"
+        q = f'"{name}" shares {words} after:{d0} before:{d1}'
+        x = get("https://news.google.com/rss/search?" + urllib.parse.urlencode({"q": q, "hl": "en-AU", "gl": "AU", "ceid": "AU:en"}), as_json=False).decode("utf8", "ignore")
+        for it in re.findall(r"<item>(.*?)</item>", x, re.S)[:1]:
+            t = re.search(r"<title>(.*?)</title>", it, re.S); u = re.search(r"<link>(.*?)</link>", it, re.S); sr = re.search(r"<source[^>]*>(.*?)</source>", it, re.S); pd = re.search(r"<pubDate>(.*?)</pubDate>", it, re.S)
+            if t and u:
+                h = html.unescape(re.sub(r"<!\[CDATA\[|\]\]>", "", t.group(1))).strip(); src = html.unescape(sr.group(1)).strip() if sr else ""
+                if src and h.endswith(" - " + src): h = h[: -len(src) - 3]
+                dd = ""
+                try: dd = datetime.strptime(pd.group(1).strip()[:16], "%a, %d %b %Y").date().isoformat()
+                except Exception: pass
+                return [h[:180], src, u.group(1).strip(), dd]
+        return None
+    look = []
+    for c, x in out.items():
+        w = "HI" if "HI" in x["w"] and abs(x["w"]["HI"][2]) >= 12 else "LO" if "LO" in x["w"] and abs(x["w"]["LO"][2]) >= 12 else "3M"
+        d0, p0, pct = x["w"][w][:3]; up = pct >= 0
+        x["hw"] = w
+        cands = [r for r in x["big"] if r[0] > d0 and (r[1] >= 0) == up and len(r) > 3 and r[3] in ("a", "n")]
+        if cands:
+            r = max(cands, key=lambda r: abs(r[1]))
+            x["hl"] = [r[6], "ASX announcement", "https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/" + urllib.parse.quote(r[7]), r[0], r[1]] if r[3] == "a" else [r[4], r[5], r[6], r[0], r[1]]
+        else:
+            look.append((c, d0, x["d"], up))
+    todo2 = [t for t in look if f"R|{t[0]}|{t[1]}|{int(t[3])}" not in cache]
+    got2 = pmap(lambda i: gnews_range(INFO[todo2[i][0]]["n"], todo2[i][1], (Date.fromisoformat(todo2[i][2]) + timedelta(days=1)).isoformat(), todo2[i][3]) or [], list(range(len(todo2))), workers=4)
+    for i, t in enumerate(todo2):
+        if got2.get(i): cache[f"R|{t[0]}|{t[1]}|{int(t[3])}"] = got2[i]
+    for c, d0, d1, up in look:
+        h = cache.get(f"R|{c}|{d0}|{int(up)}")
+        if h: out[c]["hl"] = [h[0], h[1], h[2], h[3], None]
+    cache = {k: v for k, v in cache.items() if not k.startswith("R|") or k.split("|")[2] >= cut}
+    save("movenews", cache)
+    print(f"::notice::headlines picked for {sum(1 for x in out.values() if x.get('hl'))}/{len(out)}")
     print(f"::notice::moves for {len(out)} companies; news looked up for {len(todo)} new big days, {len(need_news)} need news, found {sum(1 for v in got.values() if v)}")
     if len(out) >= 40:
         save("moves", {"asof": now_iso(), "src": "Yahoo Finance daily prices, ASX announcements, Google News (all free)", "m": out})

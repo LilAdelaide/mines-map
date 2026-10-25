@@ -453,6 +453,8 @@ a.nhead:hover{text-decoration:underline;text-decoration-color:var(--gold)}
 .why .wbig a{color:var(--fg);text-decoration:underline;text-decoration-color:#555}.why .wbig small{color:var(--mute)}
 .why .wk{font:600 10px var(--f-body);text-transform:uppercase;letter-spacing:.04em;color:var(--gold);margin-right:2px}
 .why .wkn{color:var(--mute)}
+.why .whl{display:block;color:var(--fg);font:600 14px/1.35 var(--f-body);text-decoration:none;margin-top:2px}.why .whl:hover{text-decoration:underline}
+.why .wmeta{font-size:11.5px;color:var(--mute);margin-top:3px}
 .why .wctx{font-size:11.5px;color:var(--mute);margin-top:8px}.why .wctx b{font-weight:600}
 .why .wmvs{display:flex;flex-wrap:wrap;gap:5px}
 .why .wmv{background:none;border:1px solid var(--border);color:var(--fg);border-radius:6px;padding:4px 8px;font:600 12px var(--f-body);cursor:pointer}
@@ -563,7 +565,7 @@ select{padding:10px 10px;font-size:14px;appearance:none;-webkit-appearance:none;
 .recs.min{flex:none;min-height:0}
 .news{flex:0 1 auto;min-height:0;display:flex;flex-direction:column}
 .news .nbody{overflow:auto;min-height:0}
-.news.why-on{flex:1 1 auto;min-height:min(380px,55%)}
+.news.why-on{flex:0 1 auto}
 .news.why-on~*{flex:none}
 .recs:has(~.news.why-on){flex:0 1 auto;min-height:150px}
 .leftcol{top:54px;left:16px;width:min(410px,calc(var(--aw,1200px) - 290px));max-width:none;height:calc(var(--ah,800px) - 70px);max-height:none;gap:10px}
@@ -2361,65 +2363,16 @@ function setWhy(c, open){
   if (open) { NTAB = "why"; if (newsEl.classList.contains("min")) setNewsMin(false); }
   if (NTAB === "why") renderNews();
 }
-function whyCauses(x, w){
-  const [d0, p0, pct, parts, dpts] = x.w[w];
-  const L = Math.log(1 + pct / 100) * 100, k = Math.abs(L) > 0.05 ? pct / L : 1;   // log points -> % points of the move
-  const C = [];
-  parts.forEach(([fm, pts], j) => { if (fm == null) return; const lab = x.f[j][1]; const isSec = j === 0;
-    C.push({pts: pts * k, k: isSec ? "sec" : "com", t: `${lab.charAt(0).toUpperCase() + lab.slice(1)} ${fm >= 0 ? "rose" : "fell"} ${Math.abs(fm).toFixed(1)}%`,
-      s: isSec ? `The whole sector moved; this stock usually moves ${x.b[j].toFixed(1)}× the sector` : `This stock usually moves ${x.b[j].toFixed(1)}× its ${lab.replace(/ \(.*\)/, "")}` }); });
-  const dv = (x.dv || []).filter(v => v[0] > d0);
-  if (dv.length && dpts) C.push({pts: dpts * k, k: "div", t: `Paid A$${dv.reduce((a, v) => a + v[1], 0).toFixed(2)} a share in dividends`, s: `The price drops by the payout on the ex-dividend date (${dv.map(v => whyD(v[0])).join(", ")})`});
-  const expl = C.reduce((a, c) => a + c.pts, 0), own = pct - expl;
-  const big = (x.big || []).filter(r => r[0] > d0).sort((a, b) => a[0] < b[0] ? 1 : -1);
-  C.push({pts: own, k: "own", t: "Company-specific news", s: big.length ? "" : "No single big-move day; a steady drift from company news or investor sentiment", big});
-  return {C: C.sort((a, b) => Math.abs(b.pts) - Math.abs(a.pts)), pct, d0, p0};
-}
-function whyBig(r){
-  const [d, ch, sec] = r, up = ch >= 0;
-  let what = "";
-  if (r[3] === "a") what = `<span class="wk">${esc(WHY_KIND[r[4]] || "Announcement")}</span> <a href="https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/${encodeURIComponent(r[7])}" target="_blank" rel="noopener noreferrer">${esc(r[6])} ↗</a>${r[8] ? ` <small>price-sensitive</small>` : ""}`;
-  else if (r[3] === "n") what = `<span class="wk">News</span> <a href="${esc(r[6])}" target="_blank" rel="noopener noreferrer">${esc(r[4])} ↗</a>${r[5] ? ` <small>${esc(r[5])}</small>` : ""}`;
-  else if (r[3] === "m") what = `<span class="wk">Market-wide</span> <span class="wkn">the whole sector ${sec >= 0 ? "rose" : "fell"} ${Math.abs(sec).toFixed(1)}% that day</span>`;
-  else what = `<span class="wkn">No ASX announcement or headline found that day</span>`;
-  const secTxt = r[3] !== "m" && Math.abs(sec) >= 1.5 ? ` <small>· sector ${sgn(sec)}% that day</small>` : "";
-  return `<li><b class="${up ? "pos" : "neg"}">${whyD(d)} · ${sgn(ch)}%</b>${secTxt}<div>${what}</div></li>`;
-}
 function renderWhy(){
   const box = document.createElement("div"); box.className = "why";
-  const head = `<form class="wq" autocomplete="off"><input type="search" placeholder="Ticker or company, e.g. BHP" aria-label="Stock to explain" value="${WHY_CO ? esc(WHY_CO) : ""}"><button type="submit">Explain</button></form>`;
-  if (!MOVES) { box.innerHTML = head + `<div class="nmsg">${window.claude ? "Price-move explanations are worked out daily in the Mines Map app (liladelaide.github.io/mines-map)." : "Loading price moves…"}</div>`; nBody.append(box); whyWire(box); return; }
-  const x = WHY_CO && MOVES.m[WHY_CO];
-  if (!x) {
-    const L = Object.entries(MOVES.m).filter(([c, v]) => COS[c] && v.w["1M"]).map(([c, v]) => [c, v.w["1M"][2]]);
-    const dn = L.filter(v => v[1] < 0).sort((a, b) => a[1] - b[1]).slice(0, 6), up = L.filter(v => v[1] > 0).sort((a, b) => b[1] - a[1]).slice(0, 6);
-    const btn = ([c, p]) => `<button type="button" class="wmv" data-c="${c}">${esc(c)} <b class="${p >= 0 ? "pos" : "neg"}">${sgn(p)}%</b></button>`;
-    box.innerHTML = head + `<div class="nmsg">${WHY_CO ? `No price history for ${esc(WHY_CO)} yet. ` : ""}Search a stock (here or in the main search) to see the most likely causes of its move.</div>
-      <div class="wsub">Biggest fallers, past month</div><div class="wmvs">${dn.map(btn).join("")}</div><div class="wsub">Biggest risers, past month</div><div class="wmvs">${up.map(btn).join("")}</div>`;
-    nBody.append(box); whyWire(box); return;
-  }
-  const W = Object.keys(WHY_WL).filter(k => x.w[k]);
-  const w = WHY_W && x.w[WHY_W] ? WHY_W : (x.w.HI && Math.abs(x.w.HI[2]) >= 12 ? "HI" : x.w.LO && Math.abs(x.w.LO[2]) >= 12 ? "LO" : "3M");
-  const R = whyCauses(x, w), dir = R.pct >= 0, name = COS[WHY_CO] ? COS[WHY_CO].name : WHY_CO;
-  const mx = Math.max(...R.C.map(c => Math.abs(c.pts)), 0.1);
-  const main = R.C.filter(c => Math.sign(c.pts) === Math.sign(R.pct) && Math.abs(c.pts) >= Math.max(0.8, Math.abs(R.pct) * 0.08));
-  const off = R.C.filter(c => Math.sign(c.pts) !== Math.sign(R.pct) && Math.abs(c.pts) >= Math.max(0.8, Math.abs(R.pct) * 0.08));
-  const item = c => `<li class="wc ${c.k}"><div class="wct"><span>${esc(c.t)}</span><b class="${c.pts >= 0 ? "pos" : "neg"}">${sgn(c.pts)} pts</b></div><div class="wbar"><i class="${c.pts >= 0 ? "pos" : "neg"}" style="width:${(Math.abs(c.pts) / mx * 100).toFixed(0)}%"></i></div>${c.s ? `<small>${esc(c.s)}</small>` : ""}${c.big && c.big.length ? `<ol class="wbig">${c.big.slice(0, 4).map(whyBig).join("")}</ol>` : ""}</li>`;
-  box.innerHTML = head + `<div class="wco"><button type="button" class="wgo" data-c="${WHY_CO}" title="Show on the map">${esc(name)} <small>ASX:${esc(WHY_CO)}</small></button></div>
-    <div class="wwin" role="tablist">${W.map(k => `<button type="button" data-w="${k}" aria-selected="${k === w}">${WHY_WL[k]}</button>`).join("")}</div>
-    <div class="wsum"><b class="${dir ? "pos" : "neg"}">${dir ? "Up" : "Down"} ${Math.abs(R.pct).toFixed(1)}%</b> ${fmtPx(R.p0)} → ${fmtPx(x.px)} <small>${whyD(R.d0)} – ${whyD(x.d)}</small></div>
-    <div class="wsub">Most likely causes</div><ol class="wcs">${(main.length ? main : R.C.slice(0, 1)).map(item).join("")}</ol>
-    ${off.length ? `<div class="wsub">Partly offset by</div><ol class="wcs">${off.map(item).join("")}</ol>` : ""}
-    ${(() => { const ctx = x.w[w][3].map((p, j) => [x.f[j][1], p[0]]).filter(([l, v], j) => j > 0 && v != null); return ctx.length ? `<div class="wctx">Same period: ${ctx.map(([l, v]) => `${esc(l.replace(/ \(.*\)/, ""))} <b class="${v >= 0 ? "pos" : "neg"}">${sgn(v)}%</b>`).join(" · ")}</div>` : ""; })()}
-    <div class="nfine">Estimate: splits the move using how ${esc(WHY_CO)} has tracked its sector and commodity over the past year, then matches its biggest up/down days to that day's ASX announcement or news. A guide, not a certainty. Updated ${esc(whyD(x.d))} after the close · free sources · not financial advice.</div>`;
-  nBody.append(box); whyWire(box);
-}
-function whyWire(box){
-  const f = box.querySelector(".wq");
-  f.onsubmit = ev => { ev.preventDefault(); const v = f.querySelector("input").value; const c = whyFind(v); if (c) setWhy(c); else { WHY_CO = v.trim().toUpperCase(); renderNews(); } };
-  box.querySelectorAll(".wmv").forEach(b => b.onclick = () => setWhy(b.dataset.c));
-  box.querySelectorAll(".wwin button").forEach(b => b.onclick = () => { WHY_W = b.dataset.w; renderNews(); });
-  const g = box.querySelector(".wgo"); if (g) g.onclick = () => goToCompany(g.dataset.c);
+  const x = MOVES && WHY_CO && MOVES.m[WHY_CO];
+  if (!x) { box.innerHTML = `<div class="nmsg">${!MOVES ? (window.claude ? "Open the Mines Map app to see this." : "Loading…") : "Search a stock to see the headline most likely behind its recent move."}</div>`; nBody.append(box); return; }
+  const w = x.hw && x.w[x.hw] ? x.hw : "3M", [d0, p0, pct] = x.w[w], up = pct >= 0, h = x.hl, name = COS[WHY_CO] ? COS[WHY_CO].name : WHY_CO;
+  box.innerHTML = `<div class="wco"><button type="button" class="wgo" data-c="${WHY_CO}" title="Show on the map">${esc(name)} <small>ASX:${esc(WHY_CO)}</small></button></div>
+    <div class="wsum"><b class="${up ? "pos" : "neg"}">${up ? "Up" : "Down"} ${Math.abs(pct).toFixed(1)}%</b> ${fmtPx(p0)} → ${fmtPx(x.px)} <small>${w === "HI" ? "since its high on " : w === "LO" ? "since its low on " : "since "}${whyD(d0)}</small></div>
+    ${h ? `<div class="wsub">Most likely cause</div><a class="whl" href="${esc(h[2])}" target="_blank" rel="noopener noreferrer">${esc(h[0])} ↗</a><div class="wmeta">${esc(h[1] || "")}${h[3] ? " · " + whyD(h[3]) : ""}${h[4] != null ? ` · <b class="${h[4] >= 0 ? "pos" : "neg"}">${sgn(h[4])}% that day</b>` : ""}</div>`
+        : `<div class="nmsg">No single headline found; the move looks market-wide (whole sector).</div>`}`;
+  nBody.append(box); const g = box.querySelector(".wgo"); if (g) g.onclick = () => goToCompany(g.dataset.c);
 }
 // a stock typed in the main search opens its explanation
 qEl.addEventListener("input", () => { clearTimeout(qEl._why); qEl._why = setTimeout(() => {
