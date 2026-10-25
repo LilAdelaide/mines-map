@@ -9,11 +9,10 @@ on:
     - cron: "40 6,7 * * 1-5"       # after the ASX close — 52-week ranges, volumes, yields, daily price history
     - cron: "15 10 * * 1-5"        # evening — gold costs (AISC) and calendar
     - cron: "35 8 * * 1-5"         # after the close — new ASX listings added to the map
-    - cron: "55 7 * * 1-5"         # after the close — why each stock moved (likely causes)
   workflow_dispatch:
     inputs:
       job:
-        description: "Which job (all, prices, commod, news, stats, costs, listings, moves)"
+        description: "Which job (all, prices, commod, news, stats, costs, listings)"
         default: all
 permissions:
   contents: write
@@ -24,7 +23,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -34,7 +33,7 @@ jobs:
         run: |
           S="${{ github.event.schedule }}"; J="${{ github.event.inputs.job }}"
           run() { echo "$1=true" >> "$GITHUB_OUTPUT"; }
-          if [ "$J" = "all" ] || [ -z "$S$J" ]; then run prices; run commod; run news; run stats; run costs; run listings; run moves; fi
+          if [ "$J" = "all" ] || [ -z "$S$J" ]; then run prices; run commod; run news; run stats; run costs; run listings; fi
           [ "$J" != "" ] && [ "$J" != "all" ] && run "$J"
           case "$S" in
             "*/15 22-23 * * 0-4"|"*/15 0-6 * * 1-5") run prices ;;
@@ -43,7 +42,6 @@ jobs:
             "40 6,7 * * 1-5") run stats ;;
             "15 10 * * 1-5") run costs ;;
             "35 8 * * 1-5") run listings ;;
-            "55 7 * * 1-5") run moves ;;
           esac
       - if: steps.pick.outputs.prices == 'true'
         run: python scripts/prices.py
@@ -53,9 +51,6 @@ jobs:
         run: python scripts/news.py
       - if: steps.pick.outputs.stats == 'true'
         run: python scripts/stats.py
-      - if: steps.pick.outputs.moves == 'true'
-        name: Why stocks moved
-        run: python scripts/moves.py
       - if: steps.pick.outputs.costs == 'true'
         run: pip install -q pypdf cryptography && python scripts/costs.py
       - if: steps.pick.outputs.listings == 'true'

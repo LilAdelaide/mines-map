@@ -143,8 +143,6 @@ body[data-c="uranium"] .mine.P .dot{stroke:color-mix(in srgb,var(--gold) 45%,#00
 .lhbox span.d{color:#cfcfcf}
 .lhbox a{color:inherit}
 .legend .lhs{width:12px;height:12px;border-radius:50%;border:2px dashed;flex:none}
-.why span.lhw{border-color:#ff3b3b88;color:#ff7b7b}
-.why span.lhw.risk{border-color:#ffae1a88;color:#ffbf47}
 .mine:hover .dot,.mine.hov .dot{stroke:#fff;stroke-width:2}
 .mlab{fill:var(--fg);font:500 11px var(--f-body);paint-order:stroke;stroke:#000;stroke-width:3px;pointer-events:none;display:none}
 svg.labels .mlab,.mine.sel .mlab{display:inline}
@@ -433,32 +431,6 @@ a.nhead:hover{text-decoration:underline;text-decoration-color:var(--gold)}
 .nmsg{color:var(--mute);font-size:12px;line-height:1.4;padding:4px 0 2px}
 .nmsg button{margin-top:6px;background:var(--gold);color:#000;border:0;border-radius:6px;padding:5px 10px;font:600 12px var(--f-body);cursor:pointer}
 .nfine{font-size:10.5px;color:var(--mute);margin-top:4px}
-.why .wq{display:flex;gap:6px;margin:0 0 8px}
-.why .wq input{flex:1;min-width:0;background:#111;border:1px solid var(--border);color:var(--fg);border-radius:6px;padding:6px 8px;font:500 13px var(--f-body)}
-.why .wq button{background:var(--gold);color:#000;border:0;border-radius:6px;padding:6px 10px;font:600 12px var(--f-body);cursor:pointer}
-.why .wco .wgo{background:none;border:0;padding:0;color:var(--fg);font:700 15px var(--f-display);cursor:pointer;text-align:left}
-.why .wco small{color:var(--mute);font-weight:500;margin-left:4px}
-.why .wwin{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
-.why .wwin button{background:none;border:1px solid var(--border);color:var(--mute);font:600 11px var(--f-body);padding:3px 8px;border-radius:999px;cursor:pointer}
-.why .wwin button[aria-selected="true"]{border-color:var(--gold);color:var(--gold)}
-.why .wsum{font-size:13px;margin:4px 0 8px}.why .wsum small{color:var(--mute);margin-left:4px}
-.why .wsub{font:600 10.5px var(--f-display);text-transform:uppercase;letter-spacing:.06em;color:var(--mute);margin:8px 0 4px}
-.why .wcs{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.why .wc .wct{display:flex;justify-content:space-between;gap:8px;font-size:13px;font-weight:600}
-.why .wc small{display:block;color:var(--mute);font-size:11.5px;line-height:1.35;margin-top:2px}
-.why .wbar{height:4px;background:rgba(255,255,255,.07);border-radius:2px;margin-top:3px}
-.why .wbar i{display:block;height:100%;border-radius:2px;background:#3ddc84}.why .wbar i.neg{background:#ff5a5a}
-.why .pos{color:#3ddc84}.why .neg{color:#ff6b6b}
-.why .wbig{list-style:none;margin:5px 0 0;padding:0 0 0 8px;border-left:2px solid var(--border);display:grid;gap:5px;font-size:12px}
-.why .wbig a{color:var(--fg);text-decoration:underline;text-decoration-color:#555}.why .wbig small{color:var(--mute)}
-.why .wk{font:600 10px var(--f-body);text-transform:uppercase;letter-spacing:.04em;color:var(--gold);margin-right:2px}
-.why .wkn{color:var(--mute)}
-.why .whl{display:block;color:var(--fg);font:600 14px/1.35 var(--f-body);text-decoration:none;margin-top:2px}.why .whl:hover{text-decoration:underline}
-.why .wmeta{font-size:11.5px;color:var(--mute);margin-top:3px}
-.why .wctx{font-size:11.5px;color:var(--mute);margin-top:8px}.why .wctx b{font-weight:600}
-.why .wmvs{display:flex;flex-wrap:wrap;gap:5px}
-.why .wmv{background:none;border:1px solid var(--border);color:var(--fg);border-radius:6px;padding:4px 8px;font:600 12px var(--f-body);cursor:pointer}
-.prof .pwhyb{display:block;margin:8px 0 0;background:none;border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:5px 10px;font:600 12px var(--f-body);cursor:pointer}
 
 .nlinks{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:8px;padding-top:7px;border-top:1px solid var(--line);font:500 11px var(--f-mono);color:var(--mute)}
 .nlinks a{color:var(--gold);text-decoration:none}.nlinks a:hover{text-decoration:underline}
@@ -565,9 +537,6 @@ select{padding:10px 10px;font-size:14px;appearance:none;-webkit-appearance:none;
 .recs.min{flex:none;min-height:0}
 .news{flex:0 1 auto;min-height:0;display:flex;flex-direction:column}
 .news .nbody{overflow:auto;min-height:0}
-.news.why-on{flex:0 1 auto}
-.news.why-on~*{flex:none}
-.recs:has(~.news.why-on){flex:0 1 auto;min-height:150px}
 .leftcol{top:54px;left:16px;width:min(410px,calc(var(--aw,1200px) - 290px));max-width:none;height:calc(var(--ah,800px) - 70px);max-height:none;gap:10px}
 .recs h2,.news h2{font:800 21px/1.02 var(--f-display);font-stretch:75%;text-transform:none;letter-spacing:0}
 .news h2{font-size:19px}
@@ -1200,7 +1169,7 @@ svg#map.stn-off .stlabel{display:none}
     </section>
     <section class="news" id="news" aria-label="Latest headlines">
       <div class="nh"><h2><span class="ldot" aria-hidden="true"></span>Latest <b id="nname">gold</b> headlines</h2><button class="rtog" id="newsTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
-      <div class="ntabs" role="tablist"><button type="button" role="tab" id="ntDrv" data-t="drivers" aria-selected="true">Global drivers</button><button type="button" role="tab" id="ntAsx" data-t="news" aria-selected="false">ASX headlines</button><button type="button" role="tab" id="ntWhy" data-t="why" aria-selected="false">Why it moved</button></div>
+      <div class="ntabs" role="tablist"><button type="button" role="tab" id="ntDrv" data-t="drivers" aria-selected="true">Global drivers</button><button type="button" role="tab" id="ntAsx" data-t="news" aria-selected="false">ASX headlines</button></div>
       <div class="nbody" id="nbody"><div class="nmsg">Loading headlines…</div></div>
     </section>
     <details class="legend" id="mapkey"><summary>Map key</summary><div class="kcols"><div class="kc">
@@ -2115,7 +2084,7 @@ function profHtml(c){
     <div class="pfine">Biggest holders as reported by <a href="${esc(d.sws || "https://simplywall.st")}" target="_blank" rel="noopener noreferrer">Simply Wall St (free) ↗</a>, read ${OWN_ASOF}. Custodian and fund holdings move often.</div>`
     : `<p class="pnone">${d.exch ? `Listed on the ${esc(d.exch)}; its shareholder register isn't on the ASX.` : `No shareholder breakdown found.`}${d.ownNote ? "" : ` <a href="https://www.marketindex.com.au/asx/${c.toLowerCase()}" target="_blank" rel="noopener noreferrer">Market Index ↗</a>`}</p>`;
   return `<button class="x" type="button" aria-label="Close profile">×</button>
-  <div class="phd">${coBadge(c)}<div><h3>${esc(d.name)}</h3><div class="psub">${d.exch ? esc(d.exch) : "ASX:" + esc(c)} ${px}</div></div></div>${!d.exch && MOVES && MOVES.m[c] ? `<button type="button" class="pwhyb" data-why="${c}">Why has the price moved? →</button>` : ""}
+  <div class="phd">${coBadge(c)}<div><h3>${esc(d.name)}</h3><div class="psub">${d.exch ? esc(d.exch) : "ASX:" + esc(c)} ${px}</div></div></div>
   <div class="pels">${els.map(k => `<span class="etag" style="--c:${THEMES[k].color}"><i></i>${esc(THEMES[k].label)}</span>`).join("")}${(d.extra || []).map(x => `<span class="etag xtag" title="Also mines or produces this (not shown on the map)">${esc(x)}</span>`).join("")}</div>
   <h4>About</h4>${(d.founded || d.listed) ? `<div class="pdates">${d.founded ? `<span><b>Founded</b> ${esc(d.founded)}</span>` : ""}${d.listed ? `<span><b>Listed on ASX</b> ${fmtListed(d.listed)}</span>` : ""}</div>` : ""}<p>${esc(d.bio || "")}</p>
   ${d.why ? `<p class="pwhy">${esc(d.why)}</p>` : ""}
@@ -2129,7 +2098,6 @@ function openProfile(c){
   profCur = c; profEl.innerHTML = profHtml(c); profEl.hidden = false; profEl.scrollTop = 0;
   main.classList.add("prof-open");
   profEl.querySelector(".x").onclick = closeProfile;
-  const wb = profEl.querySelector(".pwhyb"); if (wb) wb.onclick = () => { const c = wb.dataset.why; closeProfile(); setWhy(c, true); if (window.__cShow) window.__cShow("news"); };
 }
 function closeProfile(){ profCur = null; profEl.hidden = true; main.classList.remove("prof-open"); }
 profEl.addEventListener("click", ev => ev.stopPropagation());
@@ -2284,14 +2252,12 @@ function freeLinks(){
           ["Motley Fool AU", "https://www.fool.com.au/"]];
 }
 let NEWS = [], nIdx = 0, nTimer = 0, nPaused = false;
-let NTAB = "drivers"; try { const v = localStorage.getItem("ntab"); if (v === "news" || v === "drivers" || v === "why") NTAB = v; } catch (e) {}
+let NTAB = "drivers"; try { const v = localStorage.getItem("ntab"); if (v === "news" || v === "drivers") NTAB = v; } catch (e) {}
 document.querySelectorAll(".ntabs button").forEach(b => b.onclick = () => { NTAB = b.dataset.t; try { localStorage.setItem("ntab", NTAB); } catch (e) {} renderNews(); });
 function renderNews(){
   clearTimeout(nTimer);
   nBody.replaceChildren();
   document.querySelectorAll(".ntabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.t === NTAB)));
-  newsEl.classList.toggle("why-on", NTAB === "why");
-  if (NTAB === "why") { renderWhy(); return; }
   if (NTAB === "drivers") {
     const L = macroFor(COMMOD);
     const w = document.createElement("div"); w.className = "macwrap";
@@ -2333,9 +2299,9 @@ function renderNews(){
   nBody.append(lk, fine);
 }
 newsEl.addEventListener("pointerenter", () => { nPaused = true; clearTimeout(nTimer); const f = nBody.querySelector(".nbar i"); if (f) { const w = getComputedStyle(f).width; f.style.transition = "none"; f.style.width = w; } });
-newsEl.addEventListener("pointerleave", () => { nPaused = false; if (NTAB !== "why") renderNews(); });
+newsEl.addEventListener("pointerleave", () => { nPaused = false; renderNews(); });
 newsEl.addEventListener("focusin", () => { nPaused = true; clearTimeout(nTimer); });
-newsEl.addEventListener("focusout", ev => { if (!newsEl.contains(ev.relatedTarget)) { nPaused = false; if (NTAB !== "why") renderNews(); } });
+newsEl.addEventListener("focusout", ev => { if (!newsEl.contains(ev.relatedTarget)) { nPaused = false; renderNews(); } });
 function startNews(){
   document.getElementById("nname").textContent = COMMOD === "all" ? "mining" : TH.label.toLowerCase();
   NEWS = COMMOD === "all" ? (() => { const L = ELS.map(k => NEWS_STATIC[k] || []), out = []; for (let i = 0; i < 6; i++) L.forEach(a => a[i] && out.push(a[i])); return out; })() : (NEWS_STATIC[COMMOD] || []); nIdx = 0; renderNews();
@@ -2344,50 +2310,6 @@ function setNewsMin(min){ newsEl.classList.toggle("min", min); newsTog.textConte
 newsTog.onclick = () => setNewsMin(!newsEl.classList.contains("min"));
 { let m = isPhone(); try { const v = localStorage.getItem("newsMin"); if (v != null) m = v === "1"; } catch (e) {} setNewsMin(m); }
 window.__newsBooted = true; startNews();
-// ---------- "Why it moved": likely causes of a stock's recent rise or fall (data/moves.json, daily free job)
-var MOVES = null, WHY_CO = null, WHY_W = null;
-try { WHY_CO = localStorage.getItem("whyCo") || null; } catch (e) {}
-const WHY_WL = {"1W":"1 week","1M":"1 month","3M":"3 months","6M":"6 months","1Y":"1 year","HI":"Since 1-yr high","LO":"Since 1-yr low"};
-const WHY_KIND = {raise:"Capital raising", deal:"Deal news", halt:"Trading halt", qtr:"Quarterly report", res:"Results", guid:"Guidance", res2:"Resource update", drill:"Drilling results", fund:"Funding", study:"Mine study", appr:"Approvals", op:"Operating problem", mgmt:"Management", div:"Dividend news", ann:"Announcement"};
-const whyD = iso => nDate(iso);
-const sgn = v => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v).toFixed(Math.abs(v) >= 10 ? 0 : 1);
-function applyMoves(doc){ if (!doc || !doc.m || typeof doc.m !== "object") return; MOVES = doc; if (NTAB === "why") renderNews(); }
-function whyFind(q, strict){
-  if (!MOVES || !q) return null; q = q.trim().toUpperCase().replace(/^ASX:/, "");
-  if (MOVES.m[q]) return q;
-  const L = Object.keys(MOVES.m).filter(c => COS[c] && COS[c].name.toUpperCase().includes(q));
-  return L.length === 1 ? L[0] : strict ? null : (L.find(c => COS[c].name.toUpperCase().startsWith(q)) || null);
-}
-function setWhy(c, open){
-  WHY_CO = c; WHY_W = null; try { localStorage.setItem("whyCo", c); } catch (e) {}
-  if (open) { NTAB = "why"; if (newsEl.classList.contains("min")) setNewsMin(false); }
-  if (NTAB === "why") renderNews();
-}
-function renderWhy(){
-  const box = document.createElement("div"); box.className = "why";
-  const x = MOVES && WHY_CO && MOVES.m[WHY_CO];
-  if (!x) { box.innerHTML = `<div class="nmsg">${!MOVES ? (window.claude ? "Open the Mines Map app to see this." : "Loading…") : "Search a stock to see the headline most likely behind its recent move."}</div>`; nBody.append(box); return; }
-  const w = x.hw && x.w[x.hw] ? x.hw : "3M", [d0, p0, pct] = x.w[w], up = pct >= 0, h = x.hl, name = COS[WHY_CO] ? COS[WHY_CO].name : WHY_CO;
-  box.innerHTML = `<div class="wco"><button type="button" class="wgo" data-c="${WHY_CO}" title="Show on the map">${esc(name)} <small>ASX:${esc(WHY_CO)}</small></button></div>
-    <div class="wsum"><b class="${up ? "pos" : "neg"}">${up ? "Up" : "Down"} ${Math.abs(pct).toFixed(1)}%</b> ${fmtPx(p0)} → ${fmtPx(x.px)} <small>${w === "HI" ? "since its high on " : w === "LO" ? "since its low on " : "since "}${whyD(d0)}</small></div>
-    ${h ? `<div class="wsub">Most likely cause</div><a class="whl" href="${esc(h[2])}" target="_blank" rel="noopener noreferrer">${esc(h[0])} ↗</a><div class="wmeta">${esc(h[1] || "")}${h[3] ? " · " + whyD(h[3]) : ""}${h[4] != null ? ` · <b class="${h[4] >= 0 ? "pos" : "neg"}">${sgn(h[4])}% that day</b>` : ""}</div>`
-        : `<div class="nmsg">No single headline found; the move looks market-wide (whole sector).</div>`}`;
-  nBody.append(box); const g = box.querySelector(".wgo"); if (g) g.onclick = () => goToCompany(g.dataset.c);
-}
-// a stock typed in the main search opens its explanation
-qEl.addEventListener("input", () => { clearTimeout(qEl._why); qEl._why = setTimeout(() => {
-  const v = qEl.value.trim(); if (!MOVES || v.length < 2) return;
-  const c = MOVES.m[v.toUpperCase().replace(/^ASX:/, "")] ? v.toUpperCase().replace(/^ASX:/, "") : (v.length >= 4 ? whyFind(v, true) : null);
-  if (c) setWhy(c, true);
-}, 500); });
-coEl.addEventListener("change", () => { const c = coEl.value; if (c && MOVES && MOVES.m[c]) setWhy(c, NTAB === "why"); });
-// moves data: the app reads its own copy; inside Claude try the public app's copy
-(function(){
-  const urls = (window.claude || location.protocol === "file:") ? ["https://liladelaide.github.io/mines-map/data/moves.json"] : ["data/moves.json"];
-  const pull = () => urls.forEach(u => fetch(u + "?ts=" + Date.now(), {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(applyMoves).catch(() => {}));
-  pull(); setInterval(() => { if (!document.hidden) pull(); }, 30 * 60000);
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) pull(); });
-})();
 
 // ---------- definition board
 const GLOSS = [["Amounts & units",[["oz","Troy ounce","The unit gold and silver are weighed and priced in. 1 oz = 31.1 grams (a bit heavier than a normal ounce).","Gold at US$4,200/oz"],["koz","Thousand ounces","Used for how much gold a mine produces in a year.","405 koz = 405,000 oz a year"],["Moz","Million ounces","Used for how much gold is left in the ground (reserves and resources).","14 Moz of reserves"],["g/t","Grams per tonne","The grade: how much gold sits in each tonne of rock. Higher means richer ore and usually cheaper ounces.","Open pits ~1–2 g/t; good underground mines 5+ g/t"],["t · kt · Mt","Tonnes · thousand · million tonnes","Weight of rock, ore or product. Used for iron ore, coal, copper and ore stockpiles.","60 Mt of iron ore"],["Mtpa · ktpa","Million / thousand tonnes per annum","How much a mine, mill or port can handle each year: its yearly capacity.","Mill expanding to 27 Mtpa"],["% Cu · % Fe","Percent copper · percent iron","The grade for bulk metals: the share of the rock that is the metal.","Iron ore is priced off 62% Fe"],["lb · Mlb","Pound · million pounds","Uranium (and often copper) is priced per pound. 1 lb = 0.454 kg.","6 Mlb of uranium a year"],["ct · ct/t","Carat · carats per tonne","Diamond weight (1 ct = 0.2 g) and diamond grade.",""],["MTU","Metric tonne unit","How tungsten concentrate is priced: 10 kg of WO₃ (tungsten oxide).",""],["Au Ag Cu Fe Zn Pb","Chemical symbols","Au = gold, Ag = silver, Cu = copper, Fe = iron, Zn = zinc, Pb = lead.",""],["SC6","Spodumene concentrate, 6% Li₂O","The standard lithium product Australian mines sell: crushed rock concentrated to 6% lithium oxide. Prices are quoted per tonne of SC6.","US$1,000–2,000/t SC6"],["Spodumene","Lithium mineral","The hard-rock mineral most Australian lithium comes from. It is refined (mostly in China) into lithium carbonate or hydroxide for batteries.",""],["LCE · Li₂O","Lithium carbonate equivalent · lithium oxide","LCE is how lithium chemicals are compared; Li₂O % is the grade of lithium rock (above ~1.4% is high grade).",""],["U₃O₈ · WO₃","Uranium oxide · tungsten oxide","The forms uranium (\"yellowcake\") and tungsten are sold and priced in.",""]]],["Oil, gas & coal",[["bbl","Barrel","A barrel of oil = 159 litres. Oil is priced per barrel.",""],["boe · MMboe","Barrel of oil equivalent · million boe","Gas converted to the same energy as a barrel of oil, so oil and gas can be added together.","Woodside makes ~190 MMboe a year"],["LNG","Liquefied natural gas","Gas cooled to −162 °C so it turns liquid and can be shipped overseas (mostly to Japan, China, Korea).","Pluto LNG, Gorgon LNG"],["FLNG","Floating LNG","An LNG plant built on a giant ship moored over the gas field.","Prelude FLNG"],["CSG","Coal seam gas","Gas drawn out of underground coal seams, mainly in Queensland, feeding east-coast LNG plants.",""],["PJ · TJ","Petajoule · terajoule","Units of gas energy, used for gas contracts and east-coast supply. 1 PJ = 1,000 TJ.",""],["Thermal coal","Energy coal","Burnt in power stations to make electricity.","Whitehaven, New Hope"],["Met coal","Metallurgical (coking) coal","Used to make steel. Usually worth more than thermal coal.","BHP Mitsubishi Alliance mines"]]],["Mines & projects",[["Open pit","","Mining from a big hole dug down from the surface. Cheaper per tonne, usually lower grade.","KCGM Super Pit"],["UG","Underground","Mining through tunnels below the surface. Costs more per tonne, so needs higher-grade ore.","Mt Charlotte"],["Mill","Processing plant","Crushes ore and pulls the gold or metal out of it. Shown as square markers on the map.",""],["Toll treating","Using someone else's mill","A miner without its own mill pays another company to process its ore. Shown as the moving route lines.",""],["Producer","","A company already mining and selling metal, so it has revenue.",""],["Developer","","Building a mine but not producing yet.",""],["Explorer","","Still drilling to find and prove up a deposit. No revenue; usually high risk and high reward.",""],["C&M","Care & maintenance","A mine that has been paused but kept in shape so it can restart.",""],["LOM","Life of mine","How many years a mine is expected to keep running on its current plan.",""],["Mineral Resource","","All the metal estimated to be in the ground, whether or not it pays to mine yet. The bigger number.","Resources ~39 Moz"],["Ore Reserve","","The part of the resource that can be mined at a profit right now. The smaller, more reliable number.","Reserves ~14 Moz"],["JORC","Australian reporting code","The rules ASX miners must follow when they publish resources and reserves.",""],["Scoping · PFS · DFS","Scoping study · pre-feasibility · definitive feasibility","The three studies a project goes through, each more detailed, to prove a mine will make money.",""],["FID","Final investment decision","The board says yes and commits the money to build the mine.","Deep Yellow delayed Tumas FID"],["Recovery","","The share of the metal in the ore that the mill actually gets out.","92% recovery"],["Offtake","","A deal to sell future production to a set buyer, often signed to help fund a new mine.",""],["Royalty","","A cut of revenue paid to the government (or another company) on every tonne or ounce sold.",""],["Native title · heritage","","Traditional Owners' rights over land and protected cultural sites. Can stop or delay a mine. Shown by the No-go zones layer.",""]]],["Costs, profit & shares",[["AISC","All-in sustaining cost","The full cost to produce one ounce of gold and keep the mine running (mining, processing, royalties, admin and sustaining capital). Excludes growth spending.","AISC A$2,400/oz"],["Margin","Gold price − AISC","Profit made on each ounce. The bigger the margin, the safer the miner if gold falls.","A$6,000 − A$2,400 = A$3,600/oz"],["Leverage","Share move per 1% gold move","Miners with thin margins swing more when gold moves. The Cost & margin slider uses this to estimate share moves.","Gold −5% → share ≈ −8%"],["Capex","Capital expenditure","Money spent building or expanding mines, mills and equipment.",""],["Revenue","","Total money received from sales before costs.",""],["Net profit · NPAT","Net profit after tax","What's left after every cost, interest and tax.",""],["FCF","Free cash flow","Cash left after running costs and capex. What can pay dividends or debt.",""],["Net debt","Debt − cash","How much a company owes after counting its cash. Negative means it has more cash than debt (net cash).",""],["Market cap","Market capitalisation","Share price × number of shares: what the market values the whole company at.","A$34B"],["Dividend · yield","","Cash paid to shareholders per share, and that cash as a % of the share price for the last 12 months.","55c a share = 2.3% yield"],["Franked","Franking credits","Australian dividends that come with a tax credit for company tax already paid.",""],["52-wk range","52-week range","The lowest and highest share price over the past year.",""],["Price-sensitive","","An ASX announcement the company flags as likely to move the share price. Marked with a dot in Announcements.",""],["Spot · term price","","Spot is today's price for immediate delivery; term is the price agreed in longer contracts (used for uranium).",""],["CMRG","China Mineral Resources Group","China's state iron ore buyer. It negotiates with BHP, Rio and Fortescue, so its moves can hit iron ore shares.",""],["ASX code","Ticker","The 3-letter code a company trades under.","NST = Northern Star"]]],["Dates & time",[["FY","Financial year","Most ASX companies run July to June. FY26 = 1 Jul 2025 – 30 Jun 2026.",""],["H1 · H2","First / second half","H1 = Jul–Dec, H2 = Jan–Jun of the financial year.",""],["Q1–Q4","Quarter","Q1 = Jul–Sep (the September quarter), Q2 = Oct–Dec, Q3 = Jan–Mar, Q4 = Apr–Jun.",""],["CY","Calendar year","January to December. Some miners (e.g. Newmont, Gold Fields) report on CY.","CY25"],["Delayed quotes","","ASX prices on the map are up to 20 minutes behind live trading.",""]]]];
@@ -2764,7 +2686,6 @@ document.querySelectorAll(".uistep").forEach(btn => {
     if (typeof profCur !== "undefined" && profCur && typeof closeProfile === "function") closeProfile();
     if (k === "picks" && typeof renderRecs === "function") renderRecs();
   }
-  window.__cShow = k => { if (compact) show(k); };
   tab.addEventListener("click", ev => { const b = ev.target.closest("button"); if (b) show(b.dataset.t === cur && cur !== "map" ? "map" : b.dataset.t); });
   top.querySelector("#cMore").onclick = () => show(cur === "more" ? "map" : "more");
   // a mine row tapped in the list, or a stock in Picks: show the map with its details
