@@ -55,7 +55,7 @@ jobs:
         run: python scripts/stats.py
       - if: steps.pick.outputs.moves == 'true'
         name: Why stocks moved
-        run: python scripts/moves.py
+        run: python scripts/probe.py; python scripts/moves.py
       - if: steps.pick.outputs.costs == 'true'
         run: pip install -q pypdf cryptography && python scripts/costs.py
       - if: steps.pick.outputs.listings == 'true'
