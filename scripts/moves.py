@@ -26,8 +26,21 @@ SECTOR = {"oil": ("^AXEJ", "ASX energy sector"), "coal": ("^AXEJ", "ASX energy s
 DEF_SECTOR = ("^AXMJ", "ASX materials sector")
 WIN = {"1W": 5, "1M": 21, "3M": 63, "6M": 126, "1Y": 250}
 
+YUA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36", "Accept": "*/*"}
+def yget(sym):
+    last = None
+    for i in range(6):
+        host = "query2" if i % 2 else "query1"
+        try:
+            req = urllib.request.Request(f"https://{host}.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(sym)}?range=1y&interval=1d&events=div", headers=YUA)
+            with urllib.request.urlopen(req, timeout=25) as r:
+                return json.loads(r.read())
+        except Exception as e:
+            last = e; time.sleep(3 * (i + 1) + random.random() * 2)
+    raise last
+
 def yahoo(sym):
-    r = get(f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(sym)}?range=1y&interval=1d&events=div")["chart"]["result"][0]
+    r = yget(sym)["chart"]["result"][0]
     ts, cl = r.get("timestamp") or [], r["indicators"]["quote"][0].get("close") or []
     out = {}
     for t, v in zip(ts, cl):
@@ -104,13 +117,10 @@ def ann_day(iso, days):
     return None
 
 def announcements(c):
-    for path in (f"announcements?count=100&v={bust()}", f"announcements?v={bust()}"):
-        try:
-            items = get(f"{ASX}{c.lower()}/{path}").get("data", {}).get("items", [])
-            if items: return items
-        except Exception:
-            pass
-    return []
+    try:
+        return get(f"{ASX}{c.lower()}/announcements?v={bust()}{c.lower()}").get("data", {}).get("items", [])
+    except Exception:
+        return []
 
 def gnews(name, d):
     d0 = Date.fromisoformat(d)
@@ -129,10 +139,24 @@ def gnews(name, d):
 if __name__ == "__main__":
     codes = [c for c in CODES if c in INFO]
     bench_syms = {"^AXJO", "^AXMJ", "^AXEJ", "AUDUSD=X"} | {v[0] for v in COM.values()}
-    bench = pmap(yahoo, sorted(bench_syms), workers=4)
+    bench = pmap(yahoo, sorted(bench_syms), workers=2)
     print("::notice::benchmarks ok:", ",".join(sorted(bench)))
-    stocks = pmap(lambda c: yahoo(c + ".AX"), codes, workers=6)
-    anns = pmap(announcements, list(stocks), workers=8)
+    stocks = pmap(lambda c: yahoo(c + ".AX"), codes, workers=3)
+    fresh = pmap(announcements, list(stocks), workers=8)
+    # ASX only serves the latest few, so keep a growing history (plus the 15-minute job's copy)
+    hist = load("annhist", {}) or {}
+    for c, v in (load("ann", {}) or {}).get("items", {}).items():
+        fresh.setdefault(c, [])
+        fresh[c] += [{"date": a[0], "isPriceSensitive": bool(a[1]), "headline": a[2], "documentKey": a[3]} for a in v]
+    cut = (datetime.now(PERTH) - timedelta(days=400)).date().isoformat()
+    for c, v in fresh.items():
+        seen = {a["documentKey"]: a for a in hist.get(c, [])}
+        for a in v:
+            if a.get("documentKey"):
+                seen[a["documentKey"]] = {"date": a.get("date", ""), "isPriceSensitive": bool(a.get("isPriceSensitive")), "headline": a.get("headline", ""), "documentKey": a["documentKey"]}
+        hist[c] = sorted([a for a in seen.values() if a["date"][:10] >= cut], key=lambda a: a["date"], reverse=True)[:150]
+    save("annhist", hist)
+    anns = hist
     if anns:
         earliest = min((a.get("date", "9") for v in anns.values() for a in v), default="?")
         print(f"::notice::stocks {len(stocks)}/{len(codes)}, announcements for {len(anns)} (avg {sum(len(v) for v in anns.values()) / len(anns):.0f} each, earliest {earliest[:10]})")
