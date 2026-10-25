@@ -97,6 +97,7 @@ KINDS = [  # (regex on the announcement title, kind, plain-English meaning)
     (r"ceo|managing director|resign|appoint|board change|chair", "mgmt", "management change"),
     (r"dividend|distribution|buy-?back", "div", "dividend / buy-back news"),
 ]
+ROUTINE = re.compile(r"cessation of securities|appendix 2a|appendix 3[bgyxz]|application for quotation|change of director|director.?s interest|notice of (annual )?general meeting|notice of meeting|proxy form|issue of (shares|options|performance rights)|unquoted securities|quotation of securities|daily share buy-?back|update - notification of buy-?back|results of meeting|corporate governance|constitution|change of (company secretary|address|registry)", re.I)
 def kind_of(t):
     t = t.lower()
     for rx, k, txt in KINDS:
@@ -191,11 +192,13 @@ if __name__ == "__main__":
             r = dr[i]
             if abs(r) >= max(0.04, 2.3 * sd):
                 secr = (lv[0][i] / lv[0][i - 1] - 1) * 100 if lv[0][i] and lv[0][i - 1] else 0
-                a = sorted(ev_by_day.get(days[i], []), key=lambda a: (not a.get("isPriceSensitive"), a.get("date", "")))
+                a = sorted([a for a in ev_by_day.get(days[i], []) if a.get("isPriceSensitive") or not ROUTINE.search(a.get("headline", ""))], key=lambda a: (not a.get("isPriceSensitive"), a.get("date", "")))
                 row = [days[i], round((math.exp(r) - 1) * 100, 1), round(secr, 1)]
                 if a:
                     k, txt = kind_of(a[0].get("headline", ""))
                     row += ["a", k, txt, a[0].get("headline", "")[:140], a[0]["documentKey"], 1 if a[0].get("isPriceSensitive") else 0]
+                elif secr * row[1] > 0 and abs(secr) >= 0.55 * abs(row[1]):
+                    row += ["m"]   # the whole sector moved that day
                 big.append(row)
         big.sort(key=lambda r: -abs(r[1])); big = big[:14]
         for r in big:
