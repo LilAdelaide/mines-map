@@ -12,7 +12,21 @@ def grab(marker):
     obj, end = dec.raw_decode(html, i)
     return obj, i, end
 
-newcos = {c: p for c, p in (load("newcos", {}) or {}).items() if p.get("lat") is not None}
+FIX = json.load(open(os.path.join(ROOT, "scripts", "penny_fix.json"))) if os.path.exists(os.path.join(ROOT, "scripts", "penny_fix.json")) else {}
+newcos = {}
+for c, p in (load("newcos", {}) or {}).items():
+    f = FIX.get(c, {})
+    if f.get("drop"): continue
+    p = {**p, **{k: v for k, v in f.items() if k != "drop"}}
+    if p.get("lat") is not None: newcos[c] = p
+BADP = re.compile(r"^(the|quarterly|ore|gold|key|acquired|base metals?|company|company secretary|au|silver|copper|antimony|over|presentation|project|lithium|metals|minerals|resources|new|our|this|its|flagship|exploration|tenement|existing|current|option|earn)\b", re.I)
+def clean_proj(n, name):
+    if not n: return None
+    n = n.split("\n")[-1].strip()
+    n = re.sub(r"^.*?[’']s?\s+", "", n).strip()          # "Company's Leonora ..." -> "Leonora ..."
+    n = re.sub(r"^(The|Our|Its)\s+", "", n).strip()
+    if BADP.match(n) or len(n) < 6 or n.upper() == n: return None
+    return n
 ALL, a0, a1 = grab(", ALL = ")
 COS, c0, c1 = grab(", COS = ")
 GOLD, g0, g1 = grab("let GOLD = ")
@@ -37,7 +51,8 @@ for c, p in sorted(newcos.items()):
     la, lo = p["lat"], p["lon"]
     if "region (approximate)" in (p.get("near") or ""):   # spread region-only placements so they don't stack
         import zlib; h = zlib.crc32(c.encode()); la += ((h % 1000) / 1000 - .5) * .8; lo += (((h // 1000) % 1000) / 1000 - .5) * .8
-    site = {"id": next_id, "n": p.get("project") or p["name"], "lat": round(la, 4), "lon": round(lo, 4), "st": p["st"],
+    pj = clean_proj(p.get("project"), p["name"]) if p.get("src") == "penny" else p.get("project")
+    site = {"id": next_id, "n": pj or (p["name"] + " project area"), "lat": round(la, 4), "lon": round(lo, 4), "st": p["st"],
             "s": "D", "ow": p["name"], "op": p["name"], "tk": c, "p": 0, "pt": "Exploration", "rs": "Not yet reported",
             "ty": "Exploration", "b": (f"Auto-added ASX penny stock. Location is approximate ({p.get('near') or 'from its announcements'})." if p.get("src") == "penny" else f"Auto-added: {p['name']} listed on the ASX in {year}. Location is approximate ({p.get('near') or 'from its announcements'})."),
             "c": [c], "pc": c, "mk": {}, "auto": True}
