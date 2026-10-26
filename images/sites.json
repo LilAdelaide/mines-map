@@ -2327,5 +2327,306 @@
 "lon": 130.79,
 "how": "wikidata",
 "km": 5.2
+},
+"scale-parkes-project": {
+"ok": true,
+"lat": -32.91052,
+"lon": 148.03722,
+"how": "wikidata",
+"km": 5.2
+},
+"mt-hogan-gold-project": {
+"ok": true,
+"lat": -18.0372,
+"lon": 143.2548,
+"how": "map",
+"km": 5.2
+},
+"the-apollo-project": {
+"ok": true,
+"lat": -36.7736,
+"lon": 144.0008,
+"how": "map",
+"km": 5.2
+},
+"kalgoorlie-nickel-project": {
+"ok": true,
+"lat": -30.68742,
+"lon": 121.81637,
+"how": "wikidata",
+"km": 5.2
+},
+"skye-gold-project": {
+"ok": true,
+"lat": -30.75,
+"lon": 121.47,
+"how": "map",
+"km": 5.2
+},
+"copper-development-project": {
+"ok": true,
+"lat": -21.428,
+"lon": 122.0168,
+"how": "map",
+"km": 5.2
+},
+"copper-project": {
+"ok": true,
+"lat": -27.1552,
+"lon": 117.7496,
+"how": "map",
+"km": 5.2
+},
+"mt-egerton-gold-project": {
+"ok": true,
+"lat": -37.0368,
+"lon": 144.3264,
+"how": "map",
+"km": 5.2
+},
+"cue-gold-project": {
+"ok": true,
+"lat": -27.4896,
+"lon": 118.0064,
+"how": "map",
+"km": 5.2
+},
+"new-waverley-gold-project": {
+"ok": true,
+"lat": -32.1272,
+"lon": 121.6416,
+"how": "map",
+"km": 5.2
+},
+"marble-bar-gold-project": {
+"ok": true,
+"lat": -20.31,
+"lon": 118.6,
+"how": "map",
+"km": 12
+},
+"gawler-craton-gold-project": {
+"ok": true,
+"lat": -30.7264,
+"lon": 135.1432,
+"how": "map",
+"km": 5.2
+},
+"tibooburra-gold-project": {
+"ok": true,
+"lat": -29.43306,
+"lon": 142.00806,
+"how": "wikipedia",
+"km": 5.2
+},
+"mt-solitary-gold-project": {
+"ok": true,
+"lat": -31.7136,
+"lon": 146.0376,
+"how": "map",
+"km": 5.2
+},
+"mt-boppy-gold-project": {
+"ok": true,
+"lat": -31.55836,
+"lon": 146.31606,
+"how": "wikipedia",
+"km": 5.2
+},
+"clermont-gold-project": {
+"ok": true,
+"lat": -22.823,
+"lon": 147.6383,
+"how": "wikipedia",
+"km": 5.2
+},
+"garden-gully-gold-project": {
+"ok": true,
+"lat": -26.44972,
+"lon": 118.46278,
+"how": "wikidata",
+"km": 5.2
+},
+"coolgardie-gold-project": {
+"ok": true,
+"lat": -30.93417,
+"lon": 121.19694,
+"how": "wikidata",
+"km": 5.2
+},
+"peregrine-gold-limited-project": {
+"ok": true,
+"lat": -21.8816,
+"lon": 118.9416,
+"how": "map",
+"km": 5.2
+},
+"snowstorm-gold-project": {
+"ok": true,
+"lat": -36.6128,
+"lon": 143.6872,
+"how": "map",
+"km": 5.2
+},
+"walkers-hill-gold-project": {
+"ok": true,
+"lat": -33.232,
+"lon": 148.7568,
+"how": "map",
+"km": 5.2
+},
+"tambourah-metals-project": {
+"ok": true,
+"lat": -27.26,
+"lon": 117.8408,
+"how": "map",
+"km": 5.2
+},
+"westminster-project": {
+"ok": true,
+"lat": -19.2652,
+"lon": 134.4924,
+"how": "map",
+"km": 5.2
+},
+"comet-project": {
+"ok": true,
+"lat": -26.7896,
+"lon": 118.664,
+"how": "map",
+"km": 5.2
+},
+"marree-project": {
+"ok": true,
+"lat": -30.9424,
+"lon": 135.548,
+"how": "map",
+"km": 5.2
+},
+"arcadia-coal-project": {
+"ok": true,
+"lat": -22.4066,
+"lon": 148.289,
+"how": "wikidata",
+"km": 5.2
+},
+"maronan-project": {
+"ok": true,
+"lat": -20.3584,
+"lon": 140.5592,
+"how": "map",
+"km": 5.2
+},
+"castle-rag-project": {
+"ok": true,
+"lat": -29.7376,
+"lon": 151.6672,
+"how": "map",
+"km": 5.2
+},
+"neds-creek-copper-project": {
+"ok": true,
+"lat": -26.724,
+"lon": 118.1712,
+"how": "map",
+"km": 5.2
+},
+"yataga-valley-copper-project": {
+"ok": true,
+"lat": -18.29,
+"lon": 143.55,
+"how": "map",
+"km": 5.2
+},
+"aileron-project": {
+"ok": true,
+"lat": -22.8216,
+"lon": 133.5712,
+"how": "map",
+"km": 5.2
+},
+"whundo-project": {
+"ok": true,
+"lat": -22.0824,
+"lon": 118.7032,
+"how": "map",
+"km": 5.2
+},
+"meekatharra-project": {
+"ok": true,
+"lat": -26.59361,
+"lon": 118.49528,
+"how": "wikipedia",
+"km": 5.2
+},
+"pge-project": {
+"ok": true,
+"lat": -30.1472,
+"lon": 119.372,
+"how": "map",
+"km": 5.2
+},
+"bekisopa-project": {
+"ok": true,
+"lat": -37.5872,
+"lon": 144.1276,
+"how": "map",
+"km": 5.2
+},
+"rafael-gas-project": {
+"ok": true,
+"lat": -17.328,
+"lon": 126.8424,
+"how": "map",
+"km": 5.2
+},
+"equus-gas-project": {
+"ok": true,
+"lat": -21.4096,
+"lon": 118.7656,
+"how": "map",
+"km": 5.2
+},
+"metgasco": {
+"ok": true,
+"lat": -27.476,
+"lon": 140.6704,
+"how": "map",
+"km": 5.2
+},
+"the-project": {
+"ok": true,
+"lat": -29.832,
+"lon": 115.5488,
+"how": "map",
+"km": 5.2
+},
+"northern-hinge-project": {
+"ok": true,
+"lat": -31.0344,
+"lon": 135.684,
+"how": "map",
+"km": 5.2
+},
+"santos-innamincka-dome-project": {
+"ok": true,
+"lat": -27.5568,
+"lon": 140.7376,
+"how": "map",
+"km": 5.2
+},
+"xstate-resources": {
+"ok": true,
+"lat": -22.1128,
+"lon": 148.808,
+"how": "map",
+"km": 5.2
+},
+"mac-well-project": {
+"ok": true,
+"lat": -21.864,
+"lon": 118.5312,
+"how": "map",
+"km": 5.2
 }
 }
