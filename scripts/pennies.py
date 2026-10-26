@@ -25,6 +25,9 @@ if __name__ == "__main__":
     MAX = float(os.environ.get("MAXPX", "1"))
     newcos = load("newcos", {}) or {}
     tried = load("pennies_tried", {}) or {}
+    redo = os.environ.get("REDO", "")
+    if redo:
+        tried = {k: v for k, v in tried.items() if v != redo}
     known = set(CODES) | set(newcos)
     dirx = directory_all()
     cand = [it for it in dirx if it.get("symbol") and it["symbol"] not in known and it["symbol"] not in tried

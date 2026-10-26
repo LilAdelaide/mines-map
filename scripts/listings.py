@@ -90,6 +90,55 @@ def place_from_text(txt):
         n = (dy * dy + dx * dx) ** 0.5 or 1
         lat = g[0] + dy / n * km / 111; lon = g[1] + dx / n * km / (111 * max(0.3, abs(__import__("math").cos(__import__("math").radians(g[0])))))
         return lat, lon, g[2], f"{km} km {m.group(2)} of {town}"
+    return place_fallback(txt)
+
+TOWN = r"((?:Mt\.?\s|Mount\s|Port\s|Lake\s)?[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)"
+FROM = re.compile(r"(\d{1,3})\s?(?:km|kilometres)\s+(?:from|of)\s+(?:the\s+)?(?:town(?:ship)?\s+of\s+)?" + TOWN)
+NEARTOWN = re.compile(r"(?:near|adjacent to|outskirts of|close to)\s+(?:the\s+)?(?:(?:historic|regional|mining)\s+)?(?:town(?:ship)?|city|community|locality)\s+of\s+" + TOWN)
+NEARST = re.compile(r"(?:near|adjacent to|close to)\s+" + TOWN + r",?\s+(?:in\s+)?(?:Western Australia|Queensland|New South Wales|South Australia|Victoria|Tasmania|the Northern Territory|Northern Territory|WA|QLD|NSW|SA|VIC|TAS|NT)\b")
+PROJ = re.compile(TOWN + r"\s(?:Gold|Copper|Uranium|Iron Ore|Coal|Silver|Lithium|Tungsten|Polymetallic|Base Metals?)?\s?(?:Project|Prospect|Deposit)\b")
+REGION = {  # last resort: the named mining region (approximate)
+    "Pilbara": (-21.7, 118.6, "WA"), "Yilgarn": (-30.0, 119.5, "WA"), "Murchison": (-26.9, 117.8, "WA"), "Eastern Goldfields": (-30.0, 121.5, "WA"),
+    "Kimberley": (-17.3, 126.5, "WA"), "Gascoyne": (-24.5, 116.0, "WA"), "Paterson": (-21.6, 122.1, "WA"), "Fraser Range": (-32.0, 123.0, "WA"),
+    "Mount Isa": (-20.73, 139.49, "QLD"), "Mt Isa": (-20.73, 139.49, "QLD"), "Cloncurry": (-20.7, 140.5, "QLD"), "Georgetown": (-18.29, 143.55, "QLD"),
+    "Charters Towers": (-20.08, 146.26, "QLD"), "Bowen Basin": (-22.5, 148.5, "QLD"), "Lachlan Fold Belt": (-33.0, 148.5, "NSW"), "Cobar": (-31.5, 145.84, "NSW"),
+    "Broken Hill": (-31.95, 141.45, "NSW"), "New England": (-30.0, 151.5, "NSW"), "Gawler Craton": (-31.0, 135.5, "SA"), "Curnamona": (-31.5, 140.5, "SA"),
+    "Cooper Basin": (-27.5, 140.5, "SA"), "Tennant Creek": (-19.65, 134.19, "NT"), "Pine Creek": (-13.82, 131.83, "NT"), "Arunta": (-22.5, 133.5, "NT"),
+    "Tanami": (-20.0, 129.7, "NT"), "McArthur Basin": (-16.5, 135.5, "NT"), "Victorian Goldfields": (-36.8, 144.0, "VIC"), "Bendigo": (-36.76, 144.28, "VIC"),
+    "Ballarat": (-37.56, 143.85, "VIC"), "Mount Read": (-41.9, 145.6, "TAS"), "Carnarvon Basin": (-22.0, 114.5, "WA"), "Perth Basin": (-29.5, 115.2, "WA"),
+    "Canning Basin": (-19.5, 123.5, "WA"), "Leonora": (-28.88, 121.33, "WA"), "Laverton": (-28.63, 122.4, "WA"), "Kalgoorlie": (-30.75, 121.47, "WA"),
+    "Meekatharra": (-26.6, 118.5, "WA"), "Cue": (-27.42, 117.9, "WA"), "Southern Cross": (-31.23, 119.33, "WA"), "Norseman": (-32.2, 121.78, "WA"),
+}
+def _main_state(txt):
+    return max(STATES, key=lambda k: len(STATE_RX[k].findall(txt)))
+def _town(town, txt):
+    if town.split()[0].lower() in ("the", "this", "our", "its", "company", "project", "western", "south", "north", "new"): return None
+    st = _main_state(txt)
+    try:
+        g = geocode(town, st)
+    except Exception:
+        return None
+    return g if g and len(STATE_RX[g[2]].findall(txt)) >= 2 else None
+def place_fallback(txt):
+    for rx, how in ((FROM, "km"), (NEARTOWN, "near"), (NEARST, "near")):
+        for m in rx.finditer(txt):
+            town = m.group(2) if how == "km" else m.group(1)
+            if how == "km" and int(m.group(1)) > 150: continue
+            g = _town(town.strip(), txt)
+            if g: return g[0], g[1], g[2], (f"{m.group(1)} km from {town}" if how == "km" else f"near {town}")
+    seen = set()
+    for m in PROJ.finditer(txt):
+        n = m.group(1).strip()
+        if n in seen or len(seen) > 6: continue
+        seen.add(n)
+        t = TOWNS.get(n) or TOWNS.get(n.replace("Mt ", "Mount "))
+        if t and len(STATE_RX[t[2]].findall(txt)) >= 2: return t[0], t[1], t[2], f"near {n} (project name)"
+    best = None
+    for k, v in REGION.items():
+        n = txt.count(k)
+        if n >= 2 and len(STATE_RX[v[2]].findall(txt)) >= 2 and (not best or n > best[1]): best = (k, n)
+    if best:
+        v = REGION[best[0]]; return v[0], v[1], v[2], f"{best[0]} region (approximate)"
     return None
 
 def profile(c, item):
@@ -102,8 +151,9 @@ def profile(c, item):
         return None
     loc, near, proj = None, None, None
     dbg = {"docs": [], "near": [], "oz": 0, "abroad": 0}
-    picks = [a for a in anns if DOCS.search(a.get("headline", "")) and a.get("documentKey")][:3]
-    picks += [a for a in anns if a.get("isPriceSensitive") and a.get("documentKey") and a not in picks][:4 - len(picks)]
+    ND = int(os.environ.get("NDOCS", "4"))
+    picks = [a for a in anns if DOCS.search(a.get("headline", "")) and a.get("documentKey")][:ND - 1]
+    picks += [a for a in anns if a.get("isPriceSensitive") and a.get("documentKey") and a not in picks][:ND - len(picks)]
     for a in picks:
         try:
             txt = pdf_text(a["documentKey"])

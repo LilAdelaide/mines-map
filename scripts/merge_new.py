@@ -34,7 +34,10 @@ for c, p in sorted(newcos.items()):
     if p["el"] == "gold":
         COS[c]["gold"] = True
         GOLD[c] = {"name": p["name"], "mcap": p.get("mcap") or 0, "price": p.get("price")}
-    site = {"id": next_id, "n": p.get("project") or p["name"], "lat": round(p["lat"], 4), "lon": round(p["lon"], 4), "st": p["st"],
+    la, lo = p["lat"], p["lon"]
+    if "region (approximate)" in (p.get("near") or ""):   # spread region-only placements so they don't stack
+        import zlib; h = zlib.crc32(c.encode()); la += ((h % 1000) / 1000 - .5) * .8; lo += (((h // 1000) % 1000) / 1000 - .5) * .8
+    site = {"id": next_id, "n": p.get("project") or p["name"], "lat": round(la, 4), "lon": round(lo, 4), "st": p["st"],
             "s": "D", "ow": p["name"], "op": p["name"], "tk": c, "p": 0, "pt": "Exploration", "rs": "Not yet reported",
             "ty": "Exploration", "b": (f"Auto-added ASX penny stock. Location is approximate ({p.get('near') or 'from its announcements'})." if p.get("src") == "penny" else f"Auto-added: {p['name']} listed on the ASX in {year}. Location is approximate ({p.get('near') or 'from its announcements'})."),
             "c": [c], "pc": c, "mk": {}, "auto": True}

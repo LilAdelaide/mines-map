@@ -8,6 +8,9 @@ on:
       maxpx:
         description: "Price limit in A$"
         default: "1"
+      redo:
+        description: "Retry companies with this result (e.g. no-oz-location)"
+        default: ""
 permissions:
   contents: write
 concurrency:
@@ -23,7 +26,7 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install -q pypdf cryptography pillow
       - name: Scan ASX penny stocks
-        env: { MAXPX: "${{ github.event.inputs.maxpx || '1' }}" }
+        env: { MAXPX: "${{ github.event.inputs.maxpx || '1' }}", REDO: "${{ github.event.inputs.redo }}", NDOCS: "6" }
         run: timeout 120m python scripts/pennies.py || true
       - name: Put them on the map
         run: python scripts/merge_new.py
