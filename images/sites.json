@@ -1868,5 +1868,464 @@
 "lon": 119.74694,
 "how": "wikipedia",
 "km": 5.2
+},
+"black-hammer-project": {
+"ok": true,
+"lat": -36.0129,
+"lon": 149.4027,
+"how": "map",
+"km": 5.2
+},
+"madura-project": {
+"ok": true,
+"lat": -30.75,
+"lon": 126.0824,
+"how": "map",
+"km": 5.2
+},
+"mt-cattlin-gold-project": {
+"ok": false,
+"why": "blank"
+},
+"forelands-gold-project": {
+"ok": true,
+"lat": -30.75,
+"lon": 123.0424,
+"how": "map",
+"km": 5.2
+},
+"kookynie-gold-project": {
+"ok": true,
+"lat": -29.3369,
+"lon": 121.49237,
+"how": "wikipedia",
+"km": 5.2
+},
+"gold-project": {
+"ok": true,
+"lat": -30.75,
+"lon": 123.5666,
+"how": "map",
+"km": 5.2
+},
+"yilgarn-craton-boundary-project": {
+"ok": true,
+"lat": -32.2,
+"lon": 122.7382,
+"how": "map",
+"km": 12
+},
+"chalice-gold-project": {
+"ok": true,
+"lat": -25.3259,
+"lon": 119.9249,
+"how": "map",
+"km": 5.2
+},
+"barlee-project": {
+"ok": true,
+"lat": -27.4588,
+"lon": 122.4,
+"how": "map",
+"km": 12
+},
+"mangaroon-project": {
+"ok": true,
+"lat": -23.86952,
+"lon": 115.74649,
+"how": "osm",
+"km": 3.2
+},
+"northern-silica-project": {
+"ok": true,
+"lat": -14.938,
+"lon": 145.77,
+"how": "map",
+"km": 5.2
+},
+"dynamic-metals-widgiemooltha-project": {
+"ok": true,
+"lat": -31.95,
+"lon": 121.6996,
+"how": "map",
+"km": 5.2
+},
+"company-s-leonora-goldfields-project": {
+"ok": true,
+"lat": -28.829,
+"lon": 121.3882,
+"how": "map",
+"km": 5.2
+},
+"metals-mt-edon-project": {
+"ok": true,
+"lat": -29.32111,
+"lon": 117.66472,
+"how": "wikidata",
+"km": 5.2
+},
+"riverina-east-gold-project": {
+"ok": true,
+"lat": -30.3041,
+"lon": 121.062,
+"how": "map",
+"km": 5.2
+},
+"peak-hill-gold-project": {
+"ok": true,
+"lat": -25.64,
+"lon": 118.71806,
+"how": "wikidata",
+"km": 5.2
+},
+"company-s-stella-range-project": {
+"ok": true,
+"lat": -29.3944,
+"lon": 123.2709,
+"how": "map",
+"km": 5.2
+},
+"herberton-conductor-metals-project": {
+"ok": true,
+"lat": -16.92,
+"lon": 144.8283,
+"how": "map",
+"km": 5.2
+},
+"duketon-project": {
+"ok": true,
+"lat": -28.7064,
+"lon": 122.4871,
+"how": "map",
+"km": 5.2
+},
+"company-secretary-project": {
+"ok": true,
+"lat": -28.88,
+"lon": 121.8444,
+"how": "map",
+"km": 5.2
+},
+"king-gold-project": {
+"ok": true,
+"lat": -31.61,
+"lon": 122.4707,
+"how": "map",
+"km": 5.2
+},
+"antimony-project": {
+"ok": true,
+"lat": -37.55632,
+"lon": 144.49504,
+"how": "osm",
+"km": 3.2
+},
+"mallee-project": {
+"ok": true,
+"lat": -34.93,
+"lon": 140.7977,
+"how": "map",
+"km": 5.2
+},
+"silica-hill-project": {
+"ok": true,
+"lat": -32.3791,
+"lon": 149.1,
+"how": "map",
+"km": 12
+},
+"mindoolah-gold-project": {
+"ok": true,
+"lat": -26.9741,
+"lon": 117.3976,
+"how": "map",
+"km": 5.2
+},
+"key-project": {
+"ok": true,
+"lat": -28.4977,
+"lon": 121.47,
+"how": "map",
+"km": 5.2
+},
+"rockley-project": {
+"ok": true,
+"lat": -33.7,
+"lon": 149.56667,
+"how": "wikipedia",
+"km": 5.2
+},
+"lunnon-metals": {
+"ok": true,
+"lat": -31.95,
+"lon": 121.9119,
+"how": "map",
+"km": 5.2
+},
+"malcolm-project": {
+"ok": true,
+"lat": -28.9004,
+"lon": 121.81759,
+"how": "osm",
+"km": 3.2
+},
+"gidji-jv-gold-project": {
+"ok": true,
+"lat": -30.5858,
+"lon": 121.45465,
+"how": "osm",
+"km": 3.2
+},
+"leinster-south-project": {
+"ok": true,
+"lat": -28.2804,
+"lon": 120.7,
+"how": "map",
+"km": 12
+},
+"mons-project": {
+"ok": true,
+"lat": -29.593,
+"lon": 118.6378,
+"how": "map",
+"km": 5.2
+},
+"east-scotia-project": {
+"ok": true,
+"lat": -30.1767,
+"lon": 122.1371,
+"how": "map",
+"km": 5.2
+},
+"charters-towers-gold-project": {
+"ok": true,
+"lat": -20.0778,
+"lon": 146.2585,
+"how": "wikipedia",
+"km": 5.2
+},
+"mt-mckenna-gold-project": {
+"ok": true,
+"lat": -28.63,
+"lon": 122.5334,
+"how": "map",
+"km": 5.2
+},
+"abbotts-gold-project": {
+"ok": true,
+"lat": -26.32667,
+"lon": 118.39306,
+"how": "wikidata",
+"km": 5.2
+},
+"mikado-project": {
+"ok": true,
+"lat": -28.84278,
+"lon": 122.63944,
+"how": "wikidata",
+"km": 5.2
+},
+"sybella-rare-earth-project": {
+"ok": true,
+"lat": -20.8574,
+"lon": 139.3538,
+"how": "map",
+"km": 5.2
+},
+"acquired-project": {
+"ok": true,
+"lat": -30.113,
+"lon": 122.2112,
+"how": "map",
+"km": 5.2
+},
+"presentation-east-menzies-project": {
+"ok": true,
+"lat": -29.5788,
+"lon": 121.47,
+"how": "map",
+"km": 5.2
+},
+"blue-project": {
+"ok": true,
+"lat": -35.5783,
+"lon": 148.0101,
+"how": "map",
+"km": 5.2
+},
+"the-mountain-pond-project": {
+"ok": true,
+"lat": -24.3793,
+"lon": 120.8403,
+"how": "map",
+"km": 5.2
+},
+"s2-resources": {
+"ok": true,
+"lat": -32.4596,
+"lon": 142.0506,
+"how": "map",
+"km": 5.2
+},
+"au-project": {
+"ok": true,
+"lat": -20.1596,
+"lon": 134.7311,
+"how": "map",
+"km": 5.2
+},
+"canobie-project": {
+"ok": true,
+"lat": -16.8356,
+"lon": 144.1898,
+"how": "map",
+"km": 5.2
+},
+"revere-project": {
+"ok": true,
+"lat": -20.9152,
+"lon": 120.0233,
+"how": "map",
+"km": 5.2
+},
+"greenvale-project": {
+"ok": true,
+"lat": -19.0009,
+"lon": 144.98,
+"how": "wikipedia",
+"km": 5.2
+},
+"christmas-creek-project": {
+"ok": true,
+"lat": -19.1218,
+"lon": 126.731,
+"how": "map",
+"km": 5.2
+},
+"terrain-minerals-smokebush-project": {
+"ok": true,
+"lat": -28.7968,
+"lon": 115.86,
+"how": "map",
+"km": 5.2
+},
+"walparuta-project": {
+"ok": true,
+"lat": -32.23306,
+"lon": 140.0475,
+"how": "wikidata",
+"km": 5.2
+},
+"base-metals-project": {
+"ok": true,
+"lat": -28.7373,
+"lon": 118.8126,
+"how": "map",
+"km": 5.2
+},
+"bullabulling-project": {
+"ok": true,
+"lat": -30.95,
+"lon": 120.8449,
+"how": "map",
+"km": 5.2
+},
+"radio-gold-project": {
+"ok": true,
+"lat": -18.4211,
+"lon": 127.8712,
+"how": "map",
+"km": 5.2
+},
+"gascoyne-gold-project": {
+"ok": true,
+"lat": -25.6251,
+"lon": 115.8413,
+"how": "map",
+"km": 5.2
+},
+"ruddygore-project": {
+"ok": true,
+"lat": -16.92,
+"lon": 144.3575,
+"how": "map",
+"km": 5.2
+},
+"bowdens-silver-project": {
+"ok": true,
+"lat": -32.6,
+"lon": 149.868,
+"how": "map",
+"km": 12
+},
+"webbs-silver-project": {
+"ok": true,
+"lat": -29.3547,
+"lon": 151.598,
+"how": "map",
+"km": 5.2
+},
+"silver-project": {
+"ok": true,
+"lat": -16.7938,
+"lon": 144.5232,
+"how": "map",
+"km": 5.2
+},
+"elizabeth-hill-silver-project": {
+"ok": true,
+"lat": -25.1985,
+"lon": 116.9326,
+"how": "map",
+"km": 5.2
+},
+"briggs-copper-jv-project": {
+"ok": true,
+"lat": -23.84,
+"lon": 150.669,
+"how": "map",
+"km": 5.2
+},
+"over-outcropping-porphyry-project": {
+"ok": true,
+"lat": -36.3058,
+"lon": 148.0384,
+"how": "map",
+"km": 5.2
+},
+"coppermine-project": {
+"ok": true,
+"lat": -26.4567,
+"lon": 115.6927,
+"how": "map",
+"km": 5.2
+},
+"ore-project": {
+"ok": true,
+"lat": -23.7096,
+"lon": 118.2245,
+"how": "map",
+"km": 5.2
+},
+"bounty-oil-gas-nl": {
+"ok": true,
+"lat": -22.2928,
+"lon": 114.1258,
+"how": "map",
+"km": 5.2
+},
+"quarterly-project": {
+"ok": true,
+"lat": -37.9575,
+"lon": 140.9456,
+"how": "map",
+"km": 5.2
+},
+"lei-lithium-project": {
+"ok": true,
+"lat": -12.71,
+"lon": 130.79,
+"how": "wikidata",
+"km": 5.2
 }
 }

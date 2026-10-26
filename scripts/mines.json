@@ -2430,10 +2430,100 @@
 "ty": "—"
 },
 {
+"k": "black-hammer-project",
+"n": "Black Hammer Project",
+"lat": -36.0129,
+"lon": 149.4027,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "madura-project",
+"n": "Madura Project",
+"lat": -30.75,
+"lon": 126.0824,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "mt-cattlin-gold-project",
+"n": "Mt Cattlin Gold Project",
+"lat": -35.4537,
+"lon": 119.9892,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
 "k": "shoobridge-gold-project",
 "n": "Shoobridge Gold Project",
 "lat": -13.6312,
 "lon": 130.84,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "forelands-gold-project",
+"n": "Forelands Gold Project",
+"lat": -30.75,
+"lon": 123.0424,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "kookynie-gold-project",
+"n": "Kookynie Gold Project",
+"lat": -29.4205,
+"lon": 121.33,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "gold-project",
+"n": "Gold Project",
+"lat": -29.9392,
+"lon": 121.47,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "yilgarn-craton-boundary-project",
+"n": "Yilgarn Craton Boundary Project",
+"lat": -32.2,
+"lon": 122.7382,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "chalice-gold-project",
+"n": "Chalice Gold Project",
+"lat": -25.3259,
+"lon": 119.9249,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "barlee-project",
+"n": "Barlee Project",
+"lat": -27.4588,
+"lon": 122.4,
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
@@ -2445,6 +2535,606 @@
 "lat": -21.5341,
 "lon": 136.2454,
 "e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "mangaroon-project",
+"n": "Mangaroon Project",
+"lat": -23.525,
+"lon": 115.8426,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "northern-silica-project",
+"n": "Northern Silica Project",
+"lat": -14.938,
+"lon": 145.77,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "dynamic-metals-widgiemooltha-project",
+"n": "Dynamic Metals’ Widgiemooltha Project",
+"lat": -31.95,
+"lon": 121.6996,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "company-s-leonora-goldfields-project",
+"n": "Company’s Leonora Goldfields Project",
+"lat": -28.829,
+"lon": 121.3882,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "metals-mt-edon-project",
+"n": "Metals’ Mt Edon Project",
+"lat": -29.2952,
+"lon": 117.6515,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "riverina-east-gold-project",
+"n": "Riverina East Gold Project",
+"lat": -30.3041,
+"lon": 121.062,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "peak-hill-gold-project",
+"n": "Peak Hill Gold Project",
+"lat": -25.5189,
+"lon": 118.5,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "company-s-stella-range-project",
+"n": "Company’s Stella Range Project",
+"lat": -29.3944,
+"lon": 123.2709,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "herberton-conductor-metals-project",
+"n": "Herberton Conductor Metals Project",
+"lat": -16.92,
+"lon": 144.8283,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "duketon-project",
+"n": "Duketon Project",
+"lat": -28.7064,
+"lon": 122.4871,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "company-secretary-project",
+"n": "Company Secretary Project",
+"lat": -28.88,
+"lon": 121.8444,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "king-gold-project",
+"n": "King Gold Project",
+"lat": -31.61,
+"lon": 122.4707,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "antimony-project",
+"n": "Antimony Project",
+"lat": -37.2695,
+"lon": 144.96,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "gold-project",
+"n": "Gold Project",
+"lat": -30.75,
+"lon": 121.8369,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "mallee-project",
+"n": "Mallee Project",
+"lat": -34.93,
+"lon": 140.7977,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "silica-hill-project",
+"n": "Silica Hill Project",
+"lat": -32.3791,
+"lon": 149.1,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "mindoolah-gold-project",
+"n": "Mindoolah Gold Project",
+"lat": -26.9741,
+"lon": 117.3976,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "key-project",
+"n": "Key Project",
+"lat": -28.4977,
+"lon": 121.47,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "rockley-project",
+"n": "Rockley Project",
+"lat": -33.7041,
+"lon": 149.5881,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "lunnon-metals",
+"n": "Lunnon Metals",
+"lat": -31.95,
+"lon": 121.9119,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "gold-project",
+"n": "Gold Project",
+"lat": -25.3896,
+"lon": 119.8536,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "malcolm-project",
+"n": "Malcolm Project",
+"lat": -28.88,
+"lon": 121.4329,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "gidji-jv-gold-project",
+"n": "Gidji JV Gold Project",
+"lat": -30.6149,
+"lon": 121.47,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "leinster-south-project",
+"n": "Leinster South Project",
+"lat": -28.2804,
+"lon": 120.7,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "mons-project",
+"n": "Mons Project",
+"lat": -29.593,
+"lon": 118.6378,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "east-scotia-project",
+"n": "East Scotia Project",
+"lat": -30.1767,
+"lon": 122.1371,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "charters-towers-gold-project",
+"n": "Charters Towers Gold Project",
+"lat": -20.2151,
+"lon": 146.26,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "gold-project",
+"n": "Gold Project",
+"lat": -30.75,
+"lon": 123.5666,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "mt-mckenna-gold-project",
+"n": "Mt McKenna Gold Project",
+"lat": -28.63,
+"lon": 122.5334,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "abbotts-gold-project",
+"n": "Abbotts Gold Project",
+"lat": -26.2847,
+"lon": 118.5,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "mikado-project",
+"n": "Mikado Project",
+"lat": -28.8402,
+"lon": 122.6395,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "sybella-rare-earth-project",
+"n": "Sybella Rare Earth Project",
+"lat": -20.8574,
+"lon": 139.3538,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "acquired-project",
+"n": "Acquired Project",
+"lat": -30.113,
+"lon": 122.2112,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "presentation-east-menzies-project",
+"n": "Presentation\nEast Menzies Project",
+"lat": -29.5788,
+"lon": 121.47,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "blue-project",
+"n": "Blue Project",
+"lat": -35.5783,
+"lon": 148.0101,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "the-mountain-pond-project",
+"n": "The Mountain Pond Project",
+"lat": -24.3793,
+"lon": 120.8403,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "s2-resources",
+"n": "S2 Resources",
+"lat": -32.4596,
+"lon": 142.0506,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "au-project",
+"n": "Au Project",
+"lat": -20.1596,
+"lon": 134.7311,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "canobie-project",
+"n": "Canobie Project",
+"lat": -16.8356,
+"lon": 144.1898,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "revere-project",
+"n": "Revere Project",
+"lat": -20.9152,
+"lon": 120.0233,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "greenvale-project",
+"n": "Greenvale Project",
+"lat": -19.26,
+"lon": 144.8159,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "christmas-creek-project",
+"n": "Christmas Creek Project",
+"lat": -19.1218,
+"lon": 126.731,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "terrain-minerals-smokebush-project",
+"n": "TERRAIN MINERALS\nSmokebush Project",
+"lat": -28.7968,
+"lon": 115.86,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "walparuta-project",
+"n": "Walparuta Project",
+"lat": -32.1462,
+"lon": 139.8226,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "base-metals-project",
+"n": "Base Metals Project",
+"lat": -28.7373,
+"lon": 118.8126,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "bullabulling-project",
+"n": "Bullabulling Project",
+"lat": -30.95,
+"lon": 120.8449,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "radio-gold-project",
+"n": "Radio Gold Project",
+"lat": -18.4211,
+"lon": 127.8712,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "gascoyne-gold-project",
+"n": "Gascoyne Gold Project",
+"lat": -25.6251,
+"lon": 115.8413,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "ruddygore-project",
+"n": "Ruddygore Project",
+"lat": -16.92,
+"lon": 144.3575,
+"e": "silver",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "bowdens-silver-project",
+"n": "Bowdens Silver Project",
+"lat": -32.6,
+"lon": 149.868,
+"e": "silver",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "webbs-silver-project",
+"n": "Webbs Silver Project",
+"lat": -29.3547,
+"lon": 151.598,
+"e": "silver",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "silver-project",
+"n": "Silver Project",
+"lat": -16.7938,
+"lon": 144.5232,
+"e": "silver",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "elizabeth-hill-silver-project",
+"n": "Elizabeth Hill Silver Project",
+"lat": -25.1985,
+"lon": 116.9326,
+"e": "silver",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "briggs-copper-jv-project",
+"n": "Briggs Copper JV Project",
+"lat": -23.84,
+"lon": 150.669,
+"e": "copper",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "over-outcropping-porphyry-project",
+"n": "Over Outcropping Porphyry Project",
+"lat": -36.3058,
+"lon": 148.0384,
+"e": "copper",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "coppermine-project",
+"n": "Coppermine Project",
+"lat": -26.4567,
+"lon": 115.6927,
+"e": "copper",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "ore-project",
+"n": "Ore Project",
+"lat": -23.7096,
+"lon": 118.2245,
+"e": "iron",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "bounty-oil-gas-nl",
+"n": "Bounty Oil & Gas Nl",
+"lat": -22.2928,
+"lon": 114.1258,
+"e": "oil",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "quarterly-project",
+"n": "Quarterly Project",
+"lat": -37.9575,
+"lon": 140.9456,
+"e": "oil",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "lei-lithium-project",
+"n": "Lei Lithium Project",
+"lat": -12.8654,
+"lon": 130.84,
+"e": "lithium",
 "s": "D",
 "ty": "Exploration",
 "auto": true
