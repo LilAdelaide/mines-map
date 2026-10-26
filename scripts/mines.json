@@ -2460,8 +2460,8 @@
 "auto": true
 },
 {
-"k": "the-apollo-project",
-"n": "The Apollo Project",
+"k": "apollo-project",
+"n": "Apollo Project",
 "lat": -36.7736,
 "lon": 144.0008,
 "e": "gold",
@@ -2520,8 +2520,8 @@
 "auto": true
 },
 {
-"k": "copper-development-project",
-"n": "Copper Development Project",
+"k": "antipa-minerals-project-area",
+"n": "Antipa Minerals project area",
 "lat": -21.428,
 "lon": 122.0168,
 "e": "gold",
@@ -2530,8 +2530,8 @@
 "auto": true
 },
 {
-"k": "copper-project",
-"n": "Copper Project",
+"k": "broken-hill-gold-project-area",
+"n": "Broken Hill Gold project area",
 "lat": -31.228,
 "lon": 140.2376,
 "e": "gold",
@@ -2544,6 +2544,16 @@
 "n": "Mt Egerton Gold Project",
 "lat": -37.0368,
 "lon": 144.3264,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "ruddygore-project",
+"n": "Ruddygore Project",
+"lat": -16.92,
+"lon": 144.3575,
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
@@ -2570,8 +2580,8 @@
 "auto": true
 },
 {
-"k": "gold-project",
-"n": "Gold Project",
+"k": "cazaly-resources-project-area",
+"n": "Cazaly Resources project area",
 "lat": -29.9392,
 "lon": 121.47,
 "e": "gold",
@@ -2594,16 +2604,6 @@
 "n": "Chalice Gold Project",
 "lat": -25.3259,
 "lon": 119.9249,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "silver-project",
-"n": "Silver Project",
-"lat": -27.42,
-"lon": 117.9,
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
@@ -2640,18 +2640,8 @@
 "auto": true
 },
 {
-"k": "northern-silica-project",
-"n": "Northern Silica Project",
-"lat": -14.938,
-"lon": 145.77,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "dynamic-metals-widgiemooltha-project",
-"n": "Dynamic Metals’ Widgiemooltha Project",
+"k": "widgiemooltha-project",
+"n": "Widgiemooltha Project",
 "lat": -31.95,
 "lon": 121.6996,
 "e": "gold",
@@ -2670,8 +2660,8 @@
 "auto": true
 },
 {
-"k": "company-s-leonora-goldfields-project",
-"n": "Company’s Leonora Goldfields Project",
+"k": "leonora-goldfields-project",
+"n": "Leonora Goldfields Project",
 "lat": -28.829,
 "lon": 121.3882,
 "e": "gold",
@@ -2680,8 +2670,8 @@
 "auto": true
 },
 {
-"k": "metals-mt-edon-project",
-"n": "Metals’ Mt Edon Project",
+"k": "mt-edon-project",
+"n": "Mt Edon Project",
 "lat": -29.2952,
 "lon": 117.6515,
 "e": "gold",
@@ -2710,8 +2700,8 @@
 "auto": true
 },
 {
-"k": "company-s-stella-range-project",
-"n": "Company’s Stella Range Project",
+"k": "stella-range-project",
+"n": "Stella Range Project",
 "lat": -29.3944,
 "lon": 123.2709,
 "e": "gold",
@@ -2740,8 +2730,8 @@
 "auto": true
 },
 {
-"k": "company-secretary-project",
-"n": "Company Secretary Project",
+"k": "iceni-gold-project-area",
+"n": "Iceni Gold project area",
 "lat": -28.88,
 "lon": 121.8444,
 "e": "gold",
@@ -2750,18 +2740,8 @@
 "auto": true
 },
 {
-"k": "king-gold-project",
-"n": "King Gold Project",
-"lat": -31.61,
-"lon": 122.4707,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "antimony-project",
-"n": "Antimony Project",
+"k": "itech-minerals-project-area",
+"n": "Itech Minerals project area",
 "lat": -37.2695,
 "lon": 144.96,
 "e": "gold",
@@ -2770,8 +2750,8 @@
 "auto": true
 },
 {
-"k": "copper-project",
-"n": "Copper Project",
+"k": "javelin-minerals-project-area",
+"n": "Javelin Minerals project area",
 "lat": -31.0532,
 "lon": 121.554,
 "e": "gold",
@@ -2780,20 +2760,10 @@
 "auto": true
 },
 {
-"k": "gold-project",
-"n": "Gold Project",
+"k": "kalgoorlie-gold-mining-project-area",
+"n": "Kalgoorlie Gold Mining project area",
 "lat": -30.75,
 "lon": 121.8369,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "mallee-project",
-"n": "Mallee Project",
-"lat": -34.93,
-"lon": 140.7977,
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
@@ -2820,8 +2790,8 @@
 "auto": true
 },
 {
-"k": "key-project",
-"n": "Key Project",
+"k": "legacy-iron-ore-project-area",
+"n": "Legacy Iron Ore project area",
 "lat": -28.4977,
 "lon": 121.47,
 "e": "gold",
@@ -2840,8 +2810,8 @@
 "auto": true
 },
 {
-"k": "lunnon-metals",
-"n": "Lunnon Metals",
+"k": "lunnon-metals-project-area",
+"n": "Lunnon Metals project area",
 "lat": -31.95,
 "lon": 121.9119,
 "e": "gold",
@@ -2850,8 +2820,8 @@
 "auto": true
 },
 {
-"k": "new-waverley-gold-project",
-"n": "New Waverley Gold Project",
+"k": "lachlan-star-project-area",
+"n": "Lachlan Star project area",
 "lat": -32.1272,
 "lon": 121.6416,
 "e": "gold",
@@ -2860,8 +2830,8 @@
 "auto": true
 },
 {
-"k": "gold-project",
-"n": "Gold Project",
+"k": "lodestar-minerals-project-area",
+"n": "Lodestar Minerals project area",
 "lat": -25.3896,
 "lon": 119.8536,
 "e": "gold",
@@ -2890,8 +2860,8 @@
 "auto": true
 },
 {
-"k": "copper-project",
-"n": "Copper Project",
+"k": "mandrake-resources-project-area",
+"n": "Mandrake Resources project area",
 "lat": -13.82,
 "lon": 131.83,
 "e": "gold",
@@ -2914,16 +2884,6 @@
 "n": "Gawler Craton Gold Project",
 "lat": -30.7264,
 "lon": 135.1432,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "tibooburra-gold-project",
-"n": "Tibooburra Gold Project",
-"lat": -29.43,
-"lon": 142.01,
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
@@ -3010,30 +2970,10 @@
 "auto": true
 },
 {
-"k": "copper-project",
-"n": "Copper Project",
-"lat": -27.1552,
-"lon": 117.7496,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
 "k": "coolgardie-gold-project",
 "n": "Coolgardie Gold Project",
 "lat": -30.9332,
 "lon": 121.4124,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "gold-project",
-"n": "Gold Project",
-"lat": -30.75,
-"lon": 123.5666,
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
@@ -3090,18 +3030,8 @@
 "auto": true
 },
 {
-"k": "sybella-rare-earth-project",
-"n": "Sybella Rare Earth Project",
-"lat": -20.8574,
-"lon": 139.3538,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "acquired-project",
-"n": "Acquired Project",
+"k": "redstone-resources-project-area",
+"n": "Redstone Resources project area",
 "lat": -30.113,
 "lon": 122.2112,
 "e": "gold",
@@ -3110,8 +3040,8 @@
 "auto": true
 },
 {
-"k": "presentation-east-menzies-project",
-"n": "Presentation\nEast Menzies Project",
+"k": "east-menzies-project",
+"n": "East Menzies Project",
 "lat": -29.5788,
 "lon": 121.47,
 "e": "gold",
@@ -3130,18 +3060,8 @@
 "auto": true
 },
 {
-"k": "the-mountain-pond-project",
-"n": "The Mountain Pond Project",
-"lat": -24.3793,
-"lon": 120.8403,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "s2-resources",
-"n": "S2 Resources",
+"k": "s2-resources-project-area",
+"n": "S2 Resources project area",
 "lat": -32.4596,
 "lon": 142.0506,
 "e": "gold",
@@ -3150,8 +3070,8 @@
 "auto": true
 },
 {
-"k": "au-project",
-"n": "Au Project",
+"k": "sabre-resources-project-area",
+"n": "Sabre Resources project area",
 "lat": -20.1596,
 "lon": 134.7311,
 "e": "gold",
@@ -3174,16 +3094,6 @@
 "n": "Revere Project",
 "lat": -20.9152,
 "lon": 120.0233,
-"e": "gold",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "greenvale-project",
-"n": "Greenvale Project",
-"lat": -19.26,
-"lon": 144.8159,
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
@@ -3220,8 +3130,8 @@
 "auto": true
 },
 {
-"k": "terrain-minerals-smokebush-project",
-"n": "TERRAIN MINERALS\nSmokebush Project",
+"k": "smokebush-project",
+"n": "Smokebush Project",
 "lat": -28.7968,
 "lon": 115.86,
 "e": "gold",
@@ -3260,8 +3170,8 @@
 "auto": true
 },
 {
-"k": "base-metals-project",
-"n": "Base Metals Project",
+"k": "venus-metals-corporation-project-area",
+"n": "Venus Metals Corporation project area",
 "lat": -28.7373,
 "lon": 118.8126,
 "e": "gold",
@@ -3300,11 +3210,21 @@
 "auto": true
 },
 {
-"k": "marree-project",
-"n": "Marree Project",
-"lat": -30.9424,
-"lon": 135.548,
+"k": "tibooburra-gold-project",
+"n": "Tibooburra Gold Project",
+"lat": -29.43,
+"lon": 142.01,
 "e": "uranium",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "mallee-project",
+"n": "Mallee Project",
+"lat": -34.93,
+"lon": 140.7977,
+"e": "coal",
 "s": "D",
 "ty": "Exploration",
 "auto": true
@@ -3315,26 +3235,6 @@
 "lat": -22.624,
 "lon": 148.4064,
 "e": "coal",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "ruddygore-project",
-"n": "Ruddygore Project",
-"lat": -16.92,
-"lon": 144.3575,
-"e": "silver",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "bowdens-silver-project",
-"n": "Bowdens Silver Project",
-"lat": -32.6,
-"lon": 149.868,
-"e": "silver",
 "s": "D",
 "ty": "Exploration",
 "auto": true
@@ -3364,16 +3264,6 @@
 "n": "Castle Rag Project",
 "lat": -29.7376,
 "lon": 151.6672,
-"e": "silver",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "silver-project",
-"n": "Silver Project",
-"lat": -16.7938,
-"lon": 144.5232,
 "e": "silver",
 "s": "D",
 "ty": "Exploration",
@@ -3410,20 +3300,10 @@
 "auto": true
 },
 {
-"k": "gold-project",
-"n": "Gold Project",
+"k": "bubalus-resources-project-area",
+"n": "Bubalus Resources project area",
 "lat": -42.08,
 "lon": 145.56,
-"e": "copper",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "yataga-valley-copper-project",
-"n": "Yataga Valley Copper Project",
-"lat": -18.29,
-"lon": 143.55,
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
@@ -3460,10 +3340,20 @@
 "auto": true
 },
 {
-"k": "over-outcropping-porphyry-project",
-"n": "Over Outcropping Porphyry Project",
+"k": "kincora-copper-project-area",
+"n": "Kincora Copper project area",
 "lat": -36.3058,
 "lon": 148.0384,
+"e": "copper",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "sybella-rare-earth-project",
+"n": "Sybella Rare Earth Project",
+"lat": -20.8574,
+"lon": 139.3538,
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
@@ -3474,6 +3364,26 @@
 "n": "Coppermine Project",
 "lat": -26.4567,
 "lon": 115.6927,
+"e": "copper",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "greenvale-project",
+"n": "Greenvale Project",
+"lat": -19.26,
+"lon": 144.8159,
+"e": "copper",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
+"k": "tartana-minerals-project-area",
+"n": "Tartana Minerals project area",
+"lat": -16.7938,
+"lon": 144.5232,
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
@@ -3500,21 +3410,11 @@
 "auto": true
 },
 {
-"k": "bekisopa-project",
-"n": "Bekisopa Project",
-"lat": -37.5872,
-"lon": 144.1276,
-"e": "iron",
-"s": "D",
-"ty": "Exploration",
-"auto": true
-},
-{
-"k": "ore-project",
-"n": "Ore Project",
-"lat": -23.7096,
-"lon": 118.2245,
-"e": "iron",
+"k": "mountain-pond-project",
+"n": "Mountain Pond Project",
+"lat": -24.3793,
+"lon": 120.8403,
+"e": "salt",
 "s": "D",
 "ty": "Exploration",
 "auto": true
@@ -3530,8 +3430,8 @@
 "auto": true
 },
 {
-"k": "bounty-oil-gas-nl",
-"n": "Bounty Oil & Gas Nl",
+"k": "bounty-oil-gas-nl-project-area",
+"n": "Bounty Oil & Gas Nl project area",
 "lat": -22.2928,
 "lon": 114.1258,
 "e": "oil",
@@ -3550,8 +3450,8 @@
 "auto": true
 },
 {
-"k": "metgasco",
-"n": "Metgasco",
+"k": "metgasco-project-area",
+"n": "Metgasco project area",
 "lat": -27.476,
 "lon": 140.6704,
 "e": "oil",
@@ -3560,8 +3460,8 @@
 "auto": true
 },
 {
-"k": "the-project",
-"n": "The Project",
+"k": "macallum-new-energy-project-area",
+"n": "Macallum New Energy project area",
 "lat": -29.832,
 "lon": 115.5488,
 "e": "oil",
@@ -3580,8 +3480,8 @@
 "auto": true
 },
 {
-"k": "santos-innamincka-dome-project",
-"n": "Santos\nInnamincka Dome Project",
+"k": "innamincka-dome-project",
+"n": "Innamincka Dome Project",
 "lat": -27.5568,
 "lon": 140.7376,
 "e": "oil",
@@ -3590,8 +3490,8 @@
 "auto": true
 },
 {
-"k": "quarterly-project",
-"n": "Quarterly Project",
+"k": "3d-energi-project-area",
+"n": "3D Energi project area",
 "lat": -37.9575,
 "lon": 140.9456,
 "e": "oil",
@@ -3600,8 +3500,8 @@
 "auto": true
 },
 {
-"k": "xstate-resources",
-"n": "Xstate Resources",
+"k": "xstate-resources-project-area",
+"n": "Xstate Resources project area",
 "lat": -22.1128,
 "lon": 148.808,
 "e": "oil",

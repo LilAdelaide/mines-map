@@ -1,0 +1,19 @@
+{
+ "AMD": {"drop": true, "why": "projects in West Africa"},
+ "DRX": {"drop": true, "why": "silica / mineral sands"},
+ "FZR": {"drop": true, "why": "investment holding company"},
+ "DAF": {"drop": true, "why": "projects in Alaska"},
+ "PFE": {"drop": true, "why": "lithium brine in the USA"},
+ "NMT": {"drop": true, "why": "vanadium-titanium / recycling"},
+ "RNU": {"drop": true, "why": "graphite"},
+ "AKO": {"drop": true, "why": "iron ore in Madagascar"},
+ "IMA": {"drop": true, "why": "mineral sands"},
+ "EMUCA": {"drop": true, "why": "duplicate (partly paid shares of EMU)"},
+ "RDM": {"el": "copper"},
+ "KLR": {"el": "coal"},
+ "RWD": {"el": "salt"},
+ "MHC": {"el": "uranium"},
+ "SPQ": {"el": "copper"},
+ "TAT": {"el": "copper"},
+ "BMR": {"el": "gold"}
+}
