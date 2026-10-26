@@ -1,0 +1,39 @@
+# Every ASX mining/energy penny stock (under A$1) with an Australian project goes on the map. Weekly + by hand.
+name: Penny stocks
+on:
+  schedule:
+    - cron: "10 23 * * 6"   # Sunday morning Perth
+  workflow_dispatch:
+    inputs:
+      maxpx:
+        description: "Price limit in A$"
+        default: "1"
+permissions:
+  contents: write
+concurrency:
+  group: pennies
+  cancel-in-progress: false
+jobs:
+  scan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 175
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q pypdf cryptography pillow
+      - name: Scan ASX penny stocks
+        env: { MAXPX: "${{ github.event.inputs.maxpx || '1' }}" }
+        run: timeout 120m python scripts/pennies.py || true
+      - name: Put them on the map
+        run: python scripts/merge_new.py
+      - name: Site pictures
+        run: timeout 35m python scripts/mine_images.py || true
+      - name: Publish
+        if: always()
+        run: |
+          git config user.name "mines-map-bot"; git config user.email "actions@users.noreply.github.com"
+          git add data/newcos.json data/pennies_tried.json data/newcos_found.txt index.html scripts/mines.json images 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -q -m "Penny stocks added to the map"
+          for i in 1 2 3 4 5; do git pull -q --rebase -X theirs && git push -q && break; sleep 8; done

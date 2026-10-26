@@ -17,7 +17,7 @@ ALL, a0, a1 = grab(", ALL = ")
 COS, c0, c1 = grab(", COS = ")
 GOLD, g0, g1 = grab("let GOLD = ")
 next_id = 1 + max(m["id"] for ms in ALL.values() for m in ms)
-LABEL = {"gold": "gold", "uranium": "uranium", "copper": "copper", "iron": "iron ore", "coal": "coal", "silver": "silver", "tungsten": "tungsten", "oil": "oil & gas", "diamonds": "diamond", "salt": "salt & potash"}
+LABEL = {"gold": "gold", "uranium": "uranium", "copper": "copper", "iron": "iron ore", "coal": "coal", "silver": "silver", "tungsten": "tungsten", "oil": "oil & gas", "diamonds": "diamond", "salt": "salt & potash", "lithium": "lithium"}
 added = []
 for c, p in sorted(newcos.items()):
     if c in COS or p["el"] not in ALL:
@@ -25,18 +25,18 @@ for c, p in sorted(newcos.items()):
     year = (p.get("listed") or "")[:4]
     COS[c] = {"name": p["name"], "site": p.get("site") or "", "mi": f"https://www.marketindex.com.au/asx/{c.lower()}",
               "mcap": p.get("mcap") or 0, "price": p.get("price"), "h": "flat", "prod": False, "div": 0, "auto": True,
-              "why": "Newly listed explorer: no production yet; progress depends on drilling results and funding.",
-              "bio": f"{p['name']} is a newly listed ASX {LABEL[p['el']]} explorer (listed {year}). "
+              "why": ("Penny-stock explorer/developer: progress depends on drilling results and funding." if p.get("src") == "penny" else "Newly listed explorer: no production yet; progress depends on drilling results and funding."),
+              "bio": (f"{p['name']} is an ASX-listed {LABEL[p['el']]} penny stock (under A$1 when added). " if p.get("src") == "penny" else f"{p['name']} is a newly listed ASX {LABEL[p['el']]} explorer (listed {year}). ")
                      + (f"Its main project{(' (' + p['project'] + ')') if p.get('project') else ''} is about {p['near']}, {p['st']}. " if p.get("near") else "")
                      + (f"In its own words: {p['desc']}" if p.get("desc") else "")
-                     + " Added automatically from its ASX listing; details are limited until its first reports.",
+                     + (" Added automatically from its ASX announcements; project location is approximate." if p.get("src") == "penny" else " Added automatically from its ASX listing; details are limited until its first reports."),
               "listed": p.get("listed")}
     if p["el"] == "gold":
         COS[c]["gold"] = True
         GOLD[c] = {"name": p["name"], "mcap": p.get("mcap") or 0, "price": p.get("price")}
     site = {"id": next_id, "n": p.get("project") or p["name"], "lat": round(p["lat"], 4), "lon": round(p["lon"], 4), "st": p["st"],
             "s": "D", "ow": p["name"], "op": p["name"], "tk": c, "p": 0, "pt": "Exploration", "rs": "Not yet reported",
-            "ty": "Exploration", "b": f"Auto-added: {p['name']} listed on the ASX in {year}. Location is approximate ({p.get('near') or 'from its announcements'}).",
+            "ty": "Exploration", "b": (f"Auto-added ASX penny stock. Location is approximate ({p.get('near') or 'from its announcements'})." if p.get("src") == "penny" else f"Auto-added: {p['name']} listed on the ASX in {year}. Location is approximate ({p.get('near') or 'from its announcements'})."),
             "c": [c], "pc": c, "mk": {}, "auto": True}
     next_id += 1
     ALL[p["el"]].append(site)

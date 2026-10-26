@@ -4,7 +4,7 @@ import json, os, re, time, urllib.parse
 from common import *
 
 ELEMENTS = [  # element, keywords (checked in name + description + recent headlines)
-    ("uranium", r"uranium|yellowcake|u3o8"), ("gold", r"\bgold\b|\bau\b"), ("copper", r"copper|\bcu\b"),
+    ("uranium", r"uranium|yellowcake|u3o8"), ("lithium", r"lithium|spodumene|lepidolite|petalite"), ("gold", r"\bgold\b|\bau\b"), ("copper", r"copper|\bcu\b"),
     ("iron", r"iron ore|magnetite|hematite"), ("coal", r"\bcoal\b|coking|metallurgical coal"),
     ("silver", r"\bsilver\b|\bag\b"), ("tungsten", r"tungsten|scheelite|wolfram"),
     ("oil", r"\boil\b|\bgas\b|petroleum|\blng\b|hydrocarbon"), ("diamonds", r"diamond"), ("salt", r"\bsalt\b|potash|sulphate of potash"),
