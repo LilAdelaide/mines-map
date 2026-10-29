@@ -2342,8 +2342,9 @@ document.getElementById("termsBtn").onclick = () => glEl.hidden ? openGloss() : 
 document.addEventListener("keydown", ev => { if (ev.key === "Escape" && !glEl.hidden) closeGloss(); });
 // daily refresh: a scheduled job writes news/latest {asof, news:{el:[{h,src,d,url,tk}]}, macro:{el:[{h,src,d,fx,url}]}, macroAll}
 const okItem = x => x && typeof x.h === "string" && typeof x.url === "string" && /^https:\/\//.test(x.url) && typeof x.src === "string";
+function newer(k, doc){ const N = window.__NEWER || (window.__NEWER = {}); const t = doc && doc.asof ? Date.parse(doc.asof) : 0; if (t && N[k] && t < N[k]) return false; if (t) N[k] = t; return true; }
 function applyNews(doc){
-  if (!doc) return;
+  if (!doc || !newer("news", doc)) return;
   let any = false;
   const nd = doc.asof ? new Date(doc.asof) : null, lbl = nd && !isNaN(nd) ? nd.toLocaleDateString("en-AU", {day: "numeric", month: "short", year: "numeric"}) : null;
   if (doc.news && typeof doc.news === "object") for (const k in doc.news) {
@@ -2371,7 +2372,7 @@ function fmtAsof(iso){
 }
 var LIVE_AT = null;
 function applyLive(doc){
-  const px = doc && doc.px; if (!px || typeof px !== "object") return;
+  const px = doc && doc.px; if (!px || typeof px !== "object" || !newer("prices", doc)) return;
   let n = 0;
   for (const c in px) {
     const v = px[c]; if (!Array.isArray(v) || !(+v[0] > 0)) continue;
@@ -2585,7 +2586,7 @@ function annToast(list){
   clearTimeout(toastEl._t); toastEl._t = setTimeout(() => { toastEl.hidden = true; }, 20000);
 }
 function applyAnn(doc){
-  if (!doc || !doc.items) return;
+  if (!doc || !doc.items || !newer("ann", doc)) return;
   const before = new Set(annList("fav").map(a => a.c + a.k));
   ANN = doc;
   const fresh = annList("fav").filter(a => !before.has(a.c + a.k) && new Date(a.d) > annSeen);
@@ -2723,18 +2724,20 @@ document.querySelectorAll(".uistep").forEach(btn => {
 
 // ---------- standalone app (outside Claude): read the JSON files the free GitHub Actions jobs publish next to this page
 (function(){
-  if (window.claude && typeof claude.use === "function") return;
-  if (location.protocol === "file:") return;
+  // the app reads its own copy; the Claude version and saved copies read the same free GitHub data over the web
+  const inClaude = !!(window.claude && typeof claude.use === "function"), remote = inClaude || location.protocol === "file:";
+  const BASES = remote ? ["https://liladelaide.github.io/mines-map/", "https://cdn.jsdelivr.net/gh/LilAdelaide/mines-map@main/"] : [""];
   const FEEDS = [["prices", applyLive, 5], ["ann", applyAnn, 10], ["commod", applyCommod, 15], ["news", applyNews, 30], ["stats", applyStats, 60], ["hist", applyHist, 60], ["costs", applyCosts, 60]];
   const seen = {};
   async function pull(name, fn){
     try {
-      const r = await fetch(`data/${name}.json?ts=${Date.now()}`, {cache: "no-store"}); if (!r.ok) return;
-      const txt = await r.text(); if (seen[name] === txt) return; seen[name] = txt;
+      let txt = null;
+      for (const b of BASES) { try { const r = await fetch(`${b}data/${name}.json?ts=${Date.now()}`, {cache: "no-store"}); if (r.ok) { txt = await r.text(); break; } } catch (e) {} }
+      if (txt == null || seen[name] === txt) return; seen[name] = txt;
       fn(JSON.parse(txt));
     } catch (e) {}
   }
-  const all = () => { FEEDS.forEach(([n, f]) => pull(n, f)); fetch(`images/sites.json?ts=${Date.now()}`, {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(j => { if (j && JSON.stringify(j) !== JSON.stringify(SITEIMG)) { SITEIMG = j; if (selected) select(selected, false); } }).catch(() => {}); };
+  const all = () => { FEEDS.forEach(([n, f]) => pull(n, f)); if (!remote) fetch(`images/sites.json?ts=${Date.now()}`, {cache: "no-store"}).then(r => r.ok ? r.json() : null).then(j => { if (j && JSON.stringify(j) !== JSON.stringify(SITEIMG)) { SITEIMG = j; if (selected) select(selected, false); } }).catch(() => {}); };
   all();
   FEEDS.forEach(([n, f, m]) => setInterval(() => { if (!document.hidden) pull(n, f); }, m * 60000));
   document.addEventListener("visibilitychange", () => { if (!document.hidden) all(); });
