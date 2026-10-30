@@ -446,6 +446,20 @@ a.nhead:hover{text-decoration:underline;text-decoration-color:var(--gold)}
 .nmsg{color:var(--mute);font-size:12px;line-height:1.4;padding:4px 0 2px}
 .nmsg button{margin-top:6px;background:var(--gold);color:#000;border:0;border-radius:6px;padding:5px 10px;font:600 12px var(--f-body);cursor:pointer}
 .nfine{font-size:10.5px;color:var(--mute);margin-top:4px}
+.newmod .nwn{font:600 12px var(--f-body);color:var(--mute);margin-left:2px}
+.newmod .nwdot{background:#3ddc84;box-shadow:0 0 6px #3ddc84}
+.newmod.min .nbody{display:none}
+.newmod .nbody{max-height:240px;overflow:auto}
+.nwrow{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:start;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
+.nwrow:first-child{border-top:0}.nwrow:hover{background:rgba(255,255,255,.03)}
+.nwrow b{font:600 13px var(--f-body);display:block}
+.nwrow .nwm{font-size:11.5px;color:var(--mute);line-height:1.4}
+.nwrow .nwp{text-align:right;font:600 12.5px var(--f-mono)}.nwrow .nwp small{display:block;color:var(--mute);font:500 10.5px var(--f-body)}
+.nwrow .nwtag{display:inline-block;font:700 9.5px var(--f-body);letter-spacing:.05em;text-transform:uppercase;color:#000;background:#3ddc84;border-radius:4px;padding:1px 5px;margin-right:4px;vertical-align:1px}
+.nwrow .nwe{display:inline-flex;align-items:center;gap:4px}.nwrow .nwe i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+.nwrow .nwlk{grid-column:2 / -1;display:flex;gap:10px;font-size:11.5px}
+.nwrow .nwlk button,.nwrow .nwlk a{background:none;border:0;padding:0;color:var(--gold);font:600 11.5px var(--f-body);cursor:pointer;text-decoration:none}
+
 
 .nlinks{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:8px;padding-top:7px;border-top:1px solid var(--line);font:500 11px var(--f-mono);color:var(--mute)}
 .nlinks a{color:var(--gold);text-decoration:none}.nlinks a:hover{text-decoration:underline}
@@ -1194,6 +1208,10 @@ svg#map.stn-off .stlabel{display:none}
       <div class="nh"><h2><span class="ldot" aria-hidden="true"></span>Latest <b id="nname">gold</b> headlines</h2><button class="rtog" id="newsTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
       <div class="ntabs" role="tablist"><button type="button" role="tab" id="ntDrv" data-t="drivers" aria-selected="true">Global drivers</button><button type="button" role="tab" id="ntAsx" data-t="news" aria-selected="false">ASX headlines</button></div>
       <div class="nbody" id="nbody"><div class="nmsg">Loading headlines…</div></div>
+    </section>
+    <section class="news newmod" id="newMod" aria-label="New mines and companies">
+      <div class="nh"><h2><span class="ldot nwdot" aria-hidden="true"></span>New mines &amp; companies <small class="nwn" id="newN"></small></h2><button class="rtog" id="newTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
+      <div class="nbody" id="newBody"></div>
     </section>
     <details class="legend" id="mapkey"><summary>Map key</summary><div class="kcols"><div class="kc">
       <div class="t">Dot size = annual output</div>
@@ -2370,6 +2388,44 @@ function setNewsMin(min){ newsEl.classList.toggle("min", min); newsTog.textConte
 newsTog.onclick = () => setNewsMin(!newsEl.classList.contains("min"));
 { let m = isPhone(); try { const v = localStorage.getItem("newsMin"); if (v != null) m = v === "1"; } catch (e) {} setNewsMin(m); }
 window.__newsBooted = true; startNews();
+// ---------- New mines & companies: ASX companies added to the map in the last 30 days (they drop off after that)
+const NEW_DAYS = 30;
+const newEl = document.getElementById("newMod"), newBody = document.getElementById("newBody"), newTog = document.getElementById("newTog");
+function newList(){
+  const now = Date.now();
+  return Object.entries(COS).filter(([c, d]) => d.auto && d.added && d.src !== "penny")
+    .map(([c, d]) => ({c, d, t: Date.parse(d.added + "T00:00:00+08:00")}))
+    .filter(x => isFinite(x.t) && now - x.t < NEW_DAYS * 864e5)
+    .sort((a, b) => b.t - a.t || a.c.localeCompare(b.c));
+}
+function renderNew(){
+  const L = newList();
+  document.getElementById("newN").textContent = L.length ? `(${L.length})` : "";
+  if (!L.length) { newBody.innerHTML = `<div class="nmsg">No new ASX mining companies in the last ${NEW_DAYS} days. New listings are checked every weekday after the ASX close.</div>`; return; }
+  const days = t => { const n = Math.floor((Date.now() - t) / 864e5); return n <= 0 ? "today" : n === 1 ? "yesterday" : `${n} days ago`; };
+  newBody.innerHTML = L.map(({c, d, t}) => {
+    const e = coMainEl(c), th = THEMES[e] || {label: e, color: "#888"};
+    const left = Math.max(1, NEW_DAYS - Math.floor((Date.now() - t) / 864e5));
+    const where = [d.proj, d.near ? "about " + d.near : "", d.st].filter(Boolean).join(", ");
+    return `<div class="nwrow" role="button" tabindex="0" data-c="${c}">${coBadge(c)}
+      <div><b>${esc(d.name)}</b><div class="nwm"><span class="nwtag">New</span>ASX:${esc(c)} · <span class="nwe" style="--c:${th.color}"><i></i>${esc(th.label)}</span></div>
+        ${where ? `<div class="nwm">${esc(where)}</div>` : ""}
+        <div class="nwm">${d.listed ? `Listed ${esc(fmtListed(d.listed))} · ` : ""}added ${days(t)} · leaves this list in ${left} day${left > 1 ? "s" : ""}</div></div>
+      <div class="nwp">${d.price != null ? fmtPx(+d.price) : "—"}${d.mcap ? `<small>${fmtCap(d.mcap)}</small>` : ""}</div>
+      <div class="nwlk"><button type="button" data-prof="${c}">Profile</button><a href="https://www.asx.com.au/markets/trade-our-cash-market/overview/equities/${c.toLowerCase()}" target="_blank" rel="noopener noreferrer">ASX page ↗</a></div></div>`;
+  }).join("") + `<div class="nfine">Companies leave this list ${NEW_DAYS} days after they're added to the map. Locations are approximate, taken from their ASX announcements.</div>`;
+}
+newBody.addEventListener("click", ev => {
+  const p = ev.target.closest("[data-prof]"); if (p) { ev.stopPropagation(); showCompany(p.dataset.prof); return; }
+  if (ev.target.closest("a")) return;
+  const r = ev.target.closest(".nwrow"); if (r) goToCompany(r.dataset.c);
+});
+newBody.addEventListener("keydown", ev => { const r = ev.target.closest(".nwrow"); if (r && ev.target === r && ev.key === "Enter") goToCompany(r.dataset.c); });
+function setNewMin(min){ newEl.classList.toggle("min", min); newTog.textContent = min ? "+" : "−"; newTog.setAttribute("aria-expanded", String(!min)); newTog.setAttribute("aria-label", min ? "Expand" : "Minimise"); try { localStorage.setItem("newMin", min ? "1" : "0"); } catch (e) {} }
+newTog.onclick = () => setNewMin(!newEl.classList.contains("min"));
+{ let m = false; try { const v = localStorage.getItem("newMin"); if (v != null) m = v === "1"; } catch (e) {} setNewMin(m); }
+renderNew(); setInterval(renderNew, 3600000);
+
 
 // ---------- definition board
 const GLOSS = [["Amounts & units",[["oz","Troy ounce","The unit gold and silver are weighed and priced in. 1 oz = 31.1 grams (a bit heavier than a normal ounce).","Gold at US$4,200/oz"],["koz","Thousand ounces","Used for how much gold a mine produces in a year.","405 koz = 405,000 oz a year"],["Moz","Million ounces","Used for how much gold is left in the ground (reserves and resources).","14 Moz of reserves"],["g/t","Grams per tonne","The grade: how much gold sits in each tonne of rock. Higher means richer ore and usually cheaper ounces.","Open pits ~1–2 g/t; good underground mines 5+ g/t"],["t · kt · Mt","Tonnes · thousand · million tonnes","Weight of rock, ore or product. Used for iron ore, coal, copper and ore stockpiles.","60 Mt of iron ore"],["Mtpa · ktpa","Million / thousand tonnes per annum","How much a mine, mill or port can handle each year: its yearly capacity.","Mill expanding to 27 Mtpa"],["% Cu · % Fe","Percent copper · percent iron","The grade for bulk metals: the share of the rock that is the metal.","Iron ore is priced off 62% Fe"],["lb · Mlb","Pound · million pounds","Uranium (and often copper) is priced per pound. 1 lb = 0.454 kg.","6 Mlb of uranium a year"],["ct · ct/t","Carat · carats per tonne","Diamond weight (1 ct = 0.2 g) and diamond grade.",""],["MTU","Metric tonne unit","How tungsten concentrate is priced: 10 kg of WO₃ (tungsten oxide).",""],["Au Ag Cu Fe Zn Pb","Chemical symbols","Au = gold, Ag = silver, Cu = copper, Fe = iron, Zn = zinc, Pb = lead.",""],["SC6","Spodumene concentrate, 6% Li₂O","The standard lithium product Australian mines sell: crushed rock concentrated to 6% lithium oxide. Prices are quoted per tonne of SC6.","US$1,000–2,000/t SC6"],["Spodumene","Lithium mineral","The hard-rock mineral most Australian lithium comes from. It is refined (mostly in China) into lithium carbonate or hydroxide for batteries.",""],["LCE · Li₂O","Lithium carbonate equivalent · lithium oxide","LCE is how lithium chemicals are compared; Li₂O % is the grade of lithium rock (above ~1.4% is high grade).",""],["U₃O₈ · WO₃","Uranium oxide · tungsten oxide","The forms uranium (\"yellowcake\") and tungsten are sold and priced in.",""]]],["Oil, gas & coal",[["bbl","Barrel","A barrel of oil = 159 litres. Oil is priced per barrel.",""],["boe · MMboe","Barrel of oil equivalent · million boe","Gas converted to the same energy as a barrel of oil, so oil and gas can be added together.","Woodside makes ~190 MMboe a year"],["LNG","Liquefied natural gas","Gas cooled to −162 °C so it turns liquid and can be shipped overseas (mostly to Japan, China, Korea).","Pluto LNG, Gorgon LNG"],["FLNG","Floating LNG","An LNG plant built on a giant ship moored over the gas field.","Prelude FLNG"],["CSG","Coal seam gas","Gas drawn out of underground coal seams, mainly in Queensland, feeding east-coast LNG plants.",""],["PJ · TJ","Petajoule · terajoule","Units of gas energy, used for gas contracts and east-coast supply. 1 PJ = 1,000 TJ.",""],["Thermal coal","Energy coal","Burnt in power stations to make electricity.","Whitehaven, New Hope"],["Met coal","Metallurgical (coking) coal","Used to make steel. Usually worth more than thermal coal.","BHP Mitsubishi Alliance mines"]]],["Mines & projects",[["Open pit","","Mining from a big hole dug down from the surface. Cheaper per tonne, usually lower grade.","KCGM Super Pit"],["UG","Underground","Mining through tunnels below the surface. Costs more per tonne, so needs higher-grade ore.","Mt Charlotte"],["Mill","Processing plant","Crushes ore and pulls the gold or metal out of it. Shown as square markers on the map.",""],["Toll treating","Using someone else's mill","A miner without its own mill pays another company to process its ore. Shown as the moving route lines.",""],["Producer","","A company already mining and selling metal, so it has revenue.",""],["Developer","","Building a mine but not producing yet.",""],["Explorer","","Still drilling to find and prove up a deposit. No revenue; usually high risk and high reward.",""],["C&M","Care & maintenance","A mine that has been paused but kept in shape so it can restart.",""],["LOM","Life of mine","How many years a mine is expected to keep running on its current plan.",""],["Mineral Resource","","All the metal estimated to be in the ground, whether or not it pays to mine yet. The bigger number.","Resources ~39 Moz"],["Ore Reserve","","The part of the resource that can be mined at a profit right now. The smaller, more reliable number.","Reserves ~14 Moz"],["JORC","Australian reporting code","The rules ASX miners must follow when they publish resources and reserves.",""],["Scoping · PFS · DFS","Scoping study · pre-feasibility · definitive feasibility","The three studies a project goes through, each more detailed, to prove a mine will make money.",""],["FID","Final investment decision","The board says yes and commits the money to build the mine.","Deep Yellow delayed Tumas FID"],["Recovery","","The share of the metal in the ore that the mill actually gets out.","92% recovery"],["Offtake","","A deal to sell future production to a set buyer, often signed to help fund a new mine.",""],["Royalty","","A cut of revenue paid to the government (or another company) on every tonne or ounce sold.",""],["Native title · heritage","","Traditional Owners' rights over land and protected cultural sites. Can stop or delay a mine. Shown by the No-go zones layer.",""]]],["Costs, profit & shares",[["AISC","All-in sustaining cost","The full cost to produce one ounce of gold and keep the mine running (mining, processing, royalties, admin and sustaining capital). Excludes growth spending.","AISC A$2,400/oz"],["Margin","Gold price − AISC","Profit made on each ounce. The bigger the margin, the safer the miner if gold falls.","A$6,000 − A$2,400 = A$3,600/oz"],["Leverage","Share move per 1% gold move","Miners with thin margins swing more when gold moves. The Cost & margin slider uses this to estimate share moves.","Gold −5% → share ≈ −8%"],["Capex","Capital expenditure","Money spent building or expanding mines, mills and equipment.",""],["Revenue","","Total money received from sales before costs.",""],["Net profit · NPAT","Net profit after tax","What's left after every cost, interest and tax.",""],["FCF","Free cash flow","Cash left after running costs and capex. What can pay dividends or debt.",""],["Net debt","Debt − cash","How much a company owes after counting its cash. Negative means it has more cash than debt (net cash).",""],["Market cap","Market capitalisation","Share price × number of shares: what the market values the whole company at.","A$34B"],["Dividend · yield","","Cash paid to shareholders per share, and that cash as a % of the share price for the last 12 months.","55c a share = 2.3% yield"],["Franked","Franking credits","Australian dividends that come with a tax credit for company tax already paid.",""],["52-wk range","52-week range","The lowest and highest share price over the past year.",""],["Price-sensitive","","An ASX announcement the company flags as likely to move the share price. Marked with a dot in Announcements.",""],["Spot · term price","","Spot is today's price for immediate delivery; term is the price agreed in longer contracts (used for uranium).",""],["CMRG","China Mineral Resources Group","China's state iron ore buyer. It negotiates with BHP, Rio and Fortescue, so its moves can hit iron ore shares.",""],["ASX code","Ticker","The 3-letter code a company trades under.","NST = Northern Star"]]],["Dates & time",[["FY","Financial year","Most ASX companies run July to June. FY26 = 1 Jul 2025 – 30 Jun 2026.",""],["H1 · H2","First / second half","H1 = Jul–Dec, H2 = Jan–Jun of the financial year.",""],["Q1–Q4","Quarter","Q1 = Jul–Sep (the September quarter), Q2 = Oct–Dec, Q3 = Jan–Mar, Q4 = Apr–Jun.",""],["CY","Calendar year","January to December. Some miners (e.g. Newmont, Gold Fields) report on CY.","CY25"],["Delayed quotes","","ASX prices on the map are up to 20 minutes behind live trading.",""]]]];
@@ -2450,7 +2506,7 @@ function applyLive(doc){
   feedEl.classList.toggle("live", age < 2);
   feedEl.title = "Delayed ASX quotes (about 20 minutes), refreshed every hour while the ASX is open.";
   const ra = document.getElementById("rasof"); if (ra) ra.textContent = `ASX prices of ${when}`;
-  computeRanks(); fillCompanies(); apply(); renderRecs();
+  computeRanks(); fillCompanies(); apply(); renderRecs(); if (typeof renderNew === "function") renderNew();
   if (selected) { const m = selected; select(m, false); }
   if (profCur) { const st = profEl.scrollTop; openProfile(profCur); profEl.scrollTop = st; }
 }
@@ -2731,7 +2787,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
     [side.querySelector(".cmbar"), top.querySelector(".cslot")],
     [side.querySelector(".controls"), pane("list")], [side.querySelector(".listhead"), pane("list")], [$("list"), pane("list")],
     [$("recs"), pane("picks")],
-    [$("news"), pane("news")], [$("modAnn"), pane("news")],
+    [$("news"), pane("news")], [$("newMod"), pane("news")], [$("modAnn"), pane("news")],
     [$("favs"), pane("watch")], [$("modCost"), pane("watch")], [$("modCal"), pane("watch")],
     [$("viewset"), pane("more")], [$("mapkey"), pane("more")]
   ].filter(x => x[0]);
@@ -2790,6 +2846,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
       const f = $("favs"); if (f) f.classList.add("open");
       if (typeof setRecMin === "function") setRecMin(false);
       if (typeof setNewsMin === "function") setNewsMin(false);
+      if (typeof setNewMin === "function") { const nm = $("newMod"); if (nm) { nm.classList.remove("min"); } }
       show("map");
     } else {
       home.forEach(([el, parent, next]) => parent.insertBefore(el, next && next.parentNode === parent ? next : null));

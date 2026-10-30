@@ -44,7 +44,8 @@ for c, p in sorted(newcos.items()):
                      + (f"Its main project{(' (' + p['project'] + ')') if p.get('project') else ''} is about {p['near']}, {p['st']}. " if p.get("near") else "")
                      + (f"In its own words: {p['desc']}" if p.get("desc") else "")
                      + (" Added automatically from its ASX announcements; project location is approximate." if p.get("src") == "penny" else " Added automatically from its ASX listing; details are limited until its first reports."),
-              "listed": p.get("listed")}
+              "listed": p.get("listed"), "added": p.get("added"), "src": p.get("src") or "listing", "near": p.get("near"), "st": p.get("st"),
+              "proj": (clean_proj(p.get("project"), p["name"]) if p.get("src") == "penny" else p.get("project"))}
     if p["el"] == "gold":
         COS[c]["gold"] = True
         GOLD[c] = {"name": p["name"], "mcap": p.get("mcap") or 0, "price": p.get("price")}
