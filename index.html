@@ -158,7 +158,9 @@ body[data-c="uranium"] .mine.P .dot{stroke:color-mix(in srgb,var(--gold) 45%,#00
 .legend .lhs{width:12px;height:12px;border-radius:50%;border:2px dashed;flex:none}
 .mine:hover .dot,.mine.hov .dot{stroke:#fff;stroke-width:2}
 .mlab{fill:var(--fg);font:500 11px var(--f-body);paint-order:stroke;stroke:#000;stroke-width:3px;pointer-events:none;display:none}
-svg.labels .mlab,.mine.sel .mlab{display:inline}
+.mine.lab-on .mlab,.mine.sel .mlab,.mine.hov .mlab{display:inline}
+.mine.lab-on .mlab{animation:labIn .18s ease-out}
+@keyframes labIn{from{opacity:0}to{opacity:1}}
 .mine.dim .mlab{display:none}
 .zoom{position:absolute;right:16px;top:52px;display:grid;gap:6px}
 .zoom button{width:38px;height:38px;background:var(--panel);border:1px solid var(--border);color:var(--fg);font:500 18px var(--f-mono);border-radius:6px;cursor:pointer}
@@ -1702,7 +1704,44 @@ function applyK(){
 // Smooth panning: while a gesture runs, the whole map moves as one GPU layer (CSS transform, no repaint);
 // the real SVG transform is committed when the gesture ends, or when zooming far enough to blur.
 let raf = 0, pendingT = null, tc = d3.zoomIdentity, gesturing = false;
-function commitT(t){ svgEl.style.transform = ""; svgEl.classList.remove("zooming"); tc = t; g.attr("transform", t); k = t.k; applyK(); }
+function commitT(t){ svgEl.style.transform = ""; svgEl.classList.remove("zooming"); tc = t; g.attr("transform", t); k = t.k; applyK(); placeLabels(); }
+// Mine names: only where they fit. Bigger / producing mines get their name first; the rest appear as you zoom in.
+let labTimer = 0;
+function placeLabels(){
+  clearTimeout(labTimer);
+  labTimer = setTimeout(() => {
+    if (!mineSel) return;
+    const t = tc, sc = Math.pow(k, 0.18), W = main.clientWidth, H = main.clientHeight;
+    const minK = isPhone() ? 2.2 : 1.8;
+    const boxes = [], hit = b => boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+    const cand = [];
+    mineSel.each(function(m){
+      const el = this; if (el.classList.contains("dim")) { el.classList.remove("lab-on"); return; }
+      const [px, py] = proj([m.lon, m.lat]), x = t.x + px * t.k, y = t.y + py * t.k;
+      const r = rBase(m) * sc;
+      if (x < -60 || y < -20 || x > W + 60 || y > H + 20) { el.classList.remove("lab-on"); return; }
+      boxes.push([x - r, y - r, x + r, y + r]);   // dots are obstacles for names
+      cand.push({m, el, x, y, r});
+    });
+    if (k < minK) { cand.forEach(c => c.el.classList.remove("lab-on")); return; }
+    const pri = c => (selected && c.m.id === selected.id ? -1e9 : 0) + (c.m.s === "P" ? 0 : c.m.s === "D" ? 1e6 : 2e6) - (c.m.p || 0) * 10 + Math.min(bestRank(c.m), 999);
+    cand.sort((a, b) => pri(a) - pri(b));
+    const fs = (isPhone() ? 12 : 11.5) * sc, ch = fs * 0.56;
+    cand.forEach(c => {
+      const w = c.m.n.length * ch + 4, h = fs * 1.15, gap = (rBase(c.m) + 4) * sc;
+      const self = [c.x - c.r, c.y - c.r, c.x + c.r, c.y + c.r];
+      const own = boxes.findIndex(o => o[0] === self[0] && o[1] === self[1]); const saved = own >= 0 ? boxes.splice(own, 1)[0] : null;
+      const right = [c.x + gap - 2, c.y - h / 2, c.x + gap + w, c.y + h / 2], left = [c.x - gap - w, c.y - h / 2, c.x - gap + 2, c.y + h / 2];
+      const lab = c.el.querySelector(".mlab");
+      let ok = null;
+      if (!hit(right)) { ok = right; lab.setAttribute("text-anchor", "start"); lab.setAttribute("x", rBase(c.m) + 4); }
+      else if (!hit(left)) { ok = left; lab.setAttribute("text-anchor", "end"); lab.setAttribute("x", -(rBase(c.m) + 4)); }
+      if (saved) boxes.push(saved);
+      if (ok) boxes.push(ok);
+      c.el.classList.toggle("lab-on", !!ok);
+    });
+  }, 30);
+}
 const zoom = d3.zoom().scaleExtent([1, 80]).on("start", () => { gesturing = true; svgEl.classList.add("panning"); hideTip(); })
 .on("zoom", ev => {
   pendingT = ev.transform;
@@ -1861,7 +1900,7 @@ document.getElementById("elsum").addEventListener("click", ev => {
 function apply(){
   document.getElementById("numhead").textContent = sortEl.value === "c" ? "Mkt cap" : sortEl.value === "x" ? "Price" : sortEl.value === "d" ? "Div/share" : "ASX rank";
   const shown = MINES.filter(matches), ids = new Set(shown.map(m => m.id));
-  mineSel.classed("dim", m => !ids.has(m.id));
+  mineSel.classed("dim", m => !ids.has(m.id)); if (typeof placeLabels === "function") placeLabels();
   gStates.selectAll(".state").classed("hl", f => stEl.value && STATE_FULL[stEl.value] === f.properties.name);
   const by = sortEl.value;
   const HO = {up:0, flat:1, down:2};
