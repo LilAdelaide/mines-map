@@ -105,7 +105,19 @@ svg.deep .stlabel{display:none}
 .mine[data-e="tungsten"].P .dot{fill:url(#gloss-tungsten)} body[data-c="tungsten"] .sw.p{background:radial-gradient(circle at 35% 30%,#f7f0ff,#d4bcff 35%,#b388ff 70%,#5a2fa8)}
 .mine[data-e="salt"].P .dot{fill:url(#gloss-salt)} body[data-c="salt"] .sw.p{background:radial-gradient(circle at 35% 30%,#fff3f8,#ffc4da 35%,#ff8fb8 70%,#a33a66)}
 .mine[data-e="silver"].P .dot{fill:url(#gloss-ag)} .mine[data-e="diamonds"].P .dot,.mine[data-e="diamonds"].C .dot{fill:url(#gloss-dia)}
-#dotSeg{grid-template-columns:1fr 1fr!important}
+#dotSeg,#shadeSeg{grid-template-columns:1fr 1fr!important}
+body.darkgloss:not(.flatdots) .mine[data-e="gold"].P .dot{fill:url(#glossd-gold)} body.darkgloss:not(.flatdots)[data-c="gold"] .sw.p{background:radial-gradient(circle at 35% 30%,#ffde59,#ebbc00 35%,#9e7e00 70%,#524100)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="iron"].P .dot{fill:url(#glossd-iron)} body.darkgloss:not(.flatdots)[data-c="iron"] .sw.p{background:radial-gradient(circle at 35% 30%,#ff8194,#eb3853 35%,#9e2638 70%,#52141d)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="lithium"].P .dot{fill:url(#glossd-lithium)} body.darkgloss:not(.flatdots)[data-c="lithium"] .sw.p{background:radial-gradient(circle at 35% 30%,#aafbd8,#73e5b3 35%,#4e9a79 70%,#28503e)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="oil"].P .dot{fill:url(#glossd-oil)} body.darkgloss:not(.flatdots)[data-c="oil"] .sw.p{background:radial-gradient(circle at 35% 30%,#6ee2d7,#1dc2b2 35%,#148378 70%,#0a443e)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="coal"].P .dot{fill:url(#glossd-coal)} body.darkgloss:not(.flatdots)[data-c="coal"] .sw.p{background:radial-gradient(circle at 35% 30%,#ff9477,#eb532a 35%,#9e381d 70%,#521d0f)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="uranium"].P .dot{fill:url(#glossd-uranium)} body.darkgloss:not(.flatdots)[data-c="uranium"] .sw.p{background:radial-gradient(circle at 35% 30%,#7eff66,#34eb12 35%,#239e0c 70%,#125206)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="copper"].P .dot{fill:url(#glossd-copper)} body.darkgloss:not(.flatdots)[data-c="copper"] .sw.p{background:radial-gradient(circle at 35% 30%,#ebb38d,#ce7f49 35%,#8b5631 70%,#482c19)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="tungsten"].P .dot{fill:url(#glossd-tungsten)} body.darkgloss:not(.flatdots)[data-c="tungsten"] .sw.p{background:radial-gradient(circle at 35% 30%,#ceb2ff,#a57deb 35%,#6f549e 70%,#392c52)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="salt"].P .dot{fill:url(#glossd-salt)} body.darkgloss:not(.flatdots)[data-c="salt"] .sw.p{background:radial-gradient(circle at 35% 30%,#ffb6d1,#eb84a9 35%,#9e5972 70%,#522e3b)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="silver"].P .dot{fill:url(#glossd-silver)} body.darkgloss:not(.flatdots)[data-c="silver"] .sw.p{background:radial-gradient(circle at 35% 30%,#d8dde1,#b3bac0 35%,#797d82 70%,#3e4143)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="diamonds"].P .dot{fill:url(#glossd-diamonds)} body.darkgloss:not(.flatdots)[data-c="diamonds"] .sw.p{background:radial-gradient(circle at 35% 30%,#78c1ef,#2b92d4 35%,#1d638f 70%,#0f334a)!important}
+body.darkgloss:not(.flatdots) .mine[data-e="diamonds"].C .dot{fill:url(#glossd-diamonds)}
 body.flatdots .mine.P .dot{fill:var(--gold)!important} body.flatdots .mine[data-e="diamonds"].C .dot{fill:var(--grey-dot)!important;opacity:1}
 body.flatdots .sw.p{background:var(--gold)!important} body.flatdots .sw.c{background:var(--grey-dot)!important}
 body[data-c="diamonds"]{--dotfill:url(#gloss-dia)} body[data-c="silver"]{--dotfill:url(#gloss-ag)}
@@ -1015,6 +1027,7 @@ svg#map.stn-off .stlabel{display:none}
     <symbol id="i-none" viewBox="-10 -10 20 20"><circle r="6" fill="currentColor"/></symbol>
     <radialGradient id="gloss-dia" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#9fe0ff"/><stop offset=".7" stop-color="#4fc3ff"/><stop offset="1" stop-color="#0d5fa6"/></radialGradient>
     <radialGradient id="gloss-gold" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fffbe0"/><stop offset=".35" stop-color="#ffe36b"/><stop offset=".7" stop-color="#ffcc00"/><stop offset="1" stop-color="#9a6b00"/></radialGradient><radialGradient id="gloss-iron" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffe3e7"/><stop offset=".35" stop-color="#ff8296"/><stop offset=".7" stop-color="#ff3d5a"/><stop offset="1" stop-color="#8a0f22"/></radialGradient><radialGradient id="gloss-lithium" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#f2fff9"/><stop offset=".35" stop-color="#b4ffe0"/><stop offset=".7" stop-color="#7df9c3"/><stop offset="1" stop-color="#1c8f63"/></radialGradient><radialGradient id="gloss-oil" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#e6fffc"/><stop offset=".35" stop-color="#86f2e7"/><stop offset=".7" stop-color="#20d3c2"/><stop offset="1" stop-color="#0a6d64"/></radialGradient><radialGradient id="gloss-coal" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffe8df"/><stop offset=".35" stop-color="#ff9d80"/><stop offset=".7" stop-color="#ff5a2e"/><stop offset="1" stop-color="#8a2408"/></radialGradient><radialGradient id="gloss-uranium" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#f3ffe8"/><stop offset=".35" stop-color="#a2ff8c"/><stop offset=".7" stop-color="#39ff14"/><stop offset="1" stop-color="#157a05"/></radialGradient><radialGradient id="gloss-copper" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff1e6"/><stop offset=".35" stop-color="#f3b78e"/><stop offset=".7" stop-color="#e08a4f"/><stop offset="1" stop-color="#7a3d14"/></radialGradient><radialGradient id="gloss-tungsten" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#f7f0ff"/><stop offset=".35" stop-color="#d4bcff"/><stop offset=".7" stop-color="#b388ff"/><stop offset="1" stop-color="#5a2fa8"/></radialGradient><radialGradient id="gloss-salt" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff3f8"/><stop offset=".35" stop-color="#ffc4da"/><stop offset=".7" stop-color="#ff8fb8"/><stop offset="1" stop-color="#a33a66"/></radialGradient>
+    <radialGradient id="glossd-gold" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffde59"/><stop offset=".35" stop-color="#ebbc00"/><stop offset=".7" stop-color="#9e7e00"/><stop offset="1" stop-color="#524100"/></radialGradient><radialGradient id="glossd-iron" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ff8194"/><stop offset=".35" stop-color="#eb3853"/><stop offset=".7" stop-color="#9e2638"/><stop offset="1" stop-color="#52141d"/></radialGradient><radialGradient id="glossd-lithium" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#aafbd8"/><stop offset=".35" stop-color="#73e5b3"/><stop offset=".7" stop-color="#4e9a79"/><stop offset="1" stop-color="#28503e"/></radialGradient><radialGradient id="glossd-oil" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#6ee2d7"/><stop offset=".35" stop-color="#1dc2b2"/><stop offset=".7" stop-color="#148378"/><stop offset="1" stop-color="#0a443e"/></radialGradient><radialGradient id="glossd-coal" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ff9477"/><stop offset=".35" stop-color="#eb532a"/><stop offset=".7" stop-color="#9e381d"/><stop offset="1" stop-color="#521d0f"/></radialGradient><radialGradient id="glossd-uranium" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#7eff66"/><stop offset=".35" stop-color="#34eb12"/><stop offset=".7" stop-color="#239e0c"/><stop offset="1" stop-color="#125206"/></radialGradient><radialGradient id="glossd-copper" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ebb38d"/><stop offset=".35" stop-color="#ce7f49"/><stop offset=".7" stop-color="#8b5631"/><stop offset="1" stop-color="#482c19"/></radialGradient><radialGradient id="glossd-tungsten" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ceb2ff"/><stop offset=".35" stop-color="#a57deb"/><stop offset=".7" stop-color="#6f549e"/><stop offset="1" stop-color="#392c52"/></radialGradient><radialGradient id="glossd-salt" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffb6d1"/><stop offset=".35" stop-color="#eb84a9"/><stop offset=".7" stop-color="#9e5972"/><stop offset="1" stop-color="#522e3b"/></radialGradient><radialGradient id="glossd-silver" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#d8dde1"/><stop offset=".35" stop-color="#b3bac0"/><stop offset=".7" stop-color="#797d82"/><stop offset="1" stop-color="#3e4143"/></radialGradient><radialGradient id="glossd-diamonds" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#78c1ef"/><stop offset=".35" stop-color="#2b92d4"/><stop offset=".7" stop-color="#1d638f"/><stop offset="1" stop-color="#0f334a"/></radialGradient>
     <radialGradient id="gloss-ag" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#d8dde3"/><stop offset="1" stop-color="#7b838c"/></radialGradient>
   </defs>
 </svg>
@@ -1156,6 +1169,11 @@ svg#map.stn-off .stlabel{display:none}
       <div class="seg" id="dotSeg">
         <button type="button" data-dot="gloss" aria-pressed="true">Glossy</button>
         <button type="button" data-dot="flat" aria-pressed="false">Bold colours</button>
+      </div>
+      <div class="t" id="shadeT">Gloss shade</div>
+      <div class="seg" id="shadeSeg">
+        <button type="button" data-shade="light" aria-pressed="true">Light</button>
+        <button type="button" data-shade="dark" aria-pressed="false">Dark</button>
       </div>
       <div class="t uih"><span>Screen size</span><output id="uiVal">55%</output></div>
       <div class="seg uiseg">
@@ -1786,7 +1804,7 @@ wrap.call(zoom).on("dblclick.zoom", null);
 // keep the map within Australia and its neighbours: panning and zooming out stop at this box
 function setZExtent(){
   if (!proj) return;
-  const w = main.clientWidth, h = main.clientHeight, p0 = proj([106, -2]), p1 = proj([166, -47]);
+  const w = main.clientWidth, h = main.clientHeight, p0 = proj([96, 6]), p1 = proj([176, -54]);
   zoom.translateExtent([[Math.min(p0[0], 0), Math.min(p0[1], 0)], [Math.max(p1[0], w), Math.max(p1[1], h)]]);
   wrap.call(zoom.translateBy, 0, 0);
 }
@@ -2906,6 +2924,16 @@ document.querySelectorAll(".uistep").forEach(btn => {
   seg.addEventListener("click", ev => { const b = ev.target.closest("button[data-dot]"); if (b) setDot(b.dataset.dot, true); });
   let v = "gloss"; try { if (localStorage.getItem("dotStyle") === "flat") v = "flat"; } catch (e) {}
   setDot(v, false);
+  // gloss shade: Light (default) / Dark
+  const sh = document.getElementById("shadeSeg");
+  function setShade(x, save){
+    sh.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.shade === x)));
+    document.body.classList.toggle("darkgloss", x === "dark");
+    if (save) try { localStorage.setItem("glossShade", x); } catch (e) {}
+  }
+  sh.addEventListener("click", ev => { const b = ev.target.closest("button[data-shade]"); if (b) { setShade(b.dataset.shade, true); if (document.body.classList.contains("flatdots")) setDot("gloss", true); } });
+  let x = "light"; try { if (localStorage.getItem("glossShade") === "dark") x = "dark"; } catch (e) {}
+  setShade(x, false);
 })();
 // state names: Full / Short / Hide (saved per device)
 (function(){
