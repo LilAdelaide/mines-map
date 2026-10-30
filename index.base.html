@@ -105,6 +105,9 @@ svg.deep .stlabel{display:none}
 .mine[data-e="tungsten"].P .dot{fill:url(#gloss-tungsten)} body[data-c="tungsten"] .sw.p{background:radial-gradient(circle at 35% 30%,#f7f0ff,#d4bcff 35%,#b388ff 70%,#5a2fa8)}
 .mine[data-e="salt"].P .dot{fill:url(#gloss-salt)} body[data-c="salt"] .sw.p{background:radial-gradient(circle at 35% 30%,#fff3f8,#ffc4da 35%,#ff8fb8 70%,#a33a66)}
 .mine[data-e="silver"].P .dot{fill:url(#gloss-ag)} .mine[data-e="diamonds"].P .dot,.mine[data-e="diamonds"].C .dot{fill:url(#gloss-dia)}
+#dotSeg{grid-template-columns:1fr 1fr!important}
+body.flatdots .mine.P .dot{fill:var(--gold)!important} body.flatdots .mine[data-e="diamonds"].C .dot{fill:var(--grey-dot)!important;opacity:1}
+body.flatdots .sw.p{background:var(--gold)!important} body.flatdots .sw.c{background:var(--grey-dot)!important}
 body[data-c="diamonds"]{--dotfill:url(#gloss-dia)} body[data-c="silver"]{--dotfill:url(#gloss-ag)}
 body[data-c="diamonds"] .mine.C .dot{fill:url(#gloss-dia);opacity:.75}
 body[data-c="diamonds"] .sw.c{background:radial-gradient(circle at 35% 30%,#fff,#7fd6ff 45%,#1a7fc4)}
@@ -1131,6 +1134,11 @@ svg#map.stn-off .stlabel{display:none}
         <button type="button" data-stn="full" aria-pressed="true">Full</button>
         <button type="button" data-stn="short" aria-pressed="false">WA, NT…</button>
         <button type="button" data-stn="off" aria-pressed="false">Hide</button>
+      </div>
+      <div class="t">Mine dots</div>
+      <div class="seg" id="dotSeg">
+        <button type="button" data-dot="gloss" aria-pressed="true">Glossy</button>
+        <button type="button" data-dot="flat" aria-pressed="false">Bold colours</button>
       </div>
       <div class="t uih"><span>Screen size</span><output id="uiVal">55%</output></div>
       <div class="seg uiseg">
@@ -2777,6 +2785,18 @@ document.querySelectorAll(".uistep").forEach(btn => {
   window.addEventListener("online", all);
 })();
 
+// mine dots: Glossy (default) / Bold colours (saved per device)
+(function(){
+  const seg = document.getElementById("dotSeg"); if (!seg) return;
+  function setDot(v, save){
+    seg.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.dot === v)));
+    document.body.classList.toggle("flatdots", v === "flat");
+    if (save) try { localStorage.setItem("dotStyle", v); } catch (e) {}
+  }
+  seg.addEventListener("click", ev => { const b = ev.target.closest("button[data-dot]"); if (b) setDot(b.dataset.dot, true); });
+  let v = "gloss"; try { if (localStorage.getItem("dotStyle") === "flat") v = "flat"; } catch (e) {}
+  setDot(v, false);
+})();
 // state names: Full / Short / Hide (saved per device)
 (function(){
   const seg = document.getElementById("stNameSeg"); if (!seg) return;
