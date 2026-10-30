@@ -780,10 +780,10 @@ svg#map.b-topo{background:#4786bf}
 #mapwrap:has(svg.b-topo){background:#4786bf}
 g.topo{display:none;pointer-events:none}
 svg.b-topo g.topo{display:inline}
-.ct{fill:none;vector-effect:non-scaling-stroke;stroke-linejoin:round}
-.ct.min{stroke:rgba(92,58,30,.38);stroke-width:.7}
-.ct.idx{stroke:rgba(92,58,30,.75);stroke-width:1.3}
-.ct.sea{stroke:rgba(255,255,255,.35);stroke-width:.7;stroke-dasharray:3 3}
+.ct{fill:none;stroke-linejoin:round}
+.ct.min{stroke:rgba(92,58,30,.38);stroke-width:calc(.7px * var(--invk,1))}
+.ct.idx{stroke:rgba(92,58,30,.75);stroke-width:calc(1.3px * var(--invk,1))}
+.ct.sea{stroke:rgba(255,255,255,.35);stroke-width:calc(.7px * var(--invk,1));stroke-dasharray:calc(3px * var(--invk,1)) calc(3px * var(--invk,1))}
 svg.b-topo .stlabel{fill:rgba(60,40,20,.75);stroke:rgba(255,255,255,.55)}
 svg.b-topo .city text{fill:#1d1d1d;stroke:#fff}
 svg.b-topo .city rect{fill:#1d1d1d;stroke:#fff}
@@ -995,6 +995,7 @@ body.compact .feed{display:none}
 svg#map .stlabel{font-size:calc(12px * var(--invk,1));font-stretch:100%;letter-spacing:.14em;font-weight:650;stroke-width:calc(2.5px * var(--invk,1));transition:opacity .15s}
 body.compact svg#map .stlabel{font-size:calc(10.5px * var(--invk,1));letter-spacing:.1em}
 svg#map.zooming .stlabel{opacity:0;transition:none}
+svg#map.wheeling{transition:transform .12s cubic-bezier(.2,.7,.3,1)}
 svg#map.stn-off .stlabel{display:none}
 
 /* mine site satellite picture */
@@ -1722,7 +1723,7 @@ function applyK(){
 // Smooth panning: while a gesture runs, the whole map moves as one GPU layer (CSS transform, no repaint);
 // the real SVG transform is committed when the gesture ends, or when zooming far enough to blur.
 let raf = 0, pendingT = null, tc = d3.zoomIdentity, gesturing = false;
-function commitT(t){ svgEl.style.transform = ""; svgEl.classList.remove("zooming"); tc = t; g.attr("transform", t); k = t.k; applyK(); placeLabels(); }
+function commitT(t){ svgEl.style.transition = "none"; svgEl.style.transform = ""; svgEl.classList.remove("zooming"); requestAnimationFrame(() => { svgEl.style.transition = ""; }); tc = t; g.attr("transform", t); k = t.k; applyK(); placeLabels(); }
 // Mine names: only where they fit. Bigger / producing mines get their name first; the rest appear as you zoom in.
 let labTimer = 0;
 function placeLabels(){
@@ -1760,14 +1761,27 @@ function placeLabels(){
     });
   }, 30);
 }
-const zoom = d3.zoom().scaleExtent([1, 80]).on("start", () => { gesturing = true; svgEl.classList.add("panning"); hideTip(); })
+// The full redraw (commit) is the slow part, so it waits until zooming has stopped for a moment:
+// a run of wheel clicks or pinch-zoom-pinch is one smooth move with one redraw at the end.
+// Mouse-wheel steps glide (short CSS transition) instead of jumping.
+let commitTimer = 0, lastSrc = "";
+function scheduleCommit(ms){ clearTimeout(commitTimer); commitTimer = setTimeout(() => { if (gesturing) return; svgEl.classList.remove("panning", "wheeling"); commitT(d3.zoomTransform(wrapEl)); updGE(); }, ms); }
+const zoom = d3.zoom().scaleExtent([1, 80]).wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.0022))
+.on("start", () => { gesturing = true; clearTimeout(commitTimer); svgEl.classList.add("panning"); hideTip(); })
 .on("zoom", ev => {
   pendingT = ev.transform;
+  const src = ev.sourceEvent ? ev.sourceEvent.type : "prog";
+  if (src !== lastSrc) { svgEl.classList.toggle("wheeling", src === "wheel"); lastSrc = src; }
   if (!raf) raf = requestAnimationFrame(() => { raf = 0; const t = pendingT, s = t.k / tc.k;
-    if (s > 1.8 || s < 0.45) { commitT(t); return; }
+    if (s > 3.2 || s < 0.3) { commitT(t); return; }          // far past the last redraw: refresh so it stays sharp
     svgEl.classList.toggle("zooming", Math.abs(s - 1) > 0.02);
     svgEl.style.transform = `translate(${t.x - s * tc.x}px,${t.y - s * tc.y}px) scale(${s})`; });
-}).on("end", () => { cancelAnimationFrame(raf); raf = 0; gesturing = false; svgEl.classList.remove("panning"); commitT(d3.zoomTransform(wrapEl)); updGE(); });
+}).on("end", ev => { cancelAnimationFrame(raf); raf = 0; gesturing = false;
+  // apply the last frame, then redraw once things settle
+  const t = d3.zoomTransform(wrapEl), s = t.k / tc.k;
+  if (Math.abs(s - 1) < 0.001) { svgEl.style.transform = `translate(${t.x - tc.x}px,${t.y - tc.y}px)`; }
+  else svgEl.style.transform = `translate(${t.x - s * tc.x}px,${t.y - s * tc.y}px) scale(${s})`;
+  scheduleCommit(lastSrc === "wheel" ? 220 : 120); lastSrc = ""; });
 wrap.call(zoom).on("dblclick.zoom", null);
 // keep the map within Australia and its neighbours: panning and zooming out stop at this box
 function setZExtent(){
