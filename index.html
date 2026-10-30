@@ -95,6 +95,16 @@ svg.deep .stlabel{display:none}
 .mine{cursor:pointer}
 .mine .dot{stroke:#000;stroke-width:1}
 .mine.P .dot{fill:var(--dotfill,var(--gold))}
+.mine[data-e="gold"].P .dot{fill:url(#gloss-gold)} body[data-c="gold"] .sw.p{background:radial-gradient(circle at 35% 30%,#fffbe0,#ffe36b 35%,#ffcc00 70%,#9a6b00)}
+.mine[data-e="iron"].P .dot{fill:url(#gloss-iron)} body[data-c="iron"] .sw.p{background:radial-gradient(circle at 35% 30%,#ffe3e7,#ff8296 35%,#ff3d5a 70%,#8a0f22)}
+.mine[data-e="lithium"].P .dot{fill:url(#gloss-lithium)} body[data-c="lithium"] .sw.p{background:radial-gradient(circle at 35% 30%,#f2fff9,#b4ffe0 35%,#7df9c3 70%,#1c8f63)}
+.mine[data-e="oil"].P .dot{fill:url(#gloss-oil)} body[data-c="oil"] .sw.p{background:radial-gradient(circle at 35% 30%,#e6fffc,#86f2e7 35%,#20d3c2 70%,#0a6d64)}
+.mine[data-e="coal"].P .dot{fill:url(#gloss-coal)} body[data-c="coal"] .sw.p{background:radial-gradient(circle at 35% 30%,#ffe8df,#ff9d80 35%,#ff5a2e 70%,#8a2408)}
+.mine[data-e="uranium"].P .dot{fill:url(#gloss-uranium)} body[data-c="uranium"] .sw.p{background:radial-gradient(circle at 35% 30%,#f3ffe8,#a2ff8c 35%,#39ff14 70%,#157a05)}
+.mine[data-e="copper"].P .dot{fill:url(#gloss-copper)} body[data-c="copper"] .sw.p{background:radial-gradient(circle at 35% 30%,#fff1e6,#f3b78e 35%,#e08a4f 70%,#7a3d14)}
+.mine[data-e="tungsten"].P .dot{fill:url(#gloss-tungsten)} body[data-c="tungsten"] .sw.p{background:radial-gradient(circle at 35% 30%,#f7f0ff,#d4bcff 35%,#b388ff 70%,#5a2fa8)}
+.mine[data-e="salt"].P .dot{fill:url(#gloss-salt)} body[data-c="salt"] .sw.p{background:radial-gradient(circle at 35% 30%,#fff3f8,#ffc4da 35%,#ff8fb8 70%,#a33a66)}
+.mine[data-e="silver"].P .dot{fill:url(#gloss-ag)} .mine[data-e="diamonds"].P .dot,.mine[data-e="diamonds"].C .dot{fill:url(#gloss-dia)}
 body[data-c="diamonds"]{--dotfill:url(#gloss-dia)} body[data-c="silver"]{--dotfill:url(#gloss-ag)}
 body[data-c="diamonds"] .mine.C .dot{fill:url(#gloss-dia);opacity:.75}
 body[data-c="diamonds"] .sw.c{background:radial-gradient(circle at 35% 30%,#fff,#7fd6ff 45%,#1a7fc4)}
@@ -984,6 +994,7 @@ svg#map.stn-off .stlabel{display:none}
     <symbol id="i-down" viewBox="-10 -10 20 20"><path d="M0 9L8 0H3.5V-9h-7V0H-8Z" fill="currentColor" stroke="#000" stroke-width="1"/></symbol>
     <symbol id="i-none" viewBox="-10 -10 20 20"><circle r="6" fill="currentColor"/></symbol>
     <radialGradient id="gloss-dia" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#9fe0ff"/><stop offset=".7" stop-color="#4fc3ff"/><stop offset="1" stop-color="#0d5fa6"/></radialGradient>
+    <radialGradient id="gloss-gold" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fffbe0"/><stop offset=".35" stop-color="#ffe36b"/><stop offset=".7" stop-color="#ffcc00"/><stop offset="1" stop-color="#9a6b00"/></radialGradient><radialGradient id="gloss-iron" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffe3e7"/><stop offset=".35" stop-color="#ff8296"/><stop offset=".7" stop-color="#ff3d5a"/><stop offset="1" stop-color="#8a0f22"/></radialGradient><radialGradient id="gloss-lithium" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#f2fff9"/><stop offset=".35" stop-color="#b4ffe0"/><stop offset=".7" stop-color="#7df9c3"/><stop offset="1" stop-color="#1c8f63"/></radialGradient><radialGradient id="gloss-oil" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#e6fffc"/><stop offset=".35" stop-color="#86f2e7"/><stop offset=".7" stop-color="#20d3c2"/><stop offset="1" stop-color="#0a6d64"/></radialGradient><radialGradient id="gloss-coal" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffe8df"/><stop offset=".35" stop-color="#ff9d80"/><stop offset=".7" stop-color="#ff5a2e"/><stop offset="1" stop-color="#8a2408"/></radialGradient><radialGradient id="gloss-uranium" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#f3ffe8"/><stop offset=".35" stop-color="#a2ff8c"/><stop offset=".7" stop-color="#39ff14"/><stop offset="1" stop-color="#157a05"/></radialGradient><radialGradient id="gloss-copper" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff1e6"/><stop offset=".35" stop-color="#f3b78e"/><stop offset=".7" stop-color="#e08a4f"/><stop offset="1" stop-color="#7a3d14"/></radialGradient><radialGradient id="gloss-tungsten" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#f7f0ff"/><stop offset=".35" stop-color="#d4bcff"/><stop offset=".7" stop-color="#b388ff"/><stop offset="1" stop-color="#5a2fa8"/></radialGradient><radialGradient id="gloss-salt" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#fff3f8"/><stop offset=".35" stop-color="#ffc4da"/><stop offset=".7" stop-color="#ff8fb8"/><stop offset="1" stop-color="#a33a66"/></radialGradient>
     <radialGradient id="gloss-ag" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#d8dde3"/><stop offset="1" stop-color="#7b838c"/></radialGradient>
   </defs>
 </svg>
@@ -1611,7 +1622,7 @@ function draw(){
   gCities.selectAll("g.city").data(CITIES).join(e => { const c = e.append("g").attr("class","city"); const s = c.append("g").attr("class","s"); s.append("rect").attr("x",-2).attr("y",-2).attr("width",4).attr("height",4); s.append("text").attr("x",6).attr("y",-5).text(d => d[0]); return c; })
     .attr("transform", c => `translate(${proj([c[2],c[1]])})`);
   mineSel = gMines.selectAll("g.mine").data(MINES, m => m.id).join(enter => {
-    const e = enter.append("g").attr("class", m => "mine " + m.s).style("--gold", m => THEMES[m.e].color).attr("tabindex", 0).attr("role","button").attr("aria-label", m => m.n);
+    const e = enter.append("g").attr("class", m => "mine " + m.s).attr("data-e", m => m.e).style("--gold", m => THEMES[m.e].color).attr("tabindex", 0).attr("role","button").attr("aria-label", m => m.n);
     const s = e.append("g").attr("class","s");
     s.append("circle").attr("class","ring").attr("r", m => rBase(m) + 4);
     s.filter(m => m.lh && m.lh[0] !== "note").append("circle").attr("class", m => "lh " + m.lh[0]).attr("r", m => rBase(m) + 6.5);
