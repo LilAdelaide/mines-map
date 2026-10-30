@@ -923,7 +923,9 @@ body.compact .ctab button[aria-selected="true"]{color:var(--gold)}
 body.compact .csheet{position:fixed;left:0;right:0;bottom:var(--tabh);z-index:8;height:var(--sh,62vh);max-height:calc(100% - var(--tabh) - 90px);background:var(--surf,#0d1012);border-top:1px solid var(--border);border-radius:16px 16px 0 0;box-shadow:0 -14px 40px rgba(0,0,0,.6);display:flex;flex-direction:column;transition:height .22s ease}
 body.compact .csheet[hidden]{display:none}
 body.compact .csheet.full{--sh:100vh}
-body.compact .csheet .sgrip{flex:none;height:26px;display:grid;place-items:center;cursor:grab;touch-action:none}
+body.compact .csheet .sgrip{flex:none;height:40px;margin-bottom:-8px;display:grid;place-items:center;cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent}
+body.compact .csheet.drag{transition:none!important;will-change:transform}
+body.compact .csheet.closing{transition:transform .18s ease-in!important}
 body.compact .csheet .sgrip i{width:42px;height:5px;border-radius:3px;background:#3a4249}
 body.compact .csheet .sbody{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 12px 16px;display:flex;flex-direction:column;gap:12px}
 body.compact .csheet .pane{display:none;flex-direction:column;gap:12px}
@@ -2692,11 +2694,31 @@ document.querySelectorAll(".uistep").forEach(btn => {
   // a mine row tapped in the list, or a stock in Picks: show the map with its details
   sheet.addEventListener("click", ev => { if (ev.target.closest(".list .row, .rr, .cev[data-c], .crow")) setTimeout(() => { if (compact) { sheet.hidden = true; cur = "map"; tab.querySelectorAll("button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.t === "map"))); } }, 0); });
   // drag the grip to resize; tap it to toggle full height
-  { const g = sheet.querySelector(".sgrip"); let y0 = 0, h0 = 0, moved = false;
-    g.addEventListener("pointerdown", ev => { y0 = ev.clientY; h0 = sheet.getBoundingClientRect().height; moved = false; g.setPointerCapture(ev.pointerId); sheet.style.transition = "none"; });
-    g.addEventListener("pointermove", ev => { if (!g.hasPointerCapture(ev.pointerId)) return; const d = y0 - ev.clientY; if (Math.abs(d) > 4) moved = true; if (moved) sheet.style.setProperty("--sh", Math.max(160, h0 + d) + "px"); });
-    g.addEventListener("pointerup", ev => { sheet.style.transition = ""; if (!moved) { sheet.classList.toggle("full"); sheet.style.removeProperty("--sh"); }
-      else { const h = sheet.getBoundingClientRect().height; if (h < 200) { sheet.style.removeProperty("--sh"); show("map"); } } });
+  // close the sheet: one tap on the handle, or one swipe down (handle, or the content when it's scrolled to the top).
+  // Dragging moves the sheet with a transform (no relayout per frame), so it stays smooth.
+  function closeSheet(){
+    sheet.classList.remove("drag"); sheet.classList.add("closing"); sheet.style.transform = "translateY(105%)";
+    setTimeout(() => { sheet.classList.remove("closing"); sheet.style.transform = ""; show("map"); }, 180);
+  }
+  function snapBack(){ sheet.classList.remove("drag"); sheet.classList.add("closing"); sheet.style.transform = ""; setTimeout(() => sheet.classList.remove("closing"), 180); }
+  { const g = sheet.querySelector(".sgrip"); let y0 = 0, h0 = 0, d = 0, t0 = 0, on = false;
+    g.addEventListener("pointerdown", ev => { on = true; y0 = ev.clientY; t0 = Date.now(); d = 0; h0 = sheet.getBoundingClientRect().height; try { g.setPointerCapture(ev.pointerId); } catch (e) {} sheet.classList.add("drag"); });
+    g.addEventListener("pointermove", ev => { if (!on) return; d = ev.clientY - y0;
+      if (d > 0) { sheet.style.transform = `translateY(${d}px)`; sheet.style.removeProperty("--shx"); }
+      else { sheet.style.transform = ""; sheet.style.setProperty("--sh", Math.max(160, h0 - d) + "px"); } });
+    const end = ev => { if (!on) return; on = false;
+      const fast = d > 25 && Date.now() - t0 < 250;
+      if (Math.abs(d) < 8 || d > 50 || fast) closeSheet();   // tap, short swipe down or a flick: close
+      else { sheet.classList.remove("drag"); if (d > 0) snapBack(); } };
+    g.addEventListener("pointerup", end);
+    g.addEventListener("pointercancel", ev => { if (on && d > 30) { on = false; closeSheet(); } else { on = false; snapBack(); } });
+    // swipe down on the content when it is already at the top
+    const body = sheet.querySelector(".sbody"); let ty = null, tx = 0, tt = 0, pull = 0;
+    body.addEventListener("touchstart", ev => { const t = ev.touches[0]; ty = body.scrollTop <= 0 && ev.touches.length === 1 ? t.clientY : null; tx = t.clientX; tt = Date.now(); pull = 0; }, {passive: true});
+    body.addEventListener("touchmove", ev => { if (ty == null) return; const t = ev.touches[0], dy = t.clientY - ty, dx = Math.abs(t.clientX - tx);
+      if (body.scrollTop > 0 || dy < 0 || dx > dy) { if (pull) snapBack(); ty = null; pull = 0; return; }
+      pull = dy; sheet.classList.add("drag"); sheet.style.transform = `translateY(${Math.max(0, dy - 10)}px)`; }, {passive: true});
+    body.addEventListener("touchend", () => { if (ty == null) return; ty = null; if (pull > 80 || (pull > 30 && Date.now() - tt < 250)) closeSheet(); else if (pull) snapBack(); pull = 0; }, {passive: true});
   }
   function apply(){
     const want = window.matchMedia(COMPACT_MQ).matches;
