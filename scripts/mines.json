@@ -3140,6 +3140,16 @@
 "auto": true
 },
 {
+"k": "nielle-gold-project",
+"n": "Nielle Gold Project",
+"lat": -26.5584,
+"lon": 118.5592,
+"e": "gold",
+"s": "D",
+"ty": "Exploration",
+"auto": true
+},
+{
 "k": "walparuta-project",
 "n": "Walparuta Project",
 "lat": -32.1462,

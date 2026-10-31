@@ -2859,5 +2859,12 @@
 "lon": 148.808,
 "how": "map",
 "km": 5.2
+},
+"nielle-gold-project": {
+"ok": true,
+"lat": -26.5584,
+"lon": 118.5592,
+"how": "map",
+"km": 5.2
 }
 }
