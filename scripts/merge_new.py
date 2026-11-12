@@ -75,5 +75,12 @@ for ms in ALL.values():
     for m in ms:
         if m.get("auto") and slug(m["n"]) not in have:
             mines.append({"k": slug(m["n"]), "n": m["n"], "lat": m["lat"], "lon": m["lon"], "e": next(k for k, v in ALL.items() if m in v), "s": m["s"], "ty": m["ty"], "auto": True})
+own = {}
+for ms in ALL.values():
+    for m in ms:
+        own.setdefault(slug(m["n"]), {"ow": m.get("ow") or "", "op": m.get("op") or "", "tk": m.get("tk") or m.get("pc") or ""})
+for m in mines:
+    o = own.get(m["k"])
+    if o: m.update({k: v for k, v in o.items() if v})
 json.dump(mines, open(mp, "w"), indent=0, ensure_ascii=False)
 print("auto-added on the map:", added or "none")

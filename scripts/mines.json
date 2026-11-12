@@ -6,7 +6,10 @@
 "lon": 121.503,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG (Mt Charlotte)"
+"ty": "Open pit + UG (Mt Charlotte)",
+"ow": "Northern Star Resources",
+"op": "Northern Star",
+"tk": "NST"
 },
 {
 "k": "mt-charlotte",
@@ -15,7 +18,10 @@
 "lon": 121.488,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Northern Star Resources",
+"op": "Northern Star",
+"tk": "NST"
 },
 {
 "k": "menzies-brightstar",
@@ -24,7 +30,10 @@
 "lon": 121.03,
 "e": "gold",
 "s": "D",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Brightstar Resources",
+"op": "Brightstar",
+"tk": "BTR"
 },
 {
 "k": "kanowna-belle",
@@ -33,7 +42,10 @@
 "lon": 121.606,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Northern Star Resources",
+"op": "Northern Star",
+"tk": "NST"
 },
 {
 "k": "carosue-dam",
@@ -42,7 +54,10 @@
 "lon": 122.28,
 "e": "gold",
 "s": "P",
-"ty": "UG + stockpiles"
+"ty": "UG + stockpiles",
+"ow": "Northern Star Resources",
+"op": "Northern Star",
+"tk": "NST"
 },
 {
 "k": "st-ives",
@@ -51,7 +66,10 @@
 "lon": 121.7,
 "e": "gold",
 "s": "P",
-"ty": "4 open pits + 3 UG"
+"ty": "4 open pits + 3 UG",
+"ow": "Gold Fields",
+"op": "Gold Fields",
+"tk": "GFI"
 },
 {
 "k": "mungari-incl-kundana",
@@ -60,7 +78,10 @@
 "lon": 121.12,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Evolution Mining",
+"op": "Evolution",
+"tk": "EVN"
 },
 {
 "k": "beta-hunt",
@@ -69,7 +90,10 @@
 "lon": 121.68,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Westgold Resources",
+"op": "Westgold",
+"tk": "WGX"
 },
 {
 "k": "higginsville",
@@ -78,7 +102,10 @@
 "lon": 121.73,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + mill"
+"ty": "Open pit + mill",
+"ow": "Westgold Resources",
+"op": "Westgold",
+"tk": "WGX"
 },
 {
 "k": "mt-monger-daisy-milano",
@@ -87,7 +114,10 @@
 "lon": 121.96,
 "e": "gold",
 "s": "P",
-"ty": "UG + open pit"
+"ty": "UG + open pit",
+"ow": "Vault Minerals (merger with Genesis pending, vote late Oct 2026)",
+"op": "Vault Minerals",
+"tk": "VAU · GMD"
 },
 {
 "k": "bullabulling",
@@ -96,7 +126,10 @@
 "lon": 121.07,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Minerals 260",
+"op": "Minerals 260",
+"tk": "MI6"
 },
 {
 "k": "norseman",
@@ -105,7 +138,10 @@
 "lon": 121.78,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Pantoro Gold",
+"op": "Pantoro",
+"tk": "PNR"
 },
 {
 "k": "davyhurst-riverina",
@@ -114,7 +150,10 @@
 "lon": 120.65,
 "e": "gold",
 "s": "P",
-"ty": "UG + open pit"
+"ty": "UG + open pit",
+"ow": "Ora Banda Mining",
+"op": "Ora Banda",
+"tk": "OBM"
 },
 {
 "k": "bardoc",
@@ -123,7 +162,10 @@
 "lon": 121.27,
 "e": "gold",
 "s": "D",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Genesis Minerals",
+"op": "Genesis",
+"tk": "GMD"
 },
 {
 "k": "kal-east",
@@ -132,7 +174,10 @@
 "lon": 121.83,
 "e": "gold",
 "s": "D",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Black Cat Syndicate",
+"op": "Black Cat",
+"tk": "BC8"
 },
 {
 "k": "rebecca-roe",
@@ -141,7 +186,10 @@
 "lon": 122.2,
 "e": "gold",
 "s": "D",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Ramelius Resources",
+"op": "Ramelius",
+"tk": "RMS"
 },
 {
 "k": "mandilla",
@@ -150,7 +198,10 @@
 "lon": 121.37,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Astral Resources",
+"op": "Astral",
+"tk": "AAR"
 },
 {
 "k": "boorara-kalgoorlie-projects",
@@ -159,7 +210,10 @@
 "lon": 121.64,
 "e": "gold",
 "s": "D",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Maritana Minerals (formerly Horizon Minerals)",
+"op": "Maritana",
+"tk": "MRT"
 },
 {
 "k": "gwalia",
@@ -168,7 +222,10 @@
 "lon": 121.33,
 "e": "gold",
 "s": "P",
-"ty": "Deep underground"
+"ty": "Deep underground",
+"ow": "Genesis Minerals",
+"op": "Genesis",
+"tk": "GMD"
 },
 {
 "k": "leonora-mill-ulysses",
@@ -177,7 +234,10 @@
 "lon": 121.15,
 "e": "gold",
 "s": "P",
-"ty": "UG + open pit"
+"ty": "UG + open pit",
+"ow": "Genesis Minerals",
+"op": "Genesis",
+"tk": "GMD"
 },
 {
 "k": "mt-morgans",
@@ -186,7 +246,10 @@
 "lon": 122.13,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Genesis Minerals",
+"op": "Genesis",
+"tk": "GMD"
 },
 {
 "k": "lady-julie",
@@ -195,7 +258,10 @@
 "lon": 122.35,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Genesis Minerals",
+"op": "Genesis",
+"tk": "GMD"
 },
 {
 "k": "king-of-the-hills",
@@ -204,7 +270,10 @@
 "lon": 121.4,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Vault Minerals (merger with Genesis pending, vote late Oct 2026)",
+"op": "Vault Minerals",
+"tk": "VAU · GMD"
 },
 {
 "k": "darlot",
@@ -213,7 +282,10 @@
 "lon": 121.27,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Vault Minerals (merger with Genesis pending, vote late Oct 2026)",
+"op": "Vault Minerals",
+"tk": "VAU · GMD"
 },
 {
 "k": "granny-smith",
@@ -222,7 +294,10 @@
 "lon": 122.37,
 "e": "gold",
 "s": "P",
-"ty": "Underground (Wallaby)"
+"ty": "Underground (Wallaby)",
+"ow": "Gold Fields",
+"op": "Gold Fields",
+"tk": "GFI"
 },
 {
 "k": "gruyere",
@@ -231,7 +306,10 @@
 "lon": 123.85,
 "e": "gold",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Gold Fields",
+"op": "Gold Fields",
+"tk": "GFI"
 },
 {
 "k": "laverton-brightstar",
@@ -240,7 +318,10 @@
 "lon": 122.4,
 "e": "gold",
 "s": "D",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Brightstar Resources",
+"op": "Brightstar",
+"tk": "BTR"
 },
 {
 "k": "tropicana",
@@ -249,7 +330,10 @@
 "lon": 124.55,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "AngloGold Ashanti 70% · Regis 30%",
+"op": "AngloGold Ashanti",
+"tk": "RRL"
 },
 {
 "k": "apollo-hill",
@@ -258,7 +342,10 @@
 "lon": 121.68,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Saturn Metals",
+"op": "Saturn",
+"tk": "STN"
 },
 {
 "k": "agnew-incl-lawlers",
@@ -267,7 +354,10 @@
 "lon": 120.5,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Gold Fields",
+"op": "Gold Fields",
+"tk": "GFI"
 },
 {
 "k": "bellevue",
@@ -276,7 +366,10 @@
 "lon": 120.6,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Bellevue Gold",
+"op": "Bellevue",
+"tk": "BGL"
 },
 {
 "k": "thunderbox",
@@ -285,7 +378,10 @@
 "lon": 120.6,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG (Wonder)"
+"ty": "Open pit + UG (Wonder)",
+"ow": "Northern Star Resources",
+"op": "Northern Star",
+"tk": "NST"
 },
 {
 "k": "jundee",
@@ -294,7 +390,10 @@
 "lon": 120.65,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Northern Star Resources",
+"op": "Northern Star",
+"tk": "NST"
 },
 {
 "k": "bronzewing",
@@ -303,7 +402,10 @@
 "lon": 121.03,
 "e": "gold",
 "s": "C",
-"ty": "Mill + satellites"
+"ty": "Mill + satellites",
+"ow": "Northern Star Resources",
+"op": "Northern Star",
+"tk": "NST"
 },
 {
 "k": "duketon-south-garden-well-rosemont",
@@ -312,7 +414,10 @@
 "lon": 122.35,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Regis Resources",
+"op": "Regis",
+"tk": "RRL"
 },
 {
 "k": "duketon-north-moolart-well",
@@ -321,7 +426,10 @@
 "lon": 122.33,
 "e": "gold",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Regis Resources",
+"op": "Regis",
+"tk": "RRL"
 },
 {
 "k": "mt-magnet",
@@ -330,7 +438,10 @@
 "lon": 117.85,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Ramelius Resources",
+"op": "Ramelius",
+"tk": "RMS"
 },
 {
 "k": "dalgaranga-never-never",
@@ -339,7 +450,10 @@
 "lon": 117.07,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Ramelius Resources",
+"op": "Ramelius",
+"tk": "RMS"
 },
 {
 "k": "penny",
@@ -348,7 +462,10 @@
 "lon": 119.7,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Ramelius Resources",
+"op": "Ramelius",
+"tk": "RMS"
 },
 {
 "k": "cue-break-of-day-lena",
@@ -357,7 +474,10 @@
 "lon": 117.85,
 "e": "gold",
 "s": "D",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Ramelius Resources",
+"op": "Ramelius",
+"tk": "RMS"
 },
 {
 "k": "big-bell-cue",
@@ -366,7 +486,10 @@
 "lon": 117.65,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Westgold Resources",
+"op": "Westgold",
+"tk": "WGX"
 },
 {
 "k": "tuckabianna-mill-fender",
@@ -375,7 +498,10 @@
 "lon": 118.05,
 "e": "gold",
 "s": "P",
-"ty": "Mill + UG"
+"ty": "Mill + UG",
+"ow": "Westgold Resources",
+"op": "Westgold",
+"tk": "WGX"
 },
 {
 "k": "meekatharra-bluebird",
@@ -384,7 +510,10 @@
 "lon": 118.5,
 "e": "gold",
 "s": "P",
-"ty": "Underground + mill"
+"ty": "Underground + mill",
+"ow": "Westgold Resources",
+"op": "Westgold",
+"tk": "WGX"
 },
 {
 "k": "fortnum-starlight",
@@ -393,7 +522,10 @@
 "lon": 118.4,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Westgold Resources",
+"op": "Westgold",
+"tk": "WGX"
 },
 {
 "k": "andy-well-murchison-gold",
@@ -402,7 +534,10 @@
 "lon": 118.55,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Meeka Metals",
+"op": "Meeka",
+"tk": "MEK"
 },
 {
 "k": "youanmi",
@@ -411,7 +546,10 @@
 "lon": 118.83,
 "e": "gold",
 "s": "D",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Rox Resources",
+"op": "Rox",
+"tk": "RXL"
 },
 {
 "k": "plutonic",
@@ -420,7 +558,10 @@
 "lon": 119.43,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Catalyst Metals",
+"op": "Catalyst",
+"tk": "CYL"
 },
 {
 "k": "deflector",
@@ -429,7 +570,10 @@
 "lon": 115.97,
 "e": "gold",
 "s": "P",
-"ty": "UG + open pit"
+"ty": "UG + open pit",
+"ow": "Vault Minerals (merger with Genesis pending, vote late Oct 2026)",
+"op": "Vault Minerals",
+"tk": "VAU · GMD"
 },
 {
 "k": "mt-gibson",
@@ -438,7 +582,10 @@
 "lon": 117.18,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Capricorn Metals",
+"op": "Capricorn",
+"tk": "CMM"
 },
 {
 "k": "karlawinda-bibra",
@@ -447,7 +594,10 @@
 "lon": 120.1,
 "e": "gold",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Capricorn Metals",
+"op": "Capricorn",
+"tk": "CMM"
 },
 {
 "k": "hemi",
@@ -456,7 +606,10 @@
 "lon": 118.85,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Northern Star Resources",
+"op": "Northern Star",
+"tk": "NST"
 },
 {
 "k": "paulsens",
@@ -465,7 +618,10 @@
 "lon": 116.08,
 "e": "gold",
 "s": "C",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Black Cat Syndicate",
+"op": "Black Cat",
+"tk": "BC8"
 },
 {
 "k": "telfer",
@@ -474,7 +630,10 @@
 "lon": 122.21,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Greatland Resources",
+"op": "Greatland",
+"tk": "GGP"
 },
 {
 "k": "havieron",
@@ -483,7 +642,10 @@
 "lon": 122.66,
 "e": "gold",
 "s": "D",
-"ty": "Underground (planned)"
+"ty": "Underground (planned)",
+"ow": "Greatland Resources",
+"op": "Greatland",
+"tk": "GGP"
 },
 {
 "k": "coyote",
@@ -492,7 +654,10 @@
 "lon": 128.74,
 "e": "gold",
 "s": "C",
-"ty": "UG + open pit"
+"ty": "UG + open pit",
+"ow": "Black Cat Syndicate",
+"op": "Black Cat",
+"tk": "BC8"
 },
 {
 "k": "boddington",
@@ -501,7 +666,10 @@
 "lon": 116.37,
 "e": "gold",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Newmont",
+"op": "Newmont",
+"tk": "NEM"
 },
 {
 "k": "edna-may-tampia",
@@ -510,7 +678,10 @@
 "lon": 118.68,
 "e": "gold",
 "s": "D",
-"ty": "Mill + open pit"
+"ty": "Mill + open pit",
+"ow": "Forrestania Resources",
+"op": "Forrestania",
+"tk": "FRS"
 },
 {
 "k": "katanning",
@@ -519,7 +690,10 @@
 "lon": 117.75,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Ausgold (OceanaGold takeover pending)",
+"op": "Ausgold",
+"tk": "AUC"
 },
 {
 "k": "tanami-callie",
@@ -528,7 +702,10 @@
 "lon": 130.35,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Newmont",
+"op": "Newmont",
+"tk": "NEM"
 },
 {
 "k": "olympic-dam",
@@ -537,7 +714,10 @@
 "lon": 136.88,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "BHP",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "prominent-hill",
@@ -546,7 +726,10 @@
 "lon": 135.57,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "BHP",
+"op": "BHP (Copper SA)",
+"tk": "BHP"
 },
 {
 "k": "carrapateena",
@@ -555,7 +738,10 @@
 "lon": 137.48,
 "e": "gold",
 "s": "P",
-"ty": "Underground (block cave)"
+"ty": "Underground (block cave)",
+"ow": "BHP",
+"op": "BHP (Copper SA)",
+"tk": "BHP"
 },
 {
 "k": "challenger",
@@ -564,7 +750,10 @@
 "lon": 134.32,
 "e": "gold",
 "s": "C",
-"ty": "Mill + UG"
+"ty": "Mill + UG",
+"ow": "Barton Gold",
+"op": "Barton",
+"tk": "BGD"
 },
 {
 "k": "tunkillia",
@@ -573,7 +762,10 @@
 "lon": 135.57,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Barton Gold",
+"op": "Barton",
+"tk": "BGD"
 },
 {
 "k": "ernest-henry",
@@ -582,7 +774,10 @@
 "lon": 140.7,
 "e": "gold",
 "s": "P",
-"ty": "Underground (sub-level cave)"
+"ty": "Underground (sub-level cave)",
+"ow": "Evolution Mining",
+"op": "Evolution",
+"tk": "EVN"
 },
 {
 "k": "mt-rawdon",
@@ -591,7 +786,10 @@
 "lon": 151.7,
 "e": "gold",
 "s": "C",
-"ty": "Stockpile processing"
+"ty": "Stockpile processing",
+"ow": "Evolution Mining",
+"op": "Evolution",
+"tk": "EVN"
 },
 {
 "k": "cracow",
@@ -600,7 +798,10 @@
 "lon": 150.31,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Aeris Resources",
+"op": "Aeris",
+"tk": "AIS"
 },
 {
 "k": "charters-towers",
@@ -609,7 +810,10 @@
 "lon": 146.27,
 "e": "gold",
 "s": "C",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Citigold",
+"op": "Citigold",
+"tk": "CTO"
 },
 {
 "k": "cadia-valley",
@@ -618,7 +822,10 @@
 "lon": 148.99,
 "e": "gold",
 "s": "P",
-"ty": "Underground (block cave)"
+"ty": "Underground (block cave)",
+"ow": "Newmont",
+"op": "Newmont",
+"tk": "NEM"
 },
 {
 "k": "cowal",
@@ -627,7 +834,10 @@
 "lon": 147.42,
 "e": "gold",
 "s": "P",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Evolution Mining",
+"op": "Evolution",
+"tk": "EVN"
 },
 {
 "k": "northparkes",
@@ -636,7 +846,10 @@
 "lon": 148.03,
 "e": "gold",
 "s": "P",
-"ty": "Underground (block cave)"
+"ty": "Underground (block cave)",
+"ow": "Evolution 80% · Sumitomo 20%",
+"op": "Evolution",
+"tk": "EVN"
 },
 {
 "k": "tomingley",
@@ -645,7 +858,10 @@
 "lon": 148.22,
 "e": "gold",
 "s": "P",
-"ty": "UG + open pit"
+"ty": "UG + open pit",
+"ow": "Alkane Resources",
+"op": "Alkane",
+"tk": "ALK"
 },
 {
 "k": "boda-kaiser",
@@ -654,7 +870,10 @@
 "lon": 148.85,
 "e": "gold",
 "s": "D",
-"ty": "Planned"
+"ty": "Planned",
+"ow": "Alkane Resources",
+"op": "Alkane",
+"tk": "ALK"
 },
 {
 "k": "mcphillamys",
@@ -663,7 +882,10 @@
 "lon": 149.1,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Regis Resources",
+"op": "Regis",
+"tk": "RRL"
 },
 {
 "k": "peak-cobar",
@@ -672,7 +894,10 @@
 "lon": 145.85,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Aurelia Metals",
+"op": "Aurelia",
+"tk": "AMI"
 },
 {
 "k": "hillgrove",
@@ -681,7 +906,10 @@
 "lon": 151.9,
 "e": "gold",
 "s": "D",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Larvotto Resources",
+"op": "Larvotto",
+"tk": "LRV"
 },
 {
 "k": "mineral-hill",
@@ -690,7 +918,10 @@
 "lon": 147.37,
 "e": "gold",
 "s": "P",
-"ty": "Tailings + UG"
+"ty": "Tailings + UG",
+"ow": "Kingston Resources",
+"op": "Kingston",
+"tk": "KSN"
 },
 {
 "k": "costerfield",
@@ -699,7 +930,10 @@
 "lon": 144.8,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Alkane Resources",
+"op": "Alkane",
+"tk": "ALK"
 },
 {
 "k": "sunday-creek",
@@ -708,7 +942,10 @@
 "lon": 145.0,
 "e": "gold",
 "s": "D",
-"ty": "Underground (planned)"
+"ty": "Underground (planned)",
+"ow": "Southern Cross Gold",
+"op": "Southern Cross Gold",
+"tk": "SX2"
 },
 {
 "k": "henty",
@@ -717,7 +954,10 @@
 "lon": 145.62,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Catalyst Metals",
+"op": "Catalyst",
+"tk": "CYL"
 },
 {
 "k": "kalkaroo",
@@ -726,7 +966,10 @@
 "lon": 140.3,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Havilah Resources",
+"op": "Havilah",
+"tk": "HAV"
 },
 {
 "k": "comet-vale-vivien",
@@ -735,7 +978,10 @@
 "lon": 121.12,
 "e": "gold",
 "s": "D",
-"ty": "UG + open pit"
+"ty": "UG + open pit",
+"ow": "Gorilla Gold Mines",
+"op": "Gorilla Gold",
+"tk": "GG8"
 },
 {
 "k": "montague",
@@ -744,7 +990,10 @@
 "lon": 119.75,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Gateway Mining",
+"op": "Gateway",
+"tk": "GML"
 },
 {
 "k": "central-tanami",
@@ -753,7 +1002,10 @@
 "lon": 129.75,
 "e": "gold",
 "s": "D",
-"ty": "Open pit + UG"
+"ty": "Open pit + UG",
+"ow": "Tanami Gold NL (50% JV with Northern Star)",
+"op": "Northern Star (JV)",
+"tk": "TAM"
 },
 {
 "k": "mt-ida",
@@ -762,7 +1014,10 @@
 "lon": 120.58,
 "e": "gold",
 "s": "D",
-"ty": "Underground (planned)"
+"ty": "Underground (planned)",
+"ow": "Delta Lithium",
+"op": "Delta Lithium",
+"tk": "DLI"
 },
 {
 "k": "paris",
@@ -771,7 +1026,10 @@
 "lon": 121.62,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Torque Metals",
+"op": "Torque",
+"tk": "TOR"
 },
 {
 "k": "a1-gold-mine",
@@ -780,7 +1038,10 @@
 "lon": 146.25,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Kaiser Reef",
+"op": "Kaiser Reef",
+"tk": "KAU"
 },
 {
 "k": "mt-york",
@@ -789,7 +1050,10 @@
 "lon": 118.95,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Pilbara Gold (formerly Kairos Minerals)",
+"op": "Pilbara Gold",
+"tk": "PGL"
 },
 {
 "k": "pyramid-hill",
@@ -798,7 +1062,10 @@
 "lon": 144.12,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Falcon Metals",
+"op": "Falcon",
+"tk": "FAL"
 },
 {
 "k": "hopes-hill",
@@ -807,7 +1074,10 @@
 "lon": 119.33,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Golden Horse Minerals",
+"op": "Golden Horse",
+"tk": "GHM"
 },
 {
 "k": "twin-hills-drummond-basin",
@@ -816,7 +1086,10 @@
 "lon": 147.33,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "GBM Resources",
+"op": "GBM",
+"tk": "GBM"
 },
 {
 "k": "meekatharra-mindax",
@@ -825,7 +1098,10 @@
 "lon": 118.62,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Mindax",
+"op": "Mindax",
+"tk": "MDX"
 },
 {
 "k": "fountain-head-mt-bundey",
@@ -834,7 +1110,10 @@
 "lon": 131.5,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Patronus Resources",
+"op": "Patronus",
+"tk": "PTN"
 },
 {
 "k": "redcastle",
@@ -843,7 +1122,10 @@
 "lon": 121.2,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Redcastle Resources",
+"op": "Redcastle",
+"tk": "RC1"
 },
 {
 "k": "castlemaine",
@@ -852,7 +1134,10 @@
 "lon": 144.22,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Kalamazoo Resources",
+"op": "Kalamazoo",
+"tk": "KZR"
 },
 {
 "k": "yundamindera",
@@ -861,7 +1146,10 @@
 "lon": 122.03,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Arika Resources",
+"op": "Arika",
+"tk": "ARI"
 },
 {
 "k": "tuckanarra",
@@ -870,7 +1158,10 @@
 "lon": 118.08,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Odyssey Gold",
+"op": "Odyssey",
+"tk": "ODY"
 },
 {
 "k": "munda",
@@ -879,7 +1170,10 @@
 "lon": 121.58,
 "e": "gold",
 "s": "D",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Auric Mining",
+"op": "Auric",
+"tk": "AWJ"
 },
 {
 "k": "moorefield-cargelligo",
@@ -888,7 +1182,10 @@
 "lon": 146.4,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Australian Gold and Copper",
+"op": "AGC",
+"tk": "AGC"
 },
 {
 "k": "west-tanami",
@@ -897,7 +1194,10 @@
 "lon": 128.7,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Hamelin Gold",
+"op": "Hamelin",
+"tk": "HMG"
 },
 {
 "k": "ironstone-well",
@@ -906,7 +1206,10 @@
 "lon": 120.95,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Yandal Resources",
+"op": "Yandal",
+"tk": "YRL"
 },
 {
 "k": "barimaia",
@@ -915,7 +1218,10 @@
 "lon": 117.9,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Ordell Minerals",
+"op": "Ordell",
+"tk": "ORD"
 },
 {
 "k": "ballarat-exploration",
@@ -924,7 +1230,10 @@
 "lon": 143.9,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "GoldArc Resources",
+"op": "GoldArc",
+"tk": "GA8"
 },
 {
 "k": "zuleika",
@@ -933,7 +1242,10 @@
 "lon": 121.1,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Zuleika Gold",
+"op": "Zuleika",
+"tk": "ZAG"
 },
 {
 "k": "wallbrook",
@@ -942,7 +1254,10 @@
 "lon": 122.08,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Nexus Minerals",
+"op": "Nexus",
+"tk": "NXM"
 },
 {
 "k": "egina-becher",
@@ -951,7 +1266,10 @@
 "lon": 118.25,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Novo Resources",
+"op": "Novo",
+"tk": "NVO"
 },
 {
 "k": "hill-end-reward",
@@ -960,7 +1278,10 @@
 "lon": 149.42,
 "e": "gold",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Vertex Minerals",
+"op": "Vertex",
+"tk": "VTX"
 },
 {
 "k": "trouser-legs",
@@ -969,7 +1290,10 @@
 "lon": 122.3,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Hawthorn Resources",
+"op": "Hawthorn",
+"tk": "HAW"
 },
 {
 "k": "nagambie",
@@ -978,7 +1302,10 @@
 "lon": 145.15,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Nagambie Resources",
+"op": "Nagambie",
+"tk": "NAG"
 },
 {
 "k": "northern-zone-kurnalpi",
@@ -987,7 +1314,10 @@
 "lon": 122.25,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Riversgold",
+"op": "Riversgold",
+"tk": "RGL"
 },
 {
 "k": "tanami-prodigy",
@@ -996,7 +1326,10 @@
 "lon": 129.5,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Prodigy Gold NL",
+"op": "Prodigy",
+"tk": "PRX"
 },
 {
 "k": "mulgabbie",
@@ -1005,7 +1338,10 @@
 "lon": 121.95,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "OzAurum Resources",
+"op": "OzAurum",
+"tk": "OZM"
 },
 {
 "k": "gullewa",
@@ -1014,7 +1350,10 @@
 "lon": 116.15,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Gullewa Limited",
+"op": "Gullewa",
+"tk": "GUL"
 },
 {
 "k": "gold-duke",
@@ -1023,7 +1362,10 @@
 "lon": 120.3,
 "e": "gold",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Western Gold Resources",
+"op": "Western Gold",
+"tk": "WGR"
 },
 {
 "k": "stawell-corridor-tandarra",
@@ -1032,7 +1374,10 @@
 "lon": 142.85,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Aureka (formerly Navarre Minerals)",
+"op": "Aureka",
+"tk": "AKA"
 },
 {
 "k": "spring-hill",
@@ -1041,7 +1386,10 @@
 "lon": 131.85,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "PC Gold",
+"op": "PC Gold",
+"tk": "PC2"
 },
 {
 "k": "koonenberry",
@@ -1050,7 +1398,10 @@
 "lon": 142.6,
 "e": "gold",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Koonenberry Gold",
+"op": "Koonenberry",
+"tk": "KNB"
 },
 {
 "k": "honeymoon",
@@ -1059,7 +1410,10 @@
 "lon": 140.66,
 "e": "uranium",
 "s": "P",
-"ty": "In-situ recovery (ISR)"
+"ty": "In-situ recovery (ISR)",
+"ow": "Boss Energy",
+"op": "Boss Energy",
+"tk": "BOE"
 },
 {
 "k": "ranger",
@@ -1068,7 +1422,10 @@
 "lon": 132.91,
 "e": "uranium",
 "s": "C",
-"ty": "Open pit (closed)"
+"ty": "Open pit (closed)",
+"ow": "Rio Tinto (Energy Resources of Australia)",
+"op": "ERA",
+"tk": "RIO"
 },
 {
 "k": "jabiluka",
@@ -1077,7 +1434,10 @@
 "lon": 132.9,
 "e": "uranium",
 "s": "C",
-"ty": "—"
+"ty": "—",
+"ow": "Rio Tinto / Mirarr Traditional Owners",
+"op": "—",
+"tk": "RIO"
 },
 {
 "k": "mulga-rock",
@@ -1086,7 +1446,10 @@
 "lon": 123.62,
 "e": "uranium",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Deep Yellow",
+"op": "Deep Yellow",
+"tk": "DYL"
 },
 {
 "k": "wiluna-lake-maitland",
@@ -1095,7 +1458,10 @@
 "lon": 120.4,
 "e": "uranium",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Toro Energy",
+"op": "Toro Energy",
+"tk": "TOE"
 },
 {
 "k": "manyingee",
@@ -1104,7 +1470,10 @@
 "lon": 114.83,
 "e": "uranium",
 "s": "D",
-"ty": "In-situ recovery (planned)"
+"ty": "In-situ recovery (planned)",
+"ow": "Paladin Energy",
+"op": "Paladin",
+"tk": "PDN"
 },
 {
 "k": "valhalla-mount-isa-project",
@@ -1113,7 +1482,10 @@
 "lon": 139.5,
 "e": "uranium",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Paladin Energy",
+"op": "Paladin",
+"tk": "PDN"
 },
 {
 "k": "westmoreland",
@@ -1122,7 +1494,10 @@
 "lon": 138.3,
 "e": "uranium",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Laramide Resources",
+"op": "Laramide",
+"tk": "LAM"
 },
 {
 "k": "samphire",
@@ -1131,7 +1506,10 @@
 "lon": 137.3,
 "e": "uranium",
 "s": "D",
-"ty": "In-situ recovery (planned)"
+"ty": "In-situ recovery (planned)",
+"ow": "Alligator Energy",
+"op": "Alligator",
+"tk": "AGE"
 },
 {
 "k": "bigrlyi",
@@ -1140,7 +1518,10 @@
 "lon": 132.52,
 "e": "uranium",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Energy Metals",
+"op": "Energy Metals",
+"tk": "EME"
 },
 {
 "k": "angela",
@@ -1149,7 +1530,10 @@
 "lon": 133.62,
 "e": "uranium",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Elevate Uranium",
+"op": "Elevate",
+"tk": "EL8"
 },
 {
 "k": "nabarlek-area",
@@ -1158,7 +1542,10 @@
 "lon": 133.32,
 "e": "uranium",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "DevEx Resources",
+"op": "DevEx",
+"tk": "DEV"
 },
 {
 "k": "yanrey",
@@ -1167,7 +1554,10 @@
 "lon": 114.72,
 "e": "uranium",
 "s": "D",
-"ty": "In-situ recovery (planned)"
+"ty": "In-situ recovery (planned)",
+"ow": "Cauldron Energy",
+"op": "Cauldron",
+"tk": "CXU"
 },
 {
 "k": "goonyella-riverside",
@@ -1176,7 +1566,10 @@
 "lon": 147.97,
 "e": "coal",
 "s": "P",
-"ty": "Open cut + longwall"
+"ty": "Open cut + longwall",
+"ow": "BHP Mitsubishi Alliance (BHP 50% / Mitsubishi 50%)",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "broadmeadow",
@@ -1185,7 +1578,10 @@
 "lon": 147.99,
 "e": "coal",
 "s": "P",
-"ty": "Longwall underground"
+"ty": "Longwall underground",
+"ow": "BHP Mitsubishi Alliance (BHP 50% / Mitsubishi 50%)",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "peak-downs",
@@ -1194,7 +1590,10 @@
 "lon": 148.18,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "BHP Mitsubishi Alliance (BHP 50% / Mitsubishi 50%)",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "caval-ridge",
@@ -1203,7 +1602,10 @@
 "lon": 148.05,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "BHP Mitsubishi Alliance (BHP 50% / Mitsubishi 50%)",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "saraji",
@@ -1212,7 +1614,10 @@
 "lon": 148.28,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "BHP Mitsubishi Alliance (BHP 50% / Mitsubishi 50%)",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "mt-arthur",
@@ -1221,7 +1626,10 @@
 "lon": 150.87,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "BHP",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "blackwater",
@@ -1230,7 +1638,10 @@
 "lon": 148.88,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Whitehaven Coal (70%)",
+"op": "Whitehaven",
+"tk": "WHC"
 },
 {
 "k": "daunia",
@@ -1239,7 +1650,10 @@
 "lon": 148.25,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Whitehaven Coal",
+"op": "Whitehaven",
+"tk": "WHC"
 },
 {
 "k": "maules-creek",
@@ -1248,7 +1662,10 @@
 "lon": 150.3,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Whitehaven Coal (75%)",
+"op": "Whitehaven",
+"tk": "WHC"
 },
 {
 "k": "narrabri",
@@ -1257,7 +1674,10 @@
 "lon": 149.83,
 "e": "coal",
 "s": "P",
-"ty": "Longwall underground"
+"ty": "Longwall underground",
+"ow": "Whitehaven Coal (77.5%)",
+"op": "Whitehaven",
+"tk": "WHC"
 },
 {
 "k": "tarrawonga",
@@ -1266,7 +1686,10 @@
 "lon": 150.18,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Whitehaven Coal",
+"op": "Whitehaven",
+"tk": "WHC"
 },
 {
 "k": "vickery",
@@ -1275,7 +1698,10 @@
 "lon": 150.17,
 "e": "coal",
 "s": "D",
-"ty": "Open cut (planned)"
+"ty": "Open cut (planned)",
+"ow": "Whitehaven Coal",
+"op": "Whitehaven",
+"tk": "WHC"
 },
 {
 "k": "south-walker-creek",
@@ -1284,7 +1710,10 @@
 "lon": 148.45,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Stanmore Resources",
+"op": "Stanmore",
+"tk": "SMR"
 },
 {
 "k": "poitrel",
@@ -1293,7 +1722,10 @@
 "lon": 148.27,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Stanmore Resources",
+"op": "Stanmore",
+"tk": "SMR"
 },
 {
 "k": "isaac-plains",
@@ -1302,7 +1734,10 @@
 "lon": 148.08,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Stanmore Resources",
+"op": "Stanmore",
+"tk": "SMR"
 },
 {
 "k": "curragh",
@@ -1311,7 +1746,10 @@
 "lon": 148.88,
 "e": "coal",
 "s": "P",
-"ty": "Open cut + new UG"
+"ty": "Open cut + new UG",
+"ow": "Coronado Global Resources",
+"op": "Coronado",
+"tk": "CRN"
 },
 {
 "k": "kestrel",
@@ -1320,7 +1758,10 @@
 "lon": 148.4,
 "e": "coal",
 "s": "P",
-"ty": "Longwall underground"
+"ty": "Longwall underground",
+"ow": "Yancoal Australia",
+"op": "Yancoal",
+"tk": "YAL"
 },
 {
 "k": "middlemount",
@@ -1329,7 +1770,10 @@
 "lon": 148.68,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Yancoal Australia (~50%)",
+"op": "Middlemount Coal",
+"tk": "YAL"
 },
 {
 "k": "yarrabee",
@@ -1338,7 +1782,10 @@
 "lon": 149.1,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Yancoal Australia",
+"op": "Yancoal",
+"tk": "YAL"
 },
 {
 "k": "moolarben",
@@ -1347,7 +1794,10 @@
 "lon": 149.78,
 "e": "coal",
 "s": "P",
-"ty": "Open cut + UG"
+"ty": "Open cut + UG",
+"ow": "Yancoal Australia (95%)",
+"op": "Yancoal",
+"tk": "YAL"
 },
 {
 "k": "mt-thorley-warkworth",
@@ -1356,7 +1806,10 @@
 "lon": 151.08,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Yancoal Australia (~80%)",
+"op": "Yancoal",
+"tk": "YAL"
 },
 {
 "k": "hunter-valley-operations",
@@ -1365,7 +1818,10 @@
 "lon": 151.0,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Yancoal 51% / Glencore 49%",
+"op": "HVO joint venture",
+"tk": "YAL"
 },
 {
 "k": "ashton",
@@ -1374,7 +1830,10 @@
 "lon": 151.1,
 "e": "coal",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Yancoal Australia",
+"op": "Yancoal",
+"tk": "YAL"
 },
 {
 "k": "premier-collie",
@@ -1383,7 +1842,10 @@
 "lon": 116.18,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "Yancoal Australia",
+"op": "Premier Coal",
+"tk": "YAL"
 },
 {
 "k": "blair-athol",
@@ -1392,7 +1854,10 @@
 "lon": 147.53,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "TerraCom",
+"op": "TerraCom",
+"tk": "TER"
 },
 {
 "k": "new-acland",
@@ -1401,7 +1866,10 @@
 "lon": 151.7,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "New Hope Corporation",
+"op": "New Hope",
+"tk": "NHC"
 },
 {
 "k": "bengalla",
@@ -1410,7 +1878,10 @@
 "lon": 150.83,
 "e": "coal",
 "s": "P",
-"ty": "Open cut"
+"ty": "Open cut",
+"ow": "New Hope Corporation (80%)",
+"op": "New Hope",
+"tk": "NHC"
 },
 {
 "k": "loy-yang",
@@ -1419,7 +1890,10 @@
 "lon": 146.58,
 "e": "coal",
 "s": "P",
-"ty": "Open cut (brown coal)"
+"ty": "Open cut (brown coal)",
+"ow": "AGL Energy",
+"op": "AGL",
+"tk": "AGL"
 },
 {
 "k": "cannington",
@@ -1428,7 +1902,10 @@
 "lon": 140.92,
 "e": "silver",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "South32",
+"op": "South32",
+"tk": "S32"
 },
 {
 "k": "rasp-broken-hill",
@@ -1437,7 +1914,10 @@
 "lon": 141.47,
 "e": "silver",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Broken Hill Mines",
+"op": "Broken Hill Mines",
+"tk": "BHM"
 },
 {
 "k": "pinnacles",
@@ -1446,7 +1926,10 @@
 "lon": 141.25,
 "e": "silver",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Broken Hill Mines",
+"op": "Broken Hill Mines",
+"tk": "BHM"
 },
 {
 "k": "endeavor",
@@ -1455,7 +1938,10 @@
 "lon": 145.77,
 "e": "silver",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Polymetals Resources",
+"op": "Polymetals",
+"tk": "POL"
 },
 {
 "k": "federation",
@@ -1464,7 +1950,10 @@
 "lon": 145.97,
 "e": "silver",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Aurelia Metals",
+"op": "Aurelia",
+"tk": "AMI"
 },
 {
 "k": "woodlawn",
@@ -1473,7 +1962,10 @@
 "lon": 149.58,
 "e": "silver",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Develop Global",
+"op": "Develop",
+"tk": "DVP"
 },
 {
 "k": "golden-grove",
@@ -1482,7 +1974,10 @@
 "lon": 116.97,
 "e": "silver",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "29Metals",
+"op": "29Metals",
+"tk": "29M"
 },
 {
 "k": "bowdens",
@@ -1491,7 +1986,10 @@
 "lon": 149.93,
 "e": "silver",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Silver Mines",
+"op": "Silver Mines",
+"tk": "SVL"
 },
 {
 "k": "kempfield",
@@ -1500,7 +1998,10 @@
 "lon": 149.15,
 "e": "silver",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Argent Minerals",
+"op": "Argent",
+"tk": "ARD"
 },
 {
 "k": "sorby-hills",
@@ -1509,7 +2010,10 @@
 "lon": 128.95,
 "e": "silver",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Boab Metals",
+"op": "Boab",
+"tk": "BML"
 },
 {
 "k": "webbs-conrad",
@@ -1518,7 +2022,10 @@
 "lon": 151.08,
 "e": "silver",
 "s": "D",
-"ty": "Open pit + UG (planned)"
+"ty": "Open pit + UG (planned)",
+"ow": "Unico Silver",
+"op": "Unico Silver",
+"tk": "USL"
 },
 {
 "k": "cadia",
@@ -1527,7 +2034,10 @@
 "lon": 149.0,
 "e": "copper",
 "s": "P",
-"ty": "Block cave"
+"ty": "Block cave",
+"ow": "Newmont",
+"op": "Newmont",
+"tk": "NEM"
 },
 {
 "k": "tritton",
@@ -1536,7 +2046,10 @@
 "lon": 146.78,
 "e": "copper",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "Aeris Resources",
+"op": "Aeris",
+"tk": "AIS"
 },
 {
 "k": "eloise",
@@ -1545,7 +2058,10 @@
 "lon": 140.98,
 "e": "copper",
 "s": "P",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "AIC Mines",
+"op": "AIC Mines",
+"tk": "A1M"
 },
 {
 "k": "capricorn-copper",
@@ -1554,7 +2070,10 @@
 "lon": 139.33,
 "e": "copper",
 "s": "C",
-"ty": "Underground"
+"ty": "Underground",
+"ow": "29Metals",
+"op": "29Metals",
+"tk": "29M"
 },
 {
 "k": "nifty",
@@ -1563,7 +2082,10 @@
 "lon": 121.58,
 "e": "copper",
 "s": "C",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Cyprium Metals",
+"op": "Cyprium",
+"tk": "CYM"
 },
 {
 "k": "degrussa",
@@ -1572,7 +2094,10 @@
 "lon": 119.3,
 "e": "copper",
 "s": "C",
-"ty": "Underground (closed)"
+"ty": "Underground (closed)",
+"ow": "Sandfire Resources",
+"op": "Sandfire",
+"tk": "SFR"
 },
 {
 "k": "jervois",
@@ -1581,7 +2106,10 @@
 "lon": 136.25,
 "e": "copper",
 "s": "D",
-"ty": "Open pit + UG (planned)"
+"ty": "Open pit + UG (planned)",
+"ow": "KGL Resources",
+"op": "KGL",
+"tk": "KGL"
 },
 {
 "k": "winu",
@@ -1590,7 +2118,10 @@
 "lon": 121.47,
 "e": "copper",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "caravel",
@@ -1599,7 +2130,10 @@
 "lon": 116.35,
 "e": "copper",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Caravel Minerals",
+"op": "Caravel",
+"tk": "CVV"
 },
 {
 "k": "boda",
@@ -1608,7 +2142,10 @@
 "lon": 148.6,
 "e": "copper",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Alkane Resources",
+"op": "Alkane",
+"tk": "ALK"
 },
 {
 "k": "great-australia-cloncurry",
@@ -1617,7 +2154,10 @@
 "lon": 140.5,
 "e": "copper",
 "s": "D",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "True North Copper",
+"op": "True North",
+"tk": "TNC"
 },
 {
 "k": "mt-chalmers",
@@ -1626,7 +2166,10 @@
 "lon": 150.65,
 "e": "copper",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "QMines",
+"op": "QMines",
+"tk": "QML"
 },
 {
 "k": "anthill",
@@ -1635,7 +2178,10 @@
 "lon": 139.53,
 "e": "copper",
 "s": "P",
-"ty": "Open pit + SX-EW"
+"ty": "Open pit + SX-EW",
+"ow": "Austral Resources",
+"op": "Austral",
+"tk": "AR1"
 },
 {
 "k": "argyle",
@@ -1644,7 +2190,10 @@
 "lon": 128.39,
 "e": "diamonds",
 "s": "C",
-"ty": "Open pit + block cave (closed)"
+"ty": "Open pit + block cave (closed)",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "ellendale",
@@ -1653,7 +2202,10 @@
 "lon": 124.85,
 "e": "diamonds",
 "s": "C",
-"ty": "Open pit (closed)"
+"ty": "Open pit (closed)",
+"ow": "Gibb River Diamonds (E9 pipe)",
+"op": "—",
+"tk": "GIB"
 },
 {
 "k": "merlin",
@@ -1662,7 +2214,10 @@
 "lon": 136.03,
 "e": "diamonds",
 "s": "C",
-"ty": "Open pit / UG (planned)"
+"ty": "Open pit / UG (planned)",
+"ow": "Lucapa Diamond (in administration)",
+"op": "—",
+"tk": "LOM"
 },
 {
 "k": "mt-carbine",
@@ -1671,7 +2226,10 @@
 "lon": 145.13,
 "e": "tungsten",
 "s": "P",
-"ty": "Open pit + retreatment"
+"ty": "Open pit + retreatment",
+"ow": "EQ Resources",
+"op": "EQ Resources",
+"tk": "EQR"
 },
 {
 "k": "wolfram-camp",
@@ -1680,7 +2238,10 @@
 "lon": 145.03,
 "e": "tungsten",
 "s": "C",
-"ty": "Open pit (historic)"
+"ty": "Open pit (historic)",
+"ow": "EQ Resources",
+"op": "EQ Resources",
+"tk": "EQR"
 },
 {
 "k": "dolphin-king-island",
@@ -1689,7 +2250,10 @@
 "lon": 143.88,
 "e": "tungsten",
 "s": "P",
-"ty": "Open pit → underground"
+"ty": "Open pit → underground",
+"ow": "Group 6 Metals",
+"op": "Group 6 Metals",
+"tk": "G6M"
 },
 {
 "k": "mt-mulgine",
@@ -1698,7 +2262,10 @@
 "lon": 116.97,
 "e": "tungsten",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Tungsten Mining",
+"op": "Tungsten Mining",
+"tk": "TGN"
 },
 {
 "k": "hatches-creek",
@@ -1707,7 +2274,10 @@
 "lon": 135.2,
 "e": "tungsten",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Tungsten Mining",
+"op": "Tungsten Mining",
+"tk": "TGN"
 },
 {
 "k": "watershed",
@@ -1716,7 +2286,10 @@
 "lon": 145.05,
 "e": "tungsten",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Tungsten Mining",
+"op": "Tungsten Mining",
+"tk": "TGN"
 },
 {
 "k": "kilba",
@@ -1725,7 +2298,10 @@
 "lon": 116.95,
 "e": "tungsten",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Tungsten Mining",
+"op": "Tungsten Mining",
+"tk": "TGN"
 },
 {
 "k": "big-hill",
@@ -1734,7 +2310,10 @@
 "lon": 119.95,
 "e": "tungsten",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Tungsten Mining",
+"op": "Tungsten Mining",
+"tk": "TGN"
 },
 {
 "k": "molyhil",
@@ -1743,7 +2322,10 @@
 "lon": 135.73,
 "e": "tungsten",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Tivan",
+"op": "Tivan",
+"tk": "TVN"
 },
 {
 "k": "o-callaghans",
@@ -1752,7 +2334,10 @@
 "lon": 122.22,
 "e": "tungsten",
 "s": "D",
-"ty": "Underground (potential)"
+"ty": "Underground (potential)",
+"ow": "Greatland Resources",
+"op": "Greatland",
+"tk": "GGP"
 },
 {
 "k": "cleveland",
@@ -1761,7 +2346,10 @@
 "lon": 145.38,
 "e": "tungsten",
 "s": "D",
-"ty": "Underground (historic)"
+"ty": "Underground (historic)",
+"ow": "Elementos",
+"op": "Elementos",
+"tk": "ELT"
 },
 {
 "k": "tom-price",
@@ -1770,7 +2358,10 @@
 "lon": 117.79,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "paraburdoo-eastern-range",
@@ -1779,7 +2370,10 @@
 "lon": 117.65,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "western-range",
@@ -1788,7 +2382,10 @@
 "lon": 117.55,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto 54% / China Baowu 46%",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "marandoo",
@@ -1797,7 +2394,10 @@
 "lon": 118.12,
 "e": "iron",
 "s": "P",
-"ty": "Open pit (below water table)"
+"ty": "Open pit (below water table)",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "brockman-4",
@@ -1806,7 +2406,10 @@
 "lon": 117.32,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "nammuldi-silvergrass",
@@ -1815,7 +2418,10 @@
 "lon": 117.48,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "western-turner-syncline",
@@ -1824,7 +2430,10 @@
 "lon": 117.6,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "yandicoogina",
@@ -1833,7 +2442,10 @@
 "lon": 119.2,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "west-angelas",
@@ -1842,7 +2454,10 @@
 "lon": 118.73,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto (Robe River JV 53%)",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "gudai-darri",
@@ -1851,7 +2466,10 @@
 "lon": 119.15,
 "e": "iron",
 "s": "P",
-"ty": "Open pit (highly automated)"
+"ty": "Open pit (highly automated)",
+"ow": "Rio Tinto",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "hope-downs-1",
@@ -1860,7 +2478,10 @@
 "lon": 119.03,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto 50% / Hancock 50%",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "hope-downs-4",
@@ -1869,7 +2490,10 @@
 "lon": 119.55,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto 50% / Hancock 50%",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "robe-valley-mesa-a-mesa-j",
@@ -1878,7 +2502,10 @@
 "lon": 116.22,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto (Robe River JV 53%)",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "rhodes-ridge",
@@ -1887,7 +2514,10 @@
 "lon": 119.4,
 "e": "iron",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Rio Tinto 50% / Wright Prospecting 50%",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "mining-area-c-south-flank",
@@ -1896,7 +2526,10 @@
 "lon": 118.98,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "BHP (85%)",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "newman-whaleback",
@@ -1905,7 +2538,10 @@
 "lon": 119.73,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "BHP (85%)",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "eastern-ridge-ob-24-25",
@@ -1914,7 +2550,10 @@
 "lon": 119.85,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "BHP (85%)",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "jimblebar",
@@ -1923,7 +2562,10 @@
 "lon": 120.13,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "BHP (85%)",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "yandi",
@@ -1932,7 +2574,10 @@
 "lon": 119.05,
 "e": "iron",
 "s": "C",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "BHP",
+"op": "BHP",
+"tk": "BHP"
 },
 {
 "k": "cloudbreak",
@@ -1941,7 +2586,10 @@
 "lon": 119.43,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Fortescue",
+"op": "Fortescue",
+"tk": "FMG"
 },
 {
 "k": "christmas-creek",
@@ -1950,7 +2598,10 @@
 "lon": 119.75,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Fortescue",
+"op": "Fortescue",
+"tk": "FMG"
 },
 {
 "k": "solomon-hub-firetail-kings-queens",
@@ -1959,7 +2610,10 @@
 "lon": 117.95,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Fortescue",
+"op": "Fortescue",
+"tk": "FMG"
 },
 {
 "k": "eliwana",
@@ -1968,7 +2622,10 @@
 "lon": 116.85,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Fortescue",
+"op": "Fortescue",
+"tk": "FMG"
 },
 {
 "k": "iron-bridge",
@@ -1977,7 +2634,10 @@
 "lon": 118.85,
 "e": "iron",
 "s": "P",
-"ty": "Open pit + concentrator"
+"ty": "Open pit + concentrator",
+"ow": "Fortescue (69%) / Formosa Plastics",
+"op": "Fortescue",
+"tk": "FMG"
 },
 {
 "k": "onslow-iron-ken-s-bore",
@@ -1986,7 +2646,10 @@
 "lon": 115.53,
 "e": "iron",
 "s": "P",
-"ty": "Open pit + private haul road"
+"ty": "Open pit + private haul road",
+"ow": "Mineral Resources (57.3%)",
+"op": "Mineral Resources",
+"tk": "MIN"
 },
 {
 "k": "yilgarn-hub-koolyanobbing",
@@ -1995,7 +2658,10 @@
 "lon": 119.53,
 "e": "iron",
 "s": "C",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Mineral Resources",
+"op": "Mineral Resources",
+"tk": "MIN"
 },
 {
 "k": "koolan-island",
@@ -2004,7 +2670,10 @@
 "lon": 123.75,
 "e": "iron",
 "s": "C",
-"ty": "Open pit (closed)"
+"ty": "Open pit (closed)",
+"ow": "MGX Resources (formerly Mount Gibson Iron)",
+"op": "MGX",
+"tk": "MGX"
 },
 {
 "k": "iron-ridge",
@@ -2013,7 +2682,10 @@
 "lon": 118.3,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Fenix Resources",
+"op": "Fenix",
+"tk": "FEX"
 },
 {
 "k": "shine",
@@ -2022,7 +2694,10 @@
 "lon": 117.35,
 "e": "iron",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Fenix Resources",
+"op": "Fenix",
+"tk": "FEX"
 },
 {
 "k": "savage-river",
@@ -2031,7 +2706,10 @@
 "lon": 145.2,
 "e": "iron",
 "s": "P",
-"ty": "Open pit → underground"
+"ty": "Open pit → underground",
+"ow": "Grange Resources",
+"op": "Grange",
+"tk": "GRR"
 },
 {
 "k": "razorback",
@@ -2040,7 +2718,10 @@
 "lon": 139.55,
 "e": "iron",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Magnetite Mines",
+"op": "Magnetite Mines",
+"tk": "MGT"
 },
 {
 "k": "central-eyre-iron-project",
@@ -2049,7 +2730,10 @@
 "lon": 135.75,
 "e": "iron",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Iron Road",
+"op": "Iron Road",
+"tk": "IRD"
 },
 {
 "k": "dampier",
@@ -2058,7 +2742,10 @@
 "lon": 116.7,
 "e": "salt",
 "s": "P",
-"ty": "Solar evaporation ponds"
+"ty": "Solar evaporation ponds",
+"ow": "Dampier Salt: Rio Tinto 68% / Marubeni 22% / Sojitz 10%",
+"op": "Dampier Salt",
+"tk": "RIO"
 },
 {
 "k": "port-hedland",
@@ -2067,7 +2754,10 @@
 "lon": 118.6,
 "e": "salt",
 "s": "P",
-"ty": "Solar evaporation ponds"
+"ty": "Solar evaporation ponds",
+"ow": "Dampier Salt: Rio Tinto 68% / Marubeni 22% / Sojitz 10%",
+"op": "Dampier Salt",
+"tk": "RIO"
 },
 {
 "k": "mardie",
@@ -2076,7 +2766,10 @@
 "lon": 116.05,
 "e": "salt",
 "s": "D",
-"ty": "Solar evaporation ponds"
+"ty": "Solar evaporation ponds",
+"ow": "BCI Minerals",
+"op": "BCI Minerals",
+"tk": "BCI"
 },
 {
 "k": "north-west-shelf-karratha-gas-plant",
@@ -2085,7 +2778,10 @@
 "lon": 116.78,
 "e": "oil",
 "s": "P",
-"ty": "Offshore platforms + onshore LNG"
+"ty": "Offshore platforms + onshore LNG",
+"ow": "Woodside-operated JV (Woodside, BP, Chevron, Shell, Japan Australia LNG)",
+"op": "Woodside",
+"tk": "WDS"
 },
 {
 "k": "pluto-lng",
@@ -2094,7 +2790,10 @@
 "lon": 116.82,
 "e": "oil",
 "s": "P",
-"ty": "Offshore + onshore LNG"
+"ty": "Offshore + onshore LNG",
+"ow": "Woodside (90%)",
+"op": "Woodside",
+"tk": "WDS"
 },
 {
 "k": "scarborough",
@@ -2103,7 +2802,10 @@
 "lon": 113.2,
 "e": "oil",
 "s": "D",
-"ty": "Floating production unit → Pluto Train 2"
+"ty": "Floating production unit → Pluto Train 2",
+"ow": "Woodside (74.9%)",
+"op": "Woodside",
+"tk": "WDS"
 },
 {
 "k": "pyrenees",
@@ -2112,7 +2814,10 @@
 "lon": 113.95,
 "e": "oil",
 "s": "P",
-"ty": "FPSO"
+"ty": "FPSO",
+"ow": "Woodside",
+"op": "Woodside",
+"tk": "WDS"
 },
 {
 "k": "macedon",
@@ -2121,7 +2826,10 @@
 "lon": 114.5,
 "e": "oil",
 "s": "P",
-"ty": "Subsea → onshore plant"
+"ty": "Subsea → onshore plant",
+"ow": "Woodside (71%) / Santos",
+"op": "Woodside",
+"tk": "WDS"
 },
 {
 "k": "browse-torosa-brecknock",
@@ -2130,7 +2838,10 @@
 "lon": 121.8,
 "e": "oil",
 "s": "D",
-"ty": "Planned"
+"ty": "Planned",
+"ow": "Woodside-operated JV",
+"op": "Woodside",
+"tk": "WDS"
 },
 {
 "k": "wheatstone-lng",
@@ -2139,7 +2850,10 @@
 "lon": 114.97,
 "e": "oil",
 "s": "P",
-"ty": "Offshore platform → onshore LNG"
+"ty": "Offshore platform → onshore LNG",
+"ow": "Chevron 64% / Woodside 13% / others",
+"op": "Chevron",
+"tk": "WDS"
 },
 {
 "k": "barossa-darwin-lng",
@@ -2148,7 +2862,10 @@
 "lon": 130.2,
 "e": "oil",
 "s": "P",
-"ty": "FPSO → pipeline to Darwin LNG"
+"ty": "FPSO → pipeline to Darwin LNG",
+"ow": "Santos 50% / SK E&S / JERA",
+"op": "Santos",
+"tk": "STO"
 },
 {
 "k": "ningaloo-vision-van-gogh-coniston",
@@ -2157,7 +2874,10 @@
 "lon": 114.0,
 "e": "oil",
 "s": "P",
-"ty": "FPSO"
+"ty": "FPSO",
+"ow": "Santos",
+"op": "Santos",
+"tk": "STO"
 },
 {
 "k": "varanus-island-reindeer",
@@ -2166,7 +2886,10 @@
 "lon": 115.57,
 "e": "oil",
 "s": "P",
-"ty": "Offshore → island & Devil Creek plants"
+"ty": "Offshore → island & Devil Creek plants",
+"ow": "Santos",
+"op": "Santos",
+"tk": "STO"
 },
 {
 "k": "dorado",
@@ -2175,7 +2898,10 @@
 "lon": 118.2,
 "e": "oil",
 "s": "D",
-"ty": "FPSO (planned)"
+"ty": "FPSO (planned)",
+"ow": "Santos 80% / Carnarvon 20%",
+"op": "Santos",
+"tk": "STO · CVN"
 },
 {
 "k": "cooper-basin-moomba",
@@ -2184,7 +2910,10 @@
 "lon": 140.2,
 "e": "oil",
 "s": "P",
-"ty": "Onshore wells → Moomba plant"
+"ty": "Onshore wells → Moomba plant",
+"ow": "Santos 66.7% / Beach 33.3%",
+"op": "Santos",
+"tk": "STO · BPT"
 },
 {
 "k": "western-flank-oil",
@@ -2193,7 +2922,10 @@
 "lon": 139.95,
 "e": "oil",
 "s": "P",
-"ty": "Onshore wells"
+"ty": "Onshore wells",
+"ow": "Beach Energy",
+"op": "Beach",
+"tk": "BPT"
 },
 {
 "k": "waitsia",
@@ -2202,7 +2934,10 @@
 "lon": 115.1,
 "e": "oil",
 "s": "P",
-"ty": "Onshore → gas plant"
+"ty": "Onshore → gas plant",
+"ow": "Mitsui 50% / Beach 50%",
+"op": "Mitsui",
+"tk": "BPT"
 },
 {
 "k": "otway-gas-plant",
@@ -2211,7 +2946,10 @@
 "lon": 142.9,
 "e": "oil",
 "s": "P",
-"ty": "Offshore wells → onshore plant"
+"ty": "Offshore wells → onshore plant",
+"ow": "Beach Energy",
+"op": "Beach",
+"tk": "BPT"
 },
 {
 "k": "walyering",
@@ -2220,7 +2958,10 @@
 "lon": 115.45,
 "e": "oil",
 "s": "P",
-"ty": "Onshore wells"
+"ty": "Onshore wells",
+"ow": "Strike Energy",
+"op": "Strike",
+"tk": "STX"
 },
 {
 "k": "west-erregulla",
@@ -2229,7 +2970,10 @@
 "lon": 115.3,
 "e": "oil",
 "s": "D",
-"ty": "Onshore (planned)"
+"ty": "Onshore (planned)",
+"ow": "Strike Energy (with Hancock processing)",
+"op": "Strike",
+"tk": "STX"
 },
 {
 "k": "bass-strait-gippsland",
@@ -2238,7 +2982,10 @@
 "lon": 148.0,
 "e": "oil",
 "s": "P",
-"ty": "Offshore platforms"
+"ty": "Offshore platforms",
+"ow": "ExxonMobil 50% / Woodside 50%",
+"op": "Esso (ExxonMobil)",
+"tk": "WDS"
 },
 {
 "k": "sole-orbost",
@@ -2247,7 +2994,10 @@
 "lon": 148.5,
 "e": "oil",
 "s": "P",
-"ty": "Subsea → Orbost plant"
+"ty": "Subsea → Orbost plant",
+"ow": "Amplitude Energy",
+"op": "Amplitude",
+"tk": "AEL"
 },
 {
 "k": "glng-fairview-roma-csg",
@@ -2256,7 +3006,10 @@
 "lon": 148.7,
 "e": "oil",
 "s": "P",
-"ty": "CSG wells → Curtis Island LNG"
+"ty": "CSG wells → Curtis Island LNG",
+"ow": "Santos 30% / Petronas / TotalEnergies / KOGAS",
+"op": "Santos",
+"tk": "STO"
 },
 {
 "k": "aplng-surat-bowen-csg",
@@ -2265,7 +3018,10 @@
 "lon": 150.2,
 "e": "oil",
 "s": "P",
-"ty": "CSG wells → Curtis Island LNG"
+"ty": "CSG wells → Curtis Island LNG",
+"ow": "ConocoPhillips 47.5% / Origin 27.5% / Sinopec 25%",
+"op": "Origin (upstream)",
+"tk": "ORG"
 },
 {
 "k": "mahalo",
@@ -2274,7 +3030,10 @@
 "lon": 148.8,
 "e": "oil",
 "s": "D",
-"ty": "CSG wells (planned)"
+"ty": "CSG wells (planned)",
+"ow": "Comet Ridge (with Santos/APLNG partners)",
+"op": "Comet Ridge",
+"tk": "COI"
 },
 {
 "k": "shenandoah-south-beetaloo",
@@ -2283,7 +3042,10 @@
 "lon": 133.4,
 "e": "oil",
 "s": "P",
-"ty": "Onshore horizontal wells"
+"ty": "Onshore horizontal wells",
+"ow": "Tamboran Resources",
+"op": "Tamboran",
+"tk": "TBN"
 },
 {
 "k": "carpentaria-beetaloo",
@@ -2292,7 +3054,10 @@
 "lon": 134.3,
 "e": "oil",
 "s": "D",
-"ty": "Onshore (planned)"
+"ty": "Onshore (planned)",
+"ow": "Beetaloo Energy Australia (ex-Empire Energy)",
+"op": "Beetaloo Energy",
+"tk": "BTL"
 },
 {
 "k": "mereenie",
@@ -2301,7 +3066,10 @@
 "lon": 131.6,
 "e": "oil",
 "s": "P",
-"ty": "Onshore wells"
+"ty": "Onshore wells",
+"ow": "Central Petroleum (operator) + partners",
+"op": "Central Petroleum",
+"tk": "CTP"
 },
 {
 "k": "greenbushes",
@@ -2310,7 +3078,10 @@
 "lon": 116.07,
 "e": "lithium",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Talison Lithium (Tianqi/IGO JV 51%, Albemarle 49%)",
+"op": "Talison Lithium",
+"tk": "IGO"
 },
 {
 "k": "pilgangoora",
@@ -2319,7 +3090,10 @@
 "lon": 118.9,
 "e": "lithium",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "PLS Group",
+"op": "PLS Group",
+"tk": "PLS"
 },
 {
 "k": "ngungaju",
@@ -2328,7 +3102,10 @@
 "lon": 118.86,
 "e": "lithium",
 "s": "P",
-"ty": "Open pit (shared) + plant"
+"ty": "Open pit (shared) + plant",
+"ow": "PLS Group",
+"op": "PLS Group",
+"tk": "PLS"
 },
 {
 "k": "wodgina",
@@ -2337,7 +3114,10 @@
 "lon": 118.67,
 "e": "lithium",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Mineral Resources 50% / Albemarle 50%",
+"op": "Mineral Resources",
+"tk": "MIN"
 },
 {
 "k": "mt-marion",
@@ -2346,7 +3126,10 @@
 "lon": 121.41,
 "e": "lithium",
 "s": "P",
-"ty": "Open pit → underground"
+"ty": "Open pit → underground",
+"ow": "Mineral Resources 50% / Ganfeng 50%",
+"op": "Mineral Resources",
+"tk": "MIN"
 },
 {
 "k": "bald-hill",
@@ -2355,7 +3138,10 @@
 "lon": 122.08,
 "e": "lithium",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Mineral Resources",
+"op": "Mineral Resources",
+"tk": "MIN"
 },
 {
 "k": "mt-holland-earl-grey",
@@ -2364,7 +3150,10 @@
 "lon": 119.76,
 "e": "lithium",
 "s": "P",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Covalent Lithium (Wesfarmers 50% / SQM 50%)",
+"op": "Covalent Lithium",
+"tk": "WES"
 },
 {
 "k": "kathleen-valley",
@@ -2373,7 +3162,10 @@
 "lon": 120.57,
 "e": "lithium",
 "s": "P",
-"ty": "Underground (from open pit)"
+"ty": "Underground (from open pit)",
+"ow": "Liontown",
+"op": "Liontown",
+"tk": "LTR"
 },
 {
 "k": "finniss",
@@ -2382,7 +3174,10 @@
 "lon": 130.66,
 "e": "lithium",
 "s": "P",
-"ty": "Open pit → underground"
+"ty": "Open pit → underground",
+"ow": "Core Lithium",
+"op": "Core Lithium",
+"tk": "CXO"
 },
 {
 "k": "mt-cattlin",
@@ -2391,7 +3186,10 @@
 "lon": 120.04,
 "e": "lithium",
 "s": "C",
-"ty": "Open pit"
+"ty": "Open pit",
+"ow": "Rio Tinto (from Arcadium)",
+"op": "Rio Tinto",
+"tk": "RIO"
 },
 {
 "k": "tabba-tabba",
@@ -2400,7 +3198,10 @@
 "lon": 118.95,
 "e": "lithium",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Wildcat Resources",
+"op": "Wildcat Resources",
+"tk": "WC8"
 },
 {
 "k": "yinnetharra",
@@ -2409,7 +3210,10 @@
 "lon": 116.15,
 "e": "lithium",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Delta Lithium",
+"op": "Delta Lithium",
+"tk": "DLI"
 },
 {
 "k": "manna",
@@ -2418,7 +3222,10 @@
 "lon": 122.6,
 "e": "lithium",
 "s": "D",
-"ty": "Open pit (planned)"
+"ty": "Open pit (planned)",
+"ow": "Global Lithium Resources",
+"op": "Global Lithium",
+"tk": "GL1"
 },
 {
 "k": "marble-bar-lithium",
@@ -2427,7 +3234,10 @@
 "lon": 119.8,
 "e": "lithium",
 "s": "D",
-"ty": "—"
+"ty": "—",
+"ow": "Kali Metals",
+"op": "Kali Metals",
+"tk": "KM1"
 },
 {
 "k": "black-hammer-project",
@@ -2437,7 +3247,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Exultant Mining",
+"op": "Exultant Mining",
+"tk": "10X"
 },
 {
 "k": "scale-parkes-project",
@@ -2447,7 +3260,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Adavale Resources",
+"op": "Adavale Resources",
+"tk": "ADD"
 },
 {
 "k": "mt-hogan-gold-project",
@@ -2457,7 +3273,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Activex",
+"op": "Activex",
+"tk": "AIV"
 },
 {
 "k": "apollo-project",
@@ -2467,7 +3286,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Amara Minerals",
+"op": "Amara Minerals",
+"tk": "AM3"
 },
 {
 "k": "kalgoorlie-nickel-project",
@@ -2477,7 +3299,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Ardea Resources",
+"op": "Ardea Resources",
+"tk": "ARL"
 },
 {
 "k": "madura-project",
@@ -2487,7 +3312,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Artemis Resources",
+"op": "Artemis Resources",
+"tk": "ARV"
 },
 {
 "k": "skye-gold-project",
@@ -2497,7 +3325,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Auravelle Metals",
+"op": "Auravelle Metals",
+"tk": "AUV"
 },
 {
 "k": "mt-cattlin-gold-project",
@@ -2507,7 +3338,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Avira Resources",
+"op": "Avira Resources",
+"tk": "AVW"
 },
 {
 "k": "shoobridge-gold-project",
@@ -2517,7 +3351,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Axiant Resources",
+"op": "Axiant Resources",
+"tk": "AXR"
 },
 {
 "k": "antipa-minerals-project-area",
@@ -2527,7 +3364,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Antipa Minerals",
+"op": "Antipa Minerals",
+"tk": "AZY"
 },
 {
 "k": "broken-hill-gold-project-area",
@@ -2537,7 +3377,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Broken Hill Gold",
+"op": "Broken Hill Gold",
+"tk": "BH6"
 },
 {
 "k": "mt-egerton-gold-project",
@@ -2547,7 +3390,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Black Horse Mining",
+"op": "Black Horse Mining",
+"tk": "BHL"
 },
 {
 "k": "ruddygore-project",
@@ -2557,7 +3403,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Ballymore Resources",
+"op": "Ballymore Resources",
+"tk": "BMR"
 },
 {
 "k": "forelands-gold-project",
@@ -2567,7 +3416,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Bpm Minerals",
+"op": "Bpm Minerals",
+"tk": "BPM"
 },
 {
 "k": "kookynie-gold-project",
@@ -2577,7 +3429,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Carnavale Resources",
+"op": "Carnavale Resources",
+"tk": "CAV"
 },
 {
 "k": "cazaly-resources-project-area",
@@ -2587,7 +3442,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Cazaly Resources",
+"op": "Cazaly Resources",
+"tk": "CAZ"
 },
 {
 "k": "yilgarn-craton-boundary-project",
@@ -2597,7 +3455,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Cullen Resources",
+"op": "Cullen Resources",
+"tk": "CUL"
 },
 {
 "k": "chalice-gold-project",
@@ -2607,7 +3468,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Corazon Mining",
+"op": "Corazon Mining",
+"tk": "CZN"
 },
 {
 "k": "barlee-project",
@@ -2617,7 +3481,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Duketon Mining",
+"op": "Duketon Mining",
+"tk": "DKM"
 },
 {
 "k": "huckitta-project",
@@ -2627,7 +3494,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Daly Resources",
+"op": "Daly Resources",
+"tk": "DLY"
 },
 {
 "k": "mangaroon-project",
@@ -2637,7 +3507,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Dreadnought Resources",
+"op": "Dreadnought Resources",
+"tk": "DRE"
 },
 {
 "k": "widgiemooltha-project",
@@ -2647,7 +3520,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Dynamic Metals",
+"op": "Dynamic Metals",
+"tk": "DYM"
 },
 {
 "k": "cue-gold-project",
@@ -2657,7 +3533,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "E79 Gold Mines",
+"op": "E79 Gold Mines",
+"tk": "E79"
 },
 {
 "k": "leonora-goldfields-project",
@@ -2667,7 +3546,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Evergold Minerals",
+"op": "Evergold Minerals",
+"tk": "EG1"
 },
 {
 "k": "mt-edon-project",
@@ -2677,7 +3559,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Everest Metals Corporation",
+"op": "Everest Metals Corporation",
+"tk": "EMC"
 },
 {
 "k": "riverina-east-gold-project",
@@ -2687,7 +3572,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "First Au",
+"op": "First Au",
+"tk": "FAU"
 },
 {
 "k": "peak-hill-gold-project",
@@ -2697,7 +3585,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Great Boulder Resources",
+"op": "Great Boulder Resources",
+"tk": "GBR"
 },
 {
 "k": "stella-range-project",
@@ -2707,7 +3598,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Golden Dragon Mining",
+"op": "Golden Dragon Mining",
+"tk": "GDR"
 },
 {
 "k": "herberton-conductor-metals-project",
@@ -2717,7 +3611,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Green & Gold Minerals",
+"op": "Green & Gold Minerals",
+"tk": "GG1"
 },
 {
 "k": "duketon-project",
@@ -2727,7 +3624,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Great Southern Mining",
+"op": "Great Southern Mining",
+"tk": "GSN"
 },
 {
 "k": "iceni-gold-project-area",
@@ -2737,7 +3637,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Iceni Gold",
+"op": "Iceni Gold",
+"tk": "ICL"
 },
 {
 "k": "itech-minerals-project-area",
@@ -2747,7 +3650,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Itech Minerals",
+"op": "Itech Minerals",
+"tk": "ITM"
 },
 {
 "k": "javelin-minerals-project-area",
@@ -2757,7 +3663,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Javelin Minerals",
+"op": "Javelin Minerals",
+"tk": "JAV"
 },
 {
 "k": "kalgoorlie-gold-mining-project-area",
@@ -2767,7 +3676,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Kalgoorlie Gold Mining",
+"op": "Kalgoorlie Gold Mining",
+"tk": "KAL"
 },
 {
 "k": "silica-hill-project",
@@ -2777,7 +3689,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Kuniko",
+"op": "Kuniko",
+"tk": "KNI"
 },
 {
 "k": "mindoolah-gold-project",
@@ -2787,7 +3702,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "King River Resources",
+"op": "King River Resources",
+"tk": "KRR"
 },
 {
 "k": "legacy-iron-ore-project-area",
@@ -2797,7 +3715,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Legacy Iron Ore",
+"op": "Legacy Iron Ore",
+"tk": "LCY"
 },
 {
 "k": "rockley-project",
@@ -2807,7 +3728,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Legacy Minerals Holdings",
+"op": "Legacy Minerals Holdings",
+"tk": "LGM"
 },
 {
 "k": "lunnon-metals-project-area",
@@ -2817,7 +3741,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Lunnon Metals",
+"op": "Lunnon Metals",
+"tk": "LM8"
 },
 {
 "k": "lachlan-star-project-area",
@@ -2827,7 +3754,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Lachlan Star",
+"op": "Lachlan Star",
+"tk": "LSA"
 },
 {
 "k": "lodestar-minerals-project-area",
@@ -2837,7 +3767,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Lodestar Minerals",
+"op": "Lodestar Minerals",
+"tk": "LSR"
 },
 {
 "k": "malcolm-project",
@@ -2847,7 +3780,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Mt Malcolm Mines Nl",
+"op": "Mt Malcolm Mines Nl",
+"tk": "M2M"
 },
 {
 "k": "gidji-jv-gold-project",
@@ -2857,7 +3793,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Miramar Resources",
+"op": "Miramar Resources",
+"tk": "M2R"
 },
 {
 "k": "mandrake-resources-project-area",
@@ -2867,7 +3806,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Mandrake Resources",
+"op": "Mandrake Resources",
+"tk": "MAN"
 },
 {
 "k": "marble-bar-gold-project",
@@ -2877,7 +3819,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Mb Gold",
+"op": "Mb Gold",
+"tk": "MBG"
 },
 {
 "k": "gawler-craton-gold-project",
@@ -2887,7 +3832,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Marmota",
+"op": "Marmota",
+"tk": "MEU"
 },
 {
 "k": "leinster-south-project",
@@ -2897,7 +3845,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Metal Hawk.",
+"op": "Metal Hawk.",
+"tk": "MHK"
 },
 {
 "k": "mt-solitary-gold-project",
@@ -2907,7 +3858,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Mount Hope Mining",
+"op": "Mount Hope Mining",
+"tk": "MHM"
 },
 {
 "k": "mt-boppy-gold-project",
@@ -2917,7 +3871,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Manuka Resources.",
+"op": "Manuka Resources.",
+"tk": "MKR"
 },
 {
 "k": "clermont-gold-project",
@@ -2927,7 +3884,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Moonlight Resources",
+"op": "Moonlight Resources",
+"tk": "ML8"
 },
 {
 "k": "mons-project",
@@ -2937,7 +3897,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Nimy Resources",
+"op": "Nimy Resources",
+"tk": "NIM"
 },
 {
 "k": "east-scotia-project",
@@ -2947,7 +3910,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Nex Metals Exploration",
+"op": "Nex Metals Exploration",
+"tk": "NME"
 },
 {
 "k": "garden-gully-gold-project",
@@ -2957,7 +3923,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "New Murchison Gold",
+"op": "New Murchison Gold",
+"tk": "NMG"
 },
 {
 "k": "charters-towers-gold-project",
@@ -2967,7 +3936,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Native Mineral Resources Holdings",
+"op": "Native Mineral Resources Holdings",
+"tk": "NMR"
 },
 {
 "k": "coolgardie-gold-project",
@@ -2977,7 +3949,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Ore Resources",
+"op": "Ore Resources",
+"tk": "OR3"
 },
 {
 "k": "peregrine-gold-limited-project",
@@ -2987,7 +3962,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Peregrine Gold",
+"op": "Peregrine Gold",
+"tk": "PGD"
 },
 {
 "k": "mt-mckenna-gold-project",
@@ -2997,7 +3975,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Platina Resources",
+"op": "Platina Resources",
+"tk": "PGM"
 },
 {
 "k": "abbotts-gold-project",
@@ -3007,7 +3988,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Plc Resources",
+"op": "Plc Resources",
+"tk": "PLC"
 },
 {
 "k": "mikado-project",
@@ -3017,7 +4001,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Panther Metals",
+"op": "Panther Metals",
+"tk": "PNT"
 },
 {
 "k": "snowstorm-gold-project",
@@ -3027,7 +4014,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Pacific Resources",
+"op": "Pacific Resources",
+"tk": "PXR"
 },
 {
 "k": "redstone-resources-project-area",
@@ -3037,7 +4027,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Redstone Resources",
+"op": "Redstone Resources",
+"tk": "RDS"
 },
 {
 "k": "east-menzies-project",
@@ -3047,7 +4040,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Resources & Energy Group",
+"op": "Resources & Energy Group",
+"tk": "REZ"
 },
 {
 "k": "blue-project",
@@ -3057,7 +4053,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Right Resources",
+"op": "Right Resources",
+"tk": "RRE"
 },
 {
 "k": "s2-resources-project-area",
@@ -3067,7 +4066,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "S2 Resources",
+"op": "S2 Resources",
+"tk": "S2R"
 },
 {
 "k": "sabre-resources-project-area",
@@ -3077,7 +4079,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Sabre Resources",
+"op": "Sabre Resources",
+"tk": "SBR"
 },
 {
 "k": "canobie-project",
@@ -3087,7 +4092,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Strategic Energy Resources",
+"op": "Strategic Energy Resources",
+"tk": "SER"
 },
 {
 "k": "revere-project",
@@ -3097,7 +4105,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Solara Minerals",
+"op": "Solara Minerals",
+"tk": "SLA"
 },
 {
 "k": "christmas-creek-project",
@@ -3107,7 +4118,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Trek Metals",
+"op": "Trek Metals",
+"tk": "TKM"
 },
 {
 "k": "walkers-hill-gold-project",
@@ -3117,7 +4131,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Talisman Mining",
+"op": "Talisman Mining",
+"tk": "TLM"
 },
 {
 "k": "tambourah-metals-project",
@@ -3127,7 +4144,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Tambourah Metals",
+"op": "Tambourah Metals",
+"tk": "TMB"
 },
 {
 "k": "smokebush-project",
@@ -3137,7 +4157,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Terrain Minerals",
+"op": "Terrain Minerals",
+"tk": "TMX"
 },
 {
 "k": "nielle-gold-project",
@@ -3147,7 +4170,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Terranova Metals",
+"op": "Terranova Metals",
+"tk": "TNM"
 },
 {
 "k": "walparuta-project",
@@ -3157,7 +4183,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Tarrina Resources",
+"op": "Tarrina Resources",
+"tk": "TR8"
 },
 {
 "k": "westminster-project",
@@ -3167,7 +4196,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Truscott Mining Corporation",
+"op": "Truscott Mining Corporation",
+"tk": "TRM"
 },
 {
 "k": "comet-project",
@@ -3177,7 +4209,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Valiant Gold",
+"op": "Valiant Gold",
+"tk": "VAL"
 },
 {
 "k": "venus-metals-corporation-project-area",
@@ -3187,7 +4222,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Venus Metals Corporation",
+"op": "Venus Metals Corporation",
+"tk": "VMC"
 },
 {
 "k": "bullabulling-project",
@@ -3197,7 +4235,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Wa Gold",
+"op": "Wa Gold",
+"tk": "WAU"
 },
 {
 "k": "radio-gold-project",
@@ -3207,7 +4248,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Win Metals",
+"op": "Win Metals",
+"tk": "WIN"
 },
 {
 "k": "gascoyne-gold-project",
@@ -3217,7 +4261,10 @@
 "e": "gold",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Western Yilgarn Nl",
+"op": "Western Yilgarn Nl",
+"tk": "WYX"
 },
 {
 "k": "tibooburra-gold-project",
@@ -3227,7 +4274,10 @@
 "e": "uranium",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Manhattan Gold Corporation",
+"op": "Manhattan Gold Corporation",
+"tk": "MHC"
 },
 {
 "k": "mallee-project",
@@ -3237,7 +4287,10 @@
 "e": "coal",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Kaili Resources",
+"op": "Kaili Resources",
+"tk": "KLR"
 },
 {
 "k": "arcadia-coal-project",
@@ -3247,7 +4300,10 @@
 "e": "coal",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Yari Resources",
+"op": "Yari Resources",
+"tk": "YAR"
 },
 {
 "k": "maronan-project",
@@ -3257,7 +4313,10 @@
 "e": "silver",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Maronan Metals",
+"op": "Maronan Metals",
+"tk": "MMA"
 },
 {
 "k": "webbs-silver-project",
@@ -3267,7 +4326,10 @@
 "e": "silver",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Rapid Critical Metals",
+"op": "Rapid Critical Metals",
+"tk": "RCM"
 },
 {
 "k": "castle-rag-project",
@@ -3277,7 +4339,10 @@
 "e": "silver",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Terra Critical Minerals",
+"op": "Terra Critical Minerals",
+"tk": "T92"
 },
 {
 "k": "elizabeth-hill-silver-project",
@@ -3287,7 +4352,10 @@
 "e": "silver",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "West Coast Silver",
+"op": "West Coast Silver",
+"tk": "WCE"
 },
 {
 "k": "briggs-copper-jv-project",
@@ -3297,7 +4365,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Alma Metals",
+"op": "Alma Metals",
+"tk": "ALM"
 },
 {
 "k": "neds-creek-copper-project",
@@ -3307,7 +4378,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Boa Resources",
+"op": "Boa Resources",
+"tk": "BOA"
 },
 {
 "k": "bubalus-resources-project-area",
@@ -3317,7 +4391,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Bubalus Resources",
+"op": "Bubalus Resources",
+"tk": "BUS"
 },
 {
 "k": "yataga-valley-copper-project",
@@ -3327,7 +4404,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Emu Nl",
+"op": "Emu Nl",
+"tk": "EMU"
 },
 {
 "k": "aileron-project",
@@ -3337,7 +4417,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Encounter Resources",
+"op": "Encounter Resources",
+"tk": "ENR"
 },
 {
 "k": "whundo-project",
@@ -3347,7 +4430,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Greentech Metals",
+"op": "Greentech Metals",
+"tk": "GRE"
 },
 {
 "k": "kincora-copper-project-area",
@@ -3357,7 +4443,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Kincora Copper",
+"op": "Kincora Copper",
+"tk": "KCC"
 },
 {
 "k": "sybella-rare-earth-project",
@@ -3367,7 +4456,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Red Metal",
+"op": "Red Metal",
+"tk": "RDM"
 },
 {
 "k": "coppermine-project",
@@ -3377,7 +4469,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Somerset Minerals",
+"op": "Somerset Minerals",
+"tk": "SMM"
 },
 {
 "k": "greenvale-project",
@@ -3387,7 +4482,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Superior Resources",
+"op": "Superior Resources",
+"tk": "SPQ"
 },
 {
 "k": "tartana-minerals-project-area",
@@ -3397,7 +4495,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Tartana Minerals",
+"op": "Tartana Minerals",
+"tk": "TAT"
 },
 {
 "k": "meekatharra-project",
@@ -3407,7 +4508,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Voltaic Strategic Resources",
+"op": "Voltaic Strategic Resources",
+"tk": "VSR"
 },
 {
 "k": "pge-project",
@@ -3417,7 +4521,10 @@
 "e": "copper",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Western Mines Group",
+"op": "Western Mines Group",
+"tk": "WMG"
 },
 {
 "k": "mountain-pond-project",
@@ -3427,7 +4534,10 @@
 "e": "salt",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Reward Minerals",
+"op": "Reward Minerals",
+"tk": "RWD"
 },
 {
 "k": "rafael-gas-project",
@@ -3437,7 +4547,10 @@
 "e": "oil",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Buru Energy",
+"op": "Buru Energy",
+"tk": "BRU"
 },
 {
 "k": "bounty-oil-gas-nl-project-area",
@@ -3447,7 +4560,10 @@
 "e": "oil",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Bounty Oil & Gas Nl",
+"op": "Bounty Oil & Gas Nl",
+"tk": "BUY"
 },
 {
 "k": "equus-gas-project",
@@ -3457,7 +4573,10 @@
 "e": "oil",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Equus Energy",
+"op": "Equus Energy",
+"tk": "EQU"
 },
 {
 "k": "metgasco-project-area",
@@ -3467,7 +4586,10 @@
 "e": "oil",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Metgasco",
+"op": "Metgasco",
+"tk": "MEL"
 },
 {
 "k": "macallum-new-energy-project-area",
@@ -3477,7 +4599,10 @@
 "e": "oil",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Macallum New Energy",
+"op": "Macallum New Energy",
+"tk": "MNE"
 },
 {
 "k": "northern-hinge-project",
@@ -3487,7 +4612,10 @@
 "e": "oil",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Prominence Energy",
+"op": "Prominence Energy",
+"tk": "PRM"
 },
 {
 "k": "innamincka-dome-project",
@@ -3497,7 +4625,10 @@
 "e": "oil",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Red Sky Energy.",
+"op": "Red Sky Energy.",
+"tk": "ROG"
 },
 {
 "k": "3d-energi-project-area",
@@ -3507,7 +4638,10 @@
 "e": "oil",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "3D Energi",
+"op": "3D Energi",
+"tk": "TDO"
 },
 {
 "k": "xstate-resources-project-area",
@@ -3517,7 +4651,10 @@
 "e": "oil",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Xstate Resources",
+"op": "Xstate Resources",
+"tk": "XST"
 },
 {
 "k": "mac-well-project",
@@ -3527,7 +4664,10 @@
 "e": "lithium",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Morella Corporation",
+"op": "Morella Corporation",
+"tk": "1MC"
 },
 {
 "k": "lei-lithium-project",
@@ -3537,6 +4677,9 @@
 "e": "lithium",
 "s": "D",
 "ty": "Exploration",
-"auto": true
+"auto": true,
+"ow": "Lithium Plus Minerals.",
+"op": "Lithium Plus Minerals.",
+"tk": "LPM"
 }
 ]
