@@ -249,6 +249,11 @@ svg.props-on .gprops{display:inline}
 .lease{fill:var(--c);fill-opacity:.16;stroke:var(--c);stroke-opacity:.9;stroke-width:1.3;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
 .lease:hover,.lease.on{fill-opacity:.32;stroke-width:2.4}
 .lease.off{display:none}
+.mine .pring{display:none;fill:none;stroke:var(--gold);stroke-width:1.6;stroke-dasharray:3 2;pointer-events:none}
+svg.props-on .mine.hasprop .pring{display:inline}
+body.compact .card.pcard{max-height:40vh!important}
+svg.props-on .mine.hasprop.sel .dot{opacity:.45}
+.phint{font-size:11px;color:var(--mute);margin:-2px 0 8px;line-height:1.35}
 svg.b-satellite .lease,svg.b-terrain .lease,svg.b-topo .lease{fill-opacity:.22;stroke-opacity:1}
 .legend .prow{display:none}
 .legend.props .prow{display:flex}
@@ -1185,6 +1190,7 @@ svg#map.stn-off .stlabel{display:none}
         <button type="button" data-prop="off" aria-pressed="true">Off</button>
         <button type="button" data-prop="on" aria-pressed="false">Show leases</button>
       </div>
+      <div class="phint" id="propHint" hidden>Mines with a dashed box have lease outlines. Tap one to zoom to them.</div>
       <div class="t">State names</div>
       <div class="seg" id="stNameSeg">
         <button type="button" data-stn="full" aria-pressed="true">Full</button>
@@ -1813,7 +1819,7 @@ function placeLabels(){
 // Mouse-wheel steps glide (short CSS transition) instead of jumping.
 let commitTimer = 0, lastSrc = "";
 function scheduleCommit(ms){ clearTimeout(commitTimer); commitTimer = setTimeout(() => { if (gesturing) return; svgEl.classList.remove("panning", "wheeling"); commitT(d3.zoomTransform(wrapEl)); updGE(); }, ms); }
-const zoom = d3.zoom().scaleExtent([1, 80]).wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.0022))
+const zoom = d3.zoom().scaleExtent([1, 400]).wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.0022))
 .on("start", () => { gesturing = true; clearTimeout(commitTimer); svgEl.classList.add("panning"); hideTip(); })
 .on("zoom", ev => {
   pendingT = ev.transform;
@@ -1891,6 +1897,10 @@ function propsVis(){
   if (!PROPS) return;
   const vis = new Set(); if (typeof mineSel !== "undefined" && mineSel) mineSel.each(function(m){ if (!this.classList.contains("dim")) vis.add(siteSlug(m.n)); });
   const sel = selected ? siteSlug(selected.n) : null;
+  const has = new Set(); PROPS.t.forEach(t => t.s.forEach(x => has.add(x)));
+  if (typeof mineSel !== "undefined" && mineSel) { mineSel.classed("hasprop", m => has.has(siteSlug(m.n)));
+    mineSel.select(".s").selectAll("rect.pring").data(m => has.has(siteSlug(m.n)) ? [m] : []).join(e => e.insert("rect", ".dot").attr("class", "pring"))
+      .attr("x", m => -(rBase(m) + 5)).attr("y", m => -(rBase(m) + 5)).attr("width", m => 2 * (rBase(m) + 5)).attr("height", m => 2 * (rBase(m) + 5)).attr("rx", 2); }
   gProps.selectAll("path.lease").classed("off", d => !d.t.s.some(k => vis.has(k))).classed("on", d => !!sel && d.t.s.includes(sel));
 }
 function leaseTip(ev, d){
@@ -1908,7 +1918,33 @@ function propsHtml(m){
     ${L.slice(0, 8).map(t => `<div class="pl"><b>${esc(t.id)}</b><span>${esc(t.ty)}${t.g ? " · " + esc(t.g.slice(0, 4)) : ""}</span></div>`).join("")}${L.length > 8 ? `<div class="pfine">+${L.length - 8} more</div>` : ""}
     <div class="pfine">From the ${esc(L[0].st || "state")} government tenement register. Turn on <b>Mine properties</b> in Map &amp; display to see the outlines.</div></div>`;
 }
+// zoom so a mine's leases fill the view
+function flyToLeases(m){
+  if (!PROPS || !proj) return false;
+  const sl = siteSlug(m.n), pts = [];
+  PROPS.t.forEach(t => { if (t.s.includes(sl)) t.r.forEach(r => r.forEach(c => pts.push(proj(c)))); });
+  if (!pts.length) return false;
+  card.classList.add("pcard");
+  const w = main.clientWidth, h = main.clientHeight, ph = isPhone();
+  const [x0, x1] = d3.extent(pts, q => q[0]), [y0, y1] = d3.extent(pts, q => q[1]);
+  // on phones the mine card covers the lower map: fit the leases into the strip above it
+  const mr = main.getBoundingClientRect(), cr = ph && !card.hidden ? card.getBoundingClientRect() : null;
+  const top = 8, bot = cr && cr.top - mr.top > 120 ? cr.top - mr.top - 8 : h * 0.55;
+  // on desktop: fit into the open gap between the left panels and the mine card / right column
+  let L = 0, R = w;
+  if (!ph) { const lc = document.querySelector(".leftcol"), rc = document.querySelector(".rcol");
+    if (lc && lc.offsetWidth) L = Math.max(0, lc.getBoundingClientRect().right - mr.left + 10);
+    const rr = [!card.hidden ? card : null, rc].filter(e => e && e.offsetWidth).map(e => e.getBoundingClientRect().left - mr.left - 10);
+    if (rr.length) R = Math.min(w, ...rr);
+    if (R - L < 220) { L = 0; R = w; } }
+  const vw = ph ? w : R - L, vh = ph ? bot - top : h;
+  const s = Math.max(4, Math.min(400, 0.85 / Math.max((x1 - x0 + 0.01) / vw, (y1 - y0 + 0.01) / vh)));
+  const cx = ph ? w / 2 : (L + R) / 2, cy = ph ? (top + bot) / 2 : h / 2;
+  wrap.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(cx - s * (x0 + x1) / 2, cy - s * (y0 + y1) / 2).scale(s));
+  return true;
+}
 function applyProps(){
+  const hn = document.getElementById("propHint"); if (hn) hn.hidden = PROP !== "on";
   svgEl.classList.toggle("props-on", PROP === "on");
   const lg = document.querySelector(".legend"); if (lg) lg.classList.toggle("props", PROP === "on");
   document.querySelectorAll("#propSeg button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.prop === PROP)));
@@ -1937,6 +1973,8 @@ function select(m, fly){
   mineSel.classed("sel", d => d.id === m.id).filter(d => d.id === m.id).raise();
   document.querySelectorAll(".row.sel").forEach(r => r.classList.remove("sel"));
   const row = document.querySelector(`.row[data-id="${m.id}"]`); if (row) { row.classList.add("sel"); row.scrollIntoView({block:"nearest"}); }
+  card.classList.remove("pcard");
+  if (PROP === "on" && typeof flyToLeases === "function" && flyToLeases(m)) return;
   if (fly) flyTo(m, 8);
 }
 function clearSel(){ selected = null; selFac = null; if (facSel) facSel.classed("sel", false); card.hidden = true; mineSel.classed("sel", false); document.querySelectorAll(".row.sel").forEach(r=>r.classList.remove("sel")); }
