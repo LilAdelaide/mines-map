@@ -243,6 +243,26 @@ svg.nogo-only .banpin{display:inline}
 .ztip small{display:block;color:var(--mute);font:500 10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
 .legend .zsw{width:14px;height:10px;border:1.5px solid #ff2ec4;background:rgba(255,46,196,.25);border-radius:2px;flex:none}
 .legend .zrow{display:none}
+#propSeg{grid-template-columns:1fr 1fr!important}
+.gprops{display:none}
+svg.props-on .gprops{display:inline}
+.lease{fill:var(--c);fill-opacity:.16;stroke:var(--c);stroke-opacity:.9;stroke-width:1.3;vector-effect:non-scaling-stroke;stroke-linejoin:round;cursor:pointer}
+.lease:hover,.lease.on{fill-opacity:.32;stroke-width:2.4}
+.lease.off{display:none}
+svg.b-satellite .lease,svg.b-terrain .lease,svg.b-topo .lease{fill-opacity:.22;stroke-opacity:1}
+.legend .prow{display:none}
+.legend.props .prow{display:flex}
+.legend .psw{width:14px;height:10px;border:1.5px solid var(--gold);background:color-mix(in srgb,var(--gold) 22%,transparent);border-radius:2px;flex:none}
+.ptip b{display:block;font:600 13px var(--f-body);margin-bottom:2px}
+.ptip small{display:block;color:var(--mute);font:500 10.5px var(--f-mono);margin-bottom:4px}
+.ptip .ph{color:var(--fg)}
+.props{margin:10px 0 0;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#0b0b0b;font-size:12px}
+.props .pth{font-weight:600;color:var(--mute);margin-bottom:4px}
+.props .pl{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-top:1px solid var(--line)}
+.props .pl:first-of-type{border-top:0}
+.props .pl b{font:600 11.5px var(--f-mono);color:var(--gold);white-space:nowrap}
+.props .pl span{text-align:right;color:#d6d6d6}
+.props .pfine{color:var(--mute);font-size:10.5px;margin-top:5px}
 .legend.nogo .zrow{display:flex}
 /* USD price ticker */
 .pxtick{position:absolute;left:0;right:0;top:0;height:36px;display:flex;align-items:center;gap:10px;background:rgba(5,5,5,.92);border-bottom:1px solid var(--line);z-index:5;padding:0 10px;font:500 11.5px var(--f-mono)}
@@ -1160,6 +1180,11 @@ svg#map.stn-off .stlabel{display:none}
         <button type="button" data-nogo="on" aria-pressed="false">With mines</button>
         <button type="button" data-nogo="only" aria-pressed="false">Only</button>
       </div>
+      <div class="t">Mine properties</div>
+      <div class="seg" id="propSeg">
+        <button type="button" data-prop="off" aria-pressed="true">Off</button>
+        <button type="button" data-prop="on" aria-pressed="false">Show leases</button>
+      </div>
       <div class="t">State names</div>
       <div class="seg" id="stNameSeg">
         <button type="button" data-stn="full" aria-pressed="true">Full</button>
@@ -1241,6 +1266,7 @@ svg#map.stn-off .stlabel{display:none}
       <div><span class="lhs" style="border-color:#ff3b3b"></span>Not allowed to mine</div>
       <div><span class="lhs" style="border-color:#ffae1a"></span>Heritage / land-access risk</div>
       <div class="zrow"><span class="zsw"></span>No-go zone (no mining)</div>
+      <div class="prow"><span class="psw"></span>Mine property (registered lease)</div>
       <div class="frow"><span class="fsw"></span>Mill / processing plant</div>
       <div class="toporow"><span class="t" style="margin-top:4px">Height above sea level (Topo map)</span><span class="tbar"></span><span class="tlab"><b>0</b><b>500</b><b>1,000</b><b>2,000 m</b></span></div>
       <div class="lkrow"><span class="lksw"></span>Ore trucked to its owner's mill</div>
@@ -1485,6 +1511,7 @@ function info(m, full){
     <dt>Location</dt><dd>${STATE_FULL[m.st]} · ${m.lat.toFixed(2)}, ${m.lon.toFixed(2)}</dd>
   </dl>
   ${full ? `<div class="geolinks"><a href="https://earth.google.com/web/@${m.lat},${m.lon},400a,6000d,35y,0h,45t,0r" target="_blank" rel="noopener noreferrer">Google Earth 3D ↗</a><a href="https://www.google.com/maps/@?api=1&amp;map_action=map&amp;center=${m.lat},${m.lon}&amp;zoom=14&amp;basemap=satellite" target="_blank" rel="noopener noreferrer">Google Maps satellite ↗</a></div>` : ""}
+  ${full && typeof propsHtml === "function" ? propsHtml(m) : ""}
   <p class="blurb">${esc(m.b)}</p>${full ? coNews(m) : `<div class="hint">Click the dot for website, chart and latest news links</div>`}`;
 }
 // latest headline per owner (free sources, collected 12 Oct 2026) + a free live search link
@@ -1656,6 +1683,7 @@ function draw(){
     .attr("d", c => "M" + c.p.map(q => proj(q).map(v => v.toFixed(1)).join(",")).join("L"))
     .append("title").text(c => c.v < 0 ? `${-c.v} m below sea level` : `${c.v} m above sea level`);
   gStates.selectAll("path").data(STATES.features).join("path").attr("class","state").attr("d", path);
+  if (typeof drawProps === "function") drawProps();
   gZones.selectAll("path").data(ZONES).join(e => e.append("path").on("pointerenter", zoneTip).on("pointermove", moveTip).on("pointerleave", hideTip))
     .attr("class", z => "zone " + z.k).attr("d", z => path({type:"MultiPolygon", coordinates: z.r.map(r => [r])}));
   gBan.selectAll("g.banpin").data(BANNED).join(e => { const b = e.append("g").attr("class","banpin"); const s = b.append("g").attr("class","s");
@@ -1832,6 +1860,64 @@ function flyToBounds(ms){
 // ---------- tooltip
 let tipFor = null;
 function showTip(ev, m){ if (gesturing || isPhone() || ev.pointerType === "touch") return; if (tipFor !== m.id) { tip.innerHTML = info(m, false); tipFor = m.id; } tip.hidden = false; moveTip(ev); }
+// ---------- Mine properties: registered production leases around each mine (state government registers, refreshed weekly)
+let PROPS = null, PROP = "off", propsLoading = false;
+try { if (localStorage.getItem("props") === "on") PROP = "on"; } catch (e) {}
+const gProps = g.insert("g", ".glk").attr("class", "gprops");
+const propBases = () => (window.claude && typeof claude.use === "function") || location.protocol === "file:" ? ["https://liladelaide.github.io/mines-map/", "https://cdn.jsdelivr.net/gh/LilAdelaide/mines-map@main/"] : [""];
+async function loadProps(){
+  if (PROPS || propsLoading) return; propsLoading = true;
+  for (const b of propBases()) {
+    try { const r = await fetch(`${b}data/tenements.json?ts=${Date.now()}`, {cache: "no-store"}); if (r.ok) { PROPS = await r.json(); break; } } catch (e) {}
+  }
+  propsLoading = false;
+  if (PROPS) { drawProps(); propsVis(); if (selected) { const c = document.getElementById("card"); if (c && !c.hidden && typeof info === "function") { /* refresh card lease list */ select(selected, false); } } }
+}
+const siteOf = {};   // slug -> mine (any element)
+function propSites(){ if (Object.keys(siteOf).length) return; ELS.forEach(k => (ALL[k] || []).forEach(m => { const s = siteSlug(m.n); if (!siteOf[s]) siteOf[s] = Object.assign({e: k}, m); })); }
+function leaseColor(t){ propSites(); const m = t.s.map(k => siteOf[k]).find(Boolean); return m && THEMES[m.e] ? THEMES[m.e].color : "#ffcc00"; }
+function drawProps(){
+  if (!PROPS || !path) return;
+  const rows = [];
+  PROPS.t.forEach((t, i) => t.r.forEach(r => rows.push({t, i, r})));
+  gProps.selectAll("path").data(rows).join(e => e.append("path").attr("class", "lease")
+      .on("pointerenter", leaseTip).on("pointermove", moveTip).on("pointerleave", () => { hideTip(); })
+      .on("click", (ev, d) => { ev.stopPropagation(); propSites(); const m = d.t.s.map(k => siteOf[k]).find(Boolean); const live = m && MINES.find(x => siteSlug(x.n) === siteSlug(m.n)); if (live) select(live, false); }))
+    .attr("d", d => path({type: "Polygon", coordinates: [d.r]}))
+    .style("--c", d => leaseColor(d.t));
+  propsVis();
+}
+function propsVis(){
+  if (!PROPS) return;
+  const vis = new Set(); if (typeof mineSel !== "undefined" && mineSel) mineSel.each(function(m){ if (!this.classList.contains("dim")) vis.add(siteSlug(m.n)); });
+  const sel = selected ? siteSlug(selected.n) : null;
+  gProps.selectAll("path.lease").classed("off", d => !d.t.s.some(k => vis.has(k))).classed("on", d => !!sel && d.t.s.includes(sel));
+}
+function leaseTip(ev, d){
+  if (isPhone() || ev.pointerType === "touch") return;
+  propSites(); const t = d.t, ms = t.s.map(k => siteOf[k]).filter(Boolean).map(m => m.n);
+  tip.innerHTML = `<div class="ptip"><small>Mine property · ${esc(t.ty)}${t.st ? " · " + esc(t.st) : ""}</small><b>${esc(t.id)}</b><div class="ph">Holder: ${esc(t.h || "not listed")}</div>${t.g ? `<div>Granted ${esc(t.g)}</div>` : ""}${ms.length ? `<div style="color:var(--mute);margin-top:3px">Covers: ${esc(ms.slice(0, 3).join(", "))}</div>` : ""}</div>`;
+  tipFor = null; tip.hidden = false; moveTip(ev);
+}
+function propsHtml(m){
+  if (!PROPS) return PROP === "on" ? `<div class="props"><div class="pth">Mine property</div><div class="pfine">Loading leases…</div></div>` : "";
+  const s = siteSlug(m.n), L = PROPS.t.filter(t => t.s.includes(s));
+  if (!L.length) return `<div class="props"><div class="pth">Mine property</div><div class="pfine">No registered production lease found at this point (development projects and offshore fields often have none yet).</div></div>`;
+  const holders = [...new Set(L.map(t => t.h).filter(Boolean))];
+  return `<div class="props"><div class="pth">Mine property · ${L.length} lease${L.length > 1 ? "s" : ""}${holders.length ? ` held by ${esc(holders.slice(0, 2).join("; "))}${holders.length > 2 ? " +" + (holders.length - 2) : ""}` : ""}</div>
+    ${L.slice(0, 8).map(t => `<div class="pl"><b>${esc(t.id)}</b><span>${esc(t.ty)}${t.g ? " · " + esc(t.g.slice(0, 4)) : ""}</span></div>`).join("")}${L.length > 8 ? `<div class="pfine">+${L.length - 8} more</div>` : ""}
+    <div class="pfine">From the ${esc(L[0].st || "state")} government tenement register. Turn on <b>Mine properties</b> in Map &amp; display to see the outlines.</div></div>`;
+}
+function applyProps(){
+  svgEl.classList.toggle("props-on", PROP === "on");
+  const lg = document.querySelector(".legend"); if (lg) lg.classList.toggle("props", PROP === "on");
+  document.querySelectorAll("#propSeg button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.prop === PROP)));
+  if (PROP === "on") loadProps();
+}
+document.querySelectorAll("#propSeg button").forEach(x => x.onclick = () => { PROP = x.dataset.prop; try { localStorage.setItem("props", PROP); } catch (e) {} hideTip(); applyProps(); });
+applyProps();
+// the mine card lists its leases even when the outlines are off
+setTimeout(() => loadProps(), 4000);
 function moveTip(ev){
   if (tip.hidden) return;
   const r = main.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
@@ -1844,6 +1930,7 @@ function hideTip(){ tip.hidden = true; }
 
 // ---------- selection
 function select(m, fly){
+  setTimeout(() => { if (typeof propsVis === "function") propsVis(); }, 0);
   selected = m; selFac = null; if (facSel) facSel.classed("sel", false); hideTip();
   card.innerHTML = `<button class="x" type="button" aria-label="Close">×</button>` + info(m, true);
   card.hidden = false; card.querySelector(".x").onclick = clearSel; card.scrollTop = 0;
@@ -1951,7 +2038,7 @@ document.getElementById("elsum").addEventListener("click", ev => {
 function apply(){
   document.getElementById("numhead").textContent = sortEl.value === "c" ? "Mkt cap" : sortEl.value === "x" ? "Price" : sortEl.value === "d" ? "Div/share" : "ASX rank";
   const shown = MINES.filter(matches), ids = new Set(shown.map(m => m.id));
-  mineSel.classed("dim", m => !ids.has(m.id)); if (typeof placeLabels === "function") placeLabels();
+  mineSel.classed("dim", m => !ids.has(m.id)); if (typeof placeLabels === "function") placeLabels(); if (typeof propsVis === "function") propsVis();
   gStates.selectAll(".state").classed("hl", f => stEl.value && STATE_FULL[stEl.value] === f.properties.name);
   const by = sortEl.value;
   const HO = {up:0, flat:1, down:2};
