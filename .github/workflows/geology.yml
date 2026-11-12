@@ -1,4 +1,4 @@
-# Geology layers: mineral occurrences (state survey data via Geoscience Australia) + major faults / shear zones.
+# Geology layers: mineral occurrences, drill intercepts and major faults (free Geoscience Australia services). Weekly + by hand.
 name: Geology
 on:
   schedule:
@@ -16,4 +16,11 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install -q shapely
-      - run: python scripts/geo_probe.py
+      - run: python scripts/geology.py
+      - name: Publish
+        run: |
+          git config user.name "mines-map-bot"; git config user.email "actions@users.noreply.github.com"
+          git add data/geo 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -q -m "Geology layers updated"
+          for i in 1 2 3 4 5; do git pull -q --rebase -X theirs && git push -q && break; sleep 8; done
