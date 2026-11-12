@@ -77,7 +77,10 @@ def qld(bb, oil):
         if not fs and layer == 43:
             for alt in ("https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer",):
                 for al in QLD_ALT:
-                    try: fs += [f for f in esri(alt, al, bb, "1=1") if re.search(r"mining lease|^ML", pick(f["properties"], "permittype", "permittypeabbreviation", "displayname", "type"), re.I) and not re.search(r"appl", pick(f["properties"], "permitstatus", "status"), re.I)]
+                    try:
+                        raw_ = esri(alt, al, bb, "1=1")
+                        if raw_ and "QLDALT" not in SEEN: SEEN["QLDALT"] = 1; log("QLD alt0 sample", [x["properties"] for x in raw_[:3]])
+                        fs += [f for f in raw_ if re.search(r"mining lease|^ML", pick(f["properties"], "permittype", "permittypeabbreviation", "displayname", "type"), re.I) and not re.search(r"appl", pick(f["properties"], "permitstatus", "status"), re.I)]
                     except Exception as e: tcount("QLD", f"ALTERR{al}:{str(e)[:50]}")
                 tcount("QLD", f"ALT:{len(fs)}")
         for f in fs:
@@ -234,6 +237,6 @@ if __name__ == "__main__":
     print(f"::notice::tenements: {len(T)} leases for {sum(v[1] for v in stats.values())}/{len(SITES)} sites; " + "; ".join(f"{k} {v[1]}/{v[0]}" for k, v in sorted(stats.items())) + f"; errors {len(failed)}")
     for k, v in TYPES.items(): print(f"::notice::{k} types: " + str(sorted(v.items(), key=lambda x: -x[1])[:25])[:1500])
     for l in LOG:
-        if l.startswith(("QLD alt", "TAS layers")): print("::notice::" + l[:1500])
+        if l.startswith(("QLD L43", "QLD alt0")): print("::notice::" + l[:1500])
     if len(T) > 50:
         save("tenements", {"asof": now_iso(), "src": "State government tenement registers (WA DMIRS, QLD DNRMMRRD, NSW MEG, TAS MRT, VIC ERV, SA SARIG, NT STRIKE)", "t": list(T.values())})
