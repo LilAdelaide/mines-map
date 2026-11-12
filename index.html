@@ -246,6 +246,16 @@ svg.nogo-only .banpin{display:inline}
 .ztip small{display:block;color:var(--mute);font:500 10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
 .legend .zsw{width:14px;height:10px;border:1.5px solid #ff2ec4;background:rgba(255,46,196,.25);border-radius:2px;flex:none}
 .legend .zrow{display:none}
+#occSeg,#fltSeg{grid-template-columns:1fr 1fr!important}
+.ggeo image{pointer-events:none}
+.legend .orow,.legend .frow{display:none}
+.legend.occ .orow,.legend.flt .frow{display:flex}
+.legend .osw{width:7px;height:7px;border-radius:50%;background:var(--gold);opacity:.8;margin:0 4px;flex:none}
+.legend .hsw{width:8px;height:8px;border:1.5px solid var(--gold);transform:rotate(45deg);margin:0 4px;flex:none}
+.legend .fsw{width:16px;height:0;border-top:2px solid #ff7a59;flex:none}
+.gtip b{display:block;font:600 13px var(--f-body);margin-bottom:2px}
+.gtip small{display:block;color:var(--mute);font:500 10.5px var(--f-mono);margin-bottom:3px}
+.gtip .gx{color:var(--fg);font:600 12px var(--f-mono)}
 #propSeg{grid-template-columns:1fr 1fr!important}
 .gprops{display:none}
 svg.props-on .gprops{display:inline}
@@ -1190,6 +1200,17 @@ svg#map.stn-off .stlabel{display:none}
         <button type="button" data-nogo="on" aria-pressed="false">With mines</button>
         <button type="button" data-nogo="only" aria-pressed="false">Only</button>
       </div>
+      <div class="t">Element finds</div>
+      <div class="seg" id="occSeg">
+        <button type="button" data-occ="off" aria-pressed="true">Off</button>
+        <button type="button" data-occ="on" aria-pressed="false">Show finds</button>
+      </div>
+      <div class="phint" id="occHint" hidden>Every recorded deposit, prospect and mineral find for the element you're viewing (state geological surveys). ◇ = notable drill hit a company reported.</div>
+      <div class="t">Major faults</div>
+      <div class="seg" id="fltSeg">
+        <button type="button" data-flt="off" aria-pressed="true">Off</button>
+        <button type="button" data-flt="on" aria-pressed="false">Show faults</button>
+      </div>
       <div class="t">Mine properties</div>
       <div class="seg" id="propSeg">
         <button type="button" data-prop="off" aria-pressed="true">Off</button>
@@ -1289,6 +1310,9 @@ svg#map.stn-off .stlabel{display:none}
       <div><span class="lhs" style="border-color:#ffae1a"></span>Heritage / land-access risk</div>
       <div class="zrow"><span class="zsw"></span>No-go zone (no mining)</div>
       <div class="prow"><span class="psw"></span>Mine property (registered lease)</div>
+      <div class="orow"><span class="osw"></span>Element find (deposit / prospect)</div>
+      <div class="orow"><span class="hsw"></span>Drill hit reported by a company</div>
+      <div class="frow"><span class="fsw"></span>Major fault</div>
       <div class="frow"><span class="fsw"></span>Mill / processing plant</div>
       <div class="toporow"><span class="t" style="margin-top:4px">Height above sea level (Topo map)</span><span class="tbar"></span><span class="tlab"><b>0</b><b>500</b><b>1,000</b><b>2,000 m</b></span></div>
       <div class="lkrow"><span class="lksw"></span>Ore trucked to its owner's mill</div>
@@ -1706,6 +1730,7 @@ function draw(){
     .append("title").text(c => c.v < 0 ? `${-c.v} m below sea level` : `${c.v} m above sea level`);
   gStates.selectAll("path").data(STATES.features).join("path").attr("class","state").attr("d", path);
   if (typeof drawProps === "function") drawProps();
+  try { if (typeof geoReproject === "function" && gGeo) geoReproject(); } catch (e) {}
   gZones.selectAll("path").data(ZONES).join(e => e.append("path").on("pointerenter", zoneTip).on("pointermove", moveTip).on("pointerleave", hideTip))
     .attr("class", z => "zone " + z.k).attr("d", z => path({type:"MultiPolygon", coordinates: z.r.map(r => [r])}));
   gBan.selectAll("g.banpin").data(BANNED).join(e => { const b = e.append("g").attr("class","banpin"); const s = b.append("g").attr("class","s");
@@ -1793,7 +1818,7 @@ function applyK(){
 // Smooth panning: while a gesture runs, the whole map moves as one GPU layer (CSS transform, no repaint);
 // the real SVG transform is committed when the gesture ends, or when zooming far enough to blur.
 let raf = 0, pendingT = null, tc = d3.zoomIdentity, gesturing = false;
-function commitT(t){ svgEl.style.transition = "none"; svgEl.style.transform = ""; svgEl.classList.remove("zooming"); requestAnimationFrame(() => { svgEl.style.transition = ""; }); tc = t; g.attr("transform", t); k = t.k; applyK(); placeLabels(); }
+function commitT(t){ svgEl.style.transition = "none"; svgEl.style.transform = ""; svgEl.classList.remove("zooming"); requestAnimationFrame(() => { svgEl.style.transition = ""; }); tc = t; g.attr("transform", t); k = t.k; applyK(); placeLabels(); if (typeof geoRender === "function") geoRender(); }
 // Mine names: only where they fit. Bigger / producing mines get their name first; the rest appear as you zoom in.
 let labTimer = 0;
 // Mine names: Normal / On hover / Short (ASX code; the selected mine shows its full name)
@@ -1991,6 +2016,114 @@ document.querySelectorAll("#propSeg button").forEach(x => x.onclick = () => { PR
 applyProps();
 // the mine card lists its leases even when the outlines are off
 setTimeout(() => loadProps(), 4000);
+// ---------- Geology: element finds (state survey occurrences), company drill hits, major faults
+// drawn into one picture that sits under the mines and is redrawn whenever the view settles
+let OCC = "off", FLT = "off";
+try { if (localStorage.getItem("occ") === "on") OCC = "on"; if (localStorage.getItem("flt") === "on") FLT = "on"; } catch (e) {}
+const gGeo = g.insert("g", ".gprops").attr("class", "ggeo"), geoImg = gGeo.append("image").attr("preserveAspectRatio", "none");
+const GEO = {pts: {}, nm: {}, hits: null, faults: null, busy: {}};
+const GEO_ELS = ["gold", "iron", "lithium", "oil", "coal", "uranium", "copper", "silver", "tungsten", "salt", "diamonds"];
+const geoBases = () => (window.claude && typeof claude.use === "function") || location.protocol === "file:" ? ["", "https://liladelaide.github.io/mines-map/", "https://cdn.jsdelivr.net/gh/LilAdelaide/mines-map@main/"] : [""];
+async function geoGet(f){
+  for (const b of geoBases()) { try { const r = await fetch(`${b}data/geo/${f}`, {cache: "no-cache"}); if (r.ok) return await r.json(); } catch (e) {} }
+  return null;
+}
+function geoEls(){ return COMMOD === "all" ? GEO_ELS : [COMMOD]; }
+function geoProject(e){
+  const d = GEO.pts[e]; if (!d || !proj) return; const xy = d.xy, P = new Float32Array(xy.length);
+  for (let i = 0; i < xy.length; i += 2) { const q = proj([xy[i] / 1000, xy[i + 1] / 1000]); P[i] = q[0]; P[i + 1] = q[1]; }
+  d.P = P;
+}
+function geoReproject(){ Object.keys(GEO.pts).forEach(geoProject); if (GEO.hits) GEO.hits.forEach(h => { const q = proj([h[0], h[1]]); h.P = q; }); if (GEO.faults) geoProjFaults(); geoRender(); }
+function geoProjFaults(){ GEO.faults.forEach(l => { l.P = l[2].map(c => proj(c)); }); }
+async function geoLoad(){
+  const need = [];
+  if (OCC === "on") { geoEls().forEach(e => { if (!GEO.pts[e] && !GEO.busy["o" + e]) need.push((async () => { GEO.busy["o" + e] = 1; const d = await geoGet(`occ_${e}.json`); GEO.pts[e] = d || {xy: []}; geoProject(e); })()); });
+    if (!GEO.hits && !GEO.busy.h) need.push((async () => { GEO.busy.h = 1; const d = await geoGet("hits.json"); GEO.hits = d ? d.h : []; GEO.hits.forEach(h => { h.P = proj([h[0], h[1]]); }); })()); }
+  if (FLT === "on" && !GEO.faults && !GEO.busy.f) need.push((async () => { GEO.busy.f = 1; const d = await geoGet("faults.json"); GEO.faults = d ? d.l : []; geoProjFaults(); })());
+  if (need.length) { await Promise.all(need); geoRender(); }
+}
+let geoTimer = 0, geoURL = null;
+function geoRender(){ clearTimeout(geoTimer); geoTimer = setTimeout(geoPaint, 40); }
+function geoPaint(){
+  if (OCC !== "on" && FLT !== "on") { geoImg.attr("href", null); return; }
+  const t = tc, W = main.clientWidth, H = main.clientHeight, dpr = Math.min(2, window.devicePixelRatio || 1);
+  const cv = geoPaint.cv || (geoPaint.cv = document.createElement("canvas")); cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  const x = cv.getContext("2d"); x.setTransform(dpr, 0, 0, dpr, 0, 0); x.clearRect(0, 0, W, H);
+  const sx = v => t.x + v * t.k, sy = v => t.y + v * t.k;
+  if (FLT === "on" && GEO.faults) {
+    x.lineJoin = "round"; x.lineCap = "round";
+    for (const th of [0, 1]) {
+      x.strokeStyle = th ? "rgba(255,90,70,.75)" : "rgba(255,122,89,.55)"; x.lineWidth = (th ? 1.6 : 1.1) * (k > 6 ? 1.4 : 1);
+      x.beginPath();
+      GEO.faults.forEach(l => { if (l[1] !== th || !l.P) return; const P = l.P; x.moveTo(sx(P[0][0]), sy(P[0][1])); for (let i = 1; i < P.length; i++) x.lineTo(sx(P[i][0]), sy(P[i][1])); });
+      x.stroke();
+    }
+  }
+  if (OCC === "on") {
+    const r = k < 2 ? 0.9 : k < 5 ? 1.3 : k < 15 ? 2 : 2.8, a = k < 2 ? 0.45 : 0.7;
+    x.globalAlpha = a;
+    geoEls().forEach(e => {
+      const d = GEO.pts[e]; if (!d || !d.P) return; const P = d.P;
+      x.fillStyle = THEMES[e] ? THEMES[e].color : "#ffcc00";
+      for (let i = 0; i < P.length; i += 2) { const X = t.x + P[i] * t.k, Y = t.y + P[i + 1] * t.k; if (X < -4 || Y < -4 || X > W + 4 || Y > H + 4) continue; if (k < 5) x.fillRect(X - r, Y - r, 2 * r, 2 * r); else { x.beginPath(); x.arc(X, Y, r, 0, 6.2832); x.fill(); } }
+    });
+    x.globalAlpha = 1;
+    if (GEO.hits) {
+      const s = k < 3 ? 2.6 : 3.8, want = new Set(geoEls());
+      x.lineWidth = 1.4;
+      GEO.hits.forEach(h => { if (!h.P || !h[2].some(e => want.has(e))) return; const X = sx(h.P[0]), Y = sy(h.P[1]); if (X < -6 || Y < -6 || X > W + 6 || Y > H + 6) return;
+        const e = h[2].find(e => want.has(e)); x.strokeStyle = THEMES[e] ? THEMES[e].color : "#fff"; x.fillStyle = "rgba(0,0,0,.55)";
+        x.beginPath(); x.moveTo(X, Y - s); x.lineTo(X + s, Y); x.lineTo(X, Y + s); x.lineTo(X - s, Y); x.closePath(); x.fill(); x.stroke(); });
+    }
+  }
+  const pos = {x: -t.x / t.k, y: -t.y / t.k, w: W / t.k, h: H / t.k};
+  cv.toBlob(b => { if (!b) return; const u = URL.createObjectURL(b); geoImg.attr("href", u).attr("x", pos.x).attr("y", pos.y).attr("width", pos.w).attr("height", pos.h); if (geoURL) URL.revokeObjectURL(geoURL); geoURL = u; });
+}
+// what's under the pointer (zoomed in): nearest drill hit, else nearest find
+async function geoNames(e){ if (GEO.nm[e] || GEO.busy["n" + e]) return GEO.nm[e]; GEO.busy["n" + e] = 1; GEO.nm[e] = await geoGet(`occn_${e}.json`); return GEO.nm[e]; }
+function geoPick(cx, cy){
+  if (OCC !== "on" || k < 4) return null;
+  const t = tc, R = isPhone() ? 16 : 9; let best = null, bd = R * R;
+  const want = new Set(geoEls());
+  (GEO.hits || []).forEach(h => { if (!h.P || !h[2].some(e => want.has(e))) return; const dx = t.x + h.P[0] * t.k - cx, dy = t.y + h.P[1] * t.k - cy, d = dx * dx + dy * dy; if (d < bd * 1.6) { bd = d / 1.6; best = {hit: h}; } });
+  if (best) return best;
+  geoEls().forEach(e => { const d0 = GEO.pts[e]; if (!d0 || !d0.P) return; const P = d0.P;
+    for (let i = 0; i < P.length; i += 2) { const dx = t.x + P[i] * t.k - cx; if (dx > R || dx < -R) continue; const dy = t.y + P[i + 1] * t.k - cy, d = dx * dx + dy * dy; if (d < bd) { bd = d; best = {e, i: i / 2}; } } });
+  return best;
+}
+async function geoTipHtml(p){
+  if (p.hit) { const h = p.hit; return `<div class="gtip"><small>Drill hit${h[5] ? " · " + esc(String(h[5])) : ""}</small><b>${esc(h[3] || "Drill hole")}</b><div class="gx">${esc(h[4])}</div>${h[6] ? `<div style="color:var(--mute);margin-top:3px">${esc(h[6])}</div>` : ""}</div>`; }
+  const nm = await geoNames(p.e); if (!nm) return "";
+  const kind = nm.k[p.i] === "D" ? "Deposit" : "Mineral find";
+  return `<div class="gtip"><small>${kind} · ${esc(THEMES[p.e] ? THEMES[p.e].label : p.e)}</small><b>${esc(nm.nm[p.i] || "Unnamed")}</b><div>${esc(nm.c[p.i] || "")}</div></div>`;
+}
+let geoHov = 0;
+wrapEl.addEventListener("pointermove", ev => {
+  if (OCC !== "on" || ev.pointerType === "touch" || gesturing || ev.target.closest(".mine,.lease,.fac")) return;
+  cancelAnimationFrame(geoHov); geoHov = requestAnimationFrame(async () => {
+    const r = wrapEl.getBoundingClientRect(), p = geoPick(ev.clientX - r.left, ev.clientY - r.top);
+    if (!p) { if (tipFor === "geo") { hideTip(); tipFor = null; } return; }
+    const h = await geoTipHtml(p); if (!h) return; tip.innerHTML = h; tipFor = "geo"; tip.hidden = false; moveTip(ev);
+  });
+});
+// phones: tap a find (zoomed in) to see what it is
+wrapEl.addEventListener("click", async ev => {
+  if (OCC !== "on" || ev.target.closest(".mine,.lease,.fac")) return;
+  const r = wrapEl.getBoundingClientRect(), p = geoPick(ev.clientX - r.left, ev.clientY - r.top); if (!p) return;
+  const h = await geoTipHtml(p); if (!h) return; tip.innerHTML = h; tipFor = "geo"; tip.hidden = false; moveTip(ev);
+  clearTimeout(geoNames.t); geoNames.t = setTimeout(() => { if (tipFor === "geo") { hideTip(); tipFor = null; } }, 5000);
+}, true);
+function applyGeo(){
+  const lg = document.querySelector(".legend"); if (lg) { lg.classList.toggle("occ", OCC === "on"); lg.classList.toggle("flt", FLT === "on"); }
+  document.querySelectorAll("#occSeg button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.occ === OCC)));
+  document.querySelectorAll("#fltSeg button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.flt === FLT)));
+  const hn = document.getElementById("occHint"); if (hn) hn.hidden = OCC !== "on";
+  geoLoad(); geoRender();
+}
+document.querySelectorAll("#occSeg button").forEach(x => x.onclick = () => { OCC = x.dataset.occ; try { localStorage.setItem("occ", OCC); } catch (e) {} hideTip(); applyGeo(); });
+document.querySelectorAll("#fltSeg button").forEach(x => x.onclick = () => { FLT = x.dataset.flt; try { localStorage.setItem("flt", FLT); } catch (e) {} applyGeo(); });
+setTimeout(applyGeo, 0);
 function moveTip(ev){
   if (tip.hidden) return;
   const r = main.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
@@ -2283,7 +2416,7 @@ function setCommodity(key, user, keepScope){
   gMines.selectAll("g.mine").remove();
   document.getElementById("rScopeMap").textContent = `${TH.label} only`;
   if (user && !keepScope) rScope.value = "map";
-  draw(); apply(); renderRecs();
+  draw(); apply(); renderRecs(); try { if (typeof applyGeo === "function" && gGeo) applyGeo(); } catch (e) {}
   if (window.__newsBooted) startNews();
   if (typeof markTick === "function") markTick();
   if (user) { wrap.transition().duration(500).call(zoom.transform, d3.zoomIdentity); try { history.replaceState(null, "", "#" + key); } catch (e) {} }
