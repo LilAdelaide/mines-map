@@ -54,10 +54,12 @@ def dstr(v):
 WA = "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Industry_and_Mining/MapServer"
 def wa(bb, oil):
     out = []
-    for f in esri(WA, 3, bb, "tenstatus='LIVE' AND type IN ('MINING LEASE','GENERAL PURPOSE LEASE')", "fmt_tenid,type,holder1,holder2,holdercnt"):
-        p = f["properties"]; h = p.get("holder1") or ""
+    for f in esri(WA, 3, bb, "1=1", "fmt_tenid,type,tenstatus,holder1,holder2,holdercnt"):
+        p = f["properties"]; h = p.get("holder1") or ""; tcount("WA", f"{p.get('type')}/{p.get('tenstatus')}")
+        if p.get("tenstatus") != "LIVE" or not re.search(r"MINING LEASE|GENERAL PURPOSE|AGREEMENT|MINERAL LEASE|^ML|STATE", p.get("type") or "", re.I) or re.search(r"EXPLORATION|PROSPECTING|MISCELLANEOUS|RETENTION", p.get("type") or "", re.I): continue
         if (p.get("holdercnt") or 1) > 1 and p.get("holder2"): h += f" + {p['holdercnt'] - 1} other" + ("s" if p["holdercnt"] > 2 else "")
         out.append((p["fmt_tenid"], p["type"].title(), h, "", f["geometry"]))
+    if not out: tcount("WAEMPTY", f"{bb[0]+R:.3f},{bb[1]+R:.3f}")
     if oil:
         for f in esri(WA, 9, bb, "1=1", "title_id,type,status,holder_1,holder_2,issued"):
             p = f["properties"]
