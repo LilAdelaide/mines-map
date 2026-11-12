@@ -77,7 +77,7 @@ def qld(bb, oil):
         if not fs and layer == 43:
             for alt in ("https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer",):
                 for al in QLD_ALT:
-                    try: fs += esri(alt, al, bb, "1=1")
+                    try: fs += [f for f in esri(alt, al, bb, "1=1") if re.search(r"mining lease|^ML", pick(f["properties"], "permittype", "permittypeabbreviation", "displayname", "type"), re.I) and not re.search(r"appl", pick(f["properties"], "permitstatus", "status"), re.I)]
                     except Exception as e: tcount("QLD", f"ALTERR{al}:{str(e)[:50]}")
                 tcount("QLD", f"ALT:{len(fs)}")
         for f in fs:
@@ -148,7 +148,9 @@ def setup():
     try:
         d = get("https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer?f=json")
         L = [(l["id"], l["name"]) for l in d.get("layers", [])]
-        QLD_ALT.extend([i for i, n in L if re.search(r"mining lease|ML granted|^ML", n, re.I) and not re.search(r"appl", n, re.I)][:3])
+        QLD_ALT.extend([0])
+        l43 = get(QLD + "/43?f=json"); l0 = get("https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer/0?f=json")
+        log("QLD L43 type", l43.get("type"), "sub", l43.get("subLayers"), "caps", l43.get("capabilities"), "| alt0 type", l0.get("type"), "fields", [f["name"] for f in l0.get("fields") or []][:25])
         log("QLD alt layers:", L[:40], "using", QLD_ALT)
     except Exception as e: log("QLD alt failed:", e)
     try:
