@@ -1,27 +1,30 @@
-import re, json, urllib.parse
+import re, json, urllib.parse, collections
 from common import *
-def n(m): print("::notice::" + str(m)[:1800], flush=True)
+def n(m): print("::notice::" + str(m)[:1900], flush=True)
 W = "https://services.ga.gov.au/gis/earthresource/wfs"
-try:
-    cap = get(W + "?REQUEST=GetCapabilities&SERVICE=WFS&VERSION=2.0.0", as_json=False, timeout=90).decode("utf8", "ignore")
-    n("types: " + " ".join(sorted(set(re.findall(r"<(?:wfs:)?Name>([^<]+)</", cap)))))
-except Exception as e: n(f"cap fail {e}")
-for tn in ["ama:MineralOccurrences", "erl:MineralOccurrenceView", "mo:MinOccView"]:
+def wfs(tn, **k):
+    q = {"service": "WFS", "version": "2.0.0", "request": "GetFeature", "typeNames": tn, "outputFormat": "application/json"}; q.update(k)
+    return get(W + "?" + urllib.parse.urlencode(q), timeout=180)
+for tn in ["ama:ExplorationResults", "ama:MineralDeposits", "ama:MineralOccurrencesDiscoveryAndExploration"]:
     try:
         h = get(W + "?" + urllib.parse.urlencode({"service": "WFS", "version": "2.0.0", "request": "GetFeature", "typeNames": tn, "resultType": "hits"}), as_json=False, timeout=120).decode("utf8", "ignore")
-        n(f"{tn} hits: " + (re.findall(r'numberMatched="(\d+)"', h) or [h[:300]])[0])
-        d = get(W + "?" + urllib.parse.urlencode({"service": "WFS", "version": "2.0.0", "request": "GetFeature", "typeNames": tn, "count": 2, "outputFormat": "application/json"}), timeout=120)
-        n(f"{tn} sample: " + json.dumps(d["features"][0]))
+        d = wfs(tn, count=2)
+        n(f"{tn} hits {(re.findall(r'numberMatched=.(\d+)', h) or ['?'])[0]} sample " + json.dumps(d["features"][0]["properties"]) + " geom " + d["features"][0]["geometry"]["type"])
     except Exception as e: n(f"{tn} fail {e}")
-F = "https://services.ga.gov.au/gis/rest/services/GA_Surface_Geology/MapServer"
+# commodity mix + size of the occurrences set
 try:
-    d = get(F + "?f=json", timeout=60); n("layers: " + "; ".join(f"{l['id']} {l['name']}" for l in d.get("layers", [])))
-    i = get(F + "/7?f=json", timeout=60); n("L7 fields: " + ", ".join(f["name"] for f in i.get("fields", [])) + f" maxRec {i.get('maxRecordCount')}")
-    c = get(F + "/7/query?where=1%3D1&returnCountOnly=true&f=json", timeout=60); n(f"L7 count {c}")
-    s = get(F + "/7/query?where=1%3D1&outFields=*&returnGeometry=false&resultRecordCount=3&f=json", timeout=60); n("L7 sample " + json.dumps([x["attributes"] for x in s.get("features", [])]))
-    for fld in ["FEATURETYPE", "TYPE", "NAME"]:
-        try:
-            g = get(F + "/7/query?" + urllib.parse.urlencode({"where": "1=1", "outFields": fld, "returnGeometry": "false", "groupByFieldsForStatistics": fld, "outStatistics": json.dumps([{"statisticType": "count", "onStatisticField": "OBJECTID", "outStatisticFieldName": "c"}]), "f": "json"}), timeout=60)
-            n(f"L7 by {fld}: " + json.dumps([x["attributes"] for x in g.get("features", [])][:40]))
-        except Exception as e: n(f"grp {fld} {e}")
-except Exception as e: n(f"faults fail {e}")
+    d = wfs("ama:MineralOccurrences", count=20000, propertyName="COMMODITY_CODES,STATE,CLASS")
+    c = collections.Counter(); cl = collections.Counter()
+    for f in d["features"]:
+        for x in (f["properties"].get("COMMODITY_CODES") or "").split(","): c[x.strip()] += 1
+        cl[f["properties"].get("CLASS")] += 1
+    n("codes " + str(c.most_common(45))); n("class " + str(cl.most_common(15)))
+except Exception as e: n(f"occ fail {e}")
+F = "https://services.ga.gov.au/gis/rest/services/GA_Surface_Geology/MapServer"
+for L in (1, 7):
+    try:
+        c = get(F + f"/{L}/query?where=1%3D1&returnCountOnly=true&f=json", timeout=60)
+        g = get(F + f"/{L}/query?" + urllib.parse.urlencode({"where": "1=1", "returnGeometry": "false", "groupByFieldsForStatistics": "typename", "outStatistics": json.dumps([{"statisticType": "count", "onStatisticField": "objectid", "outStatisticFieldName": "c"}]), "f": "json"}), timeout=60)
+        r = get(F + f"/{L}/query?" + urllib.parse.urlencode({"where": "1=1", "returnGeometry": "false", "groupByFieldsForStatistics": "plotrank", "outStatistics": json.dumps([{"statisticType": "count", "onStatisticField": "objectid", "outStatisticFieldName": "c"}]), "f": "json"}), timeout=60)
+        n(f"L{L} {c} types " + json.dumps([x["attributes"] for x in g.get("features", [])]) + " rank " + json.dumps([x["attributes"] for x in r.get("features", [])]))
+    except Exception as e: n(f"L{L} fail {e}")
