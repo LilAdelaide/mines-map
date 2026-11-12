@@ -67,26 +67,17 @@ def wa(bb, oil):
 
 QLD_ALT = []
 QLD = "https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MinesPermitsCurrent/MapServer"
+QALT = "https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer"
 def qld(bb, oil):
     out = []
-    for layer, ty in ((43, "Mining Lease"), (55, "Petroleum Lease")) if oil else ((43, "Mining Lease"),):
-        try: fs = esri(QLD, layer, bb)
-        except Exception as e:
-            tcount("QLD", f"ERR{layer}:{str(e)[:60]}"); continue
-        tcount("QLD", f"L{layer}:{len(fs)}")
-        if not fs and layer == 43:
-            for alt in ("https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer",):
-                for al in QLD_ALT:
-                    try:
-                        raw_ = esri(alt, al, bb, "1=1")
-                        if raw_ and "QLDALT" not in SEEN: SEEN["QLDALT"] = 1; log("QLD alt0 sample", [x["properties"] for x in raw_[:3]])
-                        fs += [f for f in raw_ if re.search(r"mining lease|^ML", pick(f["properties"], "permittype", "permittypeabbreviation", "displayname", "type"), re.I) and not re.search(r"appl", pick(f["properties"], "permitstatus", "status"), re.I)]
-                    except Exception as e: tcount("QLD", f"ALTERR{al}:{str(e)[:50]}")
-                tcount("QLD", f"ALT:{len(fs)}")
-        for f in fs:
-            p = f["properties"]; seen("QLD", p)
-            out.append((pick(p, "displayname", "permitname", "permit_number", "permitid") or ty, ty, pick(p, "authorisedholdername", "holdername", "permitholder", "holder"),
-                        dstr(pick(p, "approvedate", "grantdate", "permitstartdate")), f["geometry"]))
+    for f in esri(QALT, 0, bb):
+        p = f["properties"]; t = pick(p, "tentype"); tcount("QLD", f"{t}/{pick(p, 'tenstatus')}")
+        if not re.search(r"mining lease", t, re.I) or not re.search(r"granted", pick(p, "tenstatus"), re.I): continue
+        out.append((pick(p, "tenname"), "Mining Lease", pick(p, "tenowner"), dstr(pick(p, "grantdate")), f["geometry"]))
+    if oil:
+        for f in esri(QLD, 55, bb):
+            p = f["properties"]
+            out.append((pick(p, "displayname"), "Petroleum Lease", pick(p, "authorisedholdername"), dstr(p.get("approvedate")), f["geometry"]))
     return out
 
 NSW = "https://mapprod2.environment.nsw.gov.au/arcgis/rest/services/DRG/Mining_Exploration_Titles/MapServer"
@@ -151,9 +142,7 @@ def setup():
     try:
         d = get("https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer?f=json")
         L = [(l["id"], l["name"]) for l in d.get("layers", [])]
-        QLD_ALT.extend([0])
-        l43 = get(QLD + "/43?f=json"); l0 = get("https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer/0?f=json")
-        log("QLD L43 type", l43.get("type"), "sub", l43.get("subLayers"), "caps", l43.get("capabilities"), "| alt0 type", l0.get("type"), "fields", [f["name"] for f in l0.get("fields") or []][:25])
+        pass
         log("QLD alt layers:", L[:40], "using", QLD_ALT)
     except Exception as e: log("QLD alt failed:", e)
     try:
