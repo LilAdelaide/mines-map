@@ -210,7 +210,13 @@ if __name__ == "__main__":
             W = 0.055; bb = (m["lon"] - W, m["lat"] - W, m["lon"] + W, m["lat"] + W)
             rows = READ[st](bb, m.get("e") == "oil")
         return m, st, rows
-    res = pmap(lambda i: one(SITES[i]), list(range(len(SITES))), workers=3)
+    def safe(i):
+        for a in range(4):   # state servers drop some requests when busy: try again
+            try: return one(SITES[i])
+            except Exception as e:
+                last = e; time.sleep(4 + a * 6)
+        raise last
+    res = pmap(safe, list(range(len(SITES))), workers=3)
     for i, r in res.items():
         m, st, rows = r
         s = stats.setdefault(st or "?", [0, 0, 0]); s[0] += 1
