@@ -210,12 +210,14 @@ if __name__ == "__main__":
             W = 0.055; bb = (m["lon"] - W, m["lat"] - W, m["lon"] + W, m["lat"] + W)
             rows = READ[st](bb, m.get("e") == "oil")
         return m, st, rows
+    START = time.time()
     def safe(i):
         for a in range(4):   # state servers drop some requests when busy: try again
+            if a and time.time() - START > 75 * 60: break   # time budget: keep the last good copy instead
             try: return one(SITES[i])
             except Exception as e:
                 last = e; time.sleep(4 + a * 6)
-        raise last
+        raise last if "last" in locals() else RuntimeError("time budget")
     res = pmap(safe, list(range(len(SITES))), workers=3)
     for i, r in res.items():
         m, st, rows = r
@@ -240,6 +242,19 @@ if __name__ == "__main__":
                 s[2] += 1
             if m["k"] not in T[key]["s"]: T[key]["s"].append(m["k"])
     failed = [i for i in range(len(SITES)) if i not in res]
+    # sites whose state server failed this run keep their leases from the last good run
+    try:
+        old = json.load(open(os.path.join(os.path.dirname(__file__), "..", "data", "tenements.json")))
+        fk = {SITES[i]["k"] for i in failed}
+        for t in old.get("t", []):
+            ks = [k for k in t.get("s", []) if k in fk]
+            if not ks: continue
+            key = f"{t.get('st')}|{t['id']}"
+            if key not in T: T[key] = dict(t, s=[])
+            for k in ks:
+                if k not in T[key]["s"]: T[key]["s"].append(k)
+        log("kept from last run for", len(fk), "failed sites")
+    except Exception as e: log("no previous copy:", e)
     for k, v in sorted(stats.items()): log(f"{k}: {v[0]} sites, {v[1]} with leases found, {v[2]} leases")
     print(f"::notice::tenements: {len(T)} leases for {sum(v[1] for v in stats.values())}/{len(SITES)} sites; " + "; ".join(f"{k} {v[1]}/{v[0]}" for k, v in sorted(stats.items())) + f"; errors {len(failed)}")
     for k, v in TYPES.items(): print(f"::notice::{k} types: " + str(sorted(v.items(), key=lambda x: -x[1])[:25])[:1500])

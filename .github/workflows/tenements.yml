@@ -1,8 +1,8 @@
-# Mine properties: registered production leases around each mine site (free state registers). Weekly + by hand.
+# Mine properties: registered production leases around each mine site (free state registers). Daily + by hand.
 name: Mine properties
 on:
   schedule:
-    - cron: "40 22 * * 6"   # Sunday morning Perth
+    - cron: "40 19 * * *"   # daily, 3:40am Perth
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -10,7 +10,7 @@ concurrency: { group: tenements, cancel-in-progress: false }
 jobs:
   build:
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 110
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

@@ -251,6 +251,8 @@ svg.props-on .gprops{display:inline}
 .lease.off{display:none}
 .mine .pring{display:none;fill:none;stroke:var(--gold);stroke-width:1.6;stroke-dasharray:3 2;pointer-events:none}
 svg.props-on .mine.hasprop .pring{display:inline}
+svg.props-on.nobox .mine.hasprop .pring{display:none}
+#boxSeg{grid-template-columns:1fr 1fr!important}
 body.compact .card.pcard{max-height:40vh!important}
 svg.props-on .mine.hasprop.sel .dot{opacity:.45}
 .phint{font-size:11px;color:var(--mute);margin:-2px 0 8px;line-height:1.35}
@@ -1190,6 +1192,11 @@ svg#map.stn-off .stlabel{display:none}
         <button type="button" data-prop="off" aria-pressed="true">Off</button>
         <button type="button" data-prop="on" aria-pressed="false">Show leases</button>
       </div>
+      <div id="boxWrap" hidden><div class="t">Lease boxes</div>
+      <div class="seg" id="boxSeg">
+        <button type="button" data-box="on" aria-pressed="true">Show</button>
+        <button type="button" data-box="off" aria-pressed="false">Hide</button>
+      </div></div>
       <div class="phint" id="propHint" hidden>Mines with a dashed box have lease outlines. Tap one to zoom to them.</div>
       <div class="t">State names</div>
       <div class="seg" id="stNameSeg">
@@ -1943,7 +1950,15 @@ function flyToLeases(m){
   wrap.transition().duration(750).call(zoom.transform, d3.zoomIdentity.translate(cx - s * (x0 + x1) / 2, cy - s * (y0 + y1) / 2).scale(s));
   return true;
 }
+let PBOX = "on"; try { if (localStorage.getItem("pbox") === "off") PBOX = "off"; } catch (e) {}
+function applyBox(){
+  svgEl.classList.toggle("nobox", PBOX === "off");
+  document.querySelectorAll("#boxSeg button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.box === PBOX)));
+  const hn = document.getElementById("propHint"); if (hn) hn.textContent = PBOX === "on" ? "Mines with a dashed box have lease outlines. Tap one to zoom to them." : "Tap a mine to zoom to its lease outlines.";
+}
+document.querySelectorAll("#boxSeg button").forEach(x => x.onclick = () => { PBOX = x.dataset.box; try { localStorage.setItem("pbox", PBOX); } catch (e) {} applyBox(); });
 function applyProps(){
+  applyBox(); const bw = document.getElementById("boxWrap"); if (bw) bw.hidden = PROP !== "on";
   const hn = document.getElementById("propHint"); if (hn) hn.hidden = PROP !== "on";
   svgEl.classList.toggle("props-on", PROP === "on");
   const lg = document.querySelector(".legend"); if (lg) lg.classList.toggle("props", PROP === "on");
