@@ -1,0 +1,19 @@
+# Geology layers: mineral occurrences (state survey data via Geoscience Australia) + major faults / shear zones.
+name: Geology
+on:
+  schedule:
+    - cron: "20 18 * * 0"   # weekly, Monday 2:20am Perth
+  workflow_dispatch: {}
+permissions:
+  contents: write
+concurrency: { group: geology, cancel-in-progress: false }
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q shapely
+      - run: python scripts/geo_probe.py
