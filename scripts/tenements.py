@@ -54,7 +54,12 @@ def dstr(v):
 WA = "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Industry_and_Mining/MapServer"
 def wa(bb, oil):
     out = []
-    for f in esri(WA, 3, bb, "1=1", "fmt_tenid,type,tenstatus,holder1,holder2,holdercnt"):
+    fs = []
+    for attempt in range(3):   # the WA server sometimes answers busy requests with an empty list
+        fs = esri(WA, 3, bb, "1=1", "fmt_tenid,type,tenstatus,holder1,holder2,holdercnt")
+        if fs: break
+        time.sleep(2 + attempt * 3)
+    for f in fs:
         p = f["properties"]; h = p.get("holder1") or ""; tcount("WA", f"{p.get('type')}/{p.get('tenstatus')}")
         if p.get("tenstatus") != "LIVE" or not re.search(r"MINING LEASE|GENERAL PURPOSE|AGREEMENT|MINERAL LEASE|^ML|STATE", p.get("type") or "", re.I) or re.search(r"EXPLORATION|PROSPECTING|MISCELLANEOUS|RETENTION", p.get("type") or "", re.I): continue
         if (p.get("holdercnt") or 1) > 1 and p.get("holder2"): h += f" + {p['holdercnt'] - 1} other" + ("s" if p["holdercnt"] > 2 else "")
@@ -201,7 +206,7 @@ if __name__ == "__main__":
         if not st: return m, st, []
         bb = (m["lon"] - R, m["lat"] - R, m["lon"] + R, m["lat"] + R)
         return m, st, READ[st](bb, m.get("e") == "oil")
-    res = pmap(lambda i: one(SITES[i]), list(range(len(SITES))), workers=6)
+    res = pmap(lambda i: one(SITES[i]), list(range(len(SITES))), workers=3)
     for i, r in res.items():
         m, st, rows = r
         s = stats.setdefault(st or "?", [0, 0, 0]); s[0] += 1
