@@ -22,7 +22,11 @@ def esri(base, layer, bb, where="1=1", fields="*"):
     q = urllib.parse.urlencode({"geometry": ",".join(f"{v:.5f}" for v in bb), "geometryType": "esriGeometryEnvelope", "inSR": 4326,
         "spatialRel": "esriSpatialRelIntersects", "where": where, "outFields": fields, "returnGeometry": "true", "outSR": 4326, "f": "geojson"})
     d = get(f"{base}/{layer}/query?{q}", timeout=60)
-    if "error" in d and not d.get("features"):
+    if "error" in d and not d.get("features"):   # some layers only answer the plain Esri JSON format
+        q2 = q.replace("f=geojson", "f=json")
+        d2 = get(f"{base}/{layer}/query?{q2}", timeout=60)
+        if "features" in d2:
+            return [{"properties": f.get("attributes", {}), "geometry": {"type": "Polygon", "coordinates": f["geometry"]["rings"]}} for f in d2["features"] if f.get("geometry", {}).get("rings")]
         tcount("ERR", f"{base.split('/services/')[-1]}/{layer}: {str(d['error'])[:160]}")
     return d.get("features", [])
 
@@ -96,9 +100,8 @@ def nsw(bb, oil):
 TAS = "https://data.stategrowth.tas.gov.au/ags/rest/services/MRT/TenementsLIST/MapServer"
 def tas(bb, oil):
     out = []
-    for f in esri(TAS, 36, bb):
+    for f in esri(TAS, 44, bb):
         p = f["properties"]; seen("TAS", p); t = pick(p, "TENEMENTTYPE"); tcount("TAS", t)
-        if not re.search(r"^ML|mining lease|^M$|^1M|^2M|^3M|^4M", t, re.I) and not re.search(r"mining", pick(p, "CATEGORY"), re.I): continue
         out.append((pick(p, "NAME", "ID"), t or "Mining Lease", pick(p, "OWNER"), dstr(p.get("GRANTDATE")), f["geometry"]))
     return out
 
@@ -176,6 +179,7 @@ def setup():
                 except Exception: continue
                 tcount("NT", pick(p, "TI_TYPE_CD"))
                 tt = pick(p, "TI_TYPE_CD")
+                if tt not in ("ML", "MLN", "MLC", "MLS", "MA", "MCC", "MCN", "MCS"): continue
                 NT_SHAPES.append((f"{tt} {pick(p, 'TI_NUMBER')}".strip(), {"ML": "Mineral Lease", "MLN": "Mineral Lease", "MA": "Mineral Authority", "MLA": "Mineral Lease", "MLC": "Mineral Lease", "MCN": "Mineral Claim", "MCS": "Mineral Claim", "MCC": "Mineral Claim"}.get(tt, tt or "Mineral Lease"), pick(p, "PTY_NAME"), dstr(pick(p, "DT_GRNT")), g))
             log("NT", b, "fields", flds[:16], "kept", len(NT_SHAPES) - n0)
     except Exception as e:
