@@ -22,6 +22,8 @@ def esri(base, layer, bb, where="1=1", fields="*"):
     q = urllib.parse.urlencode({"geometry": ",".join(f"{v:.5f}" for v in bb), "geometryType": "esriGeometryEnvelope", "inSR": 4326,
         "spatialRel": "esriSpatialRelIntersects", "where": where, "outFields": fields, "returnGeometry": "true", "outSR": 4326, "f": "geojson"})
     d = get(f"{base}/{layer}/query?{q}", timeout=60)
+    if "error" in d and not d.get("features"):
+        tcount("ERR", f"{base.split('/services/')[-1]}/{layer}: {str(d['error'])[:160]}")
     return d.get("features", [])
 
 def wfs(url, typ, bb):
@@ -59,6 +61,7 @@ def wa(bb, oil):
             out.append((p["title_id"], p["type"], " + ".join(x for x in (p.get("holder_1"), p.get("holder_2")) if x), dstr(p.get("issued")), f["geometry"]))
     return out
 
+QLD_ALT = []
 QLD = "https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MinesPermitsCurrent/MapServer"
 def qld(bb, oil):
     out = []
@@ -67,6 +70,12 @@ def qld(bb, oil):
         except Exception as e:
             tcount("QLD", f"ERR{layer}:{str(e)[:60]}"); continue
         tcount("QLD", f"L{layer}:{len(fs)}")
+        if not fs and layer == 43:
+            for alt in ("https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer",):
+                for al in QLD_ALT:
+                    try: fs += esri(alt, al, bb, "1=1")
+                    except Exception as e: tcount("QLD", f"ALTERR{al}:{str(e)[:50]}")
+                tcount("QLD", f"ALT:{len(fs)}")
         for f in fs:
             p = f["properties"]; seen("QLD", p)
             out.append((pick(p, "displayname", "permitname", "permit_number", "permitid") or ty, ty, pick(p, "authorisedholdername", "holdername", "permitholder", "holder"),
@@ -133,6 +142,15 @@ def state_of(m):
     return None
 
 def setup():
+    try:
+        d = get("https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/MineralTenement/MapServer?f=json")
+        L = [(l["id"], l["name"]) for l in d.get("layers", [])]
+        QLD_ALT.extend([i for i, n in L if re.search(r"mining lease|ML granted|^ML", n, re.I) and not re.search(r"appl", n, re.I)][:3])
+        log("QLD alt layers:", L[:40], "using", QLD_ALT)
+    except Exception as e: log("QLD alt failed:", e)
+    try:
+        d = get(TAS + "?f=json"); log("TAS layers:", [(l["id"], l["name"]) for l in d.get("layers", [])][:60])
+    except Exception as e: log("TAS layers failed:", e)
     # SA: feature type names from the WFS capabilities
     try:
         x = get(f"{SAW}?request=GetCapabilities&service=WFS", as_json=False).decode("utf8", "ignore")
@@ -156,8 +174,9 @@ def setup():
                 p = dict(zip(flds, sr.record))
                 try: g = shape(sr.shape.__geo_interface__)
                 except Exception: continue
-                tcount("NT", pick(p, "TITLETYPE", "TYPE", "TITLE_TYPE"))
-                NT_SHAPES.append((pick(p, "TITLE", "TITLEID", "TITLE_ID", "NAME"), pick(p, "TITLETYPE", "TYPE") or "Mineral Lease", pick(p, "HOLDER", "HOLDERS", "OWNER", "HOLDER1"), dstr(pick(p, "GRANTDATE", "GRANTED", "DATE_GRANT")), g))
+                tcount("NT", pick(p, "TI_TYPE_CD"))
+                tt = pick(p, "TI_TYPE_CD")
+                NT_SHAPES.append((f"{tt} {pick(p, 'TI_NUMBER')}".strip(), {"ML": "Mineral Lease", "MLN": "Mineral Lease", "MA": "Mineral Authority", "MLA": "Mineral Lease", "MLC": "Mineral Lease", "MCN": "Mineral Claim", "MCS": "Mineral Claim", "MCC": "Mineral Claim"}.get(tt, tt or "Mineral Lease"), pick(p, "PTY_NAME"), dstr(pick(p, "DT_GRNT")), g))
             log("NT", b, "fields", flds[:16], "kept", len(NT_SHAPES) - n0)
     except Exception as e:
         log("NT setup failed:", e)
@@ -209,6 +228,6 @@ if __name__ == "__main__":
     print(f"::notice::tenements: {len(T)} leases for {sum(v[1] for v in stats.values())}/{len(SITES)} sites; " + "; ".join(f"{k} {v[1]}/{v[0]}" for k, v in sorted(stats.items())) + f"; errors {len(failed)}")
     for k, v in TYPES.items(): print(f"::notice::{k} types: " + str(sorted(v.items(), key=lambda x: -x[1])[:25])[:1500])
     for l in LOG:
-        if l.startswith(("NT ", "QLD")): print("::notice::" + l[:1500])
+        if l.startswith(("QLD alt", "TAS layers")): print("::notice::" + l[:1500])
     if len(T) > 50:
         save("tenements", {"asof": now_iso(), "src": "State government tenement registers (WA DMIRS, QLD DNRMMRRD, NSW MEG, TAS MRT, VIC ERV, SA SARIG, NT STRIKE)", "t": list(T.values())})
