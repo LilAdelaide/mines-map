@@ -205,7 +205,11 @@ if __name__ == "__main__":
         st = state_of(m)
         if not st: return m, st, []
         bb = (m["lon"] - R, m["lat"] - R, m["lon"] + R, m["lat"] + R)
-        return m, st, READ[st](bb, m.get("e") == "oil")
+        rows = READ[st](bb, m.get("e") == "oil")
+        if not rows and not m.get("auto"):   # map points can be a few km off the lease: look wider
+            W = 0.055; bb = (m["lon"] - W, m["lat"] - W, m["lon"] + W, m["lat"] + W)
+            rows = READ[st](bb, m.get("e") == "oil")
+        return m, st, rows
     res = pmap(lambda i: one(SITES[i]), list(range(len(SITES))), workers=3)
     for i, r in res.items():
         m, st, rows = r
@@ -219,7 +223,8 @@ if __name__ == "__main__":
             except Exception: d = 9
             scored.append((d, tid, ty, h, g, geom))
         scored.sort(key=lambda x: x[0])
-        keep = [x for x in scored if x[0] < 0.015][:25]
+        dmin = scored[0][0] if scored else 9
+        keep = [x for x in scored if x[0] <= max(0.015, dmin + 0.012) and x[0] < 0.06][:25]
         for d, tid, ty, h, g, geom in keep:
             key = f"{st}|{tid}"
             if key not in T:
