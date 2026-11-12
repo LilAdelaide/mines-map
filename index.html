@@ -975,7 +975,8 @@ body.compact .csheet .pane.on{display:flex}
 body.compact .csheet .pane > *{position:static!important;zoom:1!important;width:auto!important;max-width:none!important;max-height:none!important;height:auto!important;left:auto;right:auto;top:auto;bottom:auto;box-shadow:none;margin:0;flex:none!important;display:block}
 body.compact .csheet .pane > details{display:block!important}
 body.compact .csheet .mod .mbody{max-height:none!important;overflow:visible}
-body.compact .csheet .favs .fvbody{display:flex}
+body.compact .csheet .favs.open .fvbody{display:flex}
+body.compact .csheet .favs .fvh{padding:14px 12px;min-height:48px}
 body.compact .csheet .recs .rtab .why{display:flex}
 body.compact .csheet .news{overflow:visible}
 body.compact .csheet .news .nbody,body.compact .csheet .news .macwrap{max-height:none!important;overflow:visible!important}
@@ -2875,7 +2876,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
     if (want) {
       PLAN.forEach(([el, dest]) => dest.append(el));
       ["modAnn", "modCost", "modCal", "viewset", "mapkey"].forEach(id => { const d = $(id); if (d) d.open = true; });
-      const f = $("favs"); if (f) f.classList.add("open");
+      const f = $("favs"); if (f) { let o = true; try { o = localStorage.getItem("favOpen") !== "0"; } catch (e) {} f.classList.toggle("open", o); const t = $("favTog"); if (t) t.setAttribute("aria-expanded", String(o)); }
       if (typeof setRecMin === "function") setRecMin(false);
       if (typeof setNewsMin === "function") setNewsMin(false);
       if (typeof setNewMin === "function") { const nm = $("newMod"); if (nm) { nm.classList.remove("min"); } }
