@@ -29,7 +29,8 @@ def wfs(url, typ, bb):
         "srsName": "EPSG:4326", "bbox": f"{bb[1]},{bb[0]},{bb[3]},{bb[2]},urn:ogc:def:crs:EPSG::4326", "count": 200})
     return get(f"{url}?{q}", timeout=60).get("features", [])
 
-SEEN = {}
+SEEN = {}; TYPES = {}
+def tcount(st, t): d = TYPES.setdefault(st, {}); d[t] = d.get(t, 0) + 1
 def seen(st, p):
     if st not in SEEN: SEEN[st] = list(p.items())[:18]; log(st, "fields:", SEEN[st])
 def pick(p, *keys):
@@ -62,7 +63,11 @@ QLD = "https://spatial-gis.information.qld.gov.au/arcgis/rest/services/Economy/M
 def qld(bb, oil):
     out = []
     for layer, ty in ((43, "Mining Lease"), (55, "Petroleum Lease")) if oil else ((43, "Mining Lease"),):
-        for f in esri(QLD, layer, bb):
+        try: fs = esri(QLD, layer, bb)
+        except Exception as e:
+            tcount("QLD", f"ERR{layer}:{str(e)[:60]}"); continue
+        tcount("QLD", f"L{layer}:{len(fs)}")
+        for f in fs:
             p = f["properties"]; seen("QLD", p)
             out.append((pick(p, "displayname", "permitname", "permit_number", "permitid") or ty, ty, pick(p, "authorisedholdername", "holdername", "permitholder", "holder"),
                         dstr(pick(p, "approvedate", "grantdate", "permitstartdate")), f["geometry"]))
@@ -73,7 +78,7 @@ def nsw(bb, oil):
     out = []
     for layer in ((0, 1, 2) if oil else (0, 1)):
         for f in esri(NSW, layer, bb):
-            p = f["properties"]; code = pick(p, "TITLE_CODE")
+            p = f["properties"]; code = pick(p, "TITLE_CODE"); tcount("NSW", code)
             if not re.fullmatch(r"ML|CL|MPL|CML|CCL|PPL|PML|ML\(A\)", code): continue
             out.append((pick(p, "TITLE_REF") or f"{code} {pick(p, 'TITLE_NO')}", {"ML": "Mining Lease", "CL": "Consolidated Mining Lease", "CML": "Consolidated Mining Lease", "MPL": "Mining Purposes Lease", "CCL": "Consolidated Coal Lease", "PPL": "Petroleum Production Lease", "PML": "Petroleum Mining Lease"}.get(code, code),
                         pick(p, "COMPANY"), dstr(p.get("GRANT_DATE")), f["geometry"]))
@@ -83,7 +88,7 @@ TAS = "https://data.stategrowth.tas.gov.au/ags/rest/services/MRT/TenementsLIST/M
 def tas(bb, oil):
     out = []
     for f in esri(TAS, 36, bb):
-        p = f["properties"]; seen("TAS", p); t = pick(p, "TENEMENTTYPE")
+        p = f["properties"]; seen("TAS", p); t = pick(p, "TENEMENTTYPE"); tcount("TAS", t)
         if not re.search(r"^ML|mining lease|^M$|^1M|^2M|^3M|^4M", t, re.I) and not re.search(r"mining", pick(p, "CATEGORY"), re.I): continue
         out.append((pick(p, "NAME", "ID"), t or "Mining Lease", pick(p, "OWNER"), dstr(p.get("GRANTDATE")), f["geometry"]))
     return out
@@ -92,9 +97,9 @@ VICW = "https://opendata.maps.vic.gov.au/geoserver/wfs"
 def vic(bb, oil):
     out = []
     for f in wfs(VICW, "open-data-platform:minten", bb):
-        p = f["properties"]; seen("VIC", p); t = pick(p, "tentype", "tenement_type", "type", "tntype")
-        if t and not re.search(r"^MIN|mining licen|^ML", t, re.I): continue
-        out.append((pick(p, "tenement", "tno", "tenement_no", "tenid", "id") , "Mining Licence", pick(p, "holder", "owner", "applicant", "company", "hname"), dstr(pick(p, "granted", "grant_date", "gdate")), f["geometry"]))
+        p = f["properties"]; seen("VIC", p); t = pick(p, "type"); tcount("VIC", f"{t}/{pick(p, 'active')}")
+        if not re.search(r"^(MIN|ML|MINP)$", t, re.I) or not re.search(r"current|active|granted|^Y", pick(p, "active"), re.I): continue
+        out.append((pick(p, "tno", "tag"), pick(p, "typedesc") or "Mining Licence", pick(p, "own_name"), dstr(pick(p, "granted", "grant_date", "gdate", "startdate")), f["geometry"]))
     return out
 
 SAW = "https://services.sarig.sa.gov.au/vector/mineral_tenements/wfs"
@@ -104,7 +109,10 @@ def sa(bb, oil):
     for typ in SA_TYPES:
         for f in wfs(SAW, typ, bb):
             p = f["properties"]; seen("SA", p)
-            out.append((pick(p, "tenement_label", "tenement", "tenno", "name", "id"), pick(p, "tenement_type", "type") or "Mining Lease", pick(p, "holder", "holders", "owner", "company", "tenement_holder"), dstr(pick(p, "grant_date", "granted", "start_date")), f["geometry"]))
+            tcount("SA", f"{pick(p, 'TENEMENT_TYPE')}/{pick(p, 'TENEMENT_STATUS')}")
+            if re.search(r"ceased|expired|surrender|cancel|determined", pick(p, "TENEMENT_STATUS"), re.I): continue
+            ty = {"ML": "Mineral Lease", "SML": "Special Mining Lease", "PM": "Private Mine", "MPL": "Miscellaneous Purposes Licence"}.get(pick(p, "TENEMENT_TYPE"), pick(p, "TENEMENT_TYPE") or "Mineral Lease")
+            out.append((pick(p, "TENEMENT_LABEL"), ty, pick(p, "TENEMENT_HOLDERS", "TENEMENT_OPERATORS"), dstr(pick(p, "REGISTRATION_GRANT_DATE")), f["geometry"]))
     return out
 
 NT_SHAPES = []
@@ -129,7 +137,7 @@ def setup():
     try:
         x = get(f"{SAW}?request=GetCapabilities&service=WFS", as_json=False).decode("utf8", "ignore")
         names = re.findall(r"<(?:wfs:)?Name>([^<]+)</(?:wfs:)?Name>", x)
-        SA_TYPES.extend([n for n in names if re.search(r"mining|lease|production|ml", n, re.I) and not re.search(r"appl|explor|retention|misc", n, re.I)][:3] or [n for n in names if re.search(r"tenement", n, re.I)][:1])
+        SA_TYPES.extend([n for n in ("mineral_tenements:mineral_leases", "mineral_tenements:olympic_dam_sml", "mineral_tenements:private_mines") if n in names])
         log("SA types:", SA_TYPES, "of", names[:20])
     except Exception as e:
         log("SA setup failed:", e)
@@ -140,7 +148,7 @@ def setup():
         bases = sorted({n.rsplit(".", 1)[0] for n in z.namelist() if n.lower().endswith(".shp")})
         log("NT layers:", bases)
         for b in bases:
-            if not re.search(r"_(ML|MLN|MLS|MLA|MLC|MCN|MCS|MCC|MA)_?GRNT|MIN_TITLE_M[LC]\w*_GRNT", b, re.I): continue
+            if not re.search(r"PROD_GRNT", b, re.I): continue
             r = shapefile.Reader(shp=io.BytesIO(z.read(b + ".shp")), dbf=io.BytesIO(z.read(b + ".dbf")), shx=io.BytesIO(z.read(b + ".shx")))
             flds = [f[0] for f in r.fields[1:]]
             n0 = len(NT_SHAPES)
@@ -148,6 +156,7 @@ def setup():
                 p = dict(zip(flds, sr.record))
                 try: g = shape(sr.shape.__geo_interface__)
                 except Exception: continue
+                tcount("NT", pick(p, "TITLETYPE", "TYPE", "TITLE_TYPE"))
                 NT_SHAPES.append((pick(p, "TITLE", "TITLEID", "TITLE_ID", "NAME"), pick(p, "TITLETYPE", "TYPE") or "Mineral Lease", pick(p, "HOLDER", "HOLDERS", "OWNER", "HOLDER1"), dstr(pick(p, "GRANTDATE", "GRANTED", "DATE_GRANT")), g))
             log("NT", b, "fields", flds[:16], "kept", len(NT_SHAPES) - n0)
     except Exception as e:
@@ -186,7 +195,7 @@ if __name__ == "__main__":
             except Exception: d = 9
             scored.append((d, tid, ty, h, g, geom))
         scored.sort(key=lambda x: x[0])
-        keep = [x for x in scored if x[0] < 0.012][:25]
+        keep = [x for x in scored if x[0] < 0.015][:25]
         for d, tid, ty, h, g, geom in keep:
             key = f"{st}|{tid}"
             if key not in T:
@@ -198,7 +207,8 @@ if __name__ == "__main__":
     failed = [i for i in range(len(SITES)) if i not in res]
     for k, v in sorted(stats.items()): log(f"{k}: {v[0]} sites, {v[1]} with leases found, {v[2]} leases")
     print(f"::notice::tenements: {len(T)} leases for {sum(v[1] for v in stats.values())}/{len(SITES)} sites; " + "; ".join(f"{k} {v[1]}/{v[0]}" for k, v in sorted(stats.items())) + f"; errors {len(failed)}")
+    for k, v in TYPES.items(): print(f"::notice::{k} types: " + str(sorted(v.items(), key=lambda x: -x[1])[:25])[:1500])
     for l in LOG:
-        if l.startswith(("SA", "NT", "QLD", "VIC", "TAS")): print("::notice::" + l[:1500])
+        if l.startswith(("NT ", "QLD")): print("::notice::" + l[:1500])
     if len(T) > 50:
         save("tenements", {"asof": now_iso(), "src": "State government tenement registers (WA DMIRS, QLD DNRMMRRD, NSW MEG, TAS MRT, VIC ERV, SA SARIG, NT STRIKE)", "t": list(T.values())})
