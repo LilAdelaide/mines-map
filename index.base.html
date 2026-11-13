@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0e10">
 <meta name="description" content="Live map of ASX mining and energy companies, their mines, prices, costs and news.">
 <meta name="mobile-web-app-capable" content="yes">
@@ -96,7 +96,7 @@ body.compact .v3rc{bottom:auto;top:12px;left:auto;right:12px;transform:none}
 #cv3d.grab{cursor:grabbing}
 #mapwrap.v3 > svg{visibility:hidden}
 .v3lab{display:none;position:absolute;z-index:2;pointer-events:none;transform:translate(-50%,-140%);font:600 12px var(--f-body);color:#fff;background:rgba(10,12,14,.82);border:1px solid rgba(255,255,255,.14);padding:3px 8px;border-radius:6px;white-space:nowrap}
-.v3hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);z-index:2;pointer-events:none;font:500 11px var(--f-mono);color:var(--mute);background:rgba(10,12,14,.7);padding:4px 10px;border-radius:999px;transition:opacity .6s}
+.v3hint{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);max-width:calc(100% - 24px);white-space:normal;text-align:center;z-index:2;pointer-events:none;font:500 11px var(--f-mono);color:var(--mute);background:rgba(10,12,14,.7);padding:4px 10px;border-radius:999px;transition:opacity .6s}
 .v3load{position:absolute;inset:0;display:grid;place-items:center;z-index:2;color:var(--mute);font:500 12px var(--f-mono);pointer-events:none}
 svg#map{width:100%;height:100%;display:block;background:var(--ink);transform-origin:0 0;will-change:transform;overflow:visible}
 #mapwrap.b-terrain{background:#70a6d1} #mapwrap.b-satellite{background:#00113a} #mapwrap.b-topo{background:#4786bf}
