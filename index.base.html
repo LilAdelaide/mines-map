@@ -2232,32 +2232,61 @@ function v3H(x, z){ if (!V3.reliefOn || !V3.rel) return 0; v3Frame(); const ll =
 function v3LoadRelief(){ return V3.relP || (V3.relP = new Promise(ok => { const im = new Image(); im.crossOrigin = "anonymous";
   im.onload = () => { const c = document.createElement("canvas"); c.width = im.width; c.height = im.height; const x = c.getContext("2d"); x.drawImage(im, 0, 0); V3.rel = {w: im.width, h: im.height, d: x.getImageData(0, 0, im.width, im.height).data}; ok(true); };
   im.onerror = () => ok(false); im.src = "tiles/relief.png"; })); }
-function v3Terrain(){
-  if (V3.terr) return V3.terr;
-  const T = THREE; v3Frame();
+function v3Grid(){
+  if (V3.tg) return V3.tg;
+  v3Frame();
   const a = proj([BASEB.lon0, BASEB.lat1]), b = proj([BASEB.lon1, BASEB.lat0]);
-  // land mask in projected pixels
-  const X0 = -57, X1 = 57, Z0 = -45, Z1 = 47, ST = 0.26, toPx = (x, z) => [x / V3.sc + V3.c[0], z / V3.sc + V3.c[1]];
+  const X0 = -57, X1 = 57, Z0 = -45, Z1 = 47, ST = 0.24, toPx = (x, z) => [x / V3.sc + V3.c[0], z / V3.sc + V3.c[1]];
   const p0 = toPx(X0, Z0), p1 = toPx(X1, Z1), mw = Math.ceil(p1[0] - p0[0]) + 2, mh = Math.ceil(p1[1] - p0[1]) + 2;
   const mc = document.createElement("canvas"); mc.width = mw; mc.height = mh; const mx = mc.getContext("2d"); mx.translate(-p0[0], -p0[1]); mx.fillStyle = "#fff"; mx.beginPath(); d3.geoPath(proj, mx)(STATES); mx.fill();
   const md = mx.getImageData(0, 0, mw, mh).data, land = (px, py) => { const i = Math.round(px - p0[0]), j = Math.round(py - p0[1]); return i >= 0 && j >= 0 && i < mw && j < mh && md[(j * mw + i) * 4 + 3] > 0; };
-  const nx = Math.round((X1 - X0) / ST) + 1, nz = Math.round((Z1 - Z0) / ST) + 1, pos = new Float32Array(nx * nz * 3), uv = new Float32Array(nx * nz * 2), ok = new Uint8Array(nx * nz);
-  for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const x = X0 + i * ST, z = Z0 + j * ST, [px, py] = toPx(x, z), n = j * nx + i, ll = proj.invert([px, py]);
-    ok[n] = land(px, py) ? 1 : 0; const h = ok[n] && ll ? v3Elev(ll[0], ll[1]) * V3EX : 0;
-    pos.set([x, V3.top + 0.03 + h, z], n * 3); uv.set([(px - a[0]) / (b[0] - a[0]), 1 - (py - a[1]) / (b[1] - a[1])], n * 2); }
-  const idx = [];
+  const nx = Math.round((X1 - X0) / ST) + 1, nz = Math.round((Z1 - Z0) / ST) + 1, N = nx * nz;
+  const pos = new Float32Array(N * 3), uv = new Float32Array(N * 2), ll = new Float32Array(N * 2), ok = new Uint8Array(N);
+  for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const x = X0 + i * ST, z = Z0 + j * ST, [px, py] = toPx(x, z), n = j * nx + i, L = proj.invert([px, py]) || [0, 0];
+    ok[n] = land(px, py) ? 1 : 0; const h = ok[n] ? v3Elev(L[0], L[1]) * V3EX : 0;
+    pos[n * 3] = x; pos[n * 3 + 1] = V3.top + 0.03 + h; pos[n * 3 + 2] = z; ll[n * 2] = L[0]; ll[n * 2 + 1] = L[1];
+    uv[n * 2] = (px - a[0]) / (b[0] - a[0]); uv[n * 2 + 1] = 1 - (py - a[1]) / (b[1] - a[1]); }
+  return V3.tg = {nx, nz, pos: new THREE.BufferAttribute(pos, 3), uv, ll, ok};
+}
+// one land mesh; keep(cellLon, cellLat) picks the cells, uvf(lon, lat, n) gives each point's place on the picture
+function v3LandMesh(keep, uvf){
+  const T = THREE, G = v3Grid(), {nx, nz, ok, ll} = G, idx = [], uv = new Float32Array(nx * nz * 2);
+  for (let n = 0; n < nx * nz; n++) { const q = uvf(ll[n * 2], ll[n * 2 + 1], n); uv[n * 2] = q[0]; uv[n * 2 + 1] = q[1]; }
   for (let j = 0; j < nz - 1; j++) for (let i = 0; i < nx - 1; i++) { const n = j * nx + i, q = [n, n + 1, n + nx, n + nx + 1];
+    if (keep && !keep((ll[n * 2] + ll[(n + nx + 1) * 2]) / 2, (ll[n * 2 + 1] + ll[(n + nx + 1) * 2 + 1]) / 2)) continue;
     if (ok[q[0]] && ok[q[2]] && ok[q[1]]) idx.push(q[0], q[2], q[1]); if (ok[q[1]] && ok[q[2]] && ok[q[3]]) idx.push(q[1], q[2], q[3]); }
-  const g = new T.BufferGeometry(); g.setAttribute("position", new T.BufferAttribute(pos, 3)); g.setAttribute("uv", new T.BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
-  const mesh = new T.Mesh(g, new T.MeshStandardMaterial({color: 0xffffff, roughness: 0.95, metalness: 0})); mesh.receiveShadow = true; mesh.castShadow = true;
-  V3.scene.add(mesh); return V3.terr = mesh;
+  const g = new T.BufferGeometry(); g.setAttribute("position", G.pos); g.setAttribute("uv", new T.BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
+  const mesh = new T.Mesh(g, new T.MeshStandardMaterial({color: 0xffffff, roughness: 0.95, metalness: 0})); mesh.receiveShadow = true; mesh.castShadow = true; mesh.visible = false;
+  V3.scene.add(mesh); return mesh;
+}
+function v3Terrain(){ return V3.terr || (V3.terr = v3LandMesh(null, (lo, la, n) => [V3.tg.uv[n * 2], V3.tg.uv[n * 2 + 1]])); }
+// sharper satellite (EOxCloudless 2025, 4 quarters of ~600 m pixels)
+const SAT3D = {lon: [112.0, 133.0, 154.5], lat: [-9.0, -27.0, -44.5]};
+function v3SatHi(){
+  if (V3.sat) return V3.sat;
+  const T = THREE; V3.sat = []; V3.satN = 0;
+  for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) {
+    const lo0 = SAT3D.lon[i], lo1 = SAT3D.lon[i + 1], la0 = SAT3D.lat[j], la1 = SAT3D.lat[j + 1];
+    const m = v3LandMesh((lo, la) => lo >= lo0 && lo < lo1 && la <= la0 && la > la1, (lo, la) => [(lo - lo0) / (lo1 - lo0), 1 - (la0 - la) / (la0 - la1)]);
+    m.userData.ready = false; V3.sat.push(m);
+    new T.TextureLoader().load(`tiles/sat3d_${i}${j}.jpg`, tex => { tex.encoding = T.sRGBEncoding; tex.anisotropy = Math.min(8, V3.r.capabilities.getMaxAnisotropy()); tex.wrapS = tex.wrapT = T.ClampToEdgeWrapping;
+      m.material.map = tex; m.material.needsUpdate = true; m.userData.ready = true; V3.satN++; v3ShowLand(); }, undefined, () => {});
+  }
+  return V3.sat;
+}
+function v3ShowLand(){
+  const st = BASE, relief = V3.reliefOn, hi = st === "satellite" && V3.sat && V3.satN === 4;
+  if (V3.terr) { V3.terr.visible = relief && !hi; if (V3.terr.visible) { V3.terr.material.map = V3.tex[st] || null; V3.terr.material.needsUpdate = true; } }
+  (V3.sat || []).forEach(m => { m.visible = relief && hi; });
+  // the flat slab top hides under the relief; its sides stay
 }
 async function v3Relief(){
-  const want = BASE === "topo";
+  const want = BASE === "topo" || BASE === "satellite";
   if (want && !V3.rel) { if (!(await v3LoadRelief())) return; }
   V3.reliefOn = want && !!V3.rel;
-  if (V3.reliefOn) { const m = v3Terrain(); m.visible = true; const set = () => { m.material.map = V3.tex.topo || null; m.material.needsUpdate = true; }; if (V3.tex.topo) set(); else setTimeout(() => { if (V3.tex.topo) set(); }, 1500); }
-  else if (V3.terr) V3.terr.visible = false;
+  if (V3.reliefOn) { v3Terrain(); if (BASE === "satellite") v3SatHi(); }
+  v3ShowLand();
+  const cr = document.getElementById("basecredit"); if (cr && BASE === "satellite") cr.textContent = V3ON ? "Satellite: EOxCloudless 2025 by EOX · Copernicus Sentinel-2 · CC BY-NC-SA 4.0 · relief: AWS Terrain Tiles" : (BASE_CREDIT.satellite || "");
   V3.edgeMat.depthTest = !V3.reliefOn; V3.edgeMat.needsUpdate = true;
   v3Refresh();
 }
@@ -2293,7 +2322,8 @@ function v3Build(){
       // texture coordinates = where each point sits on the 2D map pictures
       const pos = geo.attributes.position, uv = geo.attributes.uv;
       for (let i = 0; i < pos.count; i++) { const px = pos.getX(i) / V3.sc + V3.c[0], py = -pos.getY(i) / V3.sc + V3.c[1]; uv.setXY(i, (px - a[0]) / (b[0] - a[0]), 1 - (py - a[1]) / (b[1] - a[1])); }
-      const mesh = new T.Mesh(geo, mat); mesh.rotation.x = -Math.PI / 2; mesh.receiveShadow = true; land.add(mesh);
+      const side = V3.sideMat || (V3.sideMat = new T.MeshStandardMaterial({color: LC(0x2a3038), roughness: 0.95}));   // plain cliff sides, no stretched picture
+      const mesh = new T.Mesh(geo, [mat, side]); mesh.rotation.x = -Math.PI / 2; mesh.receiveShadow = true; land.add(mesh);
       land.add(new T.Line(new T.BufferGeometry().setFromPoints(pts.concat([pts[0]]).map(v => new T.Vector3(v.x, V3.top - 0.03, -v.y))), edge));
     });
   });
@@ -2321,7 +2351,7 @@ function v3Base(){
   setTimeout(v3Relief, 0);
   if (st === "dark") return set(null);
   if (V3.tex[st]) return set(V3.tex[st]);
-  new T.TextureLoader().load(`tiles/${st}.jpg`, tex => { tex.encoding = T.sRGBEncoding; tex.anisotropy = Math.min(8, V3.r.capabilities.getMaxAnisotropy()); V3.tex[st] = tex; if (BASE === st) set(tex); if (st === "topo" && V3.terr) { V3.terr.material.map = tex; V3.terr.material.needsUpdate = true; } });
+  new T.TextureLoader().load(`tiles/${st}.jpg`, tex => { tex.encoding = T.sRGBEncoding; tex.anisotropy = Math.min(8, V3.r.capabilities.getMaxAnisotropy()); V3.tex[st] = tex; if (BASE === st) set(tex); v3ShowLand(); });
 }
 function v3Size(){ if (!V3.r) return; const W = wrapEl.clientWidth, H = wrapEl.clientHeight; if (!W || !H) return; V3.r.setSize(W, H, false); V3.camera.aspect = W / H; V3.gapK = null; v3Gap(); V3.camera.updateProjectionMatrix(); }
 function v3Col(m){
@@ -2526,7 +2556,7 @@ async function applyV3(){
   const mw = document.getElementById("v3mWrap"); if (mw) mw.hidden = !V3ON;
   wrapEl.classList.toggle("v3", V3ON);
   if (V3.cv) V3.cv.hidden = !V3ON; if (V3.labBox) V3.labBox.hidden = !V3ON;
-  if (!V3ON) { if (V3.hint) V3.hint.remove(); if (V3.rcBtn) V3.rcBtn.hidden = true; return; }
+  if (!V3ON) { if (V3.hint) V3.hint.remove(); if (V3.rcBtn) V3.rcBtn.hidden = true; const cr = document.getElementById("basecredit"); if (cr) cr.textContent = BASE_CREDIT[BASE] || ""; return; }
   if (!V3.built) {
     if (V3.loading) return; V3.loading = true;
     const ld = document.createElement("div"); ld.className = "v3load"; ld.textContent = "Loading 3D…"; wrapEl.appendChild(ld);
