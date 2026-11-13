@@ -85,6 +85,9 @@ main{position:relative;min-width:0;min-height:0;background:var(--ink)}
 #mapwrap{position:absolute;inset:0;overflow:hidden;cursor:grab;touch-action:none;background:var(--ink)}
 #mapwrap:active{cursor:grabbing}
 #v3Seg,#v3mSeg{grid-template-columns:1fr 1fr!important}
+.v3rc{position:absolute;z-index:3;left:50%;bottom:46px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(10,12,14,.82);color:#fff;font:600 12px var(--f-body);cursor:pointer}
+.v3rc:hover{border-color:var(--gold);color:var(--gold)}
+body.compact .v3rc{bottom:auto;top:12px;left:auto;right:12px;transform:none}
 .v3labs{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
 .v3l{position:absolute;left:0;top:0;white-space:nowrap;font:600 11.5px var(--f-body);color:#fff;text-shadow:0 1px 2px #000,0 0 6px rgba(0,0,0,.8);padding:0 0 4px;will-change:transform}
 .v3l.st{font:700 12px var(--f-display);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.42);text-shadow:none}
@@ -2263,6 +2266,13 @@ function v3Build(){
   scene.add(land);
   V3.grid = new T.GridHelper(460, 76, LC(0x1b2a38), LC(0x111a23)); V3.grid.position.y = -0.4; scene.add(V3.grid);
   V3.mines = new T.Group(); scene.add(V3.mines); V3.ov = new T.Group(); scene.add(V3.ov);
+  // centre point: the spot the camera turns around. Drag it to move, tap it to recentre on Australia
+  const pv = V3.pivot = new T.Group(), pm = new T.MeshBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.9, depthTest: false, side: T.DoubleSide});
+  const ring = new T.Mesh(new T.RingGeometry(1.5, 1.85, 48), pm), dot = new T.Mesh(new T.CircleGeometry(0.42, 24), pm);
+  [ring, dot].forEach(o => { o.rotation.x = -Math.PI / 2; o.renderOrder = 10; pv.add(o); });
+  for (let i = 0; i < 4; i++) { const t = new T.Mesh(new T.PlaneGeometry(0.22, 0.9), pm); t.rotation.x = -Math.PI / 2; t.rotation.z = i * Math.PI / 2; const a = i * Math.PI / 2; t.position.set(Math.sin(a) * 2.35, 0, Math.cos(a) * 2.35); t.renderOrder = 10; pv.add(t); }
+  const hitM = new T.Mesh(new T.CircleGeometry(2.9, 24), new T.MeshBasicMaterial({visible: false})); hitM.rotation.x = -Math.PI / 2; pv.add(hitM); V3.pivotHit = hitM;
+  scene.add(pv);
   V3.ray = new T.Raycaster(); V3.ptr = new T.Vector2(); V3.tex = {};
   V3.labBox = document.createElement("div"); V3.labBox.className = "v3labs"; wrapEl.appendChild(V3.labBox);
   v3Controls(); new ResizeObserver(v3Size).observe(wrapEl);
@@ -2391,10 +2401,11 @@ function v3Loop(t){
   if (!V3ON) { V3.raf = 0; return; }
   V3.raf = requestAnimationFrame(v3Loop);
   const c = V3.cam;
-  if (V3.want) { const w = V3.want, k = 0.08; c.tx += (w.tx - c.tx) * k; c.tz += (w.tz - c.tz) * k; c.d += (w.d - c.d) * k; if (Math.abs(w.d - c.d) < 0.3 && Math.hypot(w.tx - c.tx, w.tz - c.tz) < 0.05) V3.want = null; }
+  if (V3.want) { const w = V3.want, k = 0.08; c.tx += (w.tx - c.tx) * k; c.tz += (w.tz - c.tz) * k; c.d += (w.d - c.d) * k; if (w.ph != null) c.ph += (w.ph - c.ph) * k; if (Math.abs(w.d - c.d) < 0.3 && Math.hypot(w.tx - c.tx, w.tz - c.tz) < 0.05 && (w.ph == null || Math.abs(w.ph - c.ph) < 0.01)) V3.want = null; }
   if (V3MODE === "spin" && !V3.drag && performance.now() - V3.idle > 6000) c.th += 0.0016;   // gentle spin when idle
   v3Clamp(c);
   if (V3.halo) { const s = 1 + 0.12 * Math.sin(t / 260); V3.halo.scale.set(s, s, s); }
+  if (V3.pivot) { V3.pivot.position.set(c.tx, V3.top + 0.25, c.tz); const k = c.d / 150 * (V3.pvDrag ? 1.25 : 1); V3.pivot.scale.set(k, k, k); }
   if (!(V3.fr = (V3.fr || 0) + 1) || V3.fr % 15 === 1) v3Gap();
   v3Cam(); V3.r.render(V3.scene, V3.camera);
   if (V3.fr % 2 === 0) v3LabelPlace();
@@ -2422,10 +2433,11 @@ function v3Controls(){
   const cv = V3.cv, P = new Map(); let moved = 0, pinch = 0, ang = 0, mid = null;
   ["mousedown", "touchstart", "wheel", "dblclick"].forEach(t => cv.addEventListener(t, e => e.stopPropagation(), {passive: true}));
   const two = () => { const [a, b] = [...P.values()]; return {d: Math.hypot(a.x - b.x, a.y - b.y), a: Math.atan2(b.y - a.y, b.x - a.x), m: [(a.x + b.x) / 2, (a.y + b.y) / 2]}; };
-  cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); P.set(e.pointerId, {x: e.clientX, y: e.clientY, b: e.button}); moved = 0; V3.drag = true; V3.idle = performance.now(); V3.want = null; if (P.size === 2) { const t = two(); pinch = t.d; ang = t.a; mid = t.m; } });
+  const onPivot = e => { const r = cv.getBoundingClientRect(); V3.ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1); V3.ray.setFromCamera(V3.ptr, V3.camera); return V3.ray.intersectObject(V3.pivotHit, false).length > 0; };
+  cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); if (!P.size) V3.pvDrag = e.button === 0 && onPivot(e); P.set(e.pointerId, {x: e.clientX, y: e.clientY, b: e.button}); moved = 0; V3.drag = true; V3.idle = performance.now(); V3.want = null; if (P.size === 2) { const t = two(); pinch = t.d; ang = t.a; mid = t.m; } });
   cv.addEventListener("pointermove", e => {
     const p = P.get(e.pointerId);
-    if (!p) { if (e.pointerType !== "touch") { const m = v3Pick(e); V3.hov = m; cv.style.cursor = m ? "pointer" : ""; if (m) { tip.innerHTML = `<b>${esc(m.n)}</b><div style="color:var(--mute)">${esc(m.ow || "")}</div>`; tipFor = "v3"; tip.hidden = false; moveTip(e); } else if (tipFor === "v3") { hideTip(); tipFor = null; } } return; }
+    if (!p) { if (e.pointerType !== "touch") { const m = v3Pick(e); V3.hov = m; cv.style.cursor = m ? "pointer" : onPivot(e) ? "move" : ""; if (m) { tip.innerHTML = `<b>${esc(m.n)}</b><div style="color:var(--mute)">${esc(m.ow || "")}</div>`; tipFor = "v3"; tip.hidden = false; moveTip(e); } else if (tipFor === "v3") { hideTip(); tipFor = null; } } return; }
     const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY; moved += Math.abs(dx) + Math.abs(dy);
     const c = V3.cam;
     if (P.size === 2) {   // pinch = zoom, twist = turn, two-finger drag = move (Move) / tilt (Spin)
@@ -2433,16 +2445,18 @@ function v3Controls(){
       if (mid) { const mx = t.m[0] - mid[0], my = t.m[1] - mid[1]; if (V3MODE === "move") c.ph = Math.min(1.45, Math.max(0.12, c.ph - my * 0.004)); else v3Pan(mx, my); }
       pinch = t.d; ang = t.a; mid = t.m; return; }
     const rot = p.b === 2 || e.shiftKey;
+    if (V3.pvDrag) { v3Pan(-dx, -dy); return; }   // dragging the centre point carries the view with it
     if ((V3MODE === "move") !== rot) v3Pan(dx, dy); else v3Spin(dx, dy);
   });
   const up = e => { P.delete(e.pointerId); if (P.size < 2) { pinch = 0; mid = null; } if (!P.size) { V3.drag = false; V3.idle = performance.now();
-      if (moved < 6) { const m = v3Pick(e); if (m) select(m, true); else if (selected) clearSel(); } } };
+      if (moved < 6) { if (V3.pvDrag) v3Recenter(); else { const m = v3Pick(e); if (m) select(m, true); else if (selected) clearSel(); } } V3.pvDrag = false; } };
   cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", e => { P.delete(e.pointerId); V3.drag = false; pinch = 0; mid = null; });
   cv.addEventListener("pointerleave", () => { V3.hov = null; });
   cv.addEventListener("contextmenu", e => e.preventDefault());
   cv.addEventListener("wheel", e => { e.preventDefault(); const c = V3.cam; c.d = Math.min(320, Math.max(18, c.d * Math.exp(e.deltaY * 0.0012))); V3.idle = performance.now(); V3.want = null; }, {passive: false});
   ["zin", "zout"].forEach(id => { const b = document.getElementById(id); if (b) b.addEventListener("click", e => { if (!V3ON) return; e.stopImmediatePropagation(); const c = V3.cam; c.d = Math.min(320, Math.max(18, c.d * (id === "zin" ? 0.75 : 1.33))); V3.idle = performance.now(); }, true); });
 }
+function v3Recenter(){ if (!V3.built) return; V3.want = {tx: 0, tz: 6, d: 150, ph: 0.95}; V3.idle = performance.now(); }
 function v3Focus(m){ if (!V3ON || !V3.built || !m) return; const [x, z] = v3XY(m.lon, m.lat); V3.want = {tx: x, tz: z, d: isPhone() ? 60 : 50}; V3.idle = performance.now(); }
 function v3Hint(){
   if (V3.hint) V3.hint.remove(); V3.hint = document.createElement("div"); V3.hint.className = "v3hint";
@@ -2456,7 +2470,7 @@ async function applyV3(){
   const mw = document.getElementById("v3mWrap"); if (mw) mw.hidden = !V3ON;
   wrapEl.classList.toggle("v3", V3ON);
   if (V3.cv) V3.cv.hidden = !V3ON; if (V3.labBox) V3.labBox.hidden = !V3ON;
-  if (!V3ON) { if (V3.hint) V3.hint.remove(); return; }
+  if (!V3ON) { if (V3.hint) V3.hint.remove(); if (V3.rcBtn) V3.rcBtn.hidden = true; return; }
   if (!V3.built) {
     if (V3.loading) return; V3.loading = true;
     const ld = document.createElement("div"); ld.className = "v3load"; ld.textContent = "Loading 3D…"; wrapEl.appendChild(ld);
@@ -2464,6 +2478,8 @@ async function applyV3(){
     ld.remove(); V3.loading = false;
     if (!V3ON) { V3.cv.hidden = true; V3.labBox.hidden = true; return; }
   }
+  if (!V3.rcBtn) { const b = V3.rcBtn = document.createElement("button"); b.type = "button"; b.className = "v3rc"; b.title = "Recentre on Australia"; b.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg><span>Recentre</span>'; b.onclick = e => { e.stopPropagation(); v3Recenter(); }; wrapEl.appendChild(b); }
+  V3.rcBtn.hidden = false;
   v3Hint(); v3Size(); v3Base(); v3Mines(); v3Overlays(); V3.idle = performance.now() - 5000; if (!V3.raf) V3.raf = requestAnimationFrame(v3Loop);
 }
 document.querySelectorAll("#v3Seg button").forEach(x => x.onclick = () => { V3ON = x.dataset.v3 === "on"; try { localStorage.setItem("view3d", V3ON ? "on" : "off"); } catch (e) {} hideTip(); applyV3(); });
