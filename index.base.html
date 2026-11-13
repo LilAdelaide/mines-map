@@ -1919,9 +1919,10 @@ function placeLabels(){
 let commitTimer = 0, lastSrc = "";
 function scheduleCommit(ms){ clearTimeout(commitTimer); commitTimer = setTimeout(() => { if (gesturing) return; svgEl.classList.remove("panning", "wheeling"); commitT(d3.zoomTransform(wrapEl)); updGE(); }, ms); }
 const zoom = d3.zoom().scaleExtent([1, 400]).wheelDelta(ev => -ev.deltaY * (ev.deltaMode === 1 ? 0.05 : ev.deltaMode ? 1 : 0.0022))
-.on("start", () => { gesturing = true; clearTimeout(commitTimer); svgEl.classList.add("panning"); hideTip(); })
+.on("start", ev => { gesturing = true; clearTimeout(commitTimer); svgEl.classList.add("panning"); hideTip(); if (ev.sourceEvent) { glideStop(); glideS = []; glideK = ev.transform.k; } })
 .on("zoom", ev => {
   pendingT = ev.transform;
+  if (ev.sourceEvent && /move/.test(ev.sourceEvent.type)) { glideS.push([performance.now(), ev.transform.x, ev.transform.y, ev.transform.k]); if (glideS.length > 8) glideS.shift(); }
   const src = ev.sourceEvent ? ev.sourceEvent.type : "prog";
   if (src !== lastSrc) { svgEl.classList.toggle("wheeling", src === "wheel"); lastSrc = src; }
   if (!raf) raf = requestAnimationFrame(() => { raf = 0; const t = pendingT, s = t.k / tc.k;
@@ -1933,7 +1934,24 @@ const zoom = d3.zoom().scaleExtent([1, 400]).wheelDelta(ev => -ev.deltaY * (ev.d
   const t = d3.zoomTransform(wrapEl), s = t.k / tc.k;
   if (Math.abs(s - 1) < 0.001) { svgEl.style.transform = `translate(${t.x - tc.x}px,${t.y - tc.y}px)`; }
   else svgEl.style.transform = `translate(${t.x - s * tc.x}px,${t.y - s * tc.y}px) scale(${s})`;
-  scheduleCommit(lastSrc === "wheel" ? 220 : 120); lastSrc = ""; });
+  const wasDrag = /move/.test(lastSrc) && ev.sourceEvent;
+  scheduleCommit(lastSrc === "wheel" ? 220 : 120); lastSrc = "";
+  if (wasDrag) glideStart(); });
+// let go of a drag: the map keeps sliding a little and eases to a stop
+let glideS = [], glideK = 1, glideRaf = 0;
+function glideStop(){ if (glideRaf) cancelAnimationFrame(glideRaf); glideRaf = 0; }
+function glideStart(){
+  const now = performance.now(), S = glideS.filter(q => now - q[0] < 100); glideS = [];
+  if (S.length < 2 || S.some(q => Math.abs(q[3] - glideK) > 1e-6)) return;   // pinch-zooms don't glide
+  const a = S[0], b = S[S.length - 1], dt = b[0] - a[0]; if (dt < 8 || now - b[0] > 60) return;
+  let vx = (b[1] - a[1]) / dt * 0.4, vy = (b[2] - a[2]) / dt * 0.4; if (Math.hypot(vx, vy) < 0.1) return;   // a short, gentle slide
+  const cap = 3; const sp = Math.hypot(vx, vy); if (sp > cap) { vx *= cap / sp; vy *= cap / sp; }
+  let last = now;
+  const step = t => { const d = Math.min(40, t - last); last = t; const f = Math.exp(-d / 150); vx *= f; vy *= f;
+    if (Math.hypot(vx, vy) < 0.02) { glideRaf = 0; return; }
+    const k0 = d3.zoomTransform(wrapEl).k; wrap.call(zoom.translateBy, vx * d / k0, vy * d / k0); glideRaf = requestAnimationFrame(step); };
+  glideRaf = requestAnimationFrame(step);
+}
 wrap.call(zoom).on("dblclick.zoom", null);
 // keep the map within Australia and its neighbours: panning and zooming out stop at this box
 function setZExtent(){
@@ -2482,6 +2500,7 @@ function v3Loop(t){
   if (!V3ON) { V3.raf = 0; return; }
   V3.raf = requestAnimationFrame(v3Loop);
   const c = V3.cam, lt = V3.lt || t; V3.lt = t;
+  if (V3.inert) { const dt = Math.min(40, t - lt), f = Math.exp(-dt / 150), I = V3.inert; c.tx += I.vx * dt; c.tz += I.vz * dt; I.vx *= f; I.vz *= f; if (Math.hypot(I.vx, I.vz) < c.d * 0.00001) V3.inert = null; }
   if (V3.want) { const w = V3.want, k = 0.08; c.tx += (w.tx - c.tx) * k; c.tz += (w.tz - c.tz) * k; c.d += (w.d - c.d) * k; if (w.ph != null) c.ph += (w.ph - c.ph) * k; if (Math.abs(w.d - c.d) < 0.3 && Math.hypot(w.tx - c.tx, w.tz - c.tz) < 0.05 && (w.ph == null || Math.abs(w.ph - c.ph) < 0.01)) V3.want = null; }
   // a mine or company is picked: after 5 s without touching the map, slowly orbit it
   if ((selected || (typeof coEl !== "undefined" && coEl && coEl.value) || window.CO_LAST) && !V3.drag && !V3.want && performance.now() - V3.idle > 5000) c.th += Math.min(0.05, (t - lt) / 1000 * 0.13);   // ~1 turn every 48 s
@@ -2516,10 +2535,11 @@ function v3Controls(){
   const cv = V3.cv, P = new Map(), plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -V3.top); let moved = 0, pinch = 0, ang = 0, mid = null, GS = null, gRaf = 0;
   ["mousedown", "touchstart", "wheel", "dblclick"].forEach(t => cv.addEventListener(t, e => e.stopPropagation(), {passive: true}));
   const ground = (x, y) => { const r = cv.getBoundingClientRect(); V3.ptr.set(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1); v3Cam(); V3.camera.updateMatrixWorld(); V3.ray.setFromCamera(V3.ptr, V3.camera); const o = new THREE.Vector3(); return V3.ray.ray.intersectPlane(plane, o) ? o : null; };
-  const grabMove = (x0, y0, x1, y1) => { const a = ground(x0, y0), b = ground(x1, y1); if (!a || !b) return; const c = V3.cam; c.tx += a.x - b.x; c.tz += a.z - b.z; v3Clamp(c); };
+  const grabMove = (x0, y0, x1, y1) => { const a = ground(x0, y0), b = ground(x1, y1); if (!a || !b) return; const c = V3.cam, dx = a.x - b.x, dz = a.z - b.z; c.tx += dx; c.tz += dz; v3Clamp(c);
+    const now = performance.now(); (V3.gs = V3.gs || []).push([now, dx, dz]); while (V3.gs.length && now - V3.gs[0][0] > 100) V3.gs.shift(); };
   const zoomAt = (x, y, f) => { const c = V3.cam, a = ground(x, y); c.d = Math.min(320, Math.max(14, c.d * f)); const b = ground(x, y); if (a && b) { c.tx += a.x - b.x; c.tz += a.z - b.z; v3Clamp(c); } };
   const two = () => { const [a, b] = [...P.values()]; return {d: Math.hypot(a.x - b.x, a.y - b.y), a: Math.atan2(b.y - a.y, b.x - a.x), m: [(a.x + b.x) / 2, (a.y + b.y) / 2]}; };
-  cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); P.set(e.pointerId, {x: e.clientX, y: e.clientY, b: e.button, rot: e.button === 2 || e.ctrlKey || e.shiftKey}); moved = 0; V3.drag = true; V3.want = null; V3.idle = performance.now(); cv.classList.add("grab"); if (P.size === 2) { const t = two(); GS = {d0: t.d, a0: t.a, m0: t.m, d: t.d, a: t.a, m: t.m, mode: null}; moved = 99; } });
+  cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); P.set(e.pointerId, {x: e.clientX, y: e.clientY, b: e.button, rot: e.button === 2 || e.ctrlKey || e.shiftKey}); moved = 0; V3.drag = true; V3.want = null; V3.idle = performance.now(); V3.inert = null; V3.gs = []; cv.classList.add("grab"); if (P.size === 2) { const t = two(); GS = {d0: t.d, a0: t.a, m0: t.m, d: t.d, a: t.a, m: t.m, mode: null}; moved = 99; } });
   // two fingers: handled once per frame, and the gesture is decided once (zoom / turn / tilt) so it doesn't wobble between them
   const twoStep = () => { gRaf = 0; if (P.size !== 2 || !GS) return; const t = two(), c = V3.cam;
     let da = t.a - GS.a; if (da > Math.PI) da -= 2 * Math.PI; if (da < -Math.PI) da += 2 * Math.PI;
@@ -2548,13 +2568,17 @@ function v3Controls(){
     if (p.rot) { c.th -= dx * 0.006; c.ph = Math.min(1.45, Math.max(0.12, c.ph - dy * 0.005)); }
     else grabMove(x0, y0, e.clientX, e.clientY);
   });
-  const up = e => { P.delete(e.pointerId); V3.idle = performance.now(); if (P.size < 2) { pinch = 0; mid = null; } if (!P.size) GS = null; if (!P.size) { V3.drag = false; cv.classList.remove("grab");
+  const up = e => { const wasPan = P.size === 1 && !GS && P.get(e.pointerId) && !P.get(e.pointerId).rot; P.delete(e.pointerId); V3.idle = performance.now();
+    if (wasPan && V3.gs && V3.gs.length > 1) { const now = performance.now(), L = V3.gs[V3.gs.length - 1];
+      if (now - L[0] < 60) { const dt = Math.max(16, now - V3.gs[0][0]); let vx = V3.gs.reduce((s, q) => s + q[1], 0) / dt, vz = V3.gs.reduce((s, q) => s + q[2], 0) / dt;
+        const sp = Math.hypot(vx, vz), cap = V3.cam.d * 0.004; if (sp > cap) { vx *= cap / sp; vz *= cap / sp; } if (sp > V3.cam.d * 0.00015) V3.inert = {vx: vx * 0.4, vz: vz * 0.4}; } }
+    V3.gs = []; if (P.size < 2) { pinch = 0; mid = null; } if (!P.size) GS = null; if (!P.size) { V3.drag = false; cv.classList.remove("grab");
       if (moved < 6) { const m = v3Pick(e); if (m) select(m, true); else if (selected) clearSel(); } } };
   cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", e => { P.delete(e.pointerId); V3.drag = false; pinch = 0; mid = null; if (!P.size) GS = null; cv.classList.remove("grab"); });
   cv.addEventListener("pointerleave", () => { V3.hov = null; });
   cv.addEventListener("contextmenu", e => e.preventDefault());
   cv.addEventListener("dblclick", e => zoomAt(e.clientX, e.clientY, 0.6));
-  cv.addEventListener("wheel", e => { e.preventDefault(); V3.want = null; V3.idle = performance.now(); zoomAt(e.clientX, e.clientY, Math.exp(e.deltaY * 0.0012)); }, {passive: false});
+  cv.addEventListener("wheel", e => { e.preventDefault(); V3.want = null; V3.inert = null; V3.idle = performance.now(); zoomAt(e.clientX, e.clientY, Math.exp(e.deltaY * 0.0012)); }, {passive: false});
   ["zin", "zout"].forEach(id => { const b = document.getElementById(id); if (b) b.addEventListener("click", e => { if (!V3ON) return; e.stopImmediatePropagation(); const c = V3.cam; c.d = Math.min(320, Math.max(14, c.d * (id === "zin" ? 0.75 : 1.33))); }, true); });
 }
 function v3Recenter(){ if (!V3.built) return; V3.want = {tx: 0, tz: 6, d: 150, ph: 0.95}; V3.idle = performance.now(); }
