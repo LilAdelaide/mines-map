@@ -1,0 +1,18 @@
+# One-off: sharper satellite picture for the 3D view (run by hand).
+name: Satellite 3D
+on: { workflow_dispatch: {} }
+permissions: { contents: write }
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q pillow && python scripts/sat3d.py
+      - run: |
+          git config user.name "mines-map-bot"; git config user.email "actions@users.noreply.github.com"
+          git add tiles/sat3d_*.jpg; git diff --cached --quiet && exit 0
+          git commit -q -m "Sharper satellite for 3D"
+          for i in 1 2 3 4 5; do git pull -q --rebase -X theirs && git push -q && break; sleep 8; done
