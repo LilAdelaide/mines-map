@@ -246,6 +246,11 @@ svg.nogo-only .banpin{display:inline}
 .ztip small{display:block;color:var(--mute);font:500 10px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
 .legend .zsw{width:14px;height:10px;border:1.5px solid #ff2ec4;background:rgba(255,46,196,.25);border-radius:2px;flex:none}
 .legend .zrow{display:none}
+#clSeg{grid-template-columns:.7fr 2fr!important}
+.gco path{fill:none;stroke:var(--c);stroke-width:1.8;stroke-dasharray:7 6;stroke-linecap:round;vector-effect:non-scaling-stroke;opacity:.85;pointer-events:none;animation:codash 1.6s linear infinite;filter:drop-shadow(0 0 3px color-mix(in srgb,var(--c) 60%,transparent))}
+.gco circle{fill:none;stroke:var(--c);stroke-width:1.5;stroke-dasharray:3 3;vector-effect:non-scaling-stroke;pointer-events:none}
+@keyframes codash{to{stroke-dashoffset:-26}}
+@media (prefers-reduced-motion:reduce){.gco path{animation:none}}
 #occSeg,#fltSeg{grid-template-columns:1fr 1fr!important}
 .ggeo image{pointer-events:none}
 .legend .orow,.legend .frow{display:none}
@@ -1214,6 +1219,11 @@ svg#map.stn-off .stlabel{display:none}
         <button type="button" data-nogo="on" aria-pressed="false">With mines</button>
         <button type="button" data-nogo="only" aria-pressed="false">Only</button>
       </div>
+      <div class="t">Company links</div>
+      <div class="seg" id="clSeg">
+        <button type="button" data-cl="off" aria-pressed="false">Off</button>
+        <button type="button" data-cl="on" aria-pressed="true">Link same company</button>
+      </div>
       <div class="t">Element finds</div>
       <div class="seg" id="occSeg">
         <button type="button" data-occ="off" aria-pressed="true">Off</button>
@@ -2146,6 +2156,33 @@ function applyGeo(){
 document.querySelectorAll("#occSeg button").forEach(x => x.onclick = () => { OCC = x.dataset.occ; try { localStorage.setItem("occ", OCC); } catch (e) {} hideTip(); applyGeo(); });
 document.querySelectorAll("#fltSeg button").forEach(x => x.onclick = () => { FLT = x.dataset.flt; try { localStorage.setItem("flt", FLT); } catch (e) {} applyGeo(); });
 setTimeout(applyGeo, 0);
+// ---------- Company links: dashed paths joining every site of the selected (or highlighted) company
+let CL = "on"; try { if (localStorage.getItem("colinks") === "off") CL = "off"; } catch (e) {}
+const gCo = g.insert("g", ".gm").attr("class", "gco");
+function coLinks(){
+  gCo.selectAll("*").remove();
+  if (CL !== "on" || !proj) return;
+  let code = (typeof coEl !== "undefined" && coEl && coEl.value) || "";
+  if (!code && selected) code = (selected.c || []).find(c => c !== "PRIV" && COS[c]) || "";
+  if (!code) return;
+  const vis = []; if (typeof mineSel !== "undefined" && mineSel) mineSel.each(function(m){ if (!this.classList.contains("dim") && (m.c || []).includes(code)) vis.push(m); });
+  if (vis.length < 2) return;
+  const P = vis.map(m => proj([m.lon, m.lat])), col = m => (THEMES[m.e || COMMOD] || THEMES.gold || {color: "#ffcc00"}).color;
+  // shortest network joining them all (Prim), so the paths read as one company footprint
+  const n = vis.length, inT = new Array(n).fill(false), best = new Array(n).fill(Infinity), from = new Array(n).fill(-1), E = [];
+  best[0] = 0;
+  for (let it = 0; it < n; it++) {
+    let u = -1; for (let i = 0; i < n; i++) if (!inT[i] && (u < 0 || best[i] < best[u])) u = i;
+    inT[u] = true; if (from[u] >= 0) E.push([from[u], u]);
+    for (let v = 0; v < n; v++) if (!inT[v]) { const d = Math.hypot(P[u][0] - P[v][0], P[u][1] - P[v][1]); if (d < best[v]) { best[v] = d; from[v] = u; } }
+  }
+  gCo.selectAll("path").data(E).join("path")
+    .attr("d", ([a, b]) => { const x0 = P[a][0], y0 = P[a][1], x1 = P[b][0], y1 = P[b][1], mx = (x0 + x1) / 2, my = (y0 + y1) / 2, dx = x1 - x0, dy = y1 - y0, bend = 0.12; return `M${x0},${y0}Q${mx - dy * bend},${my + dx * bend} ${x1},${y1}`; })
+    .style("--c", ([a]) => col(vis[a]));
+}
+function applyCL(){ document.querySelectorAll("#clSeg button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.cl === CL))); coLinks(); }
+document.querySelectorAll("#clSeg button").forEach(x => x.onclick = () => { CL = x.dataset.cl; try { localStorage.setItem("colinks", CL); } catch (e) {} applyCL(); });
+setTimeout(applyCL, 0);
 function moveTip(ev){
   if (tip.hidden) return;
   const r = main.getBoundingClientRect(), tw = tip.offsetWidth, th = tip.offsetHeight;
@@ -2158,6 +2195,7 @@ function hideTip(){ tip.hidden = true; }
 
 // ---------- selection
 function select(m, fly){
+  setTimeout(() => { try { coLinks(); } catch (e) {} }, 0);
   setTimeout(() => { if (typeof propsVis === "function") propsVis(); }, 0);
   selected = m; selFac = null; if (MN === "short") { updLabTexts(); placeLabels(); } if (facSel) facSel.classed("sel", false); hideTip();
   card.innerHTML = `<button class="x" type="button" aria-label="Close">×</button>` + info(m, true);
@@ -2169,7 +2207,7 @@ function select(m, fly){
   if (PROP !== "off" && typeof flyToLeases === "function" && flyToLeases(m)) return;
   if (fly) flyTo(m, 8);
 }
-function clearSel(){ selected = null; if (MN === "short") setTimeout(() => { updLabTexts(); placeLabels(); }, 0); selFac = null; if (facSel) facSel.classed("sel", false); card.hidden = true; mineSel.classed("sel", false); document.querySelectorAll(".row.sel").forEach(r=>r.classList.remove("sel")); }
+function clearSel(){ selected = null; setTimeout(() => { try { coLinks(); } catch (e) {} }, 0); if (MN === "short") setTimeout(() => { updLabTexts(); placeLabels(); }, 0); selFac = null; if (facSel) facSel.classed("sel", false); card.hidden = true; mineSel.classed("sel", false); document.querySelectorAll(".row.sel").forEach(r=>r.classList.remove("sel")); }
 card.addEventListener("click", ev => { ev.stopPropagation();
   const a = ev.target.closest("a.faclink"); if (a) { ev.preventDefault(); const f = FAC[+a.dataset.fac]; if (f) { if (FACM === "off") setFacM("on"); selectFac(f, true); } return; }
   const b = ev.target.closest("a.minelink"); if (b) { ev.preventDefault(); const m = MINES.find(x => x.n === b.dataset.n) || ALL.all.find(x => x.n === b.dataset.n); if (m) { if (!MINES.includes(m)) setCommodity("all", true, true); const mm = MINES.find(x => x.n === m.n); if (FACM === "only") setFacM("on"); if (mm) select(mm, true); } } });
@@ -2268,7 +2306,7 @@ document.getElementById("elsum").addEventListener("click", ev => {
 function apply(){
   document.getElementById("numhead").textContent = sortEl.value === "c" ? "Mkt cap" : sortEl.value === "x" ? "Price" : sortEl.value === "d" ? "Div/share" : "ASX rank";
   const shown = MINES.filter(matches), ids = new Set(shown.map(m => m.id));
-  mineSel.classed("dim", m => !ids.has(m.id)); if (typeof placeLabels === "function") placeLabels(); if (typeof propsVis === "function") propsVis();
+  mineSel.classed("dim", m => !ids.has(m.id)); if (typeof placeLabels === "function") placeLabels(); try { coLinks(); } catch (e) {} if (typeof propsVis === "function") propsVis();
   gStates.selectAll(".state").classed("hl", f => stEl.value && STATE_FULL[stEl.value] === f.properties.name);
   const by = sortEl.value;
   const HO = {up:0, flat:1, down:2};
