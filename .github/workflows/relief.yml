@@ -1,0 +1,17 @@
+# One-off: build the elevation grid used by the 3D Topo view (run by hand; terrain doesn't change).
+name: Relief
+on: { workflow_dispatch: {} }
+permissions: { contents: write }
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -q pillow && python scripts/relief.py
+      - run: |
+          git config user.name "mines-map-bot"; git config user.email "actions@users.noreply.github.com"
+          git add tiles/relief.png; git diff --cached --quiet && exit 0
+          git commit -q -m "Relief grid for 3D topo"
+          for i in 1 2 3 4 5; do git pull -q --rebase -X theirs && git push -q && break; sleep 8; done
