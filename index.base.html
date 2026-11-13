@@ -2553,7 +2553,7 @@ function v3Controls(){
     else {
       if (GS.d > 0 && t.d > 0) zoomAt(t.m[0], t.m[1], GS.d / t.d);
       grabMove(GS.m[0], GS.m[1], t.m[0], t.m[1]);
-      if (GS.mode === "turn") c.th -= da;   // twist right: the map swings the other way, as if pulled
+      if (GS.mode === "turn") c.th += da;   // touch: the map turns the same way the fingers twist
       else if (Math.abs(t.a - GS.a0) > 0.45) GS.mode = "turn";   // started as a zoom, then clearly twisted
     }
     GS.d = t.d; GS.a = t.a; GS.m = t.m; };
