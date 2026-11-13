@@ -32,4 +32,7 @@ if __name__ == "__main__":
     an = pmap(anns, CODES)
     if len(an) >= 20:
         save("ann", {"asof": now_iso(), "src": "ASX announcements (asx.com.au)", "items": an})
+        try:
+            import shares; shares.watch(an)   # new / cancelled shares announced: refresh the share count now
+        except Exception as e: print("shares watch failed", e)
     print("prices", len(px), "announcements", len(an))

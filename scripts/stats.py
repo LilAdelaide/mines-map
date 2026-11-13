@@ -4,7 +4,7 @@ from common import *
 def ks(c):
     d = asx(c, "key-statistics")["data"]
     return [d.get("priceFiftyTwoWeekHigh"), d.get("priceFiftyTwoWeekLow"), int(d.get("volumeAverage") or 0),
-            round(float(d.get("yieldAnnual") or 0), 2), d.get("priceClose")]
+            round(float(d.get("yieldAnnual") or 0), 2), d.get("priceClose"), int(d.get("numOfShares") or 0) or None]
 
 if __name__ == "__main__":
     s = pmap(ks, CODES)
@@ -13,6 +13,9 @@ if __name__ == "__main__":
         if c in px:
             v[4] = px[c][0]
     if len(s) >= 60:
+        import shares
+        doc, ch = shares.merge({c: v[5] for c, v in s.items() if len(v) > 5})
+        save("shares", doc); print("shares changed", ch)
         save("stats", {"asof": now_iso(), "src": "ASX key statistics (asx.com.au)", "s": s})
     h = load("hist", {"d": [], "px": {}}) or {"d": [], "px": {}}
     today = now_iso()[:10]

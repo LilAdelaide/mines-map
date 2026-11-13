@@ -1505,6 +1505,15 @@ function priceChart(c){
     <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(d.name)} share price, last 12 months">${ticks}${band}<path d="${area(pts)}" fill="${col}" opacity=".12"/><path d="${line(pts)}" fill="none" stroke="${col}" stroke-width="2"/>${dots}${xt}</svg>
     <div class="pcf">A$${fmt(first)} → A$${fmt(last)} · 52-wk range A$${fmt(loV)}–${fmt(hiV)} (dashed)</div></div>`;
 }
+// shares on issue (data/shares.json): count, and the change if new shares were issued / cancelled in the last 60 days
+const fmtSh = n => n >= 1e9 ? (n / 1e9).toFixed(n >= 1e10 ? 1 : 2) + "B" : n >= 1e6 ? (n / 1e6).toFixed(n >= 1e8 ? 0 : 1) + "M" : n >= 1e3 ? Math.round(n / 1e3) + "K" : String(n);
+function shLine(d){
+  if (!d.shr) return "";
+  let x = ` · <b>${fmtSh(d.shr)}</b> shares on issue`;
+  if (d.shrP && d.shrD && (Date.now() - new Date(d.shrD)) < 60 * 864e5) { const dif = d.shr - d.shrP, pc = dif / d.shrP * 100;
+    x += ` <span class="${dif > 0 ? "neg" : "pos"}" title="Changed on ${esc(d.shrD)} (was ${d.shrP.toLocaleString("en-AU")})">(${dif > 0 ? "+" : "−"}${fmtSh(Math.abs(dif))}, ${dif > 0 ? "+" : "−"}${Math.abs(pc).toFixed(pc < 1 && pc > -1 ? 2 : 1)}% since ${esc(new Date(d.shrD).toLocaleDateString("en-AU", {day: "numeric", month: "short"}))})</span>`; }
+  return x;
+}
 function coBlock(c, withLinks){
   const d = COS[c]; if (!d) return "";
   let meta, px = "";
@@ -1513,6 +1522,7 @@ function coBlock(c, withLinks){
     px = fmtPx(d.price) + (d.chgD != null ? ` <small class="${d.chgD >= 0 ? "pos" : "neg"}" style="font-size:11px">${d.chgD >= 0 ? "+" : ""}${d.chgD.toFixed(1)}% today</small>` : "");
     meta = RANK[c] ? `<b>#${RANK[c]}</b> of ${RANK_N} ${COMMOD === "gold" ? "ASX gold stocks" : COMMOD === "all" ? "ASX-listed mining & energy stocks on this map" : `ASX-listed ${TH.label.toLowerCase()} stocks on this map`} · ${fmtCap(d.mcap)} cap · ASX:${c}`
                    : c === "BHP" ? `${fmtCap(d.mcap)} cap · ASX:${c} · by-product gold (not ranked)` : `${fmtCap(d.mcap)} cap · ASX:${c} · under A$50M, outside the ranking`;
+    meta += shLine(d);
     if (yieldC(c) > 0) meta += ` · dividends <b>${fmtDiv(d.div)}/share</b> over 12 months (${fmtY(yieldC(c))} yield)${d.dvl ? `<br><span class="dvl">Latest: ${esc(d.dvl[0])}${d.dvl[2] ? " · " + esc(d.dvl[2]) : ""}${withLinks ? ` · <a href="${esc(d.dvl[1])}" target="_blank" rel="noopener noreferrer">source ↗</a>` : ""}</span>` : ""}`;
   } else meta = c === "PC2" ? `ASX:${c} · trading halted / suspended` : c === "LOM" ? `ASX:${c} · suspended (in administration)` : `ASX:${c} · price not in feed`;
   const links = withLinks ? `<div class="links">${d.site ? `<a href="${d.site}" target="_blank" rel="noopener">Company website ↗</a>` : ""}${d.mi ? `<a href="https://trading.hellostake.com/platform/instrument/au-trading/${encodeURIComponent(c)}" target="_blank" rel="noopener" title="Open ASX:${c} in Stake">Stake investing ↗</a>` : ""}${d.mi ? `<a href="${d.mi}" target="_blank" rel="noopener">ASX:${c} chart ↗</a>` : ""}</div>` : "";
@@ -3355,6 +3365,12 @@ function applyCommod(doc){
     LIVE_GOLD = {usd: +g.v, audusd: a && +a.v > 0 ? +a.v : (LIVE_GOLD && LIVE_GOLD.audusd) || 0.695, asof: doc.asof};
   if (typeof updateCost === "function") updateCost();
 }
+// shares job: shares = {asof, s:{CODE:[shares on issue, previous count, date it changed]}}
+function applyShares(doc){
+  if (!doc || !doc.s) return; let n = 0;
+  for (const c in doc.s) { const d = COS[c], v = doc.s[c]; if (!d || !Array.isArray(v) || !(+v[0] > 0)) continue; d.shr = +v[0]; d.shrP = +v[1] || null; d.shrD = v[2] || null; n++; }
+  if (n) refreshAll();
+}
 // after-close job: stats/latest = {asof, s:{CODE:[52wkHigh, 52wkLow, avgVolume, yield%, close]}}
 function applyStats(doc){
   if (!doc || !doc.s) return; let n = 0;
@@ -3681,7 +3697,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
   // the app reads its own copy; the Claude version and saved copies read the same free GitHub data over the web
   const inClaude = !!(window.claude && typeof claude.use === "function"), remote = inClaude || location.protocol === "file:";
   const BASES = remote ? ["https://liladelaide.github.io/mines-map/", "https://cdn.jsdelivr.net/gh/LilAdelaide/mines-map@main/"] : [""];
-  const FEEDS = [["prices", applyLive, 5], ["ann", applyAnn, 10], ["commod", applyCommod, 15], ["news", applyNews, 30], ["stats", applyStats, 60], ["hist", applyHist, 60], ["costs", applyCosts, 60]];
+  const FEEDS = [["prices", applyLive, 5], ["ann", applyAnn, 10], ["commod", applyCommod, 15], ["news", applyNews, 30], ["stats", applyStats, 60], ["shares", applyShares, 15], ["hist", applyHist, 60], ["costs", applyCosts, 60]];
   const seen = {};
   async function pull(name, fn){
     try {
