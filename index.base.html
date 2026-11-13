@@ -2164,8 +2164,17 @@ function coLinks(){
   if (CL !== "on" || !proj) return;
   let code = (typeof coEl !== "undefined" && coEl && coEl.value) || "";
   if (!code && selected) code = (selected.c || []).find(c => c !== "PRIV" && COS[c]) || "";
+  // search box: a company name / ASX code, or a mine name (links that mine's owner)
+  let fromSearch = false;
+  const q = (typeof qEl !== "undefined" && qEl ? qEl.value : "").trim().toLowerCase();
+  if (!code && q.length >= 2) {
+    const ok = c => c && c !== "PRIV" && COS[c];
+    code = Object.keys(COS).find(c => ok(c) && (c.toLowerCase() === q || (COS[c].name || "").toLowerCase().includes(q))) || "";
+    if (!code) { const hit = MINES.find(m => m.n.toLowerCase().includes(q) || (m.ow || "").toLowerCase().includes(q)); if (hit) code = (hit.c || []).find(ok) || ""; }
+    fromSearch = !!code;
+  }
   if (!code) return;
-  const vis = []; if (typeof mineSel !== "undefined" && mineSel) mineSel.each(function(m){ if (!this.classList.contains("dim") && (m.c || []).includes(code)) vis.push(m); });
+  const vis = []; if (typeof mineSel !== "undefined" && mineSel) mineSel.each(function(m){ if ((fromSearch || !this.classList.contains("dim")) && (m.c || []).includes(code)) vis.push(m); });
   if (vis.length < 2) return;
   const P = vis.map(m => proj([m.lon, m.lat])), col = m => (THEMES[m.e || COMMOD] || THEMES.gold || {color: "#ffcc00"}).color;
   // shortest network joining them all (Prim), so the paths read as one company footprint
