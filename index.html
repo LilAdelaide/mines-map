@@ -2513,33 +2513,44 @@ function v3Spin(dx, dy){ const c = V3.cam; c.th -= dx * 0.006; c.ph = Math.min(1
 function v3Controls(){
   // Google Maps style: drag = move (the ground follows the pointer), right-drag / Ctrl-drag = turn & tilt,
   // scroll = zoom toward the pointer; touch: one finger moves, two fingers pinch-zoom, twist to turn, slide up/down to tilt
-  const cv = V3.cv, P = new Map(), plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -V3.top); let moved = 0, pinch = 0, ang = 0, mid = null;
+  const cv = V3.cv, P = new Map(), plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -V3.top); let moved = 0, pinch = 0, ang = 0, mid = null, GS = null, gRaf = 0;
   ["mousedown", "touchstart", "wheel", "dblclick"].forEach(t => cv.addEventListener(t, e => e.stopPropagation(), {passive: true}));
   const ground = (x, y) => { const r = cv.getBoundingClientRect(); V3.ptr.set(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1); v3Cam(); V3.camera.updateMatrixWorld(); V3.ray.setFromCamera(V3.ptr, V3.camera); const o = new THREE.Vector3(); return V3.ray.ray.intersectPlane(plane, o) ? o : null; };
   const grabMove = (x0, y0, x1, y1) => { const a = ground(x0, y0), b = ground(x1, y1); if (!a || !b) return; const c = V3.cam; c.tx += a.x - b.x; c.tz += a.z - b.z; v3Clamp(c); };
   const zoomAt = (x, y, f) => { const c = V3.cam, a = ground(x, y); c.d = Math.min(320, Math.max(14, c.d * f)); const b = ground(x, y); if (a && b) { c.tx += a.x - b.x; c.tz += a.z - b.z; v3Clamp(c); } };
   const two = () => { const [a, b] = [...P.values()]; return {d: Math.hypot(a.x - b.x, a.y - b.y), a: Math.atan2(b.y - a.y, b.x - a.x), m: [(a.x + b.x) / 2, (a.y + b.y) / 2]}; };
-  cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); P.set(e.pointerId, {x: e.clientX, y: e.clientY, b: e.button, rot: e.button === 2 || e.ctrlKey || e.shiftKey}); moved = 0; V3.drag = true; V3.want = null; V3.idle = performance.now(); cv.classList.add("grab"); if (P.size === 2) { const t = two(); pinch = t.d; ang = t.a; mid = t.m; } });
+  cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); P.set(e.pointerId, {x: e.clientX, y: e.clientY, b: e.button, rot: e.button === 2 || e.ctrlKey || e.shiftKey}); moved = 0; V3.drag = true; V3.want = null; V3.idle = performance.now(); cv.classList.add("grab"); if (P.size === 2) { const t = two(); GS = {d0: t.d, a0: t.a, m0: t.m, d: t.d, a: t.a, m: t.m, mode: null}; moved = 99; } });
+  // two fingers: handled once per frame, and the gesture is decided once (zoom / turn / tilt) so it doesn't wobble between them
+  const twoStep = () => { gRaf = 0; if (P.size !== 2 || !GS) return; const t = two(), c = V3.cam;
+    let da = t.a - GS.a; if (da > Math.PI) da -= 2 * Math.PI; if (da < -Math.PI) da += 2 * Math.PI;
+    if (!GS.mode) { const dd = Math.abs(t.d - GS.d0), mx = t.m[0] - GS.m0[0], my = t.m[1] - GS.m0[1]; let ta = t.a - GS.a0; if (ta > Math.PI) ta -= 2 * Math.PI; if (ta < -Math.PI) ta += 2 * Math.PI;
+      if (Math.abs(ta) > 0.26) GS.mode = "turn";
+      else if (dd > 12) GS.mode = "zoom";
+      else if (Math.abs(my) > 16 && Math.abs(mx) < Math.abs(my) * 0.6) GS.mode = "tilt";   // both fingers slide up / down together
+      else if (Math.hypot(mx, my) > 16) GS.mode = "zoom";
+      else return; }
+    if (GS.mode === "tilt") c.ph = Math.min(1.45, Math.max(0.12, c.ph - (t.m[1] - GS.m[1]) * 0.006));
+    else {
+      if (GS.d > 0 && t.d > 0) zoomAt(t.m[0], t.m[1], GS.d / t.d);
+      grabMove(GS.m[0], GS.m[1], t.m[0], t.m[1]);
+      if (GS.mode === "turn") c.th -= da;
+      else if (Math.abs(t.a - GS.a0) > 0.45) GS.mode = "turn";   // started as a zoom, then clearly twisted
+    }
+    GS.d = t.d; GS.a = t.a; GS.m = t.m; };
   cv.addEventListener("pointermove", e => {
     const p = P.get(e.pointerId);
     if (!p) { if (e.pointerType !== "touch") { const m = v3Pick(e); V3.hov = m; cv.style.cursor = m ? "pointer" : ""; if (m) { tip.innerHTML = `<b>${esc(m.n)}</b><div style="color:var(--mute)">${esc(m.ow || "")}</div>`; tipFor = "v3"; tip.hidden = false; moveTip(e); } else if (tipFor === "v3") { hideTip(); tipFor = null; } } return; }
     V3.idle = performance.now();
     const x0 = p.x, y0 = p.y, dx = e.clientX - x0, dy = e.clientY - y0; p.x = e.clientX; p.y = e.clientY; moved += Math.abs(dx) + Math.abs(dy);
     const c = V3.cam;
-    if (P.size === 2) {
-      const t = two();
-      if (pinch) zoomAt(t.m[0], t.m[1], pinch / t.d);
-      c.th -= (t.a - ang);
-      if (mid) { const my = t.m[1] - mid[1], mx = t.m[0] - mid[0];
-        if (Math.abs(my) > Math.abs(mx) * 1.5 && Math.abs(t.d - pinch) < 4) c.ph = Math.min(1.45, Math.max(0.12, c.ph - my * 0.005));   // both fingers up/down = tilt
-        else grabMove(mid[0], mid[1], t.m[0], t.m[1]); }
-      pinch = t.d; ang = t.a; mid = t.m; return; }
+    if (P.size === 2) { if (!gRaf) gRaf = requestAnimationFrame(twoStep); return; }
+    if (P.size > 2 || GS) return;   // just lifted one finger of a pinch: wait for a fresh touch
     if (p.rot) { c.th -= dx * 0.006; c.ph = Math.min(1.45, Math.max(0.12, c.ph - dy * 0.005)); }
     else grabMove(x0, y0, e.clientX, e.clientY);
   });
-  const up = e => { P.delete(e.pointerId); V3.idle = performance.now(); if (P.size < 2) { pinch = 0; mid = null; } if (!P.size) { V3.drag = false; cv.classList.remove("grab");
+  const up = e => { P.delete(e.pointerId); V3.idle = performance.now(); if (P.size < 2) { pinch = 0; mid = null; } if (!P.size) GS = null; if (!P.size) { V3.drag = false; cv.classList.remove("grab");
       if (moved < 6) { const m = v3Pick(e); if (m) select(m, true); else if (selected) clearSel(); } } };
-  cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", e => { P.delete(e.pointerId); V3.drag = false; pinch = 0; mid = null; cv.classList.remove("grab"); });
+  cv.addEventListener("pointerup", up); cv.addEventListener("pointercancel", e => { P.delete(e.pointerId); V3.drag = false; pinch = 0; mid = null; if (!P.size) GS = null; cv.classList.remove("grab"); });
   cv.addEventListener("pointerleave", () => { V3.hov = null; });
   cv.addEventListener("contextmenu", e => e.preventDefault());
   cv.addEventListener("dblclick", e => zoomAt(e.clientX, e.clientY, 0.6));
