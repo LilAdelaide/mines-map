@@ -1,7 +1,7 @@
 """Monday morning (Perth): the week in one page (data/digest.json). Built from the other free data files.
 w: every company's 1-week price change, so the app can pick out the user's own watchlist."""
-import datetime
 from common import *
+import datetime as dt
 
 def chg(arr, back):
     v = [x for x in arr if x]
@@ -10,7 +10,7 @@ def chg(arr, back):
     return round((b / a - 1) * 100, 2) if a else None
 
 if __name__ == "__main__":
-    today = datetime.date.today(); wk = (today - datetime.timedelta(days=7)).isoformat(); nxt = (today + datetime.timedelta(days=7)).isoformat()
+    today = dt.date.today(); wk = (today - dt.timedelta(days=7)).isoformat(); nxt = (today + dt.timedelta(days=7)).isoformat()
     hist = load("hist", {}) or {}; px = (load("prices", {}) or {}).get("px", {}); st = (load("stats", {}) or {}).get("s", {})
     ann = (load("ann", {}) or {}).get("items", {}); sh = (load("shares", {}) or {}).get("s", {}); costs = load("costs", {}) or {}
     com = load("commod", {}) or {}

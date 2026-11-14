@@ -1,0 +1,20 @@
+{"asof": "2026-11-14", "note": "Company-stated mine life / reserve life. Updated by hand when companies release new reserves or life-extension news.",
+ "m": {
+  "boddington": {"e": 2040, "rv": "10.2 Moz", "t": "Newmont: mine life to 2040 (extension to 2046 proposed)", "u": "https://operations.newmont.com/australia/boddington"},
+  "tropicana": {"rv": "1.9 Moz (100%)", "t": "Reserves cover only ~4 years at current output, but the JV has replaced mined ounces every year", "u": "https://www.fool.com.au/2026/02/23/regis-resources-lifts-underground-reserves-at-tropicana-gold-mine"},
+  "cadia-valley": {"e": 2060, "t": "Newmont: ~35-year reserve life (panel caves)", "u": "https://operations.newmont.com/australia/cadia"},
+  "cadia": {"e": 2060, "t": "Newmont: ~35-year reserve life (panel caves)", "u": "https://operations.newmont.com/australia/cadia"},
+  "kcgm-super-pit-fimiston": {"e": 2034, "rv": "15.0 Moz", "t": "Super Pit open pit to 2034 (Fimiston South); reserves incl. underground support 20+ years", "u": "https://www.superpit.com.au/?p=4777"},
+  "tanami-callie": {"e": 2040, "rv": "5.3 Moz", "t": "Newmont: Tanami Expansion 2 extends life to ~2040", "u": "https://operations.newmont.com/australia/tanami"},
+  "st-ives": {"e": 2045, "t": "Gold Fields: mine life stretching to 2045", "u": "https://www.magzter.com/ar/stories/business/Australian-Mining/A-RENEWABLE-TRANSFORMATION-AT-ST-IVES"},
+  "telfer": {"e": 2028, "t": "Current open-pit plan to about FY2028; Greatland is drilling for multi-year extensions (leases run to 2045)", "u": "https://announcements.asx.com.au/asxpdf/20260122/pdf/06vgywfqk4zz11.pdf"},
+  "cowal": {"e": 2042, "rv": "4.4 Moz", "t": "Evolution: permitted life to 2042", "u": "https://evolutionmining.com/our-operations/cowal/"},
+  "greenbushes": {"e": 2046, "t": "IGO: 23+ years of life defined by Ore Reserves (CY23)", "u": "https://igo.com.au/site/PDF/483721a4-afe7-4723-a907-6efce0c66748/GreenbushesCY23ResourcesandReserves"},
+  "pilgangoora": {"e": 2046, "t": "PLS (Oct 2026): ~20 years at P2000 rates from open pits, 25+ years incl. underground", "u": "https://announcements.asx.com.au/asxpdf/20261016/pdf/075d378c6mrx4f.pdf"},
+  "ngungaju": {"e": 2046, "t": "Part of Pilgangoora: ~20 years open pit, 25+ incl. underground (PLS, Oct 2026)", "u": "https://announcements.asx.com.au/asxpdf/20261016/pdf/075d378c6mrx4f.pdf"},
+  "gruyere": {"e": 2032, "t": "Open-pit life of mine to 2032; underground studies could extend it", "u": "https://www.miningweekly.com/article/gold-road-lifts-production-outlook-for-gruyere-2025-01-28"},
+  "ernest-henry": {"e": 2040, "t": "Evolution: mine life to at least 2040", "u": "https://evolutionmining.com.au/?p=3699"},
+  "mt-arthur": {"e": 2030, "t": "BHP plans to close Mt Arthur in 2030", "u": ""},
+  "loy-yang": {"e": 2035, "t": "AGL: Loy Yang A power station and mine to close by 2035", "u": ""},
+  "kathleen-valley": {"e": 2047, "t": "Liontown DFS: ~23-year mine life", "u": ""}
+ }}

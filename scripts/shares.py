@@ -1,8 +1,9 @@
 """Shares on issue for every company (data/shares.json = {asof, s:{CODE:[shares, previous, changed YYYY-MM-DD]}, pend:{CODE: until}}).
 Refreshed daily after the close (stats.py) and, within the 15-minute price job, for any company that has just
 announced new or cancelled shares (placements, quotation of securities, option exercises, buy-backs ...)."""
-import re, datetime
+import re
 from common import *
+import datetime as dt
 
 ISSUE = re.compile(r"quotation of securities|appendix 2a|appendix 3b|application for quotation|proposed issue|placement|issue of (shares|securities)|"
                    r"cleansing|share purchase plan|\bspp\b|entitlement|conversion of|exercise of (options|warrants)|cessation of securities|"
@@ -33,7 +34,7 @@ def watch(ann_items):
             if a[3] in seen: continue
             seen.add(a[3])
             if ISSUE.search(a[2] or ""):
-                pend[c] = (datetime.date.today() + datetime.timedelta(days=3)).isoformat()
+                pend[c] = (dt.date.today() + dt.timedelta(days=3)).isoformat()
     for c in [c for c, u in pend.items() if u < today]: pend.pop(c)
     doc["seenAnn"] = list(seen)[-600:]
     found = pmap(num_shares, list(pend)) if pend else {}

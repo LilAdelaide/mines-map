@@ -528,6 +528,53 @@ a.nhead:hover{text-decoration:underline;text-decoration-color:var(--gold)}
 .newmod .nwdot{background:#3ddc84;box-shadow:0 0 6px #3ddc84}
 .newmod.min .nbody{display:none}
 .newmod .nbody{max-height:240px;overflow:auto}
+.sigmod .sgdot{background:#ff8a3d;box-shadow:0 0 6px #ff8a3d}
+.wkmod .wkdot{background:#5aa9ff;box-shadow:0 0 6px #5aa9ff}
+.sigmod.min .sgtabs{display:none}
+.sgtabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:0 12px 8px}
+.sgtabs button{font:600 11.5px var(--f-body);padding:6px 4px;border-radius:7px;border:1px solid var(--line);background:#111;color:#cfcfcf;cursor:pointer}
+.sgtabs button[aria-pressed="true"]{background:var(--gold);color:#111;border-color:var(--gold)}
+.sgrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:8px 12px;border-top:1px solid var(--line);cursor:pointer}
+.sgrow:hover{background:#161616}
+.sgrow b{font-size:13px}.sgrow .sgm{color:var(--mute);font-size:11.5px}
+.sgrow .sgv{text-align:right;font:600 12.5px var(--f-mono)}
+.sgrow .sgv small{display:block;font:500 10.5px var(--f-mono);color:var(--mute)}
+.sghd{padding:8px 12px 4px;font:600 11px var(--f-body);color:var(--gold);text-transform:uppercase;letter-spacing:.06em;border-top:1px solid var(--line)}
+.wkmod .nbody{max-height:340px}
+.sigmod:not(.min),.wkmod:not(.min){flex:0 0 auto;min-height:250px}
+.sigmod:not(.min) .nbody,.wkmod:not(.min) .nbody{flex:1 1 auto;min-height:0;overflow:auto}
+.leftcol{overflow-y:auto;scrollbar-width:none}.leftcol::-webkit-scrollbar{display:none}
+.wksec{padding:8px 12px;border-top:1px solid var(--line)}
+.wksec h3{margin:0 0 6px;font:700 12px var(--f-body);color:var(--gold);text-transform:uppercase;letter-spacing:.05em}
+.wkl{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;padding:3px 0;cursor:pointer}
+.wkl span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wkl a{color:#ddd;text-decoration:none}.wkl a:hover{color:var(--gold)}
+.wkl .pos{color:#4ade80}.wkl .neg{color:#f87171}
+.sigb{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.sigb span{font:600 11px var(--f-body);padding:3px 8px;border-radius:999px;border:1px solid var(--line);background:#111;color:#ddd}
+.sigb .hot{border-color:#ff8a3d;color:#ffb27a}.sigb .up{border-color:#22c55e;color:#4ade80}.sigb .dn{border-color:#ef4444;color:#f87171}.sigb .ix{border-color:#5aa9ff;color:#9ccaff}
+.mlife{margin:8px 0 0;padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:#0b0b0b;font-size:12px}
+.mlife b{color:var(--gold)}.mlife small{display:block;color:var(--mute);margin-top:2px}
+.co .links .cmpb{font:600 12px var(--f-body);background:none;border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:2px 8px;cursor:pointer}
+.co .links .cmpb.on{background:var(--gold);color:#111}
+.cmppill{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:1500;display:flex;gap:2px;background:var(--gold);border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+.cmppill button{border:0;background:none;color:#111;font:700 13px var(--f-body);padding:9px 14px;cursor:pointer}
+.cmppill #cmpClr{padding:9px 12px 9px 6px}
+body.compact .cmppill{bottom:calc(74px + env(safe-area-inset-bottom))}
+.cmpbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.6);display:grid;place-items:center;padding:16px}
+.cmpin{background:#0d0d0d;border:1px solid var(--line);border-radius:14px;max-width:980px;width:100%;max-height:88vh;display:flex;flex-direction:column}
+.cmph{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.cmph h2{margin:0;font:700 18px var(--f-display)}.cmph button{background:none;border:0;color:#ddd;font-size:18px;cursor:pointer}
+.cmpscroll{overflow:auto;max-width:100%}
+.cmpin{min-width:0;overflow:hidden}
+body.compact .cmpt th{font-size:12px;white-space:normal;min-width:96px}
+.cmpt{border-collapse:collapse;width:100%;font-size:13px}
+.cmpt th,.cmpt td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cmpt th{color:var(--mute);font-weight:600;white-space:nowrap;position:sticky;left:0;background:#0d0d0d}
+.cmpt thead td{font:700 14px var(--f-body)}.cmpt thead td small{display:block;color:var(--mute);font-weight:500}
+.cmpt td .best{color:#4ade80;font-weight:700}
+.cmpt td button{background:none;border:0;color:var(--mute);cursor:pointer;font-size:11px;padding:0}
+body.compact .cmpbox{padding:0}body.compact .cmpin{max-height:100%;height:100%;border-radius:0}
 .nwrow{display:grid;grid-template-columns:auto 1fr auto;gap:4px 10px;align-items:start;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
 .nwrow:first-child{border-top:0}.nwrow:hover{background:rgba(255,255,255,.03)}
 .nwrow b{font:600 13px var(--f-body);display:block}
@@ -1150,7 +1197,7 @@ svg#map.stn-off .stlabel{display:none}
       </div>
       <div class="two">
         <div><label class="lab" for="st">State</label><select id="st"><option value="">All of Australia</option></select></div>
-        <div><label class="lab" for="sort">Sort list by</label><select id="sort"><option value="p" id="sortP">Gold output</option><option value="c">Market cap</option><option value="x">Share price</option><option value="r">ASX rank</option><option value="d">Dividend yield</option><option value="n">Name</option></select></div>
+        <div><label class="lab" for="sort">Sort list by</label><select id="sort"><option value="p" id="sortP">Gold output</option><option value="c">Market cap</option><option value="x">Share price</option><option value="r">ASX rank</option><option value="d">Dividend yield</option><option value="l">Mine life</option><option value="n">Name</option></select></div>
       </div>
       <div class="flt">
         <div class="fh"><label class="lab" for="capMin">Market cap (A$)</label><button class="clr" type="button" data-clear="cap" hidden>Clear</button></div>
@@ -1345,6 +1392,22 @@ svg#map.stn-off .stlabel{display:none}
       <div class="nh"><h2><span class="ldot nwdot" aria-hidden="true"></span>New mines &amp; companies <small class="nwn" id="newN"></small></h2><button class="rtog" id="newTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
       <div class="nbody" id="newBody"></div>
     </section>
+    <section class="news newmod sigmod" id="sigMod" aria-label="Market signals">
+      <div class="nh"><h2><span class="ldot sgdot" aria-hidden="true"></span>Market signals <small class="nwn" id="sigN"></small></h2><button class="rtog" id="sigTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
+      <div class="sgtabs" role="tablist" id="sigTabs">
+        <button type="button" data-sg="vol" aria-pressed="true">🔥 Volume</button>
+        <button type="button" data-sg="hi" aria-pressed="false">▲ Highs</button>
+        <button type="button" data-sg="lo" aria-pressed="false">▼ Lows</button>
+        <button type="button" data-sg="idx" aria-pressed="false">ASX 200/300</button>
+      </div>
+      <div class="nbody" id="sigBody"></div>
+    </section>
+    <section class="news newmod wkmod" id="wkMod" aria-label="This week">
+      <div class="nh"><h2><span class="ldot wkdot" aria-hidden="true"></span>This week <small class="nwn" id="wkN"></small></h2><button class="rtog" id="wkTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
+      <div class="nbody" id="wkBody"><div class="nmsg">Loading the weekly digest…</div></div>
+    </section>
+    <div class="cmppill" id="cmpPill" hidden><button type="button" id="cmpOpen">Compare <b id="cmpN">0</b></button><button type="button" id="cmpClr" aria-label="Clear compare list">✕</button></div>
+    <div class="cmpbox" id="cmpBox" hidden role="dialog" aria-modal="true" aria-label="Compare companies"><div class="cmpin"><div class="cmph"><h2>Compare</h2><button type="button" id="cmpX" aria-label="Close">✕</button></div><div class="cmpscroll" id="cmpBody"></div></div></div>
     <details class="legend" id="mapkey"><summary>Map key</summary><div class="kcols"><div class="kc">
       <div class="t">Dot size = annual output</div>
       <div><span class="sw p"></span>Producing</div>
@@ -1525,7 +1588,7 @@ function coBlock(c, withLinks){
     meta += shLine(d);
     if (yieldC(c) > 0) meta += ` · dividends <b>${fmtDiv(d.div)}/share</b> over 12 months (${fmtY(yieldC(c))} yield)${d.dvl ? `<br><span class="dvl">Latest: ${esc(d.dvl[0])}${d.dvl[2] ? " · " + esc(d.dvl[2]) : ""}${withLinks ? ` · <a href="${esc(d.dvl[1])}" target="_blank" rel="noopener noreferrer">source ↗</a>` : ""}</span>` : ""}`;
   } else meta = c === "PC2" ? `ASX:${c} · trading halted / suspended` : c === "LOM" ? `ASX:${c} · suspended (in administration)` : `ASX:${c} · price not in feed`;
-  const links = withLinks ? `<div class="links">${d.site ? `<a href="${d.site}" target="_blank" rel="noopener">Company website ↗</a>` : ""}${d.mi ? `<a href="https://trading.hellostake.com/platform/instrument/au-trading/${encodeURIComponent(c)}" target="_blank" rel="noopener" title="Open ASX:${c} in Stake">Stake investing ↗</a>` : ""}${d.mi ? `<a href="${d.mi}" target="_blank" rel="noopener">ASX:${c} chart ↗</a>` : ""}</div>` : "";
+  const links = withLinks ? `<div class="links">${!d.exch ? `<button type="button" class="cmpb${CMP.includes(c) ? " on" : ""}" data-cmp="${c}">${CMP.includes(c) ? "✓ Comparing" : "+ Compare"}</button>` : ""}${d.site ? `<a href="${d.site}" target="_blank" rel="noopener">Company website ↗</a>` : ""}${d.mi ? `<a href="https://trading.hellostake.com/platform/instrument/au-trading/${encodeURIComponent(c)}" target="_blank" rel="noopener" title="Open ASX:${c} in Stake">Stake investing ↗</a>` : ""}${d.mi ? `<a href="${d.mi}" target="_blank" rel="noopener">ASX:${c} chart ↗</a>` : ""}</div>` : "";
   return `<div class="co"><span class="cn">${esc(d.name)}</span><span class="px">${px}</span><div class="meta">${meta}</div>${links}${withLinks ? priceChart(c) : ""}</div>`;
 }
 // Aboriginal land / heritage / "allowed to mine?" status (researched 12 Oct 2026)
@@ -1612,6 +1675,7 @@ function info(m, full){
     <dt>Location</dt><dd>${STATE_FULL[m.st]} · ${m.lat.toFixed(2)}, ${m.lon.toFixed(2)}</dd>
   </dl>
   ${full ? `<div class="geolinks"><a href="https://earth.google.com/web/@${m.lat},${m.lon},400a,6000d,35y,0h,45t,0r" target="_blank" rel="noopener noreferrer">Google Earth 3D ↗</a><a href="https://www.google.com/maps/@?api=1&amp;map_action=map&amp;center=${m.lat},${m.lon}&amp;zoom=14&amp;basemap=satellite" target="_blank" rel="noopener noreferrer">Google Maps satellite ↗</a></div>` : ""}
+  ${full && typeof sigBadges === "function" ? sigBadges(m) + lifeHtml(m) : ""}
   ${full && typeof propsHtml === "function" ? propsHtml(m) : ""}
   <p class="blurb">${esc(m.b)}</p>${full ? coNews(m) : `<div class="hint">Click the dot for website, chart and latest news links</div>`}`;
 }
@@ -2723,6 +2787,7 @@ function qMatch(text, q){
 function numCell(m, r, by){
   if (by === "c") { const v = capOf(m); return v == null ? "<small>—</small>" : fmtCap(v).replace("A$",""); }
   if (by === "x") { const v = pxOf(m); return v == null ? "<small>—</small>" : fmtPx(v); }
+  if (by === "l") { const L = m.s === "P" && typeof lifeOf === "function" ? lifeOf(m) : null; return L && L.y != null ? `${L.y} yrs` : "<small>—</small>"; }
   if (by === "d") { const v = yieldOf(m); if (!(v > 0)) return "<small>—</small>"; const c = listed(m).reduce((a,b) => yieldC(b) > yieldC(a) ? b : a); return `${fmtDiv(COS[c].div)}<small>${fmtY(v)} yield</small>`; }
   return r < Infinity ? "#" + r : "<small>—</small>";
 }
@@ -2747,14 +2812,15 @@ document.getElementById("elsum").addEventListener("click", ev => {
   else if (q) { qEl.value = q; const s = apply(); if (s.length) flyToBounds(s); }
 });
 function apply(){
-  document.getElementById("numhead").textContent = sortEl.value === "c" ? "Mkt cap" : sortEl.value === "x" ? "Price" : sortEl.value === "d" ? "Div/share" : "ASX rank";
+  document.getElementById("numhead").textContent = sortEl.value === "c" ? "Mkt cap" : sortEl.value === "x" ? "Price" : sortEl.value === "d" ? "Div/share" : sortEl.value === "l" ? "Mine life" : "ASX rank";
   const shown = MINES.filter(matches), ids = new Set(shown.map(m => m.id));
   mineSel.classed("dim", m => !ids.has(m.id)); if (typeof placeLabels === "function") placeLabels(); try { coLinks(); } catch (e) {} try { v3Refresh(); } catch (e) {} if (typeof propsVis === "function") propsVis();
   gStates.selectAll(".state").classed("hl", f => stEl.value && STATE_FULL[stEl.value] === f.properties.name);
   const by = sortEl.value;
   const HO = {up:0, flat:1, down:2};
   const big = v => v == null ? -1 : v;
-  const sorted = shown.slice().sort(by==="c" ? (a,b) => big(capOf(b)) - big(capOf(a)) || b.p - a.p : by==="x" ? (a,b) => (pxOf(a) ?? 1e9) - (pxOf(b) ?? 1e9) || b.p - a.p : by==="d" ? (a,b) => yieldOf(b) - yieldOf(a) || b.p - a.p : by==="h" ? (a,b) => (HO[hOf(a)] ?? 3) - (HO[hOf(b)] ?? 3) || b.p - a.p : by==="r" ? (a,b) => bestRank(a) - bestRank(b) || b.p - a.p : by==="n" ? (a,b) => d3.ascending(a.n,b.n) : (a,b) => relP(b) - relP(a) || bestRank(a) - bestRank(b));
+  const lifeY = m => { const L = typeof lifeOf === "function" && m.s === "P" ? lifeOf(m) : null; return L && L.y != null ? L.y : -1; };
+  const sorted = shown.slice().sort(by==="l" ? (a,b) => lifeY(b) - lifeY(a) || b.p - a.p : by==="c" ? (a,b) => big(capOf(b)) - big(capOf(a)) || b.p - a.p : by==="x" ? (a,b) => (pxOf(a) ?? 1e9) - (pxOf(b) ?? 1e9) || b.p - a.p : by==="d" ? (a,b) => yieldOf(b) - yieldOf(a) || b.p - a.p : by==="h" ? (a,b) => (HO[hOf(a)] ?? 3) - (HO[hOf(b)] ?? 3) || b.p - a.p : by==="r" ? (a,b) => bestRank(a) - bestRank(b) || b.p - a.p : by==="n" ? (a,b) => d3.ascending(a.n,b.n) : (a,b) => relP(b) - relP(a) || bestRank(a) - bestRank(b));
   list.innerHTML = sorted.map(m => { const r = bestRank(m);
     return `<div class="row${selected&&selected.id===m.id?" sel":""}" data-id="${m.id}" tabindex="0" role="option">
       <span class="sw ${m.s.toLowerCase()}"></span>
@@ -3325,12 +3391,12 @@ function applyLive(doc){
   for (const c in px) {
     const v = px[c]; if (!Array.isArray(v) || !(+v[0] > 0)) continue;
     const last = +v[0], chg = +v[1], cap = +v[2];
-    const d = COS[c]; if (d && !d.exch) { d.price = last; if (cap > 0) d.mcap = cap; d.chgD = isFinite(chg) ? chg : null; n++; }
+    const d = COS[c]; if (d && !d.exch) { d.price = last; if (cap > 0) d.mcap = cap; d.chgD = isFinite(chg) ? chg : null; d.volT = +v[3] > 0 ? +v[3] : null; n++; }
     if (GOLD[c]) { GOLD[c].price = last; if (cap > 0) GOLD[c].mcap = cap; }
     if (c === "BHP") { BHP0.price = last; if (cap > 0) BHP0.mcap = cap; }
   }
   if (!n) return;
-  LIVE_AT = doc.asof || null;
+  LIVE_AT = doc.asof || null; try { renderSig(); } catch (e) {}
   if (doc.gold && +doc.gold.usd > 0) { LIVE_GOLD = doc.gold; const g = PXT.find(x => x.k === "gold"); if (g) { g.v = "$" + Math.round(+doc.gold.usd).toLocaleString(); if (doc.gold.chg != null && isFinite(+doc.gold.chg)) g.ch = +(+doc.gold.chg).toFixed(1); } renderTicker(); }
   if (typeof updateCost === "function") updateCost();
   const when = fmtAsof(LIVE_AT), age = LIVE_AT ? (Date.now() - new Date(LIVE_AT)) / 36e5 : 99;
@@ -3370,6 +3436,164 @@ function applyCommod(doc){
     LIVE_GOLD = {usd: +g.v, audusd: a && +a.v > 0 ? +a.v : (LIVE_GOLD && LIVE_GOLD.audusd) || 0.695, asof: doc.asof};
   if (typeof updateCost === "function") updateCost();
 }
+// ================= research tools: unusual volume, 52-week highs/lows, ASX 200/300 watch, mine life, compare, weekly digest
+let IDX = null, DIGEST = null, MLIFE = null;
+let CMP = []; try { CMP = JSON.parse(localStorage.getItem("cmp") || "[]").filter(c => COS[c]).slice(0, 3); } catch (e) { CMP = []; }
+const onMap = () => Object.keys(COS).filter(c => !COS[c].exch && CO_EL[c]);
+function volX(c){ const d = COS[c]; return d && d.volT && d.vol ? d.volT / d.vol : null; }
+function hiLo(c){ const d = COS[c]; if (!d || !(d.price > 0)) return null;
+  if (d.hi > 0 && d.price >= d.hi * 0.999) return {k: "hi", t: "New 52-week high", p: (d.price / d.hi - 1) * 100};
+  if (d.lo > 0 && d.price <= d.lo * 1.001) return {k: "lo", t: "New 52-week low", p: (d.price / d.lo - 1) * 100};
+  if (d.hi > 0 && d.price >= d.hi * 0.97) return {k: "nhi", t: `Within ${((1 - d.price / d.hi) * 100).toFixed(1)}% of its 52-week high`, p: (d.price / d.hi - 1) * 100};
+  if (d.lo > 0 && d.price <= d.lo * 1.03) return {k: "nlo", t: `Within ${((d.price / d.lo - 1) * 100).toFixed(1)}% of its 52-week low`, p: (d.price / d.lo - 1) * 100};
+  return null; }
+// S&P/ASX quarterly rebalance: effective after the close on the 3rd Friday of Mar / Jun / Sep / Dec, announced about two weeks earlier
+function nextRebal(){
+  const now = new Date(), y = now.getFullYear();
+  for (let i = 0; i < 6; i++) { const yy = y + Math.floor((now.getMonth() + i * 3) / 12); const mm = [2, 5, 8, 11].find(x => x >= now.getMonth()) ?? 2;
+    const m = (mm + i * 3) % 12, Y = mm + i * 3 >= 12 ? y + 1 : y; const d = new Date(Y, m, 1); const fri = (5 - d.getDay() + 7) % 7 + 1 + 14; const eff = new Date(Y, m, fri);
+    if (eff >= new Date(now.getFullYear(), now.getMonth(), now.getDate())) { const ann = new Date(eff); ann.setDate(ann.getDate() - 14); return {eff, ann}; } }
+  return null; }
+const dShort = d => d.toLocaleDateString("en-AU", {day: "numeric", month: "short"});
+function idxOf(c){ const r = IDX && IDX.r && IDX.r[c]; if (!r) return null; const rank = r[0];
+  const near200 = Math.abs(rank - 200) <= 25, near300 = Math.abs(rank - 300) <= 25;
+  return {rank, line: near200 ? 200 : near300 ? 300 : null, side: near200 ? (rank <= 200 ? "in" : "out") : near300 ? (rank <= 300 ? "in" : "out") : null}; }
+function applyIndex(doc){ if (!doc || !doc.r) return; IDX = doc; if (SG === "idx") renderSig(); }
+function applyLife(doc){ if (!doc || !doc.m) return; MLIFE = doc; if (selected) { try { select(selected, false); } catch (e) {} } }
+function lifeOf(m){
+  const L = MLIFE && MLIFE.m[siteSlug(m.n)], yr = new Date().getFullYear();
+  if (L) return {y: L.e ? Math.max(0, L.e - yr) : null, e: L.e || null, rv: L.rv || "", t: L.t, u: L.u, src: "company"};
+  const r = /reserves?\s*~?\s*([\d.]+)\s*(Moz|koz)/i.exec(m.rs || "");
+  if (r && m.p > 0 && (m.e || COMMOD) === "gold") { const oz = +r[1] * (/moz/i.test(r[2]) ? 1000 : 1); const y = oz / m.p; return {y: Math.round(y), e: yr + Math.round(y), rv: r[1] + " " + r[2], t: `Reserves ÷ current output (${m.p} koz/yr)`, src: "calc"}; }
+  return null; }
+function lifeHtml(m){
+  if (m.s !== "P") return "";
+  const L = lifeOf(m);
+  if (!L) return `<div class="mlife">Mine life: <span style="color:var(--mute)">not published yet</span></div>`;
+  const yrs = L.y != null ? `<b>≈ ${L.y} yr${L.y === 1 ? "" : "s"}</b>${L.e ? ` (to ~${L.e})` : ""}` : "<b>See note</b>";
+  const flag = L.y != null ? (L.y < 5 ? ` <span style="color:#f87171">· short</span>` : L.y >= 10 ? ` <span style="color:#4ade80">· long-life</span>` : "") : "";
+  return `<div class="mlife">Mine life: ${yrs}${flag}${L.rv ? ` · reserves ${esc(L.rv)}` : ""}<small>${esc(L.t)}${L.u ? ` · <a href="${esc(L.u)}" target="_blank" rel="noopener noreferrer">source ↗</a>` : ""}</small></div>`;
+}
+function sigBadges(m){
+  const out = [];
+  listed(m).forEach(c => { const v = volX(c), h = hiLo(c), ix = idxOf(c);
+    if (v >= 2) out.push(`<span class="hot" title="Today's volume vs its 3-month average">🔥 ${esc(c)} ${v.toFixed(1)}× normal volume</span>`);
+    if (h) out.push(`<span class="${/hi/.test(h.k) ? "up" : "dn"}">${/hi/.test(h.k) ? "▲" : "▼"} ${esc(c)}: ${esc(h.t)}</span>`);
+    if (ix && ix.line) out.push(`<span class="ix" title="Estimated from market value; S&P also weighs liquidity and free float">${esc(c)} ≈ #${ix.rank} by value · ${ix.side === "in" ? "inside" : "just outside"} the ASX ${ix.line}</span>`); });
+  return out.length ? `<div class="sigb">${out.join("")}</div>` : "";
+}
+// ---- Market signals module
+let SG = "vol"; try { SG = localStorage.getItem("sigTab") || "vol"; } catch (e) {}
+const sigEl = document.getElementById("sigMod"), sigBody = document.getElementById("sigBody"), sigTog = document.getElementById("sigTog");
+function sgRow(c, mid, val, sub){ const d = COS[c]; return `<div class="sgrow" role="button" tabindex="0" data-c="${c}">${coBadge(c)}<div><b>${esc(d.name)}</b><div class="sgm">${mid}</div></div><div class="sgv">${val}${sub ? `<small>${sub}</small>` : ""}</div></div>`; }
+function renderSig(){
+  document.querySelectorAll("#sigTabs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.sg === SG)));
+  const C = onMap(); let h = "";
+  if (SG === "vol") {
+    const L = C.map(c => [c, volX(c)]).filter(x => x[1] >= 2).sort((a, b) => b[1] - a[1]).slice(0, 25);
+    document.getElementById("sigN").textContent = L.filter(x => x[1] >= 3).length ? `(${L.filter(x => x[1] >= 3).length})` : "";
+    h = L.length ? L.map(([c, v]) => sgRow(c, `ASX:${c} · ${(COS[c].volT / 1e6).toFixed(COS[c].volT >= 1e7 ? 0 : 1)}M shares today`, `${v.toFixed(1)}×`, COS[c].chgD != null ? `<span class="${COS[c].chgD >= 0 ? "pos" : "neg"}">${COS[c].chgD >= 0 ? "+" : ""}${COS[c].chgD.toFixed(1)}%</span>` : "")).join("")
+          : `<div class="nmsg">No stock is trading at 2× its normal volume yet today.</div>`;
+    h += `<div class="nfine">Today's volume compared with the 3-month daily average. 3× or more often comes before news. Updates every 15 minutes in ASX hours.</div>`;
+  } else if (SG === "hi" || SG === "lo") {
+    const want = SG === "hi" ? ["hi", "nhi"] : ["lo", "nlo"];
+    const L = C.map(c => [c, hiLo(c)]).filter(x => x[1] && want.includes(x[1].k)).sort((a, b) => (a[1].k.length - b[1].k.length) || (SG === "hi" ? b[1].p - a[1].p : a[1].p - b[1].p)).slice(0, 30);
+    h = L.length ? L.map(([c, x]) => { const d = COS[c]; return sgRow(c, esc(x.t), fmtPx(d.price), `52-wk ${fmtPx(d.lo)}–${fmtPx(d.hi)}`); }).join("")
+          : `<div class="nmsg">No stock is at or near a 52-week ${SG === "hi" ? "high" : "low"} right now.</div>`;
+    h += `<div class="nfine">${SG === "hi" ? "New highs often mean momentum." : "New lows can mean value, or trouble. Check the news first."} 52-week ranges update after each ASX close.</div>`;
+  } else {
+    const R = nextRebal();
+    if (!IDX) h = `<div class="nmsg">Loading the ASX ranking…</div>`;
+    else {
+      h = R ? `<div class="nmsg" style="padding-bottom:4px">Next rebalance: changes announced about <b>${dShort(R.ann)}</b>, effective after the close <b>${dShort(R.eff)}</b>.<br>Cut-offs today ≈ <b>${fmtCap(IDX.cut["200"])}</b> for the ASX 200 and <b>${fmtCap(IDX.cut["300"])}</b> for the ASX 300.</div>` : "";
+      [200, 300].forEach(line => {
+        const L = C.map(c => [c, idxOf(c)]).filter(x => x[1] && x[1].line === line).sort((a, b) => a[1].rank - b[1].rank);
+        h += `<div class="sghd">Around the ASX ${line} line</div>` + (L.length ? L.map(([c, x]) => sgRow(c, x.side === "in" ? (line - x.rank === 0 ? `Last place inside the line: could drop out` : `Inside, ${line - x.rank} place${line - x.rank === 1 ? "" : "s"} above the line: could drop out`) : `Outside, ${x.rank - line} place${x.rank - line === 1 ? "" : "s"} below the line: could be added`, `#${x.rank}`, fmtCap(IDX.r[c][1]))).join("") : `<div class="nmsg">None of the map's companies are near this line.</div>`);
+      });
+      h += `<div class="nfine">Estimated by ranking every ASX company by market value (updated after each close). S&P also uses liquidity and free float, so treat this as a watch list until S&P confirms.</div>`;
+    }
+  }
+  sigBody.innerHTML = h;
+}
+document.querySelectorAll("#sigTabs button").forEach(b => b.onclick = () => { SG = b.dataset.sg; try { localStorage.setItem("sigTab", SG); } catch (e) {} renderSig(); });
+sigBody.addEventListener("click", ev => { const r = ev.target.closest(".sgrow"); if (r) goToCompany(r.dataset.c); });
+sigBody.addEventListener("keydown", ev => { const r = ev.target.closest(".sgrow"); if (r && ev.key === "Enter") goToCompany(r.dataset.c); });
+function setSigMin(min){ sigEl.classList.toggle("min", min); sigTog.textContent = min ? "+" : "−"; sigTog.setAttribute("aria-expanded", String(!min)); try { localStorage.setItem("sigMin", min ? "1" : "0"); } catch (e) {} }
+sigTog.onclick = () => setSigMin(!sigEl.classList.contains("min"));
+{ let m = true; try { const v = localStorage.getItem("sigMin"); if (v != null) m = v === "1"; } catch (e) {} setSigMin(m); }
+// ---- This week (weekly digest, built every Monday 6am Perth)
+const wkEl = document.getElementById("wkMod"), wkBody = document.getElementById("wkBody"), wkTog = document.getElementById("wkTog");
+function applyDigest(doc){ if (!doc || !doc.w) return; DIGEST = doc; renderWeek(); }
+const pct = v => `<span class="${v >= 0 ? "pos" : "neg"}">${v >= 0 ? "+" : ""}${(+v).toFixed(1)}%</span>`;
+function wkLine(c, right){ const d = COS[c]; return `<div class="wkl" data-c="${c}"><span>${esc(c)} · ${esc(d ? d.name : "")}</span><span>${right}</span></div>`; }
+function renderWeek(){
+  const D = DIGEST; if (!D) return;
+  const ok = c => COS[c] && !COS[c].exch, fav = (typeof FAV !== "undefined" ? FAV : []).filter(c => D.w[c] != null);
+  const wk = D.week ? `${dShort(new Date(D.week[0]))} – ${dShort(new Date(D.week[1]))}` : "";
+  document.getElementById("wkN").textContent = wk ? `(${wk})` : "";
+  const sec = (t, body) => body ? `<div class="wksec"><h3>${t}</h3>${body}</div>` : "";
+  let h = "";
+  h += sec("Your watchlist", fav.length ? fav.sort((a, b) => D.w[b] - D.w[a]).map(c => wkLine(c, pct(D.w[c]))).join("") : `<div class="nmsg" style="padding:0">Star companies in Watch → Favourites to see them here.</div>`);
+  h += sec("Best this week", (D.up || []).filter(x => ok(x[0])).slice(0, 6).map(x => wkLine(x[0], pct(x[1]))).join(""));
+  h += sec("Worst this week", (D.down || []).filter(x => ok(x[0])).slice(0, 6).map(x => wkLine(x[0], pct(x[1]))).join(""));
+  h += sec("Price-sensitive announcements", (D.ps || []).filter(x => ok(x[1])).slice(0, 12).map(x => `<div class="wkl"><span><a href="${annUrl(x[3])}" target="_blank" rel="noopener noreferrer">${esc(x[1])}: ${esc(x[2])}</a></span><span style="color:var(--mute)">${esc(dShort(new Date(x[0])))}</span></div>`).join(""));
+  h += sec("New shares issued / cancelled", (D.dil || []).filter(x => ok(x[0])).slice(0, 10).map(x => { const dif = x[1] - x[2]; return wkLine(x[0], `<span class="${dif > 0 ? "neg" : "pos"}">${dif > 0 ? "+" : "−"}${fmtSh(Math.abs(dif))} (${dif > 0 ? "+" : "−"}${Math.abs(dif / x[2] * 100).toFixed(1)}%)</span>`); }).join(""));
+  h += sec("At 52-week highs", (D.hi || []).filter(x => ok(x[0])).slice(0, 8).map(x => wkLine(x[0], fmtPx(x[1]))).join(""));
+  h += sec("At 52-week lows", (D.lo || []).filter(x => ok(x[0])).slice(0, 8).map(x => wkLine(x[0], fmtPx(x[1]))).join(""));
+  h += sec("Unusual volume", (D.vol || []).filter(x => ok(x[0])).slice(0, 8).map(x => wkLine(x[0], `${x[1]}×`)).join(""));
+  h += sec("Coming up next week", (D.cal || []).slice(0, 10).map(e => `<div class="wkl"><span>${esc(e[1])}: ${esc(e[3] || e[2])}</span><span style="color:var(--mute)">${esc(dShort(new Date(e[0])))}</span></div>`).join(""));
+  const com = D.com || {}, nm = {gold: "Gold", copper: "Copper", lithium: "Lithium", iron: "Iron ore", uranium: "Uranium", silver: "Silver", coal: "Coal", brent: "Brent oil"};
+  h += sec("Commodities", Object.keys(nm).filter(k => com[k] && com[k].v).map(k => `<div class="wkl"><span>${nm[k]}</span><span>${(+com[k].v).toLocaleString("en-AU")}${com[k].ch != null ? " " + pct(com[k].ch) : ""}</span></div>`).join(""));
+  wkBody.innerHTML = h + `<div class="nfine">Built every Monday at 6am Perth from the app's free ASX data. Week of ${esc(wk)}.</div>`;
+}
+wkBody.addEventListener("click", ev => { if (ev.target.closest("a")) return; const r = ev.target.closest(".wkl[data-c]"); if (r && COS[r.dataset.c]) goToCompany(r.dataset.c); });
+function setWkMin(min){ wkEl.classList.toggle("min", min); wkTog.textContent = min ? "+" : "−"; wkTog.setAttribute("aria-expanded", String(!min)); try { localStorage.setItem("wkMin", min ? "1" : "0"); } catch (e) {} }
+wkTog.onclick = () => setWkMin(!wkEl.classList.contains("min"));
+{ let m = true; try { const v = localStorage.getItem("wkMin"); if (v != null) m = v === "1"; } catch (e) {} setWkMin(m); }
+// ---- Compare (up to 3 companies side by side)
+function saveCmp(){ try { localStorage.setItem("cmp", JSON.stringify(CMP)); } catch (e) {} const p = document.getElementById("cmpPill"); p.hidden = !CMP.length; document.getElementById("cmpN").textContent = CMP.length;
+  document.querySelectorAll("[data-cmp]").forEach(b => { const on = CMP.includes(b.dataset.cmp); b.classList.toggle("on", on); b.textContent = on ? "✓ Comparing" : "+ Compare"; }); }
+function toggleCmp(c){ const i = CMP.indexOf(c); if (i >= 0) CMP.splice(i, 1); else { if (CMP.length >= 3) CMP.shift(); CMP.push(c); } saveCmp(); if (!document.getElementById("cmpBox").hidden) renderCmp(); }
+document.addEventListener("click", ev => { const b = ev.target.closest("[data-cmp]"); if (b) { ev.preventDefault(); ev.stopPropagation(); toggleCmp(b.dataset.cmp); } }, true);
+function coMines(c){ const seen = new Set(), out = []; ORDER.forEach(k => (ALL[k] || []).forEach(m => { if (m.c.includes(c) && !seen.has(m.n)) { seen.add(m.n); out.push(Object.assign({e: k}, m)); } })); return out; }
+function renderCmp(){
+  const goldA = typeof LIVE_GOLD !== "undefined" && LIVE_GOLD && LIVE_GOLD.usd ? LIVE_GOLD.usd / (LIVE_GOLD.audusd || 0.66) : null;
+  const rows = [], cols = CMP.filter(c => COS[c]);
+  if (!cols.length) { document.getElementById("cmpBody").innerHTML = `<div class="nmsg">Tap “+ Compare” on up to 3 company cards.</div>`; return; }
+  const yr1 = c => { const a = HIST && HIST.px && HIST.px[c]; if (!a) return null; const v = a.filter(x => x); return v.length >= 5 ? (v[v.length - 1] / v[0] - 1) * 100 : null; };
+  const since = HIST && HIST.d && HIST.d.length ? HIST.d[0] : null, yrLab = since && (Date.now() - new Date(since)) < 330 * 864e5 ? `Change since ${dShort(new Date(since))}` : "1-year change";
+  const aisc = c => (typeof AISC !== "undefined" && AISC[c] && AISC[c][0]) || null;
+  const life = c => { const L = coMines(c).filter(m => m.s === "P").map(lifeOf).filter(x => x && x.y != null); return L.length ? Math.max(...L.map(x => x.y)) : null; };
+  const prod = c => { const M = coMines(c).filter(m => m.s === "P"); const by = {}; M.forEach(m => { by[m.e] = (by[m.e] || 0) + (m.p || 0); }); return Object.entries(by).filter(x => x[1] > 0).map(([e, v]) => `${(THEMES[e] || {}).label || e}: ${v.toLocaleString("en-AU")} ${(THEMES[e] || {}).unit || ""}`).join("<br>"); };
+  const R = [
+    ["Share price", c => COS[c].price != null ? fmtPx(COS[c].price) + (COS[c].chgD != null ? ` <small>${pct(COS[c].chgD)} today</small>` : "") : "—", null],
+    [yrLab, c => { const v = yr1(c); return v == null ? "—" : pct(v); }, c => yr1(c)],
+    ["Market value", c => COS[c].mcap ? fmtCap(COS[c].mcap) : "—", null],
+    ["Shares on issue", c => COS[c].shr ? fmtSh(COS[c].shr) : "—", null],
+    ["Dividend yield", c => yieldC(c) > 0 ? fmtY(yieldC(c)) : "None", c => yieldC(c) || 0],
+    ["52-week range", c => COS[c].lo ? `${fmtPx(COS[c].lo)}–${fmtPx(COS[c].hi)}` : "—", null],
+    ["Today's volume", c => { const v = volX(c); return v ? `${v.toFixed(1)}× normal` : "—"; }, null],
+    ["Output (producing mines)", c => prod(c) || "—", null],
+    ["AISC (gold)", c => aisc(c) ? "A$" + Math.round(aisc(c)).toLocaleString() + "/oz" : "—", c => aisc(c) ? -aisc(c) : null],
+    ["Margin vs gold price", c => aisc(c) && goldA ? "A$" + Math.round(goldA - aisc(c)).toLocaleString() + "/oz" : "—", c => aisc(c) && goldA ? goldA - aisc(c) : null],
+    ["Longest mine life", c => { const v = life(c); return v == null ? "—" : `≈ ${v} yrs`; }, c => life(c)],
+    ["Company health", c => COS[c].h ? `${hIcon(COS[c].h)} ${H_WORD[COS[c].h]}` : "—", null],
+    ["ASX rank by value", c => { const x = idxOf(c) || (IDX && IDX.r[c] ? {rank: IDX.r[c][0]} : null); return x ? `#${x.rank}` : "—"; }, null],
+    ["Land & heritage flags", c => { const n = coMines(c).filter(m => m.lh && (m.lh[0] === "nogo" || m.lh[0] === "risk")).length; return n ? `${n} site${n > 1 ? "s" : ""} flagged` : "None"; }, null],
+    ["Sites on the map", c => coMines(c).length, null]];
+  let h = `<table class="cmpt"><thead><tr><th></th>${cols.map(c => `<td>${coBadge(c)} ${esc(COS[c].name)}<small>ASX:${esc(c)} · <button type="button" data-cmprm="${c}">remove</button></small></td>`).join("")}</tr></thead><tbody>`;
+  R.forEach(([lab, f, score]) => { let best = null; if (score && cols.length > 1) { const v = cols.map(c => score(c)); const ok = v.filter(x => x != null); if (ok.length > 1) best = cols[v.indexOf(Math.max(...ok))]; }
+    h += `<tr><th>${lab}</th>${cols.map(c => `<td${c === best ? ' class="bestc"' : ""}>${c === best ? `<span class="best">${f(c)}</span>` : f(c)}</td>`).join("")}</tr>`; });
+  document.getElementById("cmpBody").innerHTML = h + `</tbody></table><div class="nfine" style="padding:8px 12px">Green = best of the group on that row. AISC is the all-in cost per ounce of gold.</div>`;
+}
+document.getElementById("cmpOpen").onclick = () => { document.getElementById("cmpBox").hidden = false; renderCmp(); };
+document.getElementById("cmpClr").onclick = () => { CMP = []; saveCmp(); };
+document.getElementById("cmpX").onclick = () => { document.getElementById("cmpBox").hidden = true; };
+document.getElementById("cmpBox").addEventListener("click", ev => { if (ev.target.id === "cmpBox") ev.target.hidden = true; const r = ev.target.closest("[data-cmprm]"); if (r) toggleCmp(r.dataset.cmprm); });
+document.addEventListener("keydown", ev => { if (ev.key === "Escape") document.getElementById("cmpBox").hidden = true; });
+["cmpPill", "cmpBox"].forEach(id => document.body.appendChild(document.getElementById(id)));   // fixed overlays live on <body> so no panel can hide them
+setTimeout(() => { saveCmp(); renderSig(); }, 0);
+setInterval(() => { if (!document.hidden) renderSig(); }, 60000);
 // shares job: shares = {asof, s:{CODE:[shares on issue, previous count, date it changed]}}
 function applyShares(doc){
   if (!doc || !doc.s) return; let n = 0;
@@ -3625,7 +3849,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
     [side.querySelector(".cmbar"), top.querySelector(".cslot")],
     [side.querySelector(".controls"), pane("list")], [side.querySelector(".listhead"), pane("list")], [$("list"), pane("list")],
     [$("recs"), pane("picks")],
-    [$("news"), pane("news")], [$("newMod"), pane("news")], [$("modAnn"), pane("news")],
+    [$("news"), pane("news")], [$("sigMod"), pane("news")], [$("wkMod"), pane("news")], [$("newMod"), pane("news")], [$("modAnn"), pane("news")],
     [$("favs"), pane("watch")], [$("modCost"), pane("watch")], [$("modCal"), pane("watch")],
     [$("viewset"), pane("more")], [$("mapkey"), pane("more")]
   ].filter(x => x[0]);
@@ -3702,7 +3926,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
   // the app reads its own copy; the Claude version and saved copies read the same free GitHub data over the web
   const inClaude = !!(window.claude && typeof claude.use === "function"), remote = inClaude || location.protocol === "file:";
   const BASES = remote ? ["https://liladelaide.github.io/mines-map/", "https://cdn.jsdelivr.net/gh/LilAdelaide/mines-map@main/"] : [""];
-  const FEEDS = [["prices", applyLive, 5], ["ann", applyAnn, 10], ["commod", applyCommod, 15], ["news", applyNews, 30], ["stats", applyStats, 60], ["shares", applyShares, 15], ["hist", applyHist, 60], ["costs", applyCosts, 60]];
+  const FEEDS = [["prices", applyLive, 5], ["ann", applyAnn, 10], ["commod", applyCommod, 15], ["news", applyNews, 30], ["stats", applyStats, 60], ["shares", applyShares, 15], ["index", applyIndex, 60], ["digest", applyDigest, 60], ["minelife", applyLife, 240], ["hist", applyHist, 60], ["costs", applyCosts, 60]];
   const seen = {};
   async function pull(name, fn){
     try {
