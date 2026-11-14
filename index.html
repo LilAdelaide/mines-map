@@ -710,7 +710,7 @@ select{padding:10px 10px;font-size:14px;appearance:none;-webkit-appearance:none;
 .leftcol,.rcol,.card{zoom:var(--ui)}
 .recs,.news,.legend,.basesw,.favs,.card,.gebtn{background:var(--surf);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 14px 36px rgba(0,0,0,.6)}
 .recs,.news,.card{border-top:3px solid var(--gold)}
-.recs{flex:1 1 auto;min-height:190px}
+.recs{flex:0 1 auto;min-height:190px}  /* only as tall as its content; shrinks and scrolls when space is short */
 .recs.min{flex:none;min-height:0}
 .news{flex:0 1 auto;min-height:0;display:flex;flex-direction:column}
 .news .nbody{overflow:auto;min-height:0}
