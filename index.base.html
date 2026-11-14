@@ -2216,8 +2216,8 @@ function coLinks(){
   const q = (typeof qEl !== "undefined" && qEl ? qEl.value : "").trim().toLowerCase();
   if (!code && q.length >= 2) {
     const ok = c => c && c !== "PRIV" && COS[c];
-    code = Object.keys(COS).find(c => ok(c) && (c.toLowerCase() === q || (COS[c].name || "").toLowerCase().includes(q))) || "";
-    if (!code) { const hit = MINES.find(m => m.n.toLowerCase().includes(q) || (m.ow || "").toLowerCase().includes(q)); if (hit) code = (hit.c || []).find(ok) || ""; }
+    code = Object.keys(COS).find(c => ok(c) && (c.toLowerCase() === q || qMatch(COS[c].name, q))) || "";
+    if (!code) { const hit = MINES.find(m => qMatch(m.n, q) || qMatch(m.ow, q)); if (hit) code = (hit.c || []).find(ok) || ""; }
     fromSearch = !!code;
   }
   if (!code) return;
@@ -2712,8 +2712,13 @@ function matches(m){
   if (co && !(co === "GMD+VAU" ? m.c.some(c => c==="GMD"||c==="VAU") : m.c.includes(co))) return false;
   const q = qEl.value.trim().toLowerCase();
   if (/penny/.test(q)) return listed(m).some(c => COS[c].price != null && COS[c].price < 1);
-  if (q && !(m.n+" "+m.ow+" "+m.op+" "+m.tk+" "+m.st+" "+STATE_FULL[m.st]+" "+m.c.map(c => COS[c].name).join(" ")).toLowerCase().includes(q)) return false;
+  if (q && !qMatch(m.n+" "+m.ow+" "+m.op+" "+m.tk+" "+m.st+" "+STATE_FULL[m.st]+" "+m.c.join(" ")+" "+m.c.map(c => COS[c].name).join(" "), q)) return false;
   return true;
+}
+// search: every word typed must start a word in the text ("rio" finds Rio Tinto, not Mt Ma-rio-n)
+function qMatch(text, q){
+  const t = " " + String(text || "").toLowerCase().replace(/[^a-z0-9&'.]+/g, " ") + " ";
+  return q.toLowerCase().split(/[^a-z0-9&'.]+/).filter(Boolean).every(w => t.includes(" " + w));
 }
 function numCell(m, r, by){
   if (by === "c") { const v = capOf(m); return v == null ? "<small>—</small>" : fmtCap(v).replace("A$",""); }
