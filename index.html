@@ -504,7 +504,7 @@ table.rtab{width:100%;border-collapse:collapse}
 .news.live .ldot{background:var(--up);box-shadow:0 0 6px var(--up);animation:npulse 2s infinite}
 @keyframes npulse{50%{opacity:.35}}
 @media (prefers-reduced-motion: reduce){.news.live .ldot{animation:none}.news .nbar i{transition:none!important}}
-.news.min .nbody{display:none}
+.news.min .nbody,.news.min .discl{display:none}
 .nbody{padding:0 12px 10px}
 .nitem{min-height:92px}
 .nmeta{font:500 10.5px var(--f-mono);color:var(--mute);letter-spacing:.02em;margin-bottom:4px;display:flex;gap:6px;flex-wrap:wrap}
@@ -4110,8 +4110,10 @@ document.querySelectorAll(".uistep").forEach(btn => {
   const seen = {};
   async function pull(name, fn){
     try {
-      let txt = null;
-      for (const b of BASES) { try { const r = await fetch(`${b}data/${name}.json?ts=${Date.now()}`, {cache: "no-store"}); if (r.ok) { txt = await r.text(); break; } } catch (e) {} }
+      let txt = null, best = "";
+      const got = await Promise.all(BASES.map(b => fetch(`${b}data/${name}.json?ts=${Date.now()}`, {cache: "no-store"}).then(r => r.ok ? r.text() : null).catch(() => null)));
+      for (const t of got) { if (t == null) continue; let a = ""; try { a = String(JSON.parse(t).asof || ""); } catch (e) { continue; }
+        const ms = Date.parse(a) || 0; if (txt == null || ms > (Date.parse(best) || 0)) { txt = t; best = a; } }
       if (txt == null || seen[name] === txt) return; seen[name] = txt;
       fn(JSON.parse(txt));
     } catch (e) {}

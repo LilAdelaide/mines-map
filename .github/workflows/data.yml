@@ -10,6 +10,7 @@ on:
     - cron: "15 10 * * 1-5"        # evening — gold costs (AISC) and calendar
     - cron: "35 8 * * 1-5"         # after the close — new ASX listings added to the map
     - cron: "2 22 * * 0"           # Monday 6am Perth — the weekly digest
+    - cron: "0 16 * * *"           # 12:00am Perth every day — refresh ASX prices and USD element prices
   workflow_dispatch:
     inputs:
       job:
@@ -44,6 +45,7 @@ jobs:
             "15 10 * * 1-5") run costs ;;
             "35 8 * * 1-5") run listings ;;
             "2 22 * * 0") run digest ;;
+            "0 16 * * *") run prices; run commod ;;
           esac
       - if: steps.pick.outputs.prices == 'true'
         run: python scripts/prices.py && (python scripts/alerts.py || true)
