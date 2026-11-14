@@ -24,7 +24,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -46,13 +46,13 @@ jobs:
             "2 22 * * 0") run digest ;;
           esac
       - if: steps.pick.outputs.prices == 'true'
-        run: python scripts/prices.py
+        run: python scripts/prices.py && (python scripts/alerts.py || true)
       - if: steps.pick.outputs.commod == 'true'
         run: python scripts/commod.py
       - if: steps.pick.outputs.news == 'true'
         run: python scripts/news.py
       - if: steps.pick.outputs.stats == 'true'
-        run: python scripts/stats.py && (python scripts/indexwatch.py || true)
+        run: python scripts/stats.py && (python scripts/indexwatch.py || true) && (python scripts/sensitivity.py || true)
       - if: steps.pick.outputs.costs == 'true'
         run: pip install -q pypdf cryptography && python scripts/costs.py
       - if: steps.pick.outputs.listings == 'true'
