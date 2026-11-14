@@ -1278,7 +1278,7 @@ svg#map.stn-off .stlabel{display:none}
     </div>
     <div class="listhead"><span></span><span id="lcount"></span><span id="numhead">ASX rank</span><span id="unithead">koz/yr</span></div>
     <div class="list" id="list" role="listbox" aria-label="Mines"></div>
-    <div class="foot" id="foot">ASX rank = position by market cap among ASX-listed gold stocks (A$50m+). Output and resource figures are indicative (latest FY25/FY26 where public, others approx.). Ownership as at Oct 2026. Not financial advice.</div>
+    <div class="foot" id="foot">ASX rank = position by market cap among ASX-listed gold stocks (A$50m+). Output and resource figures are indicative (latest FY25/FY26 where public, others approx.). Ownership as at Oct 2026. For research only. Not financial advice. Some data may be delayed or still being updated.</div>
   </aside>
   <main>
     <div class="pxtick" id="pxtick" aria-label="Element prices in US dollars"></div>
@@ -1294,6 +1294,7 @@ svg#map.stn-off .stlabel{display:none}
       <div class="vsbody">
       <div class="t">Tutorial</div>
       <div class="seg tutseg"><button type="button" id="tutReplay" aria-pressed="false">▶ Replay tutorial</button></div>
+      <div class="seg tutseg"><button type="button" id="discBtn" aria-pressed="false">ⓘ Disclaimer</button></div>
       <div class="t">Map view</div>
       <div class="seg" id="v3Seg">
         <button type="button" data-v3="off" aria-pressed="true">2D map</button>
@@ -1390,30 +1391,31 @@ svg#map.stn-off .stlabel{display:none}
     </div>
     <div class="basecredit" id="basecredit" hidden></div>
     <div class="leftcol">
-    <section class="recs" id="recs" aria-label="Recommended stocks">
-      <div class="rh"><h2>Recommended <b id="rname">gold</b> stocks to invest in</h2><button class="rtog" id="recTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
+    <section class="recs" id="recs" aria-label="Stock filter">
+      <div class="rh"><h2>Filter <b id="rname">gold</b> stocks</h2><button class="rtog" id="recTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
       <div class="rbody">
         <div class="rin">
-          <label>I want to<select id="rHold">
-            <option value="w">Swing trade 1–2 weeks</option>
-            <option value="m">Swing trade 1–2 months</option>
-            <option value="h">Hold 3–12 months</option>
-            <option value="d">Earn dividends</option>
-            <option value="p">Trade penny stocks (under A$1)</option>
+          <label>Screen by<select id="rHold">
+            <option value="w">Short-term movement (1–2 weeks)</option>
+            <option value="m">Medium-term trend (1–2 months)</option>
+            <option value="h">Longer-term trend (3–12 months)</option>
+            <option value="d">Dividend yield</option>
+            <option value="p">Penny stocks (under A$1)</option>
           </select></label>
-          <label>Risk<select id="rRisk"><option value="lo">Lower</option><option value="mid" selected>Balanced</option><option value="hi">Higher</option></select></label>
+          <label>Price swings<select id="rRisk"><option value="lo">Lower</option><option value="mid" selected>Balanced</option><option value="hi">Higher</option></select></label>
           <label>Stocks from<select id="rScope"><option value="map" id="rScopeMap">Gold only</option><option value="all">All elements</option></select></label>
           <label>Max share price (A$)<input id="rPx" type="text" inputmode="decimal" placeholder="Any" autocomplete="off"></label>
         </div>
         <p class="rmode" id="rmode"></p>
         <table class="rtab"><thead><tr><th>#</th><th>Stock</th><th>Price</th><th id="rch">3M</th></tr></thead><tbody id="rrows"></tbody></table>
-        <div class="rfoot">Ranked by a transparent screen of liquidity, volatility, price trend, company health and dividends from the <span id="rasof">8 Oct 2026 ASX snapshot</span> on this page. Past moves don't predict future ones. Not financial advice. Click a stock to see its mines.</div>
+        <div class="rfoot">Sorted by a rules-based filter of liquidity, volatility, price trend, company health and dividends from the <span id="rasof">8 Oct 2026 ASX snapshot</span> on this page. This is a filter, not a recommendation. Past moves don't predict future ones. For research only. Not financial advice. Some data may be delayed or still being updated. Click a stock to see its mines.</div>
       </div>
     </section>
     <section class="news" id="news" aria-label="Latest headlines">
       <div class="nh"><h2><span class="ldot" aria-hidden="true"></span>Latest <b id="nname">gold</b> headlines</h2><button class="rtog" id="newsTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
       <div class="ntabs" role="tablist"><button type="button" role="tab" id="ntDrv" data-t="drivers" aria-selected="true">Global drivers</button><button type="button" role="tab" id="ntAsx" data-t="news" aria-selected="false">ASX headlines</button></div>
       <div class="nbody" id="nbody"><div class="nmsg">Loading headlines…</div></div>
+      <div class="discl">Headlines are from third-party publishers and are not endorsed. For research only. Not financial advice. Some data may be delayed or still being updated.</div>
     </section>
     <section class="news newmod" id="newMod" aria-label="New mines and companies">
       <div class="nh"><h2><span class="ldot nwdot" aria-hidden="true"></span>New mines &amp; companies <small class="nwn" id="newN"></small></h2><button class="rtog" id="newTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
@@ -1435,9 +1437,9 @@ svg#map.stn-off .stlabel{display:none}
     </section>
     <div class="cmpbox toolbox" id="toolBox" hidden role="dialog" aria-modal="true" aria-label="Research tools"><div class="cmpin"><div class="cmph"><h2>Research tools</h2><button type="button" id="toolX" aria-label="Close">✕</button></div>
       <div class="sgtabs tltabs" id="toolTabs"><button type="button" data-tl="scr" aria-pressed="true">Screener</button><button type="button" data-tl="ma" aria-pressed="false">M&amp;A radar</button><button type="button" data-tl="wf" aria-pressed="false">What-if</button><button type="button" data-tl="al" aria-pressed="false">🔔 Alerts</button></div>
-      <div class="cmpscroll" id="toolBody"></div></div></div>
+      <div class="cmpscroll" id="toolBody"></div><div class="discl">For research only. Not financial advice. Some data may be delayed or still being updated.</div></div></div>
     <div class="cmppill" id="cmpPill" hidden><button type="button" id="cmpOpen">Compare <b id="cmpN">0</b></button><button type="button" id="cmpClr" aria-label="Clear compare list">✕</button></div>
-    <div class="cmpbox" id="cmpBox" hidden role="dialog" aria-modal="true" aria-label="Compare companies"><div class="cmpin"><div class="cmph"><h2>Compare</h2><button type="button" id="cmpX" aria-label="Close">✕</button></div><div class="cmpscroll" id="cmpBody"></div></div></div>
+    <div class="cmpbox" id="cmpBox" hidden role="dialog" aria-modal="true" aria-label="Compare companies"><div class="cmpin"><div class="cmph"><h2>Compare</h2><button type="button" id="cmpX" aria-label="Close">✕</button></div><div class="cmpscroll" id="cmpBody"></div><div class="discl">For research only. Not financial advice. Some data may be delayed or still being updated.</div></div></div>
     <details class="legend" id="mapkey"><summary>Map key</summary><div class="kcols"><div class="kc">
       <div class="t">Dot size = annual output</div>
       <div><span class="sw p"></span>Producing</div>
@@ -1734,7 +1736,7 @@ function coNews(m){
   const drv = (MACRO[m.e] || []).slice(0, 2);
   const drvHtml = drv.length ? `<div class="cnh" style="margin-top:4px">What's moving ${esc(THEMES[m.e].label.toLowerCase())} globally</div>${drv.map(x => macroItem(x)).join("")}<div class="cnh" style="margin-top:10px">Company news</div>` : `<div class="cnh">Latest news</div>`;
   return `<div class="conews">${drvHtml}${cs.map(c => {
-    const d = COS[c], n = liveNews(c) || d.nw, q = encodeURIComponent(`"${d.name}" ASX`);
+    const d = COS[c], n0 = liveNews(c) || d.nw, n = n0 && !isAdv(n0[1]) ? n0 : null, q = encodeURIComponent(`"${d.name}" ASX`);
     const more = `<a class="cnmore" href="https://news.google.com/search?q=${q}&hl=en-AU&gl=AU&ceid=AU:en" target="_blank" rel="noopener noreferrer">Newer news for ${esc(c)} ↗</a>`;
     if (!n) return `<div class="cni"><div class="cnmeta"><b>${esc(c)}</b> · ${esc(d.name)}</div><div class="cnnone">No headline saved yet.</div>${more}</div>`;
     const dt = nDate(n[0]);
@@ -2901,15 +2903,15 @@ document.querySelectorAll(".chip[data-s]").forEach(b => b.onclick = () => {
 const side = document.getElementById("side"), sheetBtn = document.getElementById("sheetBtn");
 sheetBtn.onclick = () => { const c = side.classList.toggle("collapsed"); sheetBtn.textContent = c ? "Show list" : "Hide list"; sheetBtn.setAttribute("aria-expanded", String(!c)); requestAnimationFrame(redraw); };
 
-// ---------- recommended stocks (transparent screen, not advice)
+// ---------- stock filter (rules-based screen for research, not advice)
 const recEl = document.getElementById("recs"), rHold = document.getElementById("rHold"), rRisk = document.getElementById("rRisk"), rScope = document.getElementById("rScope"), rPx = document.getElementById("rPx");
 const rRows = document.getElementById("rrows"), rMode = document.getElementById("rmode"), rCh = document.getElementById("rch");
 const HOLD = {
-  w: {label:"1–2 week swing", ch:[4,"1M"], wt:{liq:.35, vol:.30, trend:.25, health:.10}, txt:"Favours stocks traders can get in and out of easily (high daily turnover) that move a lot (wide 52-week range, higher beta) and have short-term momentum."},
-  m: {label:"1–2 month swing", ch:[3,"3M"], wt:{trend:.35, liq:.25, vol:.20, health:.20}, txt:"Favours a steady 1–6 month uptrend, good liquidity, enough movement to trade, and a financially healthy company."},
-  h: {label:"3–12 month hold", ch:[0,"1Y"], wt:{health:.35, trend:.25, div:.15, liq:.15, vol:.10}, txt:"Favours healthy, profitable companies with a 6–12 month uptrend, dividends and lower volatility."},
-  p: {label:"penny stock trade", ch:[4,"1M"], wt:{trend:.35, liq:.30, vol:.20, health:.15}, txt:"Shares under A$1 (or your max price, if lower). Favours penny stocks that actually trade (enough daily turnover to get out), have momentum and the healthiest finances. Penny stocks can halve fast: keep positions small."},
-  d: {label:"dividend income", ch:[0,"1Y"], wt:{div:1}, txt:"Ranks the highest dividend yields (last 12 months of dividends ÷ share price). Check the health arrow: a very high yield can mean the price has fallen."},
+  w: {label:"short-term movement", ch:[4,"1M"], wt:{liq:.35, vol:.30, trend:.25, health:.10}, txt:"Sorts by high daily turnover, large price movement (wide 52-week range, higher beta) and short-term momentum."},
+  m: {label:"medium-term trend", ch:[3,"3M"], wt:{trend:.35, liq:.25, vol:.20, health:.20}, txt:"Sorts by a steady 1–6 month price trend, liquidity, price movement and company financial health."},
+  h: {label:"longer-term trend", ch:[0,"1Y"], wt:{health:.35, trend:.25, div:.15, liq:.15, vol:.10}, txt:"Sorts by company health and profitability, 6–12 month price trend, dividends and lower volatility."},
+  p: {label:"penny stocks", ch:[4,"1M"], wt:{trend:.35, liq:.30, vol:.20, health:.15}, txt:"Shares under A$1 (or your max price, if lower), sorted by daily turnover, momentum and financial health. Penny stocks can be very volatile."},
+  d: {label:"dividend yield", ch:[0,"1Y"], wt:{div:1}, txt:"Sorts by dividend yield (last 12 months of dividends ÷ share price). A very high yield can mean the price has fallen; see the health arrow."},
 };
 const H_VAL = {up:1, flat:.5, down:0};
 function pctRank(vals){ const s = vals.slice().sort((a,b) => a-b), n = s.length; return v => n < 2 ? .5 : (s.filter(x => x < v).length + .5 * (s.filter(x => x === v).length - 1)) / (n - 1); }
@@ -3011,8 +3013,8 @@ function setCommodity(key, user, keepScope){
   document.getElementById("sortP").textContent = key === "all" ? "Output (vs element peers)" : `${TH.label} output`;
   const uh = document.getElementById("unithead"); uh.textContent = TH.unit; uh.title = TH.unitLong;
   document.getElementById("foot").textContent = key === "gold"
-    ? "ASX rank = position by market cap among ASX-listed gold stocks (A$50m+). Output and resource figures are indicative (latest FY25/FY26 where public, others approx.). Ownership as at Oct 2026. Not financial advice."
-    : `ASX rank = position by market cap among the ASX-listed companies with ${TH.label.toLowerCase()} sites on this map. Output (${TH.unitLong}) and resource figures are indicative; "approx." marks estimates. Ownership as at Oct 2026. Not financial advice.`;
+    ? "ASX rank = position by market cap among ASX-listed gold stocks (A$50m+). Output and resource figures are indicative (latest FY25/FY26 where public, others approx.). Ownership as at Oct 2026. For research only. Not financial advice. Some data may be delayed or still being updated."
+    : `ASX rank = position by market cap among the ASX-listed companies with ${TH.label.toLowerCase()} sites on this map. Output (${TH.unitLong}) and resource figures are indicative; "approx." marks estimates. Ownership as at Oct 2026. For research only. Not financial advice. Some data may be delayed or still being updated.`;
   if (user) { clearSel(); coEl.value = ""; stEl.value = ""; ctEl.value = ""; qEl.value = ""; grdEl.value = ""; }
   computeRanks(); fillCompanies(); fillStates();
   document.getElementById("count").textContent = `${MINES.length} mines & projects · ${MINES.filter(m=>m.s==="P").length} producing`;
@@ -3100,7 +3102,7 @@ function profHtml(c){
   ${d.why ? `<p class="pwhy">${esc(d.why)}</p>` : ""}
   <h4>Who owns it</h4>${d.ownNote ? `<p>${esc(d.ownNote)}</p>` : ""}${own}
   <h4>Who buys what it produces</h4><p>${esc(d.buy || "")}</p>
-  <div class="pfine">Not financial advice. Check the latest company announcements before investing.</div>`;
+  <div class="pfine">For research only. Not financial advice. Some data may be delayed or still being updated. Check the latest company announcements.</div>`;
 }
 let profCur = null;
 function openProfile(c){
@@ -3206,7 +3208,6 @@ let N_COLLECTED = "12 Oct 2026"; const N_CYCLE = 8000;
 // d = date from the article's own URL when it has one; tk = ASX codes the headline names
 let NEWS_STATIC = {
   gold:[
-    {h:"10 ASX gold stocks the experts recommend to buy right now", src:"Livewire", url:"https://www.livewiremarkets.com/wires/10-asx-gold-stocks-the-experts-recommend-to-buy-right-now"},
     {h:"What's behind today's drop in ASX gold miners? NEM, NST, EMR in focus", src:"Kalkine", url:"https://kalkine.com.au/news/mining/whats-behind-todays-drop-in-asx-gold-miners-nem-nst-emr-in-focus", tk:["NEM","NST","EMR"]},
     {h:"Gold miners elevated in ASX index reshuffle", src:"MiningNews", url:"https://www.miningnews.net/capital-markets/news/1388823/gold-miners-elevated-asx-reshuffle"},
     {h:"Capricorn Metals: latest briefings", src:"Capital Brief", url:"https://www.capitalbrief.com/topic/asx-cmm/", tk:["CMM"]}],
@@ -3217,9 +3218,7 @@ let NEWS_STATIC = {
     {h:"ASX closes lower as BHP, Rio Tinto lead mining rout", src:"Capital Brief", url:"https://www.capitalbrief.com/briefing/asx-closes-lower-bhp-rio-tinto-lead-mining-rout-80485c72-053f-4577-ba69-37b91f046b5e/", tk:["BHP","RIO"]},
     {h:"Rio Tinto, BHP lead ASX mining rally", src:"Capital Brief", url:"https://www.capitalbrief.com/briefing/rio-tinto-bhp-lead-asx-mining-rally-86515579-c9c6-4be2-b0c3-90c5f37a75c2/", tk:["RIO","BHP"]}],
   oil:[
-    {h:"Why I'd buy Santos and Woodside shares today", src:"The Motley Fool", d:"14 Sep 2026", url:"https://www.fool.com.au/2026/09/14/why-id-buy-santos-and-woodside-shares-today/", tk:["STO","WDS"]},
     {h:"Woodside vs Santos: Which ASX energy stock has made investors richer this year?", src:"The Motley Fool", d:"11 Aug 2026", url:"https://www.fool.com.au/2026/08/11/woodside-vs-santos-which-asx-energy-stock-has-made-investors-richer-this-year/", tk:["WDS","STO"]},
-    {h:"Are these ASX energy shares still a buy after jumping 20% (or more)?", src:"The Motley Fool", d:"11 Mar 2026", url:"https://www.fool.com.au/2026/03/11/are-these-asx-energy-shares-still-a-buy-after-jumping-20-or-more/"},
     {h:"ASX energy share remains cheap despite strong outlook", src:"Morningstar", url:"https://www.morningstar.com.au/stocks/asx-energy-share-remains-cheap-despite-strong-outlook"},
     {h:"ASX big 3 oil price winners: Woodside, Beach Energy and Santos", src:"Kalkine", url:"https://kalkine.com.au/news/premium/asx-big-3-oil-price-winners-woodside-beach-energy-and-santos", tk:["WDS","BPT","STO"]}],
   coal:[
@@ -3227,13 +3226,11 @@ let NEWS_STATIC = {
     {h:"Coal is quietly the hottest sector on the ASX: why Whitehaven, Yancoal and New Hope are surging", src:"Stocks Down Under", url:"https://stocksdownunder.com/asx-coal-stocks-surge-whc-yal-nhc/", tk:["WHC","YAL","NHC"]},
     {h:"What's next for Whitehaven Coal (ASX:WHC) after capital return?", src:"Kalkine", url:"https://kalkinemedia.com/au/stocks/energy/whats-next-for-whitehaven-coal-asxwhc-after-capital-return", tk:["WHC"]}],
   uranium:[
-    {h:"6 ASX uranium shares to buy ahead of yellow cake rising to US$200 per pound: experts", src:"The Motley Fool", d:"4 Aug 2026", url:"https://www.fool.com.au/2026/08/04/7-asx-uranium-shares-to-buy-ahead-of-yellow-cake-rising-to-us200-per-pound-experts/"},
     {h:"Uranium at record prices: the supply crunch that refuses to go away", src:"Livewire", url:"https://www.livewiremarkets.com/wires/uranium-at-record-prices-the-supply-crunch-that-refuses-to-go-away"},
     {h:"Top 5 ASX uranium stocks in 2026", src:"Nasdaq", url:"https://www.nasdaq.com/articles/top-5-asx-uranium-stocks-2026"}],
   copper:[
     {h:"Copper prices just hit a record high. What does this mean for ASX copper shares?", src:"The Motley Fool", d:"9 Sep 2026", url:"https://www.fool.com.au/2026/09/09/copper-prices-just-hit-a-record-high-what-does-this-mean-for-asx-copper-shares/"},
     {h:"Sandfire Resources posts record sales and cash in strong FY26 finish", src:"The Motley Fool", d:"23 Jul 2026", url:"https://www.fool.com.au/2026/07/23/sandfire-resources-posts-record-sales-and-cash-in-strong-fy26-finish/", tk:["SFR"]},
-    {h:"Macquarie lifts copper forecasts, backs Sandfire as its top ASX pick", src:"Market Index", url:"https://www.marketindex.com.au/news/macquarie-lifts-copper-forecasts-backs-sandfire-as-its-top-asx-pick", tk:["SFR"]},
     {h:"Can Sandfire's copper momentum hold as quarterly season begins?", src:"Kalkine", url:"https://kalkinemedia.com/au/stocks/metal-and-mining/can-sandfires-copper-momentum-hold-as-quarterly-season-begins", tk:["SFR"]},
     {h:"ASX copper mining stocks: 5 biggest companies in 2026", src:"Nasdaq", url:"https://www.nasdaq.com/articles/asx-copper-mining-stocks-5-biggest-companies-2026"}],
   silver:[
@@ -3264,6 +3261,8 @@ function freeLinks(){
 let NEWS = [], nIdx = 0, nTimer = 0, nPaused = false;
 let NTAB = "drivers"; try { const v = localStorage.getItem("ntab"); if (v === "news" || v === "drivers") NTAB = v; } catch (e) {}
 document.querySelectorAll(".ntabs button").forEach(b => b.onclick = () => { NTAB = b.dataset.t; try { localStorage.setItem("ntab", NTAB); } catch (e) {} renderNews(); });
+function isAdv(h){ return ADV_RX.test(String(h || "")); }
+const ADV_RX = /\b(shares?|stocks?) to (buy|own)\b|\bto buy (now|today|right now)\b|\b(a|an) (cheap |good |great |strong )?buy\b|\bremains? cheap\b|\bbuy and hold\b|\bstill (a )?buy\b|\bbuy,? (hold|sell)\b|\bsell,? hold\b|\bbuy or sell\b|\bI.d (still )?buy\b|\bshould (you|i|we) (buy|sell|hold)\b|\brecommend|\btop (asx )?pick\b|\bunder-?valued\b|\bcheap buy\b|\b(buy|sell) (now|today)\b/i;
 function renderNews(){
   clearTimeout(nTimer);
   nBody.replaceChildren();
@@ -3314,7 +3313,7 @@ newsEl.addEventListener("focusin", () => { nPaused = true; clearTimeout(nTimer);
 newsEl.addEventListener("focusout", ev => { if (!newsEl.contains(ev.relatedTarget)) { nPaused = false; renderNews(); } });
 function startNews(){
   document.getElementById("nname").textContent = COMMOD === "all" ? "mining" : TH.label.toLowerCase();
-  NEWS = COMMOD === "all" ? (() => { const L = ELS.map(k => NEWS_STATIC[k] || []), out = []; for (let i = 0; i < 6; i++) L.forEach(a => a[i] && out.push(a[i])); return out; })() : (NEWS_STATIC[COMMOD] || []); nIdx = 0; renderNews();
+  NEWS = COMMOD === "all" ? (() => { const L = ELS.map(k => NEWS_STATIC[k] || []), out = []; for (let i = 0; i < 6; i++) L.forEach(a => a[i] && out.push(a[i])); return out; })().filter(x => !isAdv(x.h)) : (NEWS_STATIC[COMMOD] || []).filter(x => !isAdv(x.h)); nIdx = 0; renderNews();
 }
 function setNewsMin(min){ newsEl.classList.toggle("min", min); newsTog.textContent = min ? "+" : "−"; newsTog.setAttribute("aria-expanded", String(!min)); newsTog.setAttribute("aria-label", min ? "Expand" : "Minimise"); try { localStorage.setItem("newsMin", min ? "1" : "0"); } catch (e) {} if (!min) renderNews(); else clearTimeout(nTimer); }
 newsTog.onclick = () => setNewsMin(!newsEl.classList.contains("min"));
@@ -3655,8 +3654,8 @@ const SCR_F = [
   ["bGold", "Gold sensitivity at least (β)", "num"], ["health", "Company health", "health"], ["hl", "52-week position", "hl"], ["noflag", "Land & heritage", "flag"]];
 let SCR = {}; try { SCR = JSON.parse(localStorage.getItem("scrNow") || "{}"); } catch (e) {}
 let SCR_SAVED = {}; try { SCR_SAVED = JSON.parse(localStorage.getItem("scrSaved") || "{}"); } catch (e) {}
-const SCR_PRESET = {"Cheap gold producers": {el: "gold", stage: "P", marginMin: "1500", capMax: "2000000000"}, "Producers paying dividends": {stage: "P", yldMin: "2"},
-  "Juniors with heat (volume)": {capMax: "300000000", volMin: "2"}, "Beaten down near lows": {hl: "lo", stage: "P"}, "Most gold-geared": {el: "gold", bGold: "1.2"}};
+const SCR_PRESET = {"Gold producers: small cap, high margin": {el: "gold", stage: "P", marginMin: "1500", capMax: "2000000000"}, "Producers paying dividends": {stage: "P", yldMin: "2"},
+  "Juniors with high volume": {capMax: "300000000", volMin: "2"}, "Near 52-week lows": {hl: "lo", stage: "P"}, "Most gold-geared": {el: "gold", bGold: "1.2"}};
 const num = v => { if (v == null || v === "") return null; const m = String(v).trim().toUpperCase().match(/^([\d.]+)\s*([KMB])?$/); if (!m) return +v; return +m[1] * ({K: 1e3, M: 1e6, B: 1e9}[m[2]] || 1); };
 function scrRun(F){
   return onMap().map(coRow).filter(r => {
@@ -3714,7 +3713,7 @@ function maScore(c){
   if (r.dev && !r.prod) { s += 8; why.push("development project (needs a funder)"); }
   if (r.life != null && r.life >= 8 && r.mcap < 3e9) { s += 8; why.push(`${r.life}-yr mine life`); }
   if (r.flags) { s -= 10; why.push("heritage flags (deterrent)"); }
-  if (r.h === "down") { s += 5; why.push("struggling (cheaper to buy)"); }
+  if (r.h === "down") { s += 5; why.push("struggling (lower valuation)"); }
   if (r.volx >= 2) { s += 10; why.push(`${r.volx.toFixed(1)}× volume`); }
   return {c, s: Math.max(0, Math.min(100, s)), why}; }
 function liveDeals(){ if (typeof annList !== "function") return [];
@@ -3722,7 +3721,7 @@ function liveDeals(){ if (typeof annList !== "function") return [];
 function renderMA(){
   const D = liveDeals(), T = onMap().map(maScore).filter(x => x && x.s >= 30).sort((a, b) => b.s - a.s).slice(0, 40);
   return `<div class="sghd">Live deals (ASX announcements, last ~10 weeks)</div>${D.length ? D.slice(0, 20).map(a => `<div class="sgrow" data-c="${a.c}">${coBadge(a.c)}<div><b>${esc(COS[a.c] ? COS[a.c].name : a.c)}</b><div class="why"><a href="${esc(a.u)}" target="_blank" rel="noopener noreferrer">${esc(a.h)}</a></div></div><div class="sgv">${esc(dShort(new Date(a.d)))}</div></div>`).join("") : `<div class="nmsg">No takeover or merger announcements in the latest ASX feed.</div>`}
-    <div class="sghd">Likely targets (score out of 100)</div><div class="tlist">${T.map(t => `<div class="sgrow" role="button" tabindex="0" data-c="${t.c}">${coBadge(t.c)}<div><b>${esc(COS[t.c].name)}</b><div class="why">${t.why.join(" · ")}</div></div><div class="sgv"><span class="score ${t.s >= 60 ? "h" : t.s >= 45 ? "m" : ""}">${t.s}</span><small>${fmtCap(COS[t.c].mcap)}</small></div></div>`).join("")}</div>
+    <div class="sghd">Takeover-profile score (out of 100, an estimate only)</div><div class="tlist">${T.map(t => `<div class="sgrow" role="button" tabindex="0" data-c="${t.c}">${coBadge(t.c)}<div><b>${esc(COS[t.c].name)}</b><div class="why">${t.why.join(" · ")}</div></div><div class="sgv"><span class="score ${t.s >= 60 ? "h" : t.s >= 45 ? "m" : ""}">${t.s}</span><small>${fmtCap(COS[t.c].mcap)}</small></div></div>`).join("")}</div>
     <div class="nfine" style="padding:8px 16px">The score is an estimate, not a prediction. It adds points for: a size buyers can afford; being close to a much bigger miner's mill or mine; a falling share price; profitable output; a long mine life; and unusual volume. It takes points off for heritage issues. Major shareholders aren't included yet.</div>`; }
 // --- What-if: commodity moves -> estimated share price moves (1-year betas)
 let WF = {gold: 0, copper: 0, oil: 0, aud: 0}, WF_SCOPE = "fav";
@@ -3895,7 +3894,7 @@ function renderCost(){
     <div class="cwarn" hidden></div>
     <div class="crows"></div>
     <div class="cleg"><span><i class="cost"></i>cost (AISC)</span><span><i class="mar"></i>margin per oz (A$)</span></div>
-    <div class="mfine">Drag the slider or tap − / + (1% a click, hold to keep going; arrow keys work too). "Leveraged" assumes the share moves by the gold move × (gold price ÷ margin), capped at 3.5x, because profit swings more than gold. Real moves also depend on the market, hedging and the A$. AISC from each company's latest quarter or FY27 guidance (updated ${AISC_ASOF}). Not financial advice.</div>`;
+    <div class="mfine">Drag the slider or tap − / + (1% a click, hold to keep going; arrow keys work too). "Leveraged" assumes the share moves by the gold move × (gold price ÷ margin), capped at 3.5x, because profit swings more than gold. Real moves also depend on the market, hedging and the A$. AISC from each company's latest quarter or FY27 guidance (updated ${AISC_ASOF}). For research only. Not financial advice. Some data may be delayed or still being updated.</div>`;
   const sl = b.querySelector("#costMv");
   sl.addEventListener("input", () => setCostMove(+sl.value));
   b.querySelector(".g0").onclick = () => setCostMove(0);
@@ -4013,7 +4012,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
     news:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg>',
     watch:'<svg viewBox="0 0 24 24"><path d="m12 3 2.8 5.8 6.2.9-4.5 4.4 1 6.2L12 17.4 6.5 20.3l1-6.2L3 9.7l6.2-.9Z"/></svg>'
   };
-  const TABS = [["map","Map"],["list","Mines"],["picks","Picks"],["news","News"],["watch","Watch"]];
+  const TABS = [["map","Map"],["list","Mines"],["picks","Filter"],["news","News"],["watch","Watch"]];
   const top = document.createElement("div"); top.className = "ctop"; top.hidden = true;
   top.innerHTML = `<div class="cbrand">Mines<b>Map</b></div><div class="cslot"></div><button type="button" class="cbtn" id="cTut" aria-label="Tutorial">?</button><button type="button" class="cbtn" id="cMore" aria-label="Map style, screen size and key">⚙</button>`;
   const tab = document.createElement("nav"); tab.className = "ctab"; tab.hidden = true; tab.setAttribute("aria-label", "Sections");
@@ -4222,18 +4221,18 @@ body.compact .tut .tc{left:12px!important;width:calc(100vw - 24px)}
   // each stage: t = title, b = explanation, d = what to spotlight on a computer, m = on a phone (defaults to d),
   // k = phone tab to open first, pre = set the screen up, only = "d" (computer) or "c" (phone) stages
   const S = [
-    {t: "Welcome to the Australian Mines Map", b: `<p>This tour walks you through <b>every feature</b>, one step at a time, and explains what each one does and how to use it for researching ASX mining stocks.</p><p>Use <b>Next</b> and <b>Back</b> to move through it (or the ← → arrow keys). <b>Skip</b> ends it at any time.</p>${tip("You can replay this tutorial whenever you like from the <b>?</b> button or <b>Map &amp; display → Replay tutorial</b>.")}`},
-    {t: "Choose an element", d: "#cms", m: ".ctop .cms", b: `<p>Pick which commodity to view: <b>gold, iron ore, lithium, copper, oil &amp; gas, coal, uranium</b> and more. The whole app switches with it: the mine dots, the list, recommendations, news, prices and costs.</p>${tip("<b>All</b> shows every mine at once, which is useful when following one company across several metals.")}`},
+    {t: "Welcome to the Australian Mines Map", b: `<p>This tour walks you through <b>every feature</b>, one step at a time, and explains what each one does and how to use it for researching ASX mining stocks.</p><p>Use <b>Next</b> and <b>Back</b> to move through it (or the ← → arrow keys). <b>Skip</b> ends it at any time.</p><p><b>Everything in this app is for researching companies only. It is not financial advice, and some data may be delayed or still being updated.</b></p>${tip("You can replay this tutorial whenever you like from the <b>?</b> button or <b>Map &amp; display → Replay tutorial</b>.")}`},
+    {t: "Choose an element", d: "#cms", m: ".ctop .cms", b: `<p>Pick which commodity to view: <b>gold, iron ore, lithium, copper, oil &amp; gas, coal, uranium</b> and more. The whole app switches with it: the mine dots, the list, the stock filter, news, prices and costs.</p>${tip("<b>All</b> shows every mine at once, which is useful when following one company across several metals.")}`},
     {t: "Live element prices", d: "#pxtick", b: `<p>The ticker shows the current price of each element in US dollars and how much it moved today. It refreshes automatically every few minutes.</p>${tip("A big move here usually flows straight into the share prices of that element's miners.")}`},
     {t: "The map", d: "#mapwrap", m: "#mapwrap", k: "map", b: `<p>Every dot is a mine or project. <b>Dot size = yearly output</b>. A filled dot is <b>producing</b>, a ring is in <b>development</b>, and grey is on <b>care &amp; maintenance</b>.</p><ul><li><b>Drag</b> to move, <b>scroll or pinch</b> to zoom.</li><li><b>Hover</b> a dot (computer) for a quick summary; <b>click or tap</b> it for the full details.</li><li>A <b style="color:#ff3b3b">red ring</b> means mining isn't allowed there; <b style="color:#ffae1a">orange</b> means a heritage or land-access risk.</li></ul>${tip("Zoom right in and a <b>Max detail reached</b> button appears, which opens that exact spot in Google Earth.")}`},
     {t: "Zoom buttons", d: ".rcol .zoom", only: "d", b: `<p><b>+</b> and <b>−</b> zoom in and out. <b>⤢</b> resets the map back to the whole of Australia.</p>`},
-    {t: "Bottom tabs", d: ".ctab", only: "c", b: `<p>On your phone everything lives behind these tabs:</p><ul><li><b>Map</b>: the full-screen map</li><li><b>Mines</b>: search, filters and the mine list</li><li><b>Picks</b>: recommended stocks</li><li><b>News</b>: headlines, market signals, this week, new mines and announcements</li><li><b>Watch</b>: favourites, costs and the catalyst calendar</li></ul>${tip("Swipe a panel down, or tap its handle, to close it. Tap the same tab again to return to the map.")}`},
+    {t: "Bottom tabs", d: ".ctab", only: "c", b: `<p>On your phone everything lives behind these tabs:</p><ul><li><b>Map</b>: the full-screen map</li><li><b>Mines</b>: search, filters and the mine list</li><li><b>Filter</b>: the stock filter</li><li><b>News</b>: headlines, market signals, this week, new mines and announcements</li><li><b>Watch</b>: favourites, costs and the catalyst calendar</li></ul>${tip("Swipe a panel down, or tap its handle, to close it. Tap the same tab again to return to the map.")}`},
     {t: "Settings button", d: "#cMore", only: "c", b: `<p><b>⚙</b> opens <b>Map &amp; display</b> (3D, map styles, leases, layers, labels, screen size) and the <b>Map key</b>. The <b>?</b> next to it replays this tutorial.</p>`},
     {t: "Search", d: ".search", k: "list", b: `<p>Type a <b>mine name, company, ASX ticker or state</b>. Matches are by the start of a word, so “RIO” finds Rio Tinto, not Mt Marion.</p><p>Searching for a company also draws dashed links between all of its sites.</p>`},
     {t: "Terms (definition board)", d: "#termsBtn", k: "list", b: `<p>Opens the <b>definition board</b>: plain-English meanings of terms like <b>koz, Mtpa, g/t, AISC, reserves vs resources</b>.</p><p>It also includes an <b>elements list</b> with a red / orange / green <b>demand</b> rating for each commodity.</p>`},
     {t: "Tools", d: "#toolsBtn", k: "list", b: `<p>Opens the <b>Research tools</b> window with four tabs: <b>Screener</b>, <b>M&amp;A radar</b>, <b>What-if</b> and <b>🔔 Alerts</b>. The next four steps show each one.</p>`},
-    {t: "Tools · Screener", d: "#toolBox .cmpin", pre: tools("scr"), b: `<p>Filter every listed miner at once by <b>element, stage, market cap, price move, volume, value and distance from the 52-week high or low</b>.</p><ul><li>Start from a ready-made screen like <b>Cheap gold producers</b> or <b>Beaten down near lows</b>.</li><li>Press <b>Save</b> to keep your own screen and <b>Load</b> it later.</li><li>Tap a result to jump to that company on the map.</li></ul>`},
-    {t: "Tools · M&A radar", d: "#toolBox .cmpin", pre: tools("ma"), b: `<p><b>Live deals</b> at the top: takeovers, mergers and asset sales from today's ASX announcements.</p><p>Below that are <b>likely takeover targets</b> scored out of 100, for example a small producer sitting near a <b>bigger miner's mill</b> of the same metal, a low market cap, a long mine life and a healthy balance sheet.</p>${tip("The score is an estimate only. It doesn't use shareholder data.")}`},
+    {t: "Tools · Screener", d: "#toolBox .cmpin", pre: tools("scr"), b: `<p>Filter every listed miner at once by <b>element, stage, market cap, price move, volume, value and distance from the 52-week high or low</b>.</p><ul><li>Start from a ready-made screen like <b>Gold producers: small cap, high margin</b> or <b>Near 52-week lows</b>.</li><li>Press <b>Save</b> to keep your own screen and <b>Load</b> it later.</li><li>Tap a result to jump to that company on the map.</li></ul>`},
+    {t: "Tools · M&A radar", d: "#toolBox .cmpin", pre: tools("ma"), b: `<p><b>Live deals</b> at the top: takeovers, mergers and asset sales from today's ASX announcements.</p><p>Below that, companies are given a <b>takeover-profile score</b> out of 100 based on traits often seen in past deals, for example a small producer sitting near a <b>bigger miner's mill</b> of the same metal, a low market cap, a long mine life and a healthy balance sheet.</p>${tip("The score is an estimate only. It doesn't use shareholder data.")}`},
     {t: "Tools · What-if", d: "#toolBox .cmpin", pre: tools("wf"), b: `<p>Move the <b>gold, copper, oil and A$</b> sliders to see roughly how each stock would react, based on how it actually moved with those prices over the last year.</p><p>Switch between <b>all companies</b> (A$50M+ and commodity-linked) and just your <b>favourites</b>. <b>Reset sliders</b> sets everything back to 0%.</p>`},
     {t: "Tools · Alerts", d: "#toolBox .cmpin", pre: tools("al"), b: `<p>Free phone notifications using the <b>ntfy</b> app. Subscribe to a company and get pinged for <b>price-sensitive announcements, capital raisings, takeovers, ±5% moves, volume spikes, new 52-week highs/lows and share-count changes</b>.</p><p>Subscribe to the <b>all</b> topic for big events across every company. Checked every 15 minutes during ASX hours.</p>`},
     {t: "Reset", d: "#resetAll", k: "list", b: `<p>Clears <b>every search, filter, highlight and overlay</b> in one tap, putting the map back to its starting view.</p>`},
@@ -4252,16 +4251,16 @@ body.compact .tut .tc{left:12px!important;width:calc(100vw - 24px)}
     {t: "Price chart, returns & profit", card: 1, d: "#card .pc", pre: showCard, b: `<p>A 12-month <b>share price chart</b> with the 52-week range, <b>returns by year</b> for the mine and its owner, and the owner's <b>net profit</b> history.</p>`},
     {t: "Mine life & commodity sensitivity", card: 1, d: "#card .mlife", m: "#card .mlife", pre: showCard, b: `<p><b>Mine life</b>: how long the mine should keep running, from company-published plans or its reserves.</p><p>Just below, <b>sensitivity</b> shows which commodity the stock moves with most, e.g. “a 10% rise in gold ≈ +5.9% for NST”. Then come the <b>mine leases</b>, the global drivers for the element and the <b>latest company news and ASX announcements</b>.</p>`},
     {t: "Company profile", card: 1, d: "#prof", pre: () => { showCard(); const tk = q("#card .tk"); if (tk && typeof openProfile === "function") openProfile(tk.textContent.trim()); }, b: `<p>The company's full profile: what it does, when it listed, <b>why its health rating is what it is</b>, <b>who owns it</b> (funds, everyday investors, top holders) and <b>who buys what it produces</b>.</p>`},
-    {t: "Recommended stocks", d: "#recs", k: "picks", b: `<p>A ranked shortlist for the element you're viewing. Set <b>what you want to do</b> (swing trade 1–2 weeks or months, hold 3–12 months, earn dividends, trade penny stocks), your <b>risk</b>, whether to include <b>all elements</b>, and a <b>max share price</b>.</p><p>Rankings use liquidity, volatility, trend, company health and dividends. Click a stock to see its mines.</p>${tip("Not financial advice. Past moves don't predict future ones.")}`},
+    {t: "Stock filter", d: "#recs", k: "picks", b: `<p>Sorts the stocks for the element you're viewing by a set of rules you choose. <b>Screen by</b> short-term movement, medium or longer-term trend, dividend yield or penny stocks, then set <b>price swings</b>, whether to include <b>all elements</b>, and a <b>max share price</b>.</p><p>The filter uses liquidity, volatility, price trend, company health and dividends. Click a stock to see its mines.</p>${tip("This is a filter, not a recommendation. Past moves don't predict future ones.")}`},
     {t: "Latest headlines", d: "#news", k: "news", b: `<p><b>Global drivers</b>: world news moving the element's price, tagged as bullish, bearish or mixed.</p><p><b>ASX headlines</b>: news about the ASX-listed companies. Both update throughout the day from free sources.</p>`},
     {t: "Market signals", d: "#sigMod", k: "news", b: `<p>Four quick scans across every miner:</p><ul><li><b>🔥 Volume</b>: unusual trading activity today.</li><li><b>▲ Highs / ▼ Lows</b>: stocks at or near their 52-week high or low.</li><li><b>ASX 200/300</b>: companies close to joining or leaving the index at the next rebalance.</li></ul>`},
     {t: "This week", d: "#wkMod", k: "news", b: `<p>A weekly digest every Monday morning: the <b>biggest risers and fallers</b>, price-sensitive news, capital raisings, new highs and lows, volume leaders and what's coming up.</p>`},
-    {t: "New mines & companies", d: "#newMod", k: "news", b: `<p>Newly added mines, projects and newly listed companies appear here, so you can spot fresh opportunities early.</p>`},
+    {t: "New mines & companies", d: "#newMod", k: "news", b: `<p>Newly added mines, projects and newly listed companies appear here as soon as they are added.</p>`},
     {t: "Announcements", d: "#modAnn", k: "news", pre: () => openD("modAnn"), b: `<p>The latest <b>ASX announcements</b> from the companies on the map. Price-sensitive ones are flagged and the badge counts new ones.</p>`},
     {t: "Favourites", d: "#favs", k: "watch", pre: () => { const f = $("favs"), t = $("favTog"); if (f && !f.classList.contains("open") && t) t.click(); }, b: `<p>Your own watchlist. Search for a company or ticker, then tap the <b>☆</b> to save it. Tap a favourite to show <b>everything that company owns</b> on the map.</p><p>Favourites are also used by the <b>What-if</b> tool.</p>`},
     {t: "Cost & margin", d: "#modCost", k: "watch", pre: () => openD("modCost"), b: `<p>Each producer's <b>all-in sustaining cost (AISC)</b> against today's price, so you can see who makes the <b>biggest margin</b> per ounce or tonne and who is at risk if the price falls.</p>`},
     {t: "Catalyst calendar", d: "#modCal", k: "watch", pre: () => openD("modCal"), b: `<p>Upcoming dates that can move share prices: <b>quarterly reports, results, dividends, AGMs</b> and index rebalances.</p>`},
-    {t: "Map & display", d: "#viewset", k: "more", pre: () => openD("viewset"), b: `<p>All the settings for how the map looks. The next steps go through each one.</p>`},
+    {t: "Map & display", d: "#viewset", k: "more", pre: () => openD("viewset"), b: `<p>All the settings for how the map looks. The next steps go through each one.</p><p><b>Replay tutorial</b> and <b>ⓘ Disclaimer</b> are at the top.</p>`},
     {t: "2D map or 3D", d: "#v3Seg", k: "more", pre: () => openD("viewset"), b: `<p>Switch to a <b>3D globe-style map</b> with sun shading, raised mountains on Topo and Satellite, and every layer in 3D.</p><ul><li>Computer: <b>drag</b> to move, <b>right-drag</b> to turn &amp; tilt, <b>scroll</b> to zoom.</li><li>Phone: <b>drag</b> to move, <b>pinch</b> to zoom, <b>twist</b> to turn, <b>two fingers up/down</b> to tilt.</li></ul>${tip("Select a mine in 3D and after 5 seconds the view slowly orbits it.")}`},
     {t: "Map style", d: '#viewset [data-base="dark"]', k: "more", wide: ".seg", pre: () => openD("viewset"), b: `<p><b>Dark</b> (default), <b>Terrain</b>, <b>Satellite</b> (real imagery) or <b>Topo</b> (height above sea level, colour-coded).</p>`},
     {t: "No-go zones", d: '#viewset [data-nogo="off"]', k: "more", wide: ".seg", pre: () => openD("viewset"), b: `<p>Shades national parks, reserves and other areas <b>where mining isn't permitted</b>. Show them <b>with the mines</b> or on their <b>own</b>.</p>`},
@@ -4274,7 +4273,7 @@ body.compact .tut .tc{left:12px!important;width:calc(100vw - 24px)}
     {t: "Mine dots", d: "#dotSeg", k: "more", pre: () => openD("viewset"), b: `<p><b>Glossy</b> or <b>Bold colours</b> dots. With Glossy, <b>Gloss shade</b> just below makes them lighter or darker.</p>`},
     {t: "Screen size", d: "#uiRange", k: "more", wide: ".vsbody", pre: () => openD("viewset"), b: `<p>Makes all the panels and text <b>smaller or larger</b>. Use Small / Medium / Large, the slider, or <b>− / +</b> (5% a press; hold to repeat).</p>`},
     {t: "Map key", d: "#mapkey", k: "more", pre: () => openD("mapkey"), b: `<p>The legend: what every dot, ring, colour, line and shaded area means, plus how <b>company health</b> is rated.</p>`},
-    {t: "Replay any time", d: "#tutBtn", m: "#cTut", k: "map", b: `<p>That's everything. Press <b>?</b> or go to <b>Map &amp; display → Replay tutorial</b> to run this tour again.</p><p>Press <b>Finish</b> to go back to the map.</p>`}
+    {t: "Replay any time", d: "#tutBtn", m: "#cTut", k: "map", b: `<p>That's everything. Remember: this app is for research only, not financial advice, and some data may be delayed. Press <b>?</b> or go to <b>Map &amp; display → Replay tutorial</b> to run this tour again.</p><p>Press <b>Finish</b> to go back to the map.</p>`}
   ];
 
   let ui = null, i = 0, steps = [], timer = 0, saved = null;
@@ -4393,7 +4392,44 @@ body.compact .tut .tc{left:12px!important;width:calc(100vw - 24px)}
   [["tutBtn"], ["cTut"], ["tutReplay"]].forEach(([id]) => { const b = $(id); if (b) b.addEventListener("click", ev => { ev.preventDefault(); ev.stopPropagation(); start(); }); });
   // first visit: start the tour once the map has loaded
   let done = false; try { done = localStorage.getItem("tutDone") === "1"; } catch (e) {}
-  if (!done && !/[?&]notut\b/.test(location.search)) setTimeout(() => { if (!ui) start(); }, 2500);
+  if (!done && !/[?&]notut\b/.test(location.search)) { const go1 = () => { if (window.DISC_OPEN) return setTimeout(go1, 600); if (!ui) start(); }; setTimeout(go1, 2500); }
+})();
+</script>
+<style>
+/* research-only disclaimer */
+.discl{font:11px/1.4 var(--f-body);color:var(--mute);padding:8px 14px 10px;border-top:1px solid var(--border)}
+#card::after,#prof::after{content:"For research only. Not financial advice. Some data may be delayed or still being updated.";display:block;font:11px/1.4 var(--f-body);color:var(--mute);padding:10px 2px 4px;margin-top:8px;border-top:1px solid var(--border)}
+#discBtn{color:var(--mute)}
+.discm{position:fixed;inset:0;z-index:6000;background:rgba(0,0,0,.72);display:flex;align-items:center;justify-content:center;padding:16px}
+.discm .dc{width:min(460px,100%);background:#101315;border:1px solid #3a3f44;border-radius:14px;padding:20px 18px 16px;box-shadow:0 18px 50px rgba(0,0,0,.6);color:#d6d6d6;font-size:14px;line-height:1.5}
+.discm h3{margin:0 0 10px;font:800 22px/1.1 var(--f-display);font-stretch:80%;color:#fff}
+.discm ul{margin:0 0 12px;padding-left:18px}
+.discm li{margin:4px 0}
+.discm b{color:#fff}
+.discm button{width:100%;min-height:44px;border-radius:9px;border:1px solid var(--gold);background:var(--gold);color:#000;font:700 15px var(--f-body);cursor:pointer;margin-top:4px}
+</style>
+<script>
+// research-only disclaimer: shown on first visit (before the tutorial) and from Map & display → Disclaimer
+(function(){
+  function show(){
+    if (document.querySelector(".discm")) return;
+    window.DISC_OPEN = true;
+    const d = document.createElement("div"); d.className = "discm"; d.setAttribute("role", "dialog"); d.setAttribute("aria-modal", "true"); d.setAttribute("aria-label", "Disclaimer");
+    d.innerHTML = `<div class="dc"><h3>For research only</h3><ul>
+      <li>Everything in this app is for <b>browsing and researching</b> ASX mining and energy companies only.</li>
+      <li>It is <b>not financial advice</b> and is not a recommendation to buy, sell or hold any stock.</li>
+      <li>Some data may be <b>delayed</b>, approximate, or <b>still being updated</b>. Check company announcements and official sources before relying on anything.</li>
+      <li>Headlines and links come from third-party publishers and are not endorsed.</li></ul>
+      <button type="button">I understand</button></div>`;
+    document.body.append(d);
+    const ok = () => { d.remove(); window.DISC_OPEN = false; try { localStorage.setItem("discOK", "1"); } catch (e) {} };
+    d.querySelector("button").onclick = ok;
+    d.querySelector("button").focus();
+  }
+  window.showDisclaimer = show;
+  const b = document.getElementById("discBtn"); if (b) b.addEventListener("click", ev => { ev.preventDefault(); ev.stopPropagation(); show(); });
+  let ok = false; try { ok = localStorage.getItem("discOK") === "1"; } catch (e) {}
+  if (!ok) show();
 })();
 </script>
 </body>

@@ -1,5 +1,7 @@
 # Australian Mines Map
 
+> **For research only.** This app is for browsing and researching ASX mining and energy companies. It is not financial advice and is not a recommendation to buy, sell or hold any stock. Some data may be delayed or still being updated.
+
 Live map of ASX mining and energy companies: mines, mills, prices, gold costs, announcements and news.
 
 **Use it:** open the site link on any device.
