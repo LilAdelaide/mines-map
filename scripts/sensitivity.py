@@ -6,14 +6,16 @@ import json, math, time, urllib.request
 from common import *
 
 YUA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36", "Accept": "application/json"}
-def chart(sym, rng="1y"):
+NY = timezone(timedelta(hours=-5))
+def chart(sym, rng="1y", tz=None):
     for a in range(4):
         try:
             u = f"https://query{1 + a % 2}.finance.yahoo.com/v8/finance/chart/{urllib.request.quote(sym)}?range={rng}&interval=1d"
             r = json.loads(urllib.request.urlopen(urllib.request.Request(u, headers=YUA), timeout=30).read())["chart"]["result"][0]
+            off = r.get("meta", {}).get("gmtoffset", 0)
             out = {}
             for t, c in zip(r["timestamp"], r["indicators"]["quote"][0]["close"]):
-                if c: out[datetime.fromtimestamp(t, PERTH).date().isoformat()] = float(c)
+                if c: out[datetime.fromtimestamp(t + off, timezone.utc).date().isoformat()] = float(c)   # the exchange's own trading date
             return out
         except Exception as e:
             time.sleep(3 + a * 4)
@@ -56,21 +58,33 @@ if __name__ == "__main__":
     fac = {k: {d: v / aud[d] for d, v in s.items() if d in aud} for k, s in raw.items()}   # in A$
     fac["aud"] = aud
     names = ["gold", "copper", "oil", "aud"]
+    # ASX trades before New York: an ASX day reacts to the previous New York close. For each factor, its return
+    # "for" ASX day D = move between the two latest New York closes before D.
+    fd = {f: sorted(fac[f]) for f in names}
+    def frets(f, adates):
+        import bisect
+        ds, v, out = fd[f], fac[f], []
+        for D in adates:
+            k = bisect.bisect_left(ds, D) - 1
+            out.append(math.log(v[ds[k]] / v[ds[k - 1]]) if k >= 1 else None)
+        return out
     out = {}
     for i, c in enumerate(CODES):
         s = chart(f"{c}.AX"); time.sleep(0.6)
-        dates = sorted(d for d in s if all(d in fac[f] for f in names))
-        if len(dates) < 120: continue
-        y = rets(s, dates); F = {f: rets(fac[f], dates) for f in names}
-        idx = [j for j in range(len(y)) if y[j] is not None and all(F[f][j] is not None for f in names) and abs(y[j]) < 0.5]
-        if len(idx) < 100: continue
+        dates = sorted(s)
+        if len(dates) < 150: continue
+        y = [math.log(s[dates[j]] / s[dates[j - 1]]) for j in range(1, len(dates))]
+        F = {f: frets(f, dates[1:]) for f in names}
+        idx = [j for j in range(len(y)) if abs(y[j]) < 0.5 and all(F[f][j] is not None for f in names)]
+        if len(idx) < 120: continue
         Y = [y[j] for j in idx]; X = [[F[f][j] for f in names] for j in idx]
         b = ols(Y, X)
         if not b: continue
         first, last = s[dates[0]], s[dates[-1]]
-        vol = math.sqrt(sum(v * v for v in Y) / len(Y)) * math.sqrt(252) * 100
+        vol = math.sqrt(sum((v - sum(Y) / len(Y)) ** 2 for v in Y) / len(Y)) * math.sqrt(252) * 100
         out[c] = {"b": {f: round(b[k], 2) for k, f in enumerate(names)}, "r": {f: round(corr(Y, [x[k] for x in X]), 2) for k, f in enumerate(names)},
                   "ch1y": round((last / first - 1) * 100, 1), "vol": round(vol, 1), "n": len(Y)}
+        if c in ("NST", "EVN", "SFR", "BHP"): print(f"::notice::{c} {out[c]} days {len(dates)}")
     if len(out) >= 50:
         save("sens", {"asof": now_iso(), "src": "Yahoo Finance daily closes, 1 year; factors in A$", "f": names, "s": out})
     print("sensitivity for", len(out), "stocks")

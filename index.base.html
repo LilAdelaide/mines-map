@@ -557,6 +557,29 @@ a.nhead:hover{text-decoration:underline;text-decoration-color:var(--gold)}
 .mlife b{color:var(--gold)}.mlife small{display:block;color:var(--mute);margin-top:2px}
 .co .links .cmpb{font:600 12px var(--f-body);background:none;border:1px solid var(--gold);color:var(--gold);border-radius:6px;padding:2px 8px;cursor:pointer}
 .co .links .cmpb.on{background:var(--gold);color:#111}
+.toolsbtn{border-color:#ffcc00!important;color:#ffcc00!important}
+.tltabs{padding:10px 16px 8px}
+.scrf{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px 10px;padding:4px 16px 10px}
+.scrf label{display:flex;flex-direction:column;gap:3px;font:600 11px var(--f-body);color:var(--mute)}
+.scrf input,.scrf select{background:#111;border:1px solid var(--line);color:#eee;border-radius:7px;padding:6px 8px;font:500 13px var(--f-body);min-width:0}
+.scrbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:0 16px 10px}
+.scrbar button,.scrbar select{background:#111;border:1px solid var(--line);color:#ddd;border-radius:7px;padding:6px 10px;font:600 12px var(--f-body);cursor:pointer}
+.scrbar .go{background:var(--gold);color:#111;border-color:var(--gold)}
+.scrbar .cnt{color:var(--mute);font-size:12px;margin-left:auto}
+.tlist .sgrow{padding:8px 16px}
+.tlist .why{color:var(--mute);font-size:11.5px;margin-top:2px}
+.score{display:inline-block;min-width:34px;text-align:center;padding:3px 6px;border-radius:6px;font:700 12px var(--f-mono);background:#2a2a2a}
+.score.h{background:#7a1f1f;color:#ffd0d0}.score.m{background:#6b4a10;color:#ffe2a8}
+.wfs{display:grid;grid-template-columns:auto 1fr auto;gap:8px 12px;align-items:center;padding:6px 16px 12px}
+.wfs input[type=range]{width:100%;accent-color:#ffcc00}
+.wfs b{font:700 13px var(--f-mono);min-width:56px;text-align:right}
+.alx{padding:6px 16px 14px;font-size:13px;line-height:1.5}
+.alx ol{padding-left:18px;margin:6px 0}.alx code{background:#161616;padding:1px 6px;border-radius:5px;font-size:12px}
+.alx .bells{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.alx .bells a{border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:#ddd;text-decoration:none;font:600 12px var(--f-body)}
+.alx .bells a:hover{border-color:var(--gold);color:var(--gold)}
+.co .links .belb{font:600 12px var(--f-body);border:1px solid var(--line);color:#ddd;border-radius:6px;padding:2px 8px;text-decoration:none}
+.sens{margin:8px 0 0;font-size:12px;color:#ddd}.sens b{color:var(--gold)}.sens small{color:var(--mute)}
 .cmppill{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:1500;display:flex;gap:2px;background:var(--gold);border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.5)}
 .cmppill button{border:0;background:none;color:#111;font:700 13px var(--f-body);padding:9px 14px;cursor:pointer}
 .cmppill #cmpClr{padding:9px 12px 9px 6px}
@@ -1173,6 +1196,7 @@ svg#map.stn-off .stlabel{display:none}
         <input id="q" type="search" placeholder="Search mine, company, ticker, state…" autocomplete="off" aria-label="Search mines">
       </div>
       <button type="button" class="resetbtn termsbtn" id="termsBtn" title="Definition board: what koz, Mtpa, g/t, AISC and other terms mean" aria-haspopup="dialog">Terms</button>
+      <button type="button" class="resetbtn toolsbtn" id="toolsBtn" title="Screener, M&amp;A radar, commodity what-if and phone alerts" aria-haspopup="dialog">Tools</button>
       <button type="button" class="resetbtn" id="resetAll" title="Clear every search, filter, highlight and overlay">Reset</button>
       </div>
       <div class="elsum" id="elsum" hidden aria-live="polite"></div>
@@ -1406,6 +1430,9 @@ svg#map.stn-off .stlabel{display:none}
       <div class="nh"><h2><span class="ldot wkdot" aria-hidden="true"></span>This week <small class="nwn" id="wkN"></small></h2><button class="rtog" id="wkTog" type="button" aria-expanded="true" aria-label="Minimise">−</button></div>
       <div class="nbody" id="wkBody"><div class="nmsg">Loading the weekly digest…</div></div>
     </section>
+    <div class="cmpbox toolbox" id="toolBox" hidden role="dialog" aria-modal="true" aria-label="Research tools"><div class="cmpin"><div class="cmph"><h2>Research tools</h2><button type="button" id="toolX" aria-label="Close">✕</button></div>
+      <div class="sgtabs tltabs" id="toolTabs"><button type="button" data-tl="scr" aria-pressed="true">Screener</button><button type="button" data-tl="ma" aria-pressed="false">M&amp;A radar</button><button type="button" data-tl="wf" aria-pressed="false">What-if</button><button type="button" data-tl="al" aria-pressed="false">🔔 Alerts</button></div>
+      <div class="cmpscroll" id="toolBody"></div></div></div>
     <div class="cmppill" id="cmpPill" hidden><button type="button" id="cmpOpen">Compare <b id="cmpN">0</b></button><button type="button" id="cmpClr" aria-label="Clear compare list">✕</button></div>
     <div class="cmpbox" id="cmpBox" hidden role="dialog" aria-modal="true" aria-label="Compare companies"><div class="cmpin"><div class="cmph"><h2>Compare</h2><button type="button" id="cmpX" aria-label="Close">✕</button></div><div class="cmpscroll" id="cmpBody"></div></div></div>
     <details class="legend" id="mapkey"><summary>Map key</summary><div class="kcols"><div class="kc">
@@ -1588,7 +1615,7 @@ function coBlock(c, withLinks){
     meta += shLine(d);
     if (yieldC(c) > 0) meta += ` · dividends <b>${fmtDiv(d.div)}/share</b> over 12 months (${fmtY(yieldC(c))} yield)${d.dvl ? `<br><span class="dvl">Latest: ${esc(d.dvl[0])}${d.dvl[2] ? " · " + esc(d.dvl[2]) : ""}${withLinks ? ` · <a href="${esc(d.dvl[1])}" target="_blank" rel="noopener noreferrer">source ↗</a>` : ""}</span>` : ""}`;
   } else meta = c === "PC2" ? `ASX:${c} · trading halted / suspended` : c === "LOM" ? `ASX:${c} · suspended (in administration)` : `ASX:${c} · price not in feed`;
-  const links = withLinks ? `<div class="links">${!d.exch ? `<button type="button" class="cmpb${CMP.includes(c) ? " on" : ""}" data-cmp="${c}">${CMP.includes(c) ? "✓ Comparing" : "+ Compare"}</button>` : ""}${d.site ? `<a href="${d.site}" target="_blank" rel="noopener">Company website ↗</a>` : ""}${d.mi ? `<a href="https://trading.hellostake.com/platform/instrument/au-trading/${encodeURIComponent(c)}" target="_blank" rel="noopener" title="Open ASX:${c} in Stake">Stake investing ↗</a>` : ""}${d.mi ? `<a href="${d.mi}" target="_blank" rel="noopener">ASX:${c} chart ↗</a>` : ""}</div>` : "";
+  const links = withLinks ? `<div class="links">${!d.exch ? `<a class="belb" href="https://ntfy.sh/${ALERT_BASE}-${c}" target="_blank" rel="noopener noreferrer" title="Get phone alerts for ASX:${c} in the free ntfy app">🔔 Alerts</a>` : ""}${!d.exch ? `<button type="button" class="cmpb${CMP.includes(c) ? " on" : ""}" data-cmp="${c}">${CMP.includes(c) ? "✓ Comparing" : "+ Compare"}</button>` : ""}${d.site ? `<a href="${d.site}" target="_blank" rel="noopener">Company website ↗</a>` : ""}${d.mi ? `<a href="https://trading.hellostake.com/platform/instrument/au-trading/${encodeURIComponent(c)}" target="_blank" rel="noopener" title="Open ASX:${c} in Stake">Stake investing ↗</a>` : ""}${d.mi ? `<a href="${d.mi}" target="_blank" rel="noopener">ASX:${c} chart ↗</a>` : ""}</div>` : "";
   return `<div class="co"><span class="cn">${esc(d.name)}</span><span class="px">${px}</span><div class="meta">${meta}</div>${links}${withLinks ? priceChart(c) : ""}</div>`;
 }
 // Aboriginal land / heritage / "allowed to mine?" status (researched 12 Oct 2026)
@@ -1675,7 +1702,7 @@ function info(m, full){
     <dt>Location</dt><dd>${STATE_FULL[m.st]} · ${m.lat.toFixed(2)}, ${m.lon.toFixed(2)}</dd>
   </dl>
   ${full ? `<div class="geolinks"><a href="https://earth.google.com/web/@${m.lat},${m.lon},400a,6000d,35y,0h,45t,0r" target="_blank" rel="noopener noreferrer">Google Earth 3D ↗</a><a href="https://www.google.com/maps/@?api=1&amp;map_action=map&amp;center=${m.lat},${m.lon}&amp;zoom=14&amp;basemap=satellite" target="_blank" rel="noopener noreferrer">Google Maps satellite ↗</a></div>` : ""}
-  ${full && typeof sigBadges === "function" ? sigBadges(m) + lifeHtml(m) : ""}
+  ${full && typeof sigBadges === "function" ? sigBadges(m) + lifeHtml(m) + listed(m).map(sensLine).join("") : ""}
   ${full && typeof propsHtml === "function" ? propsHtml(m) : ""}
   <p class="blurb">${esc(m.b)}</p>${full ? coNews(m) : `<div class="hint">Click the dot for website, chart and latest news links</div>`}`;
 }
@@ -3599,6 +3626,150 @@ document.addEventListener("keydown", ev => { if (ev.key === "Escape") document.g
 ["cmpPill", "cmpBox"].forEach(id => document.body.appendChild(document.getElementById(id)));   // fixed overlays live on <body> so no panel can hide them
 setTimeout(() => { saveCmp(); renderSig(); }, 0);
 setInterval(() => { if (!document.hidden) renderSig(); }, 60000);
+// ================= Research tools: screener, M&A radar, commodity what-if, phone alerts
+const ALERT_BASE = "minesmap-3688cedce5";
+let SENS = null;
+function applySens(doc){ if (!doc || !doc.s) return; SENS = doc; if (!document.getElementById("toolBox").hidden) renderTool(); }
+const sensOf = c => SENS && SENS.s[c] || null;
+function sensLine(c){ const x = sensOf(c); if (!x) return "";
+  const f = x.r, top = ["gold", "copper", "oil", "aud"].sort((a, b) => Math.abs(f[b]) - Math.abs(f[a]))[0], nm = {gold: "gold", copper: "copper", oil: "oil", aud: "the A$"};
+  return `<div class="sens">Moves most with <b>${nm[top]}</b>: a 10% ${top === "aud" ? "rise in the A$" : `rise in ${nm[top]} (in A$)`} ≈ <b>${x.b[top] >= 0 ? "+" : ""}${(x.b[top] * 10).toFixed(1)}%</b> for ${esc(c)} <small>(correlation ${f[top].toFixed(2)} · 1-yr ${x.ch1y >= 0 ? "+" : ""}${x.ch1y}% · volatility ${x.vol}%/yr)</small></div>`; }
+// --- company metrics used by the screener / radar
+function coRow(c){
+  const d = COS[c], M = coMines(c), P = M.filter(m => m.s === "P");
+  const goldA = typeof LIVE_GOLD !== "undefined" && LIVE_GOLD && LIVE_GOLD.usd ? LIVE_GOLD.usd / (LIVE_GOLD.audusd || 0.66) : null;
+  const aisc = (typeof AISC !== "undefined" && AISC[c] && AISC[c][0]) || null;
+  const lifeYs = P.map(lifeOf).filter(x => x && x.y != null).map(x => x.y);
+  const prodGold = P.filter(m => m.e === "gold").reduce((a, m) => a + (m.p || 0), 0);
+  return {c, d, el: coMainEl(c), mcap: d.mcap || null, price: d.price, aisc, margin: aisc && goldA ? goldA - aisc : null, life: lifeYs.length ? Math.max(...lifeYs) : null,
+    yld: yieldC(c) || 0, volx: volX(c), hl: hiLo(c), h: d.h || null, prod: P.length, dev: M.filter(m => m.s === "D").length, flags: M.filter(m => m.lh && (m.lh[0] === "nogo" || m.lh[0] === "risk")).length,
+    beta: sensOf(c) ? sensOf(c).b : null, ch1y: sensOf(c) ? sensOf(c).ch1y : null, rank: IDX && IDX.r[c] ? IDX.r[c][0] : null, prodGold, M}; }
+// --- screener
+const SCR_F = [
+  ["el", "Element", "sel"], ["capMin", "Market value from (A$)", "num"], ["capMax", "Market value up to (A$)", "num"], ["pxMax", "Share price up to (A$)", "num"],
+  ["stage", "Stage", "stage"], ["aiscMax", "AISC up to (A$/oz)", "num"], ["marginMin", "Margin at least (A$/oz)", "num"], ["lifeMin", "Mine life at least (yrs)", "num"],
+  ["yldMin", "Dividend yield at least (%)", "num"], ["volMin", "Volume at least (× normal)", "num"], ["ch1yMin", "1-yr change from (%)", "num"], ["ch1yMax", "1-yr change up to (%)", "num"],
+  ["bGold", "Gold sensitivity at least (β)", "num"], ["health", "Company health", "health"], ["hl", "52-week position", "hl"], ["noflag", "Land & heritage", "flag"]];
+let SCR = {}; try { SCR = JSON.parse(localStorage.getItem("scrNow") || "{}"); } catch (e) {}
+let SCR_SAVED = {}; try { SCR_SAVED = JSON.parse(localStorage.getItem("scrSaved") || "{}"); } catch (e) {}
+const SCR_PRESET = {"Cheap gold producers": {el: "gold", stage: "P", marginMin: "1500", capMax: "2000000000"}, "Producers paying dividends": {stage: "P", yldMin: "2"},
+  "Juniors with heat (volume)": {capMax: "300000000", volMin: "2"}, "Beaten down near lows": {hl: "lo", stage: "P"}, "Most gold-geared": {el: "gold", bGold: "1.2"}};
+const num = v => { if (v == null || v === "") return null; const m = String(v).trim().toUpperCase().match(/^([\d.]+)\s*([KMB])?$/); if (!m) return +v; return +m[1] * ({K: 1e3, M: 1e6, B: 1e9}[m[2]] || 1); };
+function scrRun(F){
+  return onMap().map(coRow).filter(r => {
+    if (F.el && r.el !== F.el) return false;
+    const cm = num(F.capMin), cx = num(F.capMax); if (cm != null && !(r.mcap >= cm)) return false; if (cx != null && !(r.mcap <= cx)) return false;
+    if (num(F.pxMax) != null && !(r.price <= num(F.pxMax))) return false;
+    if (F.stage === "P" && !r.prod) return false; if (F.stage === "D" && (r.prod || !r.dev)) return false;
+    if (num(F.aiscMax) != null && !(r.aisc && r.aisc <= num(F.aiscMax))) return false;
+    if (num(F.marginMin) != null && !(r.margin != null && r.margin >= num(F.marginMin))) return false;
+    if (num(F.lifeMin) != null && !(r.life != null && r.life >= num(F.lifeMin))) return false;
+    if (num(F.yldMin) != null && !(r.yld >= num(F.yldMin))) return false;
+    if (num(F.volMin) != null && !(r.volx != null && r.volx >= num(F.volMin))) return false;
+    if (num(F.ch1yMin) != null && !(r.ch1y != null && r.ch1y >= num(F.ch1yMin))) return false;
+    if (num(F.ch1yMax) != null && !(r.ch1y != null && r.ch1y <= num(F.ch1yMax))) return false;
+    if (num(F.bGold) != null && !(r.beta && r.beta.gold >= num(F.bGold))) return false;
+    if (F.health && r.h !== F.health) return false;
+    if (F.hl === "hi" && !(r.hl && /hi/.test(r.hl.k))) return false; if (F.hl === "lo" && !(r.hl && /lo/.test(r.hl.k))) return false;
+    if (F.noflag === "1" && r.flags) return false;
+    return true; }); }
+function scrField([k, lab, t]){
+  const v = SCR[k] || "", opt = (pairs) => `<select data-k="${k}">${pairs.map(([a, b]) => `<option value="${a}"${v === a ? " selected" : ""}>${b}</option>`).join("")}</select>`;
+  let inp;
+  if (t === "sel") inp = opt([["", "Any"], ...ORDER.filter(x => x !== "all").map(x => [x, THEMES[x].label])]);
+  else if (t === "stage") inp = opt([["", "Any"], ["P", "Has a producing mine"], ["D", "Developers only"]]);
+  else if (t === "health") inp = opt([["", "Any"], ["up", "Booming"], ["flat", "Steady / mixed"], ["down", "Struggling"]]);
+  else if (t === "hl") inp = opt([["", "Any"], ["hi", "At / near 52-wk high"], ["lo", "At / near 52-wk low"]]);
+  else if (t === "flag") inp = opt([["", "Any"], ["1", "No flagged sites"]]);
+  else inp = `<input data-k="${k}" type="text" inputmode="decimal" value="${esc(v)}" placeholder="—">`;
+  return `<label>${lab}${inp}</label>`; }
+let SCR_SORT = "mcap";
+function renderScr(){
+  const L = scrRun(SCR), key = {mcap: r => -(r.mcap || 0), margin: r => -(r.margin ?? -1e9), life: r => -(r.life ?? -1), yld: r => -r.yld, ch1y: r => -(r.ch1y ?? -1e9), vol: r => -(r.volx || 0)}[SCR_SORT];
+  L.sort((a, b) => key(a) - key(b));
+  const names = Object.keys(SCR_PRESET).concat(Object.keys(SCR_SAVED));
+  return `<div class="scrbar"><select id="scrLoad"><option value="">Load a screen…</option>${names.map(n => `<option>${esc(n)}</option>`).join("")}</select><button type="button" id="scrSave">Save screen</button><button type="button" id="scrClear">Clear</button>
+    <select id="scrSort">${[["mcap", "Sort: market value"], ["margin", "Sort: margin"], ["life", "Sort: mine life"], ["yld", "Sort: dividend"], ["ch1y", "Sort: 1-yr change"], ["vol", "Sort: volume"]].map(([a, b]) => `<option value="${a}"${a === SCR_SORT ? " selected" : ""}>${b}</option>`).join("")}</select><span class="cnt"><b>${L.length}</b> match${L.length === 1 ? "" : "es"}</span></div>
+    <div class="scrf">${SCR_F.map(scrField).join("")}</div>
+    <div class="tlist">${L.slice(0, 80).map(r => sgRow(r.c, [THEMES[r.el] ? THEMES[r.el].label : "", r.margin != null ? `margin A$${Math.round(r.margin).toLocaleString()}/oz` : "", r.life != null ? `life ${r.life} yrs` : "", r.yld ? `yield ${fmtY(r.yld)}` : "", r.ch1y != null ? `1-yr ${r.ch1y >= 0 ? "+" : ""}${r.ch1y}%` : ""].filter(Boolean).join(" · "), r.price != null ? fmtPx(r.price) : "—", r.mcap ? fmtCap(r.mcap) : "")).join("") || `<div class="nmsg">No company matches every filter. Try loosening one.</div>`}</div>
+    <div class="nfine" style="padding:8px 16px">Leave a box empty to ignore it. Values like 500M or 2B work for market value. Screens you save stay on this device.</div>`; }
+// --- M&A radar: live deals + likely targets
+const DEAL_RX = /takeover|scheme (booklet|implementation|meeting)|bidder'?s statement|target'?s statement|off-market offer|merger|non-binding (indicative )?(offer|proposal)|change of control|acquisition of .* by/i;
+const km = (a, b) => { const R = 6371, t = Math.PI / 180, dLa = (b.lat - a.lat) * t, dLo = (b.lon - a.lon) * t; const h = Math.sin(dLa / 2) ** 2 + Math.cos(a.lat * t) * Math.cos(b.lat * t) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(h)); };
+function maScore(c){
+  const r = coRow(c), why = []; let s = 0;
+  if (!r.mcap) return null;
+  if (r.mcap >= 3e7 && r.mcap <= 2.5e9) { s += 15; why.push("bite-sized (A$30M–2.5B)"); }
+  const big = onMap().filter(x => x !== c && COS[x].mcap > r.mcap * 4 && COS[x].mcap > 1e9);
+  // a bigger miner's mill or mine close by
+  let best = null;
+  r.M.forEach(m => { FAC.forEach(f => { if (!f.c.length || f.e !== m.e || f.c.includes(c) || !f.c.some(x => big.includes(x))) return; const d = km(m, f); if (d <= 80 && (!best || d < best.d)) best = {d, n: f.n, by: f.c.find(x => big.includes(x)), mill: 1}; }); });
+  if (!best) r.M.forEach(m => { ALL.all.forEach(o => { if (o.s !== "P" || o.e !== m.e || o.c.includes(c) || !o.c.some(x => big.includes(x))) return; const d = km(m, o); if (d <= 50 && (!best || d < best.d)) best = {d, n: o.n, by: o.c.find(x => big.includes(x))}; }); });
+  if (best) { s += best.mill ? (best.d <= 40 ? 30 : 20) : 15; why.push(`${Math.round(best.d)} km from ${esc(best.by)}'s ${esc(best.n)}`); }
+  if (r.hl && /lo/.test(r.hl.k)) { s += 10; why.push("near 52-week low"); } else if (r.ch1y != null && r.ch1y < -20) { s += 8; why.push(`down ${-r.ch1y}% in a year`); }
+  if (r.prod && r.margin != null && r.margin > 1500 && r.mcap < 3e9) { s += 12; why.push("profitable producer"); }
+  if (r.dev && !r.prod) { s += 8; why.push("development project (needs a funder)"); }
+  if (r.life != null && r.life >= 8 && r.mcap < 3e9) { s += 8; why.push(`${r.life}-yr mine life`); }
+  if (r.flags) { s -= 10; why.push("heritage flags (deterrent)"); }
+  if (r.h === "down") { s += 5; why.push("struggling (cheaper to buy)"); }
+  if (r.volx >= 2) { s += 10; why.push(`${r.volx.toFixed(1)}× volume`); }
+  return {c, s: Math.max(0, Math.min(100, s)), why}; }
+function liveDeals(){ if (typeof annList !== "function") return [];
+  return annList("all").filter(a => COS[a.c] && DEAL_RX.test(a.h || "") && Date.now() - new Date(a.d) < 75 * 864e5).map(a => Object.assign({u: annUrl(a.k)}, a)); }
+function renderMA(){
+  const D = liveDeals(), T = onMap().map(maScore).filter(x => x && x.s >= 30).sort((a, b) => b.s - a.s).slice(0, 40);
+  return `<div class="sghd">Live deals (ASX announcements, last ~10 weeks)</div>${D.length ? D.slice(0, 20).map(a => `<div class="sgrow" data-c="${a.c}">${coBadge(a.c)}<div><b>${esc(COS[a.c] ? COS[a.c].name : a.c)}</b><div class="why"><a href="${esc(a.u)}" target="_blank" rel="noopener noreferrer">${esc(a.h)}</a></div></div><div class="sgv">${esc(dShort(new Date(a.d)))}</div></div>`).join("") : `<div class="nmsg">No takeover or merger announcements in the latest ASX feed.</div>`}
+    <div class="sghd">Likely targets (score out of 100)</div><div class="tlist">${T.map(t => `<div class="sgrow" role="button" tabindex="0" data-c="${t.c}">${coBadge(t.c)}<div><b>${esc(COS[t.c].name)}</b><div class="why">${t.why.join(" · ")}</div></div><div class="sgv"><span class="score ${t.s >= 60 ? "h" : t.s >= 45 ? "m" : ""}">${t.s}</span><small>${fmtCap(COS[t.c].mcap)}</small></div></div>`).join("")}</div>
+    <div class="nfine" style="padding:8px 16px">The score is an estimate, not a prediction. It adds points for: a size buyers can afford; being close to a much bigger miner's mill or mine; a falling share price; profitable output; a long mine life; and unusual volume. It takes points off for heritage issues. Major shareholders aren't included yet.</div>`; }
+// --- What-if: commodity moves -> estimated share price moves (1-year betas)
+let WF = {gold: 0, copper: 0, oil: 0, aud: 0}, WF_SCOPE = "fav";
+function renderWF(){
+  if (!SENS) return `<div class="nmsg">Loading 1-year price sensitivities… (built after each ASX close)</div>`;
+  const sl = (k, lab, max) => `<span>${lab}</span><input type="range" min="${-max}" max="${max}" step="1" value="${WF[k]}" data-wf="${k}"><b id="wf_${k}">${WF[k] > 0 ? "+" : ""}${WF[k]}%</b>`;
+  const pool = (WF_SCOPE === "fav" && FAV.length ? FAV : onMap()).filter(c => SENS.s[c]);
+  const est = c => { const b = SENS.s[c].b; return b.gold * WF.gold + b.copper * WF.copper + b.oil * WF.oil + b.aud * WF.aud; };
+  const L = pool.map(c => [c, est(c)]).sort((a, b) => b[1] - a[1]);
+  const rows = L.length > 24 ? L.slice(0, 12).concat([["…", null]], L.slice(-12)) : L;
+  return `<div class="wfs">${sl("gold", "Gold (A$)", 30)}${sl("copper", "Copper (A$)", 30)}${sl("oil", "Oil (A$)", 40)}${sl("aud", "A$ vs US$", 15)}</div>
+    <div class="scrbar"><select id="wfScope"><option value="fav"${WF_SCOPE === "fav" ? " selected" : ""}>My favourites${FAV.length ? "" : " (none yet: showing all)"}</option><option value="all"${WF_SCOPE === "all" ? " selected" : ""}>All companies on the map</option></select><button type="button" id="wfReset">Reset sliders</button><span class="cnt">${pool.length} stocks</span></div>
+    <div class="tlist">${rows.map(([c, v]) => c === "…" ? `<div class="nmsg" style="text-align:center">…</div>` : sgRow(c, `β gold ${SENS.s[c].b.gold} · copper ${SENS.s[c].b.copper} · oil ${SENS.s[c].b.oil} · A$ ${SENS.s[c].b.aud}`, `<span class="${v >= 0 ? "pos" : "neg"}">${v >= 0 ? "+" : ""}${v.toFixed(1)}%</span>`, COS[c].price ? "→ " + fmtPx(COS[c].price * (1 + v / 100)) : "")).join("")}</div>
+    <div class="nfine" style="padding:8px 16px">Estimated from how each stock moved with gold, copper, oil and the A$ over the last year (daily, all priced in A$). It's a rough guide: company news, the wider market and hedging all change the real move.</div>`; }
+// --- Alerts (ntfy)
+function renderAL(){
+  const favs = FAV.filter(c => COS[c]);
+  return `<div class="alx">Get free phone notifications when something happens to a company: price-sensitive news, capital raisings, takeovers, ±5% moves, 3× volume, new 52-week highs or lows, and changes in shares on issue. They're checked every 15 minutes in ASX hours.
+    <ol><li>Install the free <b>ntfy</b> app (<a href="https://play.google.com/store/apps/details?id=io.heckel.ntfy" target="_blank" rel="noopener noreferrer">Android</a> · <a href="https://apps.apple.com/app/ntfy/id1625396347" target="_blank" rel="noopener noreferrer">iPhone</a>). No account is needed.</li>
+    <li>Tap a 🔔 below, or <b>🔔 Alerts</b> on any company card, then press <b>Subscribe</b>. Or in the app, add the topic <code>${ALERT_BASE}-NST</code> (use any ASX code).</li>
+    <li>For only the big events across every company, subscribe to <code>${ALERT_BASE}-all</code>.</li></ol>
+    <div class="bells"><a href="https://ntfy.sh/${ALERT_BASE}-all" target="_blank" rel="noopener noreferrer">🔔 All companies: big events</a>${favs.map(c => `<a href="https://ntfy.sh/${ALERT_BASE}-${c}" target="_blank" rel="noopener noreferrer">🔔 ${esc(c)}</a>`).join("")}</div>
+    ${favs.length ? "" : `<p style="color:var(--mute)">Star companies in Watch → Favourites and they'll appear here as one-tap bells.</p>`}
+    <p style="color:var(--mute);font-size:12px">The topics are public addresses, so anyone who knows them could read the same alerts. They contain only public ASX information.</p></div>`; }
+// --- the Tools window
+let TL = "scr"; try { TL = localStorage.getItem("toolTab") || "scr"; } catch (e) {}
+function renderTool(){
+  document.querySelectorAll("#toolTabs button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tl === TL)));
+  document.getElementById("toolBody").innerHTML = TL === "scr" ? renderScr() : TL === "ma" ? renderMA() : TL === "wf" ? renderWF() : renderAL(); }
+const toolBox = document.getElementById("toolBox");
+document.body.appendChild(toolBox);
+document.getElementById("toolsBtn").onclick = () => { toolBox.hidden = false; renderTool(); };
+document.getElementById("toolX").onclick = () => { toolBox.hidden = true; };
+document.querySelectorAll("#toolTabs button").forEach(b => b.onclick = () => { TL = b.dataset.tl; try { localStorage.setItem("toolTab", TL); } catch (e) {} renderTool(); });
+toolBox.addEventListener("click", ev => {
+  if (ev.target === toolBox) { toolBox.hidden = true; return; }
+  if (ev.target.closest("a")) return;
+  const r = ev.target.closest(".sgrow[data-c]"); if (r && COS[r.dataset.c] && !ev.target.closest("select,input,button")) { toolBox.hidden = true; goToCompany(r.dataset.c); return; }
+  if (ev.target.id === "scrSave") { const n = prompt("Name this screen:"); if (n) { SCR_SAVED[n] = Object.assign({}, SCR); try { localStorage.setItem("scrSaved", JSON.stringify(SCR_SAVED)); } catch (e) {} renderTool(); } }
+  if (ev.target.id === "scrClear") { SCR = {}; try { localStorage.setItem("scrNow", "{}"); } catch (e) {} renderTool(); }
+  if (ev.target.id === "wfReset") { WF = {gold: 0, copper: 0, oil: 0, aud: 0}; renderTool(); } });
+toolBox.addEventListener("change", ev => {
+  const t = ev.target;
+  if (t.dataset.k) { SCR[t.dataset.k] = t.value; try { localStorage.setItem("scrNow", JSON.stringify(SCR)); } catch (e) {} const y = toolBody.scrollTop; renderTool(); toolBody.scrollTop = y; }
+  if (t.id === "scrLoad" && t.value) { SCR = Object.assign({}, SCR_PRESET[t.value] || SCR_SAVED[t.value] || {}); try { localStorage.setItem("scrNow", JSON.stringify(SCR)); } catch (e) {} renderTool(); }
+  if (t.id === "scrSort") { SCR_SORT = t.value; renderTool(); }
+  if (t.id === "wfScope") { WF_SCOPE = t.value; renderTool(); } });
+toolBox.addEventListener("input", ev => { const t = ev.target; if (t.dataset.wf) { WF[t.dataset.wf] = +t.value; clearTimeout(WF.t); const y = toolBody.scrollTop; WF.t = setTimeout(() => { renderTool(); toolBody.scrollTop = y; const el = toolBox.querySelector(`[data-wf="${t.dataset.wf}"]`); if (el) el.focus(); }, 60); } });
+const toolBody = document.getElementById("toolBody");
+document.addEventListener("keydown", ev => { if (ev.key === "Escape") toolBox.hidden = true; });
 // shares job: shares = {asof, s:{CODE:[shares on issue, previous count, date it changed]}}
 function applyShares(doc){
   if (!doc || !doc.s) return; let n = 0;
@@ -3931,7 +4102,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
   // the app reads its own copy; the Claude version and saved copies read the same free GitHub data over the web
   const inClaude = !!(window.claude && typeof claude.use === "function"), remote = inClaude || location.protocol === "file:";
   const BASES = remote ? ["https://liladelaide.github.io/mines-map/", "https://cdn.jsdelivr.net/gh/LilAdelaide/mines-map@main/"] : [""];
-  const FEEDS = [["prices", applyLive, 5], ["ann", applyAnn, 10], ["commod", applyCommod, 15], ["news", applyNews, 30], ["stats", applyStats, 60], ["shares", applyShares, 15], ["index", applyIndex, 60], ["digest", applyDigest, 60], ["minelife", applyLife, 240], ["hist", applyHist, 60], ["costs", applyCosts, 60]];
+  const FEEDS = [["prices", applyLive, 5], ["ann", applyAnn, 10], ["commod", applyCommod, 15], ["news", applyNews, 30], ["stats", applyStats, 60], ["shares", applyShares, 15], ["index", applyIndex, 60], ["digest", applyDigest, 60], ["minelife", applyLife, 240], ["sens", applySens, 120], ["hist", applyHist, 60], ["costs", applyCosts, 60]];
   const seen = {};
   async function pull(name, fn){
     try {
