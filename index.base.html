@@ -1197,6 +1197,7 @@ svg#map.stn-off .stlabel{display:none}
       </div>
       <button type="button" class="resetbtn termsbtn" id="termsBtn" title="Definition board: what koz, Mtpa, g/t, AISC and other terms mean" aria-haspopup="dialog">Terms</button>
       <button type="button" class="resetbtn toolsbtn" id="toolsBtn" title="Screener, M&amp;A radar, commodity what-if and phone alerts" aria-haspopup="dialog">Tools</button>
+      <button type="button" class="resetbtn tutbtn" id="tutBtn" title="Tutorial: a step-by-step tour of every feature" aria-label="Tutorial">?</button>
       <button type="button" class="resetbtn" id="resetAll" title="Clear every search, filter, highlight and overlay">Reset</button>
       </div>
       <div class="elsum" id="elsum" hidden aria-live="polite"></div>
@@ -1291,6 +1292,8 @@ svg#map.stn-off .stlabel{display:none}
     <details class="basesw" id="viewset">
       <summary>Map &amp; display</summary>
       <div class="vsbody">
+      <div class="t">Tutorial</div>
+      <div class="seg tutseg"><button type="button" id="tutReplay" aria-pressed="false">▶ Replay tutorial</button></div>
       <div class="t">Map view</div>
       <div class="seg" id="v3Seg">
         <button type="button" data-v3="off" aria-pressed="true">2D map</button>
@@ -4012,7 +4015,7 @@ document.querySelectorAll(".uistep").forEach(btn => {
   };
   const TABS = [["map","Map"],["list","Mines"],["picks","Picks"],["news","News"],["watch","Watch"]];
   const top = document.createElement("div"); top.className = "ctop"; top.hidden = true;
-  top.innerHTML = `<div class="cbrand">Mines<b>Map</b></div><div class="cslot"></div><button type="button" class="cbtn" id="cMore" aria-label="Map style, screen size and key">⚙</button>`;
+  top.innerHTML = `<div class="cbrand">Mines<b>Map</b></div><div class="cslot"></div><button type="button" class="cbtn" id="cTut" aria-label="Tutorial">?</button><button type="button" class="cbtn" id="cMore" aria-label="Map style, screen size and key">⚙</button>`;
   const tab = document.createElement("nav"); tab.className = "ctab"; tab.hidden = true; tab.setAttribute("aria-label", "Sections");
   tab.innerHTML = TABS.map(([k, l]) => `<button type="button" data-t="${k}" aria-selected="${k === "map"}">${ICON[k]}<span>${l}</span></button>`).join("");
   const sheet = document.createElement("section"); sheet.className = "csheet"; sheet.hidden = true;
@@ -4159,6 +4162,239 @@ document.querySelectorAll(".uistep").forEach(btn => {
 
 <script>
 if ("serviceWorker" in navigator && location.protocol === "https:") addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+</script>
+<style>
+/* tutorial: dim the screen, cut a gold-edged hole around the feature, a Next/Back card beside it */
+.tutbtn{min-width:34px;padding-left:0!important;padding-right:0!important;font-weight:800}
+.tutseg{grid-template-columns:1fr!important}
+#tutReplay{color:var(--gold)}
+.tut{position:fixed;inset:0;z-index:5000;touch-action:none}
+.tut .th{position:fixed;border:2px solid var(--gold);border-radius:10px;box-shadow:0 0 0 9999px rgba(0,0,0,.66),0 0 18px rgba(255,204,0,.45);pointer-events:none;transition:all .28s ease}
+.tut .th.none{left:50%!important;top:42%!important;width:0!important;height:0!important;border-width:0}
+.tut .tc{position:fixed;width:min(370px,calc(100vw - 24px));box-sizing:border-box;background:#101315;border:1px solid #3a3f44;border-radius:14px;padding:16px 16px 12px;box-shadow:0 18px 50px rgba(0,0,0,.6);color:var(--fg);transition:left .28s ease,top .28s ease}
+.tut .tn{font:600 10px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;align-items:center}
+.tut .tx{background:none;border:0;color:var(--mute);font:500 12px var(--f-body);cursor:pointer;padding:4px 0 4px 10px}
+.tut .tx:hover{color:var(--fg)}
+.tut .tbar{height:3px;background:#24292d;border-radius:2px;margin:8px 0 10px;overflow:hidden}
+.tut .tbar i{display:block;height:100%;background:var(--gold);transition:width .28s}
+.tut h3{margin:0 0 6px;font:800 21px/1.1 var(--f-display);font-stretch:80%;color:#fff}
+.tut .tb{font-size:13.5px;line-height:1.5;color:#d6d6d6;max-height:42vh;overflow-y:auto}
+.tut .tb p{margin:0 0 8px}
+.tut .tb ul{margin:0 0 8px;padding-left:18px}
+.tut .tb li{margin:2px 0}
+.tut .tb b{color:#fff}
+.tut .tb .tip{display:block;position:static;border-left:3px solid var(--gold);padding:4px 0 4px 9px;color:#bdbdbd;font-size:12.5px;background:none;margin:0 0 8px}
+.tut .tf{display:flex;gap:8px;margin-top:10px}
+.tut .tf button{flex:1;min-height:42px;border-radius:9px;font:700 14px var(--f-body);cursor:pointer;border:1px solid var(--border);background:#16191c;color:var(--fg)}
+.tut .tf button.nx{background:var(--gold);border-color:var(--gold);color:#000}
+.tut .tf button:disabled{opacity:.35;cursor:default}
+body.compact .tut .tc{left:12px!important;width:calc(100vw - 24px)}
+</style>
+<script>
+// ---------- tutorial: a guided tour of every feature with Next / Back. Starts once on first visit;
+// replay any time from the "?" button or Map & display → Replay tutorial. Finishing returns to the normal map.
+(function(){
+  const $ = id => document.getElementById(id);
+  const isC = () => document.body.classList.contains("compact");
+  const q = sel => { try { return document.querySelector(sel); } catch (e) { return null; } };
+  const vis = el => { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 2 && r.height > 2 && getComputedStyle(el).visibility !== "hidden"; };
+  // phone layout: open the right bottom tab (map, list, picks, news, watch, more)
+  function tab(k){
+    if (!isC()) return;
+    const sheet = q(".csheet"), on = sheet && !sheet.hidden;
+    if (k === "map") { const b = q('.ctab button[data-t="map"]'); if (b) b.click(); return; }
+    if (k === "more") { const p = q('.csheet .pane[data-p="more"]'); if (!(on && p && p.classList.contains("on"))) { const b = $("cMore"); if (b) b.click(); } return; }
+    const b = q(`.ctab button[data-t="${k}"]`); if (b && !(on && b.getAttribute("aria-selected") === "true")) b.click();
+  }
+  const openD = id => { const d = $(id); if (d && !d.open) d.open = true; };
+  function demoMine(){
+    const ms = (typeof MINES !== "undefined" ? MINES : []).filter(m => m.s === "P" || m.st === "P");
+    const pool = ms.length ? ms : (typeof MINES !== "undefined" ? MINES : []);
+    return pool.slice().sort((a, b) => (b.p || 0) - (a.p || 0))[0];
+  }
+  function showCard(){
+    if (typeof card !== "undefined" && !card.hidden && typeof selected !== "undefined" && selected) return;
+    tab("map"); const m = demoMine(); if (m && typeof select === "function") select(m, false);
+  }
+  function tools(t){ return () => { if (typeof TL !== "undefined") { TL = t; } const tb = $("toolBox"); if (tb) { tb.hidden = false; if (typeof renderTool === "function") renderTool(); } }; }
+  const tip = t => `<span class="tip">${t}</span>`;
+
+  // each stage: t = title, b = explanation, d = what to spotlight on a computer, m = on a phone (defaults to d),
+  // k = phone tab to open first, pre = set the screen up, only = "d" (computer) or "c" (phone) stages
+  const S = [
+    {t: "Welcome to the Australian Mines Map", b: `<p>This tour walks you through <b>every feature</b>, one step at a time, and explains what each one does and how to use it for researching ASX mining stocks.</p><p>Use <b>Next</b> and <b>Back</b> to move through it (or the ← → arrow keys). <b>Skip</b> ends it at any time.</p>${tip("You can replay this tutorial whenever you like from the <b>?</b> button or <b>Map &amp; display → Replay tutorial</b>.")}`},
+    {t: "Choose an element", d: "#cms", m: ".ctop .cms", b: `<p>Pick which commodity to view: <b>gold, iron ore, lithium, copper, oil &amp; gas, coal, uranium</b> and more. The whole app switches with it: the mine dots, the list, recommendations, news, prices and costs.</p>${tip("<b>All</b> shows every mine at once, which is useful when following one company across several metals.")}`},
+    {t: "Live element prices", d: "#pxtick", b: `<p>The ticker shows the current price of each element in US dollars and how much it moved today. It refreshes automatically every few minutes.</p>${tip("A big move here usually flows straight into the share prices of that element's miners.")}`},
+    {t: "The map", d: "#mapwrap", m: "#mapwrap", k: "map", b: `<p>Every dot is a mine or project. <b>Dot size = yearly output</b>. A filled dot is <b>producing</b>, a ring is in <b>development</b>, and grey is on <b>care &amp; maintenance</b>.</p><ul><li><b>Drag</b> to move, <b>scroll or pinch</b> to zoom.</li><li><b>Hover</b> a dot (computer) for a quick summary; <b>click or tap</b> it for the full details.</li><li>A <b style="color:#ff3b3b">red ring</b> means mining isn't allowed there; <b style="color:#ffae1a">orange</b> means a heritage or land-access risk.</li></ul>${tip("Zoom right in and a <b>Max detail reached</b> button appears, which opens that exact spot in Google Earth.")}`},
+    {t: "Zoom buttons", d: ".rcol .zoom", only: "d", b: `<p><b>+</b> and <b>−</b> zoom in and out. <b>⤢</b> resets the map back to the whole of Australia.</p>`},
+    {t: "Bottom tabs", d: ".ctab", only: "c", b: `<p>On your phone everything lives behind these tabs:</p><ul><li><b>Map</b>: the full-screen map</li><li><b>Mines</b>: search, filters and the mine list</li><li><b>Picks</b>: recommended stocks</li><li><b>News</b>: headlines, market signals, this week, new mines and announcements</li><li><b>Watch</b>: favourites, costs and the catalyst calendar</li></ul>${tip("Swipe a panel down, or tap its handle, to close it. Tap the same tab again to return to the map.")}`},
+    {t: "Settings button", d: "#cMore", only: "c", b: `<p><b>⚙</b> opens <b>Map &amp; display</b> (3D, map styles, leases, layers, labels, screen size) and the <b>Map key</b>. The <b>?</b> next to it replays this tutorial.</p>`},
+    {t: "Search", d: ".search", k: "list", b: `<p>Type a <b>mine name, company, ASX ticker or state</b>. Matches are by the start of a word, so “RIO” finds Rio Tinto, not Mt Marion.</p><p>Searching for a company also draws dashed links between all of its sites.</p>`},
+    {t: "Terms (definition board)", d: "#termsBtn", k: "list", b: `<p>Opens the <b>definition board</b>: plain-English meanings of terms like <b>koz, Mtpa, g/t, AISC, reserves vs resources</b>.</p><p>It also includes an <b>elements list</b> with a red / orange / green <b>demand</b> rating for each commodity.</p>`},
+    {t: "Tools", d: "#toolsBtn", k: "list", b: `<p>Opens the <b>Research tools</b> window with four tabs: <b>Screener</b>, <b>M&amp;A radar</b>, <b>What-if</b> and <b>🔔 Alerts</b>. The next four steps show each one.</p>`},
+    {t: "Tools · Screener", d: "#toolBox .cmpin", pre: tools("scr"), b: `<p>Filter every listed miner at once by <b>element, stage, market cap, price move, volume, value and distance from the 52-week high or low</b>.</p><ul><li>Start from a ready-made screen like <b>Cheap gold producers</b> or <b>Beaten down near lows</b>.</li><li>Press <b>Save</b> to keep your own screen and <b>Load</b> it later.</li><li>Tap a result to jump to that company on the map.</li></ul>`},
+    {t: "Tools · M&A radar", d: "#toolBox .cmpin", pre: tools("ma"), b: `<p><b>Live deals</b> at the top: takeovers, mergers and asset sales from today's ASX announcements.</p><p>Below that are <b>likely takeover targets</b> scored out of 100, for example a small producer sitting near a <b>bigger miner's mill</b> of the same metal, a low market cap, a long mine life and a healthy balance sheet.</p>${tip("The score is an estimate only. It doesn't use shareholder data.")}`},
+    {t: "Tools · What-if", d: "#toolBox .cmpin", pre: tools("wf"), b: `<p>Move the <b>gold, copper, oil and A$</b> sliders to see roughly how each stock would react, based on how it actually moved with those prices over the last year.</p><p>Switch between <b>all companies</b> (A$50M+ and commodity-linked) and just your <b>favourites</b>. <b>Reset sliders</b> sets everything back to 0%.</p>`},
+    {t: "Tools · Alerts", d: "#toolBox .cmpin", pre: tools("al"), b: `<p>Free phone notifications using the <b>ntfy</b> app. Subscribe to a company and get pinged for <b>price-sensitive announcements, capital raisings, takeovers, ±5% moves, volume spikes, new 52-week highs/lows and share-count changes</b>.</p><p>Subscribe to the <b>all</b> topic for big events across every company. Checked every 15 minutes during ASX hours.</p>`},
+    {t: "Reset", d: "#resetAll", k: "list", b: `<p>Clears <b>every search, filter, highlight and overlay</b> in one tap, putting the map back to its starting view.</p>`},
+    {t: "Highlight a company", d: "#co", k: "list", b: `<p>Pick a company to show <b>only its mines</b>. The map zooms to fit them and its sites are linked with dashed lines.</p>`},
+    {t: "Company type", d: "#ctype", k: "list", b: `<p>Narrow the map to <b>mining giants</b> (A$20B+), <b>mid-tier</b> or <b>small-cap producers</b>, <b>developers &amp; explorers</b>, or <b>penny stocks</b> under A$1.</p>`},
+    {t: "Grade / quality", d: "#grd", k: "list", b: `<p>Show only <b>high, medium or low-grade</b> deposits. Higher grade generally means more metal per tonne mined and lower costs.</p>`},
+    {t: "State and Sort", d: "#st", m: "#st", k: "list", pre: () => {}, b: `<p><b>State</b> limits the map and list to one state or territory.</p><p><b>Sort list by</b> orders the mine list by output, market cap, share price, ASX rank, dividend yield, mine life or name.</p>`, wide: ".two"},
+    {t: "Market cap & share price", d: "#capMin", k: "list", wide: ".flt", b: `<p>Type a <b>market cap range</b> (e.g. 500M to 10B) or tap a quick chip like <b>250M–1B</b>.</p><p>The next filter sets a <b>maximum share price</b>: type a figure or tap $1, $2, $5 and so on. <b>Clear</b> removes a filter.</p>`},
+    {t: "Dividends", d: '.chips[data-q="div"]', k: "list", wide: ".flt", b: `<p>Show only companies paying dividends: the <b>highest payers</b>, or those yielding <b>3%+</b> or <b>5%+</b>.</p>`},
+    {t: "Aboriginal land & heritage", d: '.chips[data-q="lh"]', k: "list", wide: ".flt", b: `<p>Hide sites on land <b>where mining isn't allowed</b>, or hide those plus sites with a <b>heritage / land-access risk</b>. These flags also show as red and orange rings on the map.</p>`},
+    {t: "Mills & processing", d: '.chips[data-q="fac"]', k: "list", wide: ".flt", b: `<p><b>Show mills &amp; plants</b> adds processing facilities to the map; <b>Mills &amp; plants only</b> shows just those.</p><p><b>Show which mines feed which mills</b> draws lines from each mine to the mill that treats its ore, including ore trucked to <b>another company's</b> mill.</p>`},
+    {t: "Status filter", d: '.chips[aria-label="Status filter"]', k: "list", b: `<p>Turn <b>Producing</b>, <b>Development</b> and <b>Care &amp; maintenance</b> mines on or off.</p>`},
+    {t: "Mine list", d: "#list", k: "list", b: `<p>Every mine matching your filters, with its owner, <b>ASX rank</b> (or the figure you're sorting by) and yearly output.</p><p><b>Click a row</b> to fly to that mine and open its details.</p>`},
+    {t: "Mine details", card: 1, d: "#card", pre: showCard, b: `<p>Clicking a mine opens this card. From the top:</p><ul><li><b>Satellite photo</b> of the site, plus <b>Live view</b> to open it in Google Maps.</li><li>Status, ticker, <b>grade</b> and <b>company health</b> (booming / steady / struggling).</li><li><b>Land &amp; heritage</b> status.</li><li><b>Share price</b>, ASX rank, market cap, <b>total shares on issue</b> and dividends.</li></ul>${tip("Tap the company name to open its full profile.")}`},
+    {t: "Card buttons", card: 1, d: "#card .links", pre: showCard, b: `<ul><li><b>🔔 Alerts</b>: subscribe to this company's phone notifications.</li><li><b>+ Compare</b>: add it to the side-by-side comparison. A <b>Compare</b> pill appears at the bottom; open it to compare up to several companies on price, value, output and more.</li><li><b>Company website</b>, <b>Stake</b> (opens Stake to look it up; nothing is linked to your account) and the <b>ASX chart</b>.</li></ul>`},
+    {t: "Price chart, returns & profit", card: 1, d: "#card .pc", pre: showCard, b: `<p>A 12-month <b>share price chart</b> with the 52-week range, <b>returns by year</b> for the mine and its owner, and the owner's <b>net profit</b> history.</p>`},
+    {t: "Mine life & commodity sensitivity", card: 1, d: "#card .mlife", m: "#card .mlife", pre: showCard, b: `<p><b>Mine life</b>: how long the mine should keep running, from company-published plans or its reserves.</p><p>Just below, <b>sensitivity</b> shows which commodity the stock moves with most, e.g. “a 10% rise in gold ≈ +5.9% for NST”. Then come the <b>mine leases</b>, the global drivers for the element and the <b>latest company news and ASX announcements</b>.</p>`},
+    {t: "Company profile", card: 1, d: "#prof", pre: () => { showCard(); const tk = q("#card .tk"); if (tk && typeof openProfile === "function") openProfile(tk.textContent.trim()); }, b: `<p>The company's full profile: what it does, when it listed, <b>why its health rating is what it is</b>, <b>who owns it</b> (funds, everyday investors, top holders) and <b>who buys what it produces</b>.</p>`},
+    {t: "Recommended stocks", d: "#recs", k: "picks", b: `<p>A ranked shortlist for the element you're viewing. Set <b>what you want to do</b> (swing trade 1–2 weeks or months, hold 3–12 months, earn dividends, trade penny stocks), your <b>risk</b>, whether to include <b>all elements</b>, and a <b>max share price</b>.</p><p>Rankings use liquidity, volatility, trend, company health and dividends. Click a stock to see its mines.</p>${tip("Not financial advice. Past moves don't predict future ones.")}`},
+    {t: "Latest headlines", d: "#news", k: "news", b: `<p><b>Global drivers</b>: world news moving the element's price, tagged as bullish, bearish or mixed.</p><p><b>ASX headlines</b>: news about the ASX-listed companies. Both update throughout the day from free sources.</p>`},
+    {t: "Market signals", d: "#sigMod", k: "news", b: `<p>Four quick scans across every miner:</p><ul><li><b>🔥 Volume</b>: unusual trading activity today.</li><li><b>▲ Highs / ▼ Lows</b>: stocks at or near their 52-week high or low.</li><li><b>ASX 200/300</b>: companies close to joining or leaving the index at the next rebalance.</li></ul>`},
+    {t: "This week", d: "#wkMod", k: "news", b: `<p>A weekly digest every Monday morning: the <b>biggest risers and fallers</b>, price-sensitive news, capital raisings, new highs and lows, volume leaders and what's coming up.</p>`},
+    {t: "New mines & companies", d: "#newMod", k: "news", b: `<p>Newly added mines, projects and newly listed companies appear here, so you can spot fresh opportunities early.</p>`},
+    {t: "Announcements", d: "#modAnn", k: "news", pre: () => openD("modAnn"), b: `<p>The latest <b>ASX announcements</b> from the companies on the map. Price-sensitive ones are flagged and the badge counts new ones.</p>`},
+    {t: "Favourites", d: "#favs", k: "watch", pre: () => { const f = $("favs"), t = $("favTog"); if (f && !f.classList.contains("open") && t) t.click(); }, b: `<p>Your own watchlist. Search for a company or ticker, then tap the <b>☆</b> to save it. Tap a favourite to show <b>everything that company owns</b> on the map.</p><p>Favourites are also used by the <b>What-if</b> tool.</p>`},
+    {t: "Cost & margin", d: "#modCost", k: "watch", pre: () => openD("modCost"), b: `<p>Each producer's <b>all-in sustaining cost (AISC)</b> against today's price, so you can see who makes the <b>biggest margin</b> per ounce or tonne and who is at risk if the price falls.</p>`},
+    {t: "Catalyst calendar", d: "#modCal", k: "watch", pre: () => openD("modCal"), b: `<p>Upcoming dates that can move share prices: <b>quarterly reports, results, dividends, AGMs</b> and index rebalances.</p>`},
+    {t: "Map & display", d: "#viewset", k: "more", pre: () => openD("viewset"), b: `<p>All the settings for how the map looks. The next steps go through each one.</p>`},
+    {t: "2D map or 3D", d: "#v3Seg", k: "more", pre: () => openD("viewset"), b: `<p>Switch to a <b>3D globe-style map</b> with sun shading, raised mountains on Topo and Satellite, and every layer in 3D.</p><ul><li>Computer: <b>drag</b> to move, <b>right-drag</b> to turn &amp; tilt, <b>scroll</b> to zoom.</li><li>Phone: <b>drag</b> to move, <b>pinch</b> to zoom, <b>twist</b> to turn, <b>two fingers up/down</b> to tilt.</li></ul>${tip("Select a mine in 3D and after 5 seconds the view slowly orbits it.")}`},
+    {t: "Map style", d: '#viewset [data-base="dark"]', k: "more", wide: ".seg", pre: () => openD("viewset"), b: `<p><b>Dark</b> (default), <b>Terrain</b>, <b>Satellite</b> (real imagery) or <b>Topo</b> (height above sea level, colour-coded).</p>`},
+    {t: "No-go zones", d: '#viewset [data-nogo="off"]', k: "more", wide: ".seg", pre: () => openD("viewset"), b: `<p>Shades national parks, reserves and other areas <b>where mining isn't permitted</b>. Show them <b>with the mines</b> or on their <b>own</b>.</p>`},
+    {t: "Company links", d: "#clSeg", k: "more", pre: () => openD("viewset"), b: `<p>Draws a dashed line in the element's colour joining every site owned by the <b>same company</b> when you select or search one.</p>`},
+    {t: "Element finds", d: "#occSeg", k: "more", pre: () => openD("viewset"), b: `<p>Shows <b>every recorded deposit, prospect and mineral find</b> for the element from the state geological surveys. ◇ marks a notable <b>drill hit</b> a company has reported, which is handy for spotting exploration around a mine.</p>`},
+    {t: "Major faults", d: "#fltSeg", k: "more", pre: () => openD("viewset"), b: `<p>Draws the major geological <b>fault lines</b>. Many gold and base-metal deposits sit along them, so they help explain why mines cluster where they do.</p>`},
+    {t: "Mine properties (leases)", d: "#propSeg", k: "more", pre: () => openD("viewset"), b: `<p>Draws the land each company actually holds from the government tenement registers: <b>Mining leases</b> only, or <b>+ Exploration</b> licences too.</p><p><b>Lease boxes</b> then shows or hides the dashed box around sites that have outlines; tap one to zoom straight to its leases. Updated daily.</p>`},
+    {t: "Mine names", d: "#mnSeg", k: "more", pre: () => openD("viewset"), b: `<p><b>Normal</b> shows full names; <b>On hover</b> only when you point at a mine; <b>Short (ASX)</b> shows just the ticker (like NST or BHP) until you select it.</p>`},
+    {t: "State names", d: "#stNameSeg", k: "more", pre: () => openD("viewset"), b: `<p>Show state names in <b>full</b>, as <b>abbreviations</b> (WA, NT…) or <b>hide</b> them.</p>`},
+    {t: "Mine dots", d: "#dotSeg", k: "more", pre: () => openD("viewset"), b: `<p><b>Glossy</b> or <b>Bold colours</b> dots. With Glossy, <b>Gloss shade</b> just below makes them lighter or darker.</p>`},
+    {t: "Screen size", d: "#uiRange", k: "more", wide: ".vsbody", pre: () => openD("viewset"), b: `<p>Makes all the panels and text <b>smaller or larger</b>. Use Small / Medium / Large, the slider, or <b>− / +</b> (5% a press; hold to repeat).</p>`},
+    {t: "Map key", d: "#mapkey", k: "more", pre: () => openD("mapkey"), b: `<p>The legend: what every dot, ring, colour, line and shaded area means, plus how <b>company health</b> is rated.</p>`},
+    {t: "Replay any time", d: "#tutBtn", m: "#cTut", k: "map", b: `<p>That's everything. Press <b>?</b> or go to <b>Map &amp; display → Replay tutorial</b> to run this tour again.</p><p>Press <b>Finish</b> to go back to the map.</p>`}
+  ];
+
+  let ui = null, i = 0, steps = [], timer = 0, saved = null;
+  function cleanup(){
+    const tb = $("toolBox"); if (tb) tb.hidden = true;
+    if (typeof profCur !== "undefined" && profCur && typeof closeProfile === "function") closeProfile();
+    if (typeof closeGloss === "function") { try { closeGloss(); } catch (e) {} }
+  }
+  function target(st){
+    const sel = isC() ? (st.m || st.d) : st.d; let el = sel ? q(sel) : null;
+    if (el && st.wide) { const w = el.closest(st.wide); if (w) el = w; }
+    return vis(el) ? el : null;
+  }
+  function place(){
+    if (!ui) return;
+    const st = steps[i], el = target(st), th = ui.querySelector(".th"), tc = ui.querySelector(".tc");
+    const vw = innerWidth, vh = innerHeight, pad = 6;
+    if (!el) { th.classList.add("none"); tc.style.left = Math.max(12, (vw - tc.offsetWidth) / 2) + "px"; tc.style.top = Math.max(12, (vh - tc.offsetHeight) / 2) + "px"; return; }
+    th.classList.remove("none");
+    const r = el.getBoundingClientRect();
+    const L = Math.max(2, r.left - pad), T = Math.max(2, r.top - pad), R = Math.min(vw - 2, r.right + pad), B = Math.min(vh - 2, r.bottom + pad);
+    Object.assign(th.style, {left: L + "px", top: T + "px", width: Math.max(0, R - L) + "px", height: Math.max(0, B - T) + "px"});
+    const w = tc.offsetWidth, h = tc.offsetHeight, g = 14;
+    let x, y;
+    if (isC()) {
+      const tabh = (q(".ctab") || {}).offsetHeight || 60;
+      const below = vh - tabh - B, above = T;
+      x = 12;
+      if (above >= h + g + 40 && above >= below) y = T - h - g;
+      else if (below >= h + g) y = B + g;
+      else y = (T + B) / 2 > vh / 2 ? Math.max(40, Math.min(T - h - g, vh * 0.08)) : vh - tabh - h - 10;
+      y = Math.max(8, Math.min(y, vh - h - 8));
+    } else {
+      const opts = [
+        [R + g, (T + B) / 2 - h / 2, vw - R - g >= w + 8],
+        [L - g - w, (T + B) / 2 - h / 2, L - g >= w + 8],
+        [(L + R) / 2 - w / 2, B + g, vh - B - g >= h + 8],
+        [(L + R) / 2 - w / 2, T - g - h, T - g >= h + 8]
+      ];
+      const o = opts.find(o => o[2]) || [vw - w - 20, vh - h - 20];
+      x = Math.max(8, Math.min(o[0], vw - w - 8)); y = Math.max(8, Math.min(o[1], vh - h - 8));
+    }
+    tc.style.left = x + "px"; tc.style.top = y + "px";
+  }
+  // scroll only real scrolling panels (side list, sheet, card, Map & display), never the page or map
+  function reveal(el){
+    for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+      const o = getComputedStyle(p).overflowY;
+      if ((o === "auto" || o === "scroll") && p.scrollHeight > p.clientHeight + 2) {
+        const pr = p.getBoundingClientRect(), r = el.getBoundingClientRect();
+        if (r.top < pr.top + 8 || r.bottom > pr.bottom - 8) p.scrollTop += (r.top + r.height / 2) - (pr.top + pr.height / 2);
+      }
+    }
+    document.querySelectorAll("main, .app").forEach(m => { if (m.scrollTop) m.scrollTop = 0; });
+  }
+  function go(n){
+    i = Math.max(0, Math.min(steps.length - 1, n));
+    const st = steps[i];
+    // tools/profile/terms only stay open on the steps that need them
+    const tb = $("toolBox"); if (tb && !/^Tools ·/.test(st.t)) tb.hidden = true;
+    if (st.t !== "Company profile" && typeof profCur !== "undefined" && profCur && typeof closeProfile === "function") closeProfile();
+    if (st.k) tab(st.k);
+    if (!st.card && typeof card !== "undefined" && !card.hidden && typeof clearSel === "function") { try { clearSel(); } catch (e) {} }
+    if (st.pre) { try { st.pre(); } catch (e) {} }
+    const tc = ui.querySelector(".tc");
+    tc.querySelector(".tn span").textContent = `Step ${i + 1} of ${steps.length}`;
+    tc.querySelector(".tbar i").style.width = ((i + 1) / steps.length * 100) + "%";
+    tc.querySelector("h3").textContent = st.t;
+    tc.querySelector(".tb").innerHTML = st.b; tc.querySelector(".tb").scrollTop = 0;
+    tc.querySelector(".bk").disabled = i === 0;
+    tc.querySelector(".nx").textContent = i === steps.length - 1 ? "Finish" : "Next";
+    setTimeout(() => { const el = target(st); if (el) reveal(el); place(); }, 60);
+    setTimeout(place, 380);
+  }
+  function key(ev){
+    if (!ui) return;
+    if (ev.key === "ArrowRight" || ev.key === "Enter") { ev.preventDefault(); ev.stopPropagation(); i === steps.length - 1 ? end() : go(i + 1); }
+    else if (ev.key === "ArrowLeft") { ev.preventDefault(); ev.stopPropagation(); go(i - 1); }
+    else if (ev.key === "Escape") { ev.preventDefault(); ev.stopPropagation(); end(); }
+  }
+  function start(){
+    if (ui) return;
+    const c = isC();
+    steps = S.filter(s => !s.only || (s.only === "c") === c);
+    saved = {vs: ($("viewset") || {}).open, mk: ($("mapkey") || {}).open, ann: ($("modAnn") || {}).open, cost: ($("modCost") || {}).open, cal: ($("modCal") || {}).open, side: ($("side") || {}).scrollTop};
+    const vs = $("viewset"); if (vs && vs.open && !c) vs.open = false;   // opened again when its steps come up
+    ui = document.createElement("div"); ui.className = "tut"; ui.setAttribute("role", "dialog"); ui.setAttribute("aria-modal", "true"); ui.setAttribute("aria-label", "Tutorial");
+    ui.innerHTML = `<div class="th none"></div><div class="tc"><div class="tn"><span></span><button type="button" class="tx">Skip ✕</button></div><div class="tbar"><i></i></div><h3></h3><div class="tb"></div><div class="tf"><button type="button" class="bk">Back</button><button type="button" class="nx">Next</button></div></div>`;
+    document.body.append(ui);
+    // the tour blocks the app underneath so a stray tap can't change anything mid-tour
+    ["pointerdown", "click", "wheel", "touchstart"].forEach(e => ui.addEventListener(e, ev => { if (!ev.target.closest(".tc")) { ev.stopPropagation(); if (ev.cancelable && e !== "touchstart") ev.preventDefault(); } }, {passive: false}));
+    ui.querySelector(".bk").onclick = () => go(i - 1);
+    ui.querySelector(".nx").onclick = () => i === steps.length - 1 ? end() : go(i + 1);
+    ui.querySelector(".tx").onclick = end;
+    document.addEventListener("keydown", key, true);
+    addEventListener("resize", place);
+    timer = setInterval(place, 400);
+    if (c) tab("map");
+    go(0);
+  }
+  function end(){
+    if (!ui) return;
+    clearInterval(timer); removeEventListener("resize", place); document.removeEventListener("keydown", key, true);
+    ui.remove(); ui = null;
+    cleanup();
+    if (typeof clearSel === "function") { try { clearSel(); } catch (e) {} }
+    const c = isC();
+    if (!c && saved) {
+      [["viewset", "vs"], ["mapkey", "mk"], ["modAnn", "ann"], ["modCost", "cost"], ["modCal", "cal"]].forEach(([id, k]) => { const d = $(id); if (d && saved[k] !== undefined) d.open = saved[k]; });
+      const sd = $("side"); if (sd) sd.scrollTop = saved.side || 0;
+    }
+    if (c) tab("map");
+    try { localStorage.setItem("tutDone", "1"); } catch (e) {}
+  }
+  window.startTutorial = start;
+  [["tutBtn"], ["cTut"], ["tutReplay"]].forEach(([id]) => { const b = $(id); if (b) b.addEventListener("click", ev => { ev.preventDefault(); ev.stopPropagation(); start(); }); });
+  // first visit: start the tour once the map has loaded
+  let done = false; try { done = localStorage.getItem("tutDone") === "1"; } catch (e) {}
+  if (!done && !/[?&]notut\b/.test(location.search)) setTimeout(() => { if (!ui) start(); }, 2500);
+})();
 </script>
 </body>
 </html>
