@@ -9,10 +9,11 @@ on:
     - cron: "40 6,7 * * 1-5"       # after the ASX close — 52-week ranges, volumes, yields, daily price history
     - cron: "15 10 * * 1-5"        # evening — gold costs (AISC) and calendar
     - cron: "35 8 * * 1-5"         # after the close — new ASX listings added to the map
+    - cron: "2 22 * * 0"           # Monday 6am Perth — the weekly digest
   workflow_dispatch:
     inputs:
       job:
-        description: "Which job (all, prices, commod, news, stats, costs, listings)"
+        description: "Which job (all, prices, commod, news, stats, costs, listings, digest)"
         default: all
 permissions:
   contents: write
@@ -33,7 +34,7 @@ jobs:
         run: |
           S="${{ github.event.schedule }}"; J="${{ github.event.inputs.job }}"
           run() { echo "$1=true" >> "$GITHUB_OUTPUT"; }
-          if [ "$J" = "all" ] || [ -z "$S$J" ]; then run prices; run commod; run news; run stats; run costs; run listings; fi
+          if [ "$J" = "all" ] || [ -z "$S$J" ]; then run prices; run commod; run news; run stats; run costs; run listings; run digest; fi
           [ "$J" != "" ] && [ "$J" != "all" ] && run "$J"
           case "$S" in
             "*/15 22-23 * * 0-4"|"*/15 0-6 * * 1-5") run prices ;;
@@ -42,6 +43,7 @@ jobs:
             "40 6,7 * * 1-5") run stats ;;
             "15 10 * * 1-5") run costs ;;
             "35 8 * * 1-5") run listings ;;
+            "2 22 * * 0") run digest ;;
           esac
       - if: steps.pick.outputs.prices == 'true'
         run: python scripts/prices.py
@@ -50,7 +52,7 @@ jobs:
       - if: steps.pick.outputs.news == 'true'
         run: python scripts/news.py
       - if: steps.pick.outputs.stats == 'true'
-        run: python scripts/stats.py
+        run: python scripts/stats.py && (python scripts/indexwatch.py || true)
       - if: steps.pick.outputs.costs == 'true'
         run: pip install -q pypdf cryptography && python scripts/costs.py
       - if: steps.pick.outputs.listings == 'true'
@@ -63,6 +65,8 @@ jobs:
           python scripts/mine_images.py || true
           F=$(cat data/newcos_found.txt 2>/dev/null)
           if [ -n "$F" ]; then gh issue create --title "New ASX listings added to the map: $F" --body "Added automatically from the ASX company directory. Locations are approximate (from project names in announcements). Check them on the map and tell Claude to refine anything that looks off." || true; fi
+      - if: steps.pick.outputs.digest == 'true'
+        run: python scripts/digest.py
       - name: Publish data
         run: |
           git config user.name "mines-map-bot"; git config user.email "actions@users.noreply.github.com"

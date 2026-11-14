@@ -6,7 +6,7 @@ def header(c):
     p = d.get("priceLast")
     if not p:
         return None
-    return [round(float(p), 4), round(float(d.get("priceChangePercent") or 0), 2), int(max(0, d.get("marketCap") or 0))]
+    return [round(float(p), 4), round(float(d.get("priceChangePercent") or 0), 2), int(max(0, d.get("marketCap") or 0)), int(d.get("volume") or 0)]
 
 def gold():
     try:
