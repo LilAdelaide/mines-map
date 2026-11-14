@@ -2460,6 +2460,89 @@ function v3SatHi(){
   }
   return V3.sat;
 }
+
+// ---------- 3D close-up satellite: as you zoom in, sharp Esri World Imagery is draped over the relief around the
+// camera (a fine patch in the middle, a wider coarser one around it), so mine pits, dumps and roads come into view
+const V3MIND = () => BASE === "satellite" ? 0.03 : 14;          // closest zoom (world units; ~40 km per unit)
+let V3MS = 1;                                                   // mine marker size: shrinks when zoomed right in
+function v3GY(x, z){                                            // land surface height here, matching the relief mesh
+  const G = V3.tg; if (!V3.reliefOn || !G) return V3.top + 0.03;
+  const fx = (x + 57) / 0.24, fz = (z + 45) / 0.24, i = Math.floor(fx), j = Math.floor(fz);
+  if (i < 0 || j < 0 || i >= G.nx - 1 || j >= G.nz - 1) return V3.top + 0.03;
+  const P = G.pos.array, y = (a, b) => P[(b * G.nx + a) * 3 + 1], u = fx - i, v = fz - j;
+  if (u + v <= 1) return y(i, j) + u * (y(i + 1, j) - y(i, j)) + v * (y(i, j + 1) - y(i, j));
+  const y11 = y(i + 1, j + 1); return y11 + (1 - u) * (y(i, j + 1) - y11) + (1 - v) * (y(i + 1, j) - y11);
+}
+const V3D = {lv: [null, null], old: []};
+function v3DetailDrop(pt){ if (!pt || pt.dead) return; pt.dead = true; V3.scene.remove(pt.mesh); pt.mesh.geometry.dispose(); pt.mesh.material.dispose(); pt.tex.dispose(); }
+function v3DetailMake(cx, cz, half, lv, key, hole){
+  const T = THREE; v3Frame();
+  const S = proj.scale(), tr = proj.translate(), W = 2 * Math.PI * S, ox = tr[0] - Math.PI * S, oy = tr[1] - Math.PI * S;
+  const toP = (x, z) => [x / V3.sc + V3.c[0], z / V3.sc + V3.c[1]];
+  const p0 = toP(cx - half, cz - half), p1 = toP(cx + half, cz + half);
+  const N = isPhone() ? 1536 : 2048;
+  const z = Math.max(5, Math.min(SAT_MAXZ, Math.ceil(Math.log2(N / 256 * W / (p1[0] - p0[0]))))), n = Math.pow(2, z), ts = W / n;
+  const tx0 = Math.max(0, Math.floor((p0[0] - ox) / ts)), tx1 = Math.min(n - 1, Math.floor((p1[0] - ox) / ts));
+  const ty0 = Math.max(0, Math.floor((p0[1] - oy) / ts)), ty1 = Math.min(n - 1, Math.floor((p1[1] - oy) / ts));
+  const cw = (tx1 - tx0 + 1) * 256, ch = (ty1 - ty0 + 1) * 256;
+  const cv = document.createElement("canvas"); cv.width = cw; cv.height = ch; const ctx = cv.getContext("2d");
+  const tex = new T.CanvasTexture(cv); tex.encoding = T.sRGBEncoding; tex.anisotropy = Math.min(8, V3.r.capabilities.getMaxAnisotropy());
+  // vertices on the relief grid (or an exact subdivision of it), so the photo follows the land surface exactly
+  const cells = 2 * half / 0.24, sp = cells <= 96 ? 0.24 / Math.pow(2, Math.floor(Math.log2(96 / cells))) : 0.24 * Math.ceil(cells / 96);
+  const gx0 = Math.floor((cx - half + 57) / sp) * sp - 57, gz0 = Math.floor((cz - half + 45) / sp) * sp - 45;
+  const NX = Math.ceil((cx + half - gx0) / sp), NZ = Math.ceil((cz + half - gz0) / sp);
+  const lift = sp > 0.24 ? 0.04 * sp / 0.24 : 0.0004 * Math.min(1, half) * (lv + 1);
+  const pos = new Float32Array((NX + 1) * (NZ + 1) * 3), uv = new Float32Array((NX + 1) * (NZ + 1) * 2), idx = [];
+  for (let j = 0; j <= NZ; j++) for (let i = 0; i <= NX; i++) {
+    const x = gx0 + i * sp, zz = gz0 + j * sp, q = toP(x, zz), k = j * (NX + 1) + i;
+    pos[k * 3] = x; pos[k * 3 + 1] = v3GY(x, zz) + lift; pos[k * 3 + 2] = zz;
+    uv[k * 2] = ((q[0] - ox) / ts - tx0) * 256 / cw; uv[k * 2 + 1] = 1 - ((q[1] - oy) / ts - ty0) * 256 / ch;
+  }
+  for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++) {
+    if (hole) { const x = gx0 + i * sp, zz = gz0 + j * sp; if (x >= hole[0] && x + sp <= hole[1] && zz >= hole[2] && zz + sp <= hole[3]) continue; }
+    const a = j * (NX + 1) + i, b = a + 1, c = a + NX + 1, d = c + 1; idx.push(a, c, b, b, c, d); }
+  const g = new T.BufferGeometry(); g.setAttribute("position", new T.BufferAttribute(pos, 3)); g.setAttribute("uv", new T.BufferAttribute(uv, 2)); g.setIndex(idx); g.computeVertexNormals();
+  const mat = new T.MeshStandardMaterial({map: tex, roughness: 0.95, metalness: 0, alphaTest: 0.5, polygonOffset: true, polygonOffsetFactor: -2 - 2 * lv, polygonOffsetUnits: -2 - 2 * lv});
+  const mesh = new T.Mesh(g, mat); mesh.receiveShadow = true; mesh.renderOrder = 1 + lv; V3.scene.add(mesh);
+  const pt = {mesh, tex, key, lv, dirty: false, up: 0, dead: false, ready: false};
+  let left = (tx1 - tx0 + 1) * (ty1 - ty0 + 1);
+  const done = () => { if (--left > 0 || pt.dead) return; pt.ready = true; V3D.old = V3D.old.filter(o => { if (o.lv === lv) { v3DetailDrop(o); return false; } return true; }); };
+  for (let x = tx0; x <= tx1; x++) for (let y = ty0; y <= ty1; y++) {
+    const im = new Image(); im.crossOrigin = "anonymous";
+    im.onload = () => { if (pt.dead) return; ctx.drawImage(im, (x - tx0) * 256, (y - ty0) * 256); pt.dirty = true; done(); };
+    im.onerror = () => done();
+    im.src = satUrl(z, x, y);
+  }
+  return pt;
+}
+function v3DetailTick(){
+  const c = V3.cam, on = V3ON && V3.built && BASE === "satellite" && c.d < 40;
+  if (!on) { V3D.lv.forEach((pt, i) => { v3DetailDrop(pt); V3D.lv[i] = null; }); V3D.old.forEach(v3DetailDrop); V3D.old = []; return; }
+  // both patches share one centre; the wide one leaves a hole where the sharp one sits
+  const hin = Math.pow(2, Math.ceil(Math.log2(c.d * 1.4))), step = hin / 2;
+  const cx = Math.round(c.tx / step) * step, cz = Math.round(c.tz / step) * step, key = hin + ":" + cx + ":" + cz;
+  if (V3D.lv[1] && V3D.lv[1].key === key) return;
+  V3D.lv.forEach(cur => { if (!cur) return; V3D.old.push(cur); setTimeout(() => { V3D.old = V3D.old.filter(o => o !== cur); v3DetailDrop(cur); }, 6000); });
+  V3D.lv[0] = v3DetailMake(cx, cz, hin * 4, 0, key, [cx - hin, cx + hin, cz - hin, cz + hin]);
+  V3D.lv[1] = v3DetailMake(cx, cz, hin, 1, key);
+}
+// close-up camera: follow the ground height, tighten the clipping / fog / sun shadows, shrink the markers
+function v3CloseTick(t){
+  const c = V3.cam, cam = V3.camera;
+  const s = Math.min(1, Math.max(c.d, 4) / 14), nr = c.d < 14 ? Math.max(0.0005, c.d * 0.02) : 0.5, fr = 2000 * s;
+  if (cam.near !== nr || cam.far !== fr) { cam.near = nr; cam.far = fr; cam.updateProjectionMatrix(); V3.scene.fog.near = 240 * s; V3.scene.fog.far = 560 * s; }
+  const ms = c.d >= 14 ? 1 : Math.pow(c.d / 14, 1.25);
+  if (Math.abs(Math.log(ms / V3MS)) > 0.22) { V3MS = ms; v3Refresh(); }
+  if (V3.pivot) V3.pivot.scale.setScalar(V3MS);
+  const sun = V3.sun, ext = c.d < 40 ? Math.max(1.5, c.d * 3) : 80;
+  if (sun && sun.shadow.camera.right !== ext) {
+    const o = c.d < 40 ? [c.tx, V3.gy || 0, c.tz] : [0, 0, 0];
+    sun.target.position.set(o[0], o[1], o[2]); sun.position.set(o[0] - 70, o[1] + 95, o[2] - 55);
+    Object.assign(sun.shadow.camera, {left: -ext, right: ext, top: ext, bottom: -ext}); sun.shadow.camera.updateProjectionMatrix();
+  } else if (sun && c.d < 40) { sun.target.position.set(c.tx, V3.gy || 0, c.tz); sun.position.set(c.tx - 70, (V3.gy || 0) + 95, c.tz - 55); }
+  if (!(V3.fr % 10)) v3DetailTick();
+  [...V3D.lv, ...V3D.old].forEach(pt => { if (pt && pt.dirty && t - pt.up > 150) { pt.dirty = false; pt.up = t; pt.tex.needsUpdate = true; } });
+}
 function v3ShowLand(){
   const st = BASE, relief = V3.reliefOn, hi = st === "satellite" && V3.sat && V3.satN === 4;
   if (V3.terr) { V3.terr.visible = relief && !hi; if (V3.terr.visible) { V3.terr.material.map = V3.tex[st] || null; V3.terr.material.needsUpdate = true; } }
@@ -2472,7 +2555,7 @@ async function v3Relief(){
   V3.reliefOn = want && !!V3.rel;
   if (V3.reliefOn) { v3Terrain(); if (BASE === "satellite") v3SatHi(); }
   v3ShowLand();
-  const cr = document.getElementById("basecredit"); if (cr && BASE === "satellite") cr.textContent = V3ON ? "Satellite: EOxCloudless 2025 by EOX · Copernicus Sentinel-2 · CC BY-NC-SA 4.0 · relief: AWS Terrain Tiles" : (BASE_CREDIT.satellite || "");
+  const cr = document.getElementById("basecredit"); if (cr && BASE === "satellite") cr.textContent = V3ON ? "Satellite: EOxCloudless 2025 by EOX · Copernicus Sentinel-2 · CC BY-NC-SA 4.0 · close-up: Esri World Imagery (Esri, Maxar, Earthstar Geographics) · relief: AWS Terrain Tiles" : (BASE_CREDIT.satellite || "");
   V3.edgeMat.depthTest = !V3.reliefOn; V3.edgeMat.needsUpdate = true;
   v3Refresh();
 }
@@ -2531,6 +2614,7 @@ function v3Build(){
 const V3SEA = {dark: 0x07090c, terrain: 0x70a6d1, satellite: 0x00113a, topo: 0x4786bf};
 function v3Base(){
   if (!V3.built) return; const T = THREE, st = BASE;
+  if (st !== "satellite" && V3.cam.d < 14) V3.want = {tx: V3.cam.tx, tz: V3.cam.tz, d: 14};
   const sea = V3SEA[st] || 0x07090c; V3.scene.background = LC(sea); V3.scene.fog.color = LC(sea); V3.grid.visible = st === "dark";
   V3.edgeMat.color = LC(st === "dark" ? 0x56708a : 0xffffff); V3.edgeMat.opacity = st === "dark" ? 0.8 : 0.45;
   const set = tex => V3.landMats.forEach(m => { m.map = tex; m.color = tex ? new T.Color(0xffffff) : m.userData.dark.clone(); m.needsUpdate = true; });
@@ -2555,7 +2639,7 @@ function v3Mines(){
   const vis = only ? [] : v3Vis(); V3.vis = vis;
   const sph = V3.sph || (V3.sph = new T.SphereGeometry(1, 32, 20));
   vis.forEach(m => {
-    const [x, z] = v3XY(m.lon, m.lat), rb = rBase(m), r = 0.32 + rb * 0.055, col = v3Col(m), hy = v3H(x, z);
+    const [x, z] = v3XY(m.lon, m.lat), rb = rBase(m), r = (0.32 + rb * 0.055) * V3MS, col = v3Col(m), hy = v3GY(x, z) - V3.top - 0.03;
     const prod = m.s === "P", cm = m.s !== "P" && m.s !== "D";
     const base = cm ? LC(0x8a8f96) : col;
     const mat = flat ? new T.MeshLambertMaterial({color: base, transparent: !prod, opacity: prod ? 1 : 0.62})
@@ -2563,30 +2647,30 @@ function v3Mines(){
     const ball = new T.Mesh(sph, mat); ball.userData.shared = 1; ball.scale.setScalar(r); ball.position.set(x, V3.top + hy + r, z); ball.castShadow = true; ball.userData.m = m; G.add(ball); V3.objs.push(ball);
     if (m.lh && (m.lh[0] === "nogo" || m.lh[0] === "risk")) G.add(v3LhRing(x, z, r, m.lh[0], hy));   // land & heritage ring, as on the 2D map
     if (prod) {   // light beacon: height follows output; soft, not glaring
-      const h = 1.5 + rb * 0.55;
+      const h = (1.5 + rb * 0.55) * V3MS;
       const beam = new T.Mesh(new T.CylinderGeometry(r * 0.16, r * 0.42, h, 14, 1, true), new T.MeshBasicMaterial({color: col, transparent: true, opacity: 0.16, depthWrite: false, side: T.DoubleSide}));
       beam.position.set(x, V3.top + hy + r * 2 + h / 2, z); beam.userData.m = m; G.add(beam); V3.objs.push(beam);
       const cap = new T.Mesh(sph, new T.MeshStandardMaterial({color: col, emissive: col, emissiveIntensity: 0.18, roughness: 0.4})); cap.userData.shared = 1; cap.scale.setScalar(r * 0.26); cap.position.set(x, V3.top + hy + r * 2 + h, z); cap.castShadow = true; G.add(cap);
     }
   });
-  if (only) BANNED.forEach(b => { const [x, z] = v3XY(b.lon, b.lat), r = 0.45;   // "Only" no-go view: the blocked sites
-    const pin = new T.Mesh(sph, new T.MeshStandardMaterial({color: LC(0xff3b3b), roughness: 0.4})); pin.userData.shared = 1; pin.scale.setScalar(0.28); pin.position.set(x, V3.top + v3H(x, z) + 0.3, z); pin.castShadow = true; G.add(pin);
+  if (only) BANNED.forEach(b => { const [x, z] = v3XY(b.lon, b.lat), r = 0.45 * V3MS;   // "Only" no-go view: the blocked sites
+    const pin = new T.Mesh(sph, new T.MeshStandardMaterial({color: LC(0xff3b3b), roughness: 0.4})); pin.userData.shared = 1; pin.scale.setScalar(0.28 * V3MS); pin.position.set(x, v3GY(x, z) + 0.3 * V3MS, z); pin.castShadow = true; G.add(pin);
     G.add(v3LhRing(x, z, r, "nogo", v3H(x, z))); });
-  if (selected && !only) { const [x, z] = v3XY(selected.lon, selected.lat), r = 0.32 + rBase(selected) * 0.055;
+  if (selected && !only) { const [x, z] = v3XY(selected.lon, selected.lat), r = (0.32 + rBase(selected) * 0.055) * V3MS;
     const ring = new T.Mesh(new T.RingGeometry(r * 1.6, r * 2.0, 48), new T.MeshBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.9, side: T.DoubleSide}));
-    ring.rotation.x = -Math.PI / 2; ring.position.set(x, V3.top + v3H(x, z) + 0.08, z); G.add(ring); V3.halo = ring; } else V3.halo = null;
+    ring.rotation.x = -Math.PI / 2; ring.position.set(x, v3GY(x, z) + 0.05 * V3MS + 0.002, z); G.add(ring); V3.halo = ring; } else V3.halo = null;
   v3LabelSet();
 }
 // dashed ring around a mine: red = not allowed to mine, orange = heritage / land-access risk
 function v3LhRing(x, z, r, kind, hy){
-  const T = THREE, R = r + 0.45, pts = []; hy = hy || 0;
+  const T = THREE, R = r + 0.45 * V3MS, pts = []; hy = hy || 0;
   for (let i = 0; i <= 64; i++) { const a = i / 64 * Math.PI * 2; pts.push(new T.Vector3(x + Math.cos(a) * R, V3.top + hy + r, z + Math.sin(a) * R)); }
   const col = LC(kind === "nogo" ? 0xff3b3b : 0xffae1a), g = new T.Group();
-  const l = new T.Line(new T.BufferGeometry().setFromPoints(pts), new T.LineDashedMaterial({color: col, dashSize: 0.22, gapSize: 0.16})); l.computeLineDistances(); g.add(l);
+  const l = new T.Line(new T.BufferGeometry().setFromPoints(pts), new T.LineDashedMaterial({color: col, dashSize: 0.22 * V3MS, gapSize: 0.16 * V3MS})); l.computeLineDistances(); g.add(l);
   // a matching dashed ring on the ground so it reads from straight above too
-  const gp = pts.map(v => new T.Vector3(v.x, V3.top + v3H(v.x, v.z) + 0.06, v.z)), lg = new T.Line(new T.BufferGeometry().setFromPoints(gp), new T.LineDashedMaterial({color: col, dashSize: 0.22, gapSize: 0.16, transparent: true, opacity: 0.6})); lg.computeLineDistances(); g.add(lg);
+  const gp = pts.map(v => new T.Vector3(v.x, v3GY(v.x, v.z) + 0.03 * V3MS, v.z)), lg = new T.Line(new T.BufferGeometry().setFromPoints(gp), new T.LineDashedMaterial({color: col, dashSize: 0.22 * V3MS, gapSize: 0.16 * V3MS, transparent: true, opacity: 0.6})); lg.computeLineDistances(); g.add(lg);
   // soft tinted band so the ring is visible at any zoom
-  const band = new T.Mesh(new T.TorusGeometry(R, 0.075, 6, 64), new T.MeshBasicMaterial({color: col, transparent: true, opacity: 0.8})); band.rotation.x = Math.PI / 2; band.position.set(x, V3.top + hy + r, z); g.add(band);
+  const band = new T.Mesh(new T.TorusGeometry(R, 0.075 * V3MS, 6, 64), new T.MeshBasicMaterial({color: col, transparent: true, opacity: 0.8})); band.rotation.x = Math.PI / 2; band.position.set(x, V3.top + hy + r, z); g.add(band);
   return g;
 }
 function v3Overlays(){
@@ -2661,8 +2745,10 @@ function v3LabelPlace(){
 }
 function v3Cam(){
   const c = V3.cam, cam = V3.camera, sp = Math.sin(c.ph);
-  cam.position.set(c.tx + c.d * sp * Math.sin(c.th), c.d * Math.cos(c.ph), c.tz + c.d * sp * Math.cos(c.th));
-  cam.lookAt(c.tx, 0, c.tz);
+  const bl = Math.min(1, Math.max(0, (40 - c.d) / 25)), gy = bl ? v3GY(c.tx, c.tz) * bl : 0;
+  V3.gy = V3.gy == null || Math.abs(gy - V3.gy) > 2 ? gy : V3.gy + (gy - V3.gy) * 0.3;
+  cam.position.set(c.tx + c.d * sp * Math.sin(c.th), V3.gy + c.d * Math.cos(c.ph), c.tz + c.d * sp * Math.cos(c.th));
+  cam.lookAt(c.tx, V3.gy, c.tz);
 }
 function v3Loop(t){
   if (!V3ON) { V3.raf = 0; return; }
@@ -2673,6 +2759,7 @@ function v3Loop(t){
   // a mine or company is picked: after 5 s without touching the map, slowly orbit it
   if ((selected || (typeof coEl !== "undefined" && coEl && coEl.value) || window.CO_LAST) && !V3.drag && !V3.want && performance.now() - V3.idle > 5000) c.th += Math.min(0.05, (t - lt) / 1000 * 0.13);   // ~1 turn every 48 s
   v3Clamp(c);
+  try { v3CloseTick(t); } catch (e) {}
   if (V3.halo) { const s = 1 + 0.12 * Math.sin(t / 260); V3.halo.scale.set(s, s, s); }
   if (!(V3.fr = (V3.fr || 0) + 1) || V3.fr % 15 === 1) v3Gap();
   v3Cam(); V3.r.render(V3.scene, V3.camera);
@@ -2702,10 +2789,10 @@ function v3Controls(){
   // scroll = zoom toward the pointer; touch: one finger moves, two fingers pinch-zoom, twist to turn, slide up/down to tilt
   const cv = V3.cv, P = new Map(), plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -V3.top); let moved = 0, pinch = 0, ang = 0, mid = null, GS = null, gRaf = 0;
   ["mousedown", "touchstart", "wheel", "dblclick"].forEach(t => cv.addEventListener(t, e => e.stopPropagation(), {passive: true}));
-  const ground = (x, y) => { const r = cv.getBoundingClientRect(); V3.ptr.set(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1); v3Cam(); V3.camera.updateMatrixWorld(); V3.ray.setFromCamera(V3.ptr, V3.camera); const o = new THREE.Vector3(); return V3.ray.ray.intersectPlane(plane, o) ? o : null; };
+  const ground = (x, y) => { plane.constant = -Math.max(V3.top, V3.gy || 0); const r = cv.getBoundingClientRect(); V3.ptr.set(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1); v3Cam(); V3.camera.updateMatrixWorld(); V3.ray.setFromCamera(V3.ptr, V3.camera); const o = new THREE.Vector3(); return V3.ray.ray.intersectPlane(plane, o) ? o : null; };
   const grabMove = (x0, y0, x1, y1) => { const a = ground(x0, y0), b = ground(x1, y1); if (!a || !b) return; const c = V3.cam, dx = a.x - b.x, dz = a.z - b.z; c.tx += dx; c.tz += dz; v3Clamp(c);
     const now = performance.now(); (V3.gs = V3.gs || []).push([now, dx, dz]); while (V3.gs.length && now - V3.gs[0][0] > 100) V3.gs.shift(); };
-  const zoomAt = (x, y, f) => { const c = V3.cam, a = ground(x, y); c.d = Math.min(320, Math.max(14, c.d * f)); const b = ground(x, y); if (a && b) { c.tx += a.x - b.x; c.tz += a.z - b.z; v3Clamp(c); } };
+  const zoomAt = (x, y, f) => { const c = V3.cam, a = ground(x, y); c.d = Math.min(320, Math.max(V3MIND(), c.d * f)); const b = ground(x, y); if (a && b) { c.tx += a.x - b.x; c.tz += a.z - b.z; v3Clamp(c); } };
   const two = () => { const [a, b] = [...P.values()]; return {d: Math.hypot(a.x - b.x, a.y - b.y), a: Math.atan2(b.y - a.y, b.x - a.x), m: [(a.x + b.x) / 2, (a.y + b.y) / 2]}; };
   cv.addEventListener("pointerdown", e => { cv.setPointerCapture(e.pointerId); P.set(e.pointerId, {x: e.clientX, y: e.clientY, b: e.button, rot: e.button === 2 || e.ctrlKey || e.shiftKey}); moved = 0; V3.drag = true; V3.want = null; V3.idle = performance.now(); V3.inert = null; V3.gs = []; cv.classList.add("grab"); if (P.size === 2) { const t = two(); GS = {d0: t.d, a0: t.a, m0: t.m, d: t.d, a: t.a, m: t.m, mode: null}; moved = 99; } });
   // two fingers: handled once per frame, and the gesture is decided once (zoom / turn / tilt) so it doesn't wobble between them
@@ -2747,7 +2834,7 @@ function v3Controls(){
   cv.addEventListener("contextmenu", e => e.preventDefault());
   cv.addEventListener("dblclick", e => zoomAt(e.clientX, e.clientY, 0.6));
   cv.addEventListener("wheel", e => { e.preventDefault(); V3.want = null; V3.inert = null; V3.idle = performance.now(); zoomAt(e.clientX, e.clientY, Math.exp(e.deltaY * 0.0012)); }, {passive: false});
-  ["zin", "zout"].forEach(id => { const b = document.getElementById(id); if (b) b.addEventListener("click", e => { if (!V3ON) return; e.stopImmediatePropagation(); const c = V3.cam; c.d = Math.min(320, Math.max(14, c.d * (id === "zin" ? 0.75 : 1.33))); }, true); });
+  ["zin", "zout"].forEach(id => { const b = document.getElementById(id); if (b) b.addEventListener("click", e => { if (!V3ON) return; e.stopImmediatePropagation(); const c = V3.cam; c.d = Math.min(320, Math.max(V3MIND(), c.d * (id === "zin" ? 0.75 : 1.33))); }, true); });
 }
 function v3Recenter(){ if (!V3.built) return; V3.want = {tx: 0, tz: 6, d: 150, ph: 0.95}; V3.idle = performance.now(); }
 function v3Focus(m){ if (!V3ON || !V3.built || !m) return; const [x, z] = v3XY(m.lon, m.lat); V3.want = {tx: x, tz: z, d: isPhone() ? 60 : 50}; V3.idle = performance.now(); }
