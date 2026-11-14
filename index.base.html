@@ -3726,12 +3726,14 @@ let WF = {gold: 0, copper: 0, oil: 0, aud: 0}, WF_SCOPE = "fav";
 function renderWF(){
   if (!SENS) return `<div class="nmsg">Loading 1-year price sensitivities… (built after each ASX close)</div>`;
   const sl = (k, lab, max) => `<span>${lab}</span><input type="range" min="${-max}" max="${max}" step="1" value="${WF[k]}" data-wf="${k}"><b id="wf_${k}">${WF[k] > 0 ? "+" : ""}${WF[k]}%</b>`;
-  const pool = (WF_SCOPE === "fav" && FAV.length ? FAV : onMap()).filter(c => SENS.s[c]);
+  // tiny or thinly traded stocks give noisy estimates: keep A$50M+ companies whose price actually tracks a commodity
+  const fits = c => { const x = SENS.s[c]; return Math.max(...Object.values(x.r).map(Math.abs)) >= 0.15; };
+  const pool = (WF_SCOPE === "fav" && FAV.length ? FAV.filter(c => SENS.s[c]) : onMap().filter(c => SENS.s[c] && (COS[c].mcap || 0) >= 5e7 && fits(c)));
   const est = c => { const b = SENS.s[c].b; return b.gold * WF.gold + b.copper * WF.copper + b.oil * WF.oil + b.aud * WF.aud; };
   const L = pool.map(c => [c, est(c)]).sort((a, b) => b[1] - a[1]);
   const rows = L.length > 24 ? L.slice(0, 12).concat([["…", null]], L.slice(-12)) : L;
   return `<div class="wfs">${sl("gold", "Gold (A$)", 30)}${sl("copper", "Copper (A$)", 30)}${sl("oil", "Oil (A$)", 40)}${sl("aud", "A$ vs US$", 15)}</div>
-    <div class="scrbar"><select id="wfScope"><option value="fav"${WF_SCOPE === "fav" ? " selected" : ""}>My favourites${FAV.length ? "" : " (none yet: showing all)"}</option><option value="all"${WF_SCOPE === "all" ? " selected" : ""}>All companies on the map</option></select><button type="button" id="wfReset">Reset sliders</button><span class="cnt">${pool.length} stocks</span></div>
+    <div class="scrbar"><select id="wfScope"><option value="fav"${WF_SCOPE === "fav" ? " selected" : ""}>My favourites${FAV.length ? "" : " (none yet: showing all)"}</option><option value="all"${WF_SCOPE === "all" ? " selected" : ""}>All companies (A$50M+, commodity-linked)</option></select><button type="button" id="wfReset">Reset sliders</button><span class="cnt">${pool.length} stocks</span></div>
     <div class="tlist">${rows.map(([c, v]) => c === "…" ? `<div class="nmsg" style="text-align:center">…</div>` : sgRow(c, `β gold ${SENS.s[c].b.gold} · copper ${SENS.s[c].b.copper} · oil ${SENS.s[c].b.oil} · A$ ${SENS.s[c].b.aud}`, `<span class="${v >= 0 ? "pos" : "neg"}">${v >= 0 ? "+" : ""}${v.toFixed(1)}%</span>`, COS[c].price ? "→ " + fmtPx(COS[c].price * (1 + v / 100)) : "")).join("")}</div>
     <div class="nfine" style="padding:8px 16px">Estimated from how each stock moved with gold, copper, oil and the A$ over the last year (daily, all priced in A$). It's a rough guide: company news, the wider market and hedging all change the real move.</div>`; }
 // --- Alerts (ntfy)
