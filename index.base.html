@@ -2419,7 +2419,7 @@ const V3EX = 1 / 1000;   // world units per metre of elevation
 function v3Elev(lon, lat){ const R = V3.rel; if (!R) return 0; const fx = (lon - 110) / 0.05 - 0.5, fy = (-9 - lat) / 0.05 - 0.5;
   const x0 = Math.floor(fx), y0 = Math.floor(fy), tx = fx - x0, ty = fy - y0, g = (x, y) => (x < 0 || y < 0 || x >= R.w || y >= R.h) ? 0 : R.d[(y * R.w + x) * 4];
   return ((g(x0, y0) * (1 - tx) + g(x0 + 1, y0) * tx) * (1 - ty) + (g(x0, y0 + 1) * (1 - tx) + g(x0 + 1, y0 + 1) * tx) * ty) / 255 * 2300; }
-function v3H(x, z){ if (!V3.reliefOn || !V3.rel) return 0; v3Frame(); const ll = proj.invert([x / V3.sc + V3.c[0], z / V3.sc + V3.c[1]]); return ll ? v3Elev(ll[0], ll[1]) * V3EX : 0; }
+function v3H(x, z){ if (!V3.reliefOn || !V3.rel) return 0; if (V3.tg) return v3GY(x, z) - V3.top - 0.03; v3Frame(); const ll = proj.invert([x / V3.sc + V3.c[0], z / V3.sc + V3.c[1]]); return ll ? v3Elev(ll[0], ll[1]) * V3EX : 0; }
 function v3LoadRelief(){ return V3.relP || (V3.relP = new Promise(ok => { const im = new Image(); im.crossOrigin = "anonymous";
   im.onload = () => { const c = document.createElement("canvas"); c.width = im.width; c.height = im.height; const x = c.getContext("2d"); x.drawImage(im, 0, 0); V3.rel = {w: im.width, h: im.height, d: x.getImageData(0, 0, im.width, im.height).data}; ok(true); };
   im.onerror = () => ok(false); im.src = "tiles/relief.png"; })); }
@@ -2429,12 +2429,18 @@ function v3Grid(){
   const a = proj([BASEB.lon0, BASEB.lat1]), b = proj([BASEB.lon1, BASEB.lat0]);
   const X0 = -57, X1 = 57, Z0 = -45, Z1 = 47, ST = 0.24, toPx = (x, z) => [x / V3.sc + V3.c[0], z / V3.sc + V3.c[1]];
   const p0 = toPx(X0, Z0), p1 = toPx(X1, Z1), mw = Math.ceil(p1[0] - p0[0]) + 2, mh = Math.ceil(p1[1] - p0[1]) + 2;
-  const mc = document.createElement("canvas"); mc.width = mw; mc.height = mh; const mx = mc.getContext("2d"); mx.translate(-p0[0], -p0[1]); mx.fillStyle = mx.strokeStyle = "#fff"; mx.lineWidth = 3 * ST / V3.sc; mx.lineJoin = "round"; mx.beginPath(); d3.geoPath(proj, mx)(STATES); mx.fill(); mx.stroke();
+  const mc = document.createElement("canvas"); mc.width = mw; mc.height = mh; const mx = mc.getContext("2d"); mx.translate(-p0[0], -p0[1]); mx.fillStyle = mx.strokeStyle = "#fff"; mx.lineJoin = "round"; mx.beginPath(); d3.geoPath(proj, mx)(STATES); mx.fill();
+  const mt = mx.getImageData(0, 0, mw, mh).data;                                   // the land itself
+  mx.lineWidth = 3 * ST / V3.sc; mx.stroke();
   const md = mx.getImageData(0, 0, mw, mh).data, land = (px, py) => { const i = Math.round(px - p0[0]), j = Math.round(py - p0[1]); return i >= 0 && j >= 0 && i < mw && j < mh && md[(j * mw + i) * 4 + 3] > 0; };
+  const isLand = (px, py) => { const i = Math.round(px - p0[0]), j = Math.round(py - p0[1]); return i >= 0 && j >= 0 && i < mw && j < mh && mt[(j * mw + i) * 4 + 3] > 127; };
+  // how far inland: share of land around the point (0 at the shore → 1 about 15 km in), so the relief eases down to sea level at the coast
+  const R = 0.38 / V3.sc, DIRS = Array.from({length: 12}, (_, k) => [Math.cos(k * Math.PI / 6), Math.sin(k * Math.PI / 6)]);
+  const inland = (px, py) => { if (!isLand(px, py)) return 0; let c = 0; for (const [dx, dy] of DIRS) { if (isLand(px + dx * R, py + dy * R)) c++; if (isLand(px + dx * R / 2, py + dy * R / 2)) c++; } const f = c / 24; return f * f * (3 - 2 * f); };
   const nx = Math.round((X1 - X0) / ST) + 1, nz = Math.round((Z1 - Z0) / ST) + 1, N = nx * nz;
   const pos = new Float32Array(N * 3), uv = new Float32Array(N * 2), ll = new Float32Array(N * 2), ok = new Uint8Array(N);
   for (let j = 0; j < nz; j++) for (let i = 0; i < nx; i++) { const x = X0 + i * ST, z = Z0 + j * ST, [px, py] = toPx(x, z), n = j * nx + i, L = proj.invert([px, py]) || [0, 0];
-    ok[n] = land(px, py) ? 1 : 0; const h = ok[n] ? v3Elev(L[0], L[1]) * V3EX : 0;
+    ok[n] = land(px, py) ? 1 : 0; const h = ok[n] ? v3Elev(L[0], L[1]) * V3EX * inland(px, py) : 0;
     pos[n * 3] = x; pos[n * 3 + 1] = V3.top + 0.03 + h; pos[n * 3 + 2] = z; ll[n * 2] = L[0]; ll[n * 2 + 1] = L[1];
     uv[n * 2] = (px - a[0]) / (b[0] - a[0]); uv[n * 2 + 1] = 1 - (py - a[1]) / (b[1] - a[1]); }
   return V3.tg = {nx, nz, pos: new THREE.BufferAttribute(pos, 3), uv, ll, ok};
@@ -2579,7 +2585,10 @@ async function v3Relief(){
   if (V3.reliefOn) { v3Terrain(); if (BASE === "satellite") v3SatHi(); }
   v3ShowLand();
   const cr = document.getElementById("basecredit"); if (cr && BASE === "satellite") cr.textContent = V3ON ? "Satellite: EOxCloudless 2025 by EOX · Copernicus Sentinel-2 · CC BY-NC-SA 4.0 · close-up: Esri World Imagery (Esri, Maxar, Earthstar Geographics) · relief: AWS Terrain Tiles" : (BASE_CREDIT.satellite || "");
-  V3.edgeMat.depthTest = !V3.reliefOn; V3.edgeMat.needsUpdate = true;
+  V3.edgeMat.depthTest = true; V3.edgeMat.needsUpdate = true;
+  // outlines lie on the land surface (relief or flat), never floating underneath it
+  if (V3.edgesRel !== V3.reliefOn) { V3.edgesRel = V3.reliefOn; (V3.edges || []).forEach(l => { const a = l.geometry.attributes.position;
+    for (let i = 0; i < a.count; i++) a.setY(i, (V3.reliefOn ? v3GY(a.getX(i), a.getZ(i)) : V3.top - 0.01) + 0.006); a.needsUpdate = true; l.geometry.computeBoundingSphere(); }); }
   v3Refresh();
 }
 function v3P(px, py){ return [(px - V3.c[0]) * V3.sc, (py - V3.c[1]) * V3.sc]; }
@@ -2610,13 +2619,13 @@ function v3Build(){
       const pts = []; let last = null;
       ring.forEach(c => { const [x, z] = v3XY(c[0], c[1]); if (!last || Math.hypot(x - last[0], z - last[1]) > 0.025) { pts.push(new T.Vector2(x, -z)); last = [x, z]; } });
       if (pts.length < 4) return;
-      const geo = new T.ExtrudeGeometry(new T.Shape(pts), {depth: DEP, bevelEnabled: true, bevelThickness: 0.25, bevelSize: 0.2, bevelSegments: 1});
+      const geo = new T.ExtrudeGeometry(new T.Shape(pts), {depth: V3.top - 0.01, bevelEnabled: false});
       // texture coordinates = where each point sits on the 2D map pictures
       const pos = geo.attributes.position, uv = geo.attributes.uv;
       for (let i = 0; i < pos.count; i++) { const px = pos.getX(i) / V3.sc + V3.c[0], py = -pos.getY(i) / V3.sc + V3.c[1]; uv.setXY(i, (px - a[0]) / (b[0] - a[0]), 1 - (py - a[1]) / (b[1] - a[1])); }
       const side = V3.sideMat || (V3.sideMat = new T.MeshStandardMaterial({color: LC(0x2a3038), roughness: 0.95}));   // plain cliff sides, no stretched picture
       const mesh = new T.Mesh(geo, [mat, side]); mesh.rotation.x = -Math.PI / 2; mesh.receiveShadow = true; land.add(mesh);
-      land.add(new T.Line(new T.BufferGeometry().setFromPoints(pts.concat([pts[0]]).map(v => new T.Vector3(v.x, V3.top - 0.03, -v.y))), edge));
+      const eg = new T.Line(new T.BufferGeometry().setFromPoints(pts.concat([pts[0]]).map(v => new T.Vector3(v.x, V3.top + 0.03, -v.y))), edge); land.add(eg); (V3.edges = V3.edges || []).push(eg);
     });
   });
   scene.add(land);
