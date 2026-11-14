@@ -2696,7 +2696,12 @@ function moveTip(ev){
 function hideTip(){ tip.hidden = true; }
 
 // ---------- selection
+// the tap that opens a mine card must not also "click" the card that slides up under the finger
+// (on phones that ghost click hit the satellite picture and jumped out to Google Maps)
+let CARD_AT = 0;
+document.addEventListener("click", ev => { if (Date.now() - CARD_AT < 650 && ev.target.closest("#card a, #card button, #card [data-cmp]")) { ev.preventDefault(); ev.stopPropagation(); } }, true);
 function select(m, fly){
+  CARD_AT = Date.now();
   setTimeout(() => { try { coLinks(); } catch (e) {} try { if (V3ON && V3.built) { v3Refresh(); v3Focus(m); } } catch (e) {} }, 0);
   setTimeout(() => { if (typeof propsVis === "function") propsVis(); }, 0);
   selected = m; selFac = null; if (MN === "short") { updLabTexts(); placeLabels(); } if (facSel) facSel.classed("sel", false); hideTip();
