@@ -13,7 +13,8 @@
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <title>Australian Mines Map</title>
-<style>html,body{margin:0;height:100%;background:#0b0e10;overscroll-behavior:none}</style>
+<style>html,body{margin:0;height:100%;background:#0b0e10;overscroll-behavior:none}.sattiles{pointer-events:none}.sattiles image.st{opacity:0;transition:opacity .25s}.sattiles image.st.on{opacity:1}
+</style>
 </head>
 <body>
 
@@ -1855,7 +1856,7 @@ document.getElementById("routesBtn").onclick = () => { ROUTES = !ROUTES; try { l
 const svg = d3.select("#map"), svgEl = svg.node(), wrap = d3.select("#mapwrap"), wrapEl = wrap.node(), main = document.querySelector("main");
 const tip = document.getElementById("tip"), card = document.getElementById("card");
 const BASEB = {"lon0": 92.0, "lon1": 172.0, "lat0": -52.0, "lat1": 0.0};
-const BASE_CREDIT = {terrain:"Terrain: Natural Earth shaded relief (~4 km detail)", satellite:"Satellite: NASA Blue Marble (~4–7 km detail)", topo:"Topographic: NOAA ETOPO5 elevation (~9 km grid, known data errors repaired) + GLOBE land mask, contours every 100 m"};
+const BASE_CREDIT = {terrain:"Terrain: Natural Earth shaded relief (~4 km detail)", satellite:"Satellite: Esri World Imagery (Esri, Maxar, Earthstar Geographics, and the GIS User Community) · zoom in for up to ~0.5 m detail · overview: NASA Blue Marble", topo:"Topographic: NOAA ETOPO5 elevation (~9 km grid, known data errors repaired) + GLOBE land mask, contours every 100 m"};
 let BASE = "dark"; try { const b = localStorage.getItem("basemap"); if (b && (b === "dark" || BASE_CREDIT[b])) BASE = b; } catch (e) {}
 const g = svg.append("g"), gBase = g.append("g").attr("class","base"), gTopo = g.append("g").attr("class","topo"), gStates = g.append("g"), gZones = g.append("g").attr("class","zones"), gLab = g.append("g"), gCities = g.append("g"), gLinks = g.append("g").attr("class","glk"), gFac = g.append("g").attr("class","gf"), gMines = g.append("g").attr("class","gm"), gBan = g.append("g");
 let proj, path, k = 1, selected = null, activeStatus = new Set(["P","D","C"]), mineSel;
@@ -1868,13 +1869,72 @@ function arrowPath(h, r){
 }
 const rBase = m => m.p > 0 ? 3.2 + Math.sqrt(relP(m)) * 15 : m.e === "diamonds" ? 8 : 4.2;
 
+// ---------- high-detail satellite: Esri World Imagery tiles (free, with attribution), sharper as you zoom,
+// down to ~0.3–0.5 m in most mining areas. NASA Blue Marble stays underneath as the overview / fallback.
+const SAT_MAXZ = 19;
+const satUrl = (z, x, y) => `https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}?blankTile=false`;
+let gSat = null, satZG = new Map(), satTiles = new Map(), satPrune = 0, satEver = false;   // satEver: the tile server is reachable here
+function satMaxK(){ return proj ? 256 * Math.pow(2, SAT_MAXZ) / (2 * Math.PI * proj.scale()) : 400; }
+function satReset(){ satTiles.forEach(t => t.el.remove()); satTiles.clear(); satZG.forEach(gz => gz.remove()); satZG.clear(); }
+function satGroup(z){
+  if (satZG.has(z)) return satZG.get(z);
+  const el = document.createElementNS("http://www.w3.org/2000/svg", "g"); el.setAttribute("data-z", z);
+  const after = [...satZG.keys()].filter(q => q > z).sort((a, b) => a - b)[0];
+  gSat.node().insertBefore(el, after != null ? satZG.get(after) : null);   // finer zoom levels draw on top
+  satZG.set(z, el); return el;
+}
+function satRender(){
+  try { zoom.scaleExtent([1, BASE === "satellite" && satEver ? Math.max(400, satMaxK()) : 400]); } catch (e) {}
+  if (!proj) return;
+  if (BASE !== "satellite") { gBase.style("display", null); if (gSat) { satReset(); gSat.remove(); gSat = null; } return; }
+  if (!gSat) gSat = g.insert("g", "g.topo").attr("class", "sattiles");
+  gBase.style("display", satEver && d3.zoomTransform(wrapEl).k > 40 ? "none" : null);
+  const t = d3.zoomTransform(wrapEl), w = main.clientWidth, h = main.clientHeight, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const S = proj.scale(), tr = proj.translate(), W = 2 * Math.PI * S;          // web-mercator world width in map units
+  const ox = tr[0] - Math.PI * S, oy = tr[1] - Math.PI * S;                    // top-left corner of the tile grid
+  let z = Math.round(Math.log2(W * t.k * dpr / 256) + 0.2); z = Math.max(4, Math.min(SAT_MAXZ, z));
+  const x0 = -t.x / t.k, y0 = -t.y / t.k, x1 = (w - t.x) / t.k, y1 = (h - t.y) / t.k;
+  const want = new Set(), layers = z - 3 >= 4 ? [z - 3, z] : [z];               // a coarse layer fills gaps while the sharp one loads
+  for (const zz of layers) {
+    const n = Math.pow(2, zz), ts = W / n, pad = 0.6 / t.k;                    // tiny overlap hides seams between tiles
+    const a = Math.max(0, Math.floor((x0 - ox) / ts)), b = Math.min(n - 1, Math.floor((x1 - ox) / ts));
+    const c = Math.max(0, Math.floor((y0 - oy) / ts)), d = Math.min(n - 1, Math.floor((y1 - oy) / ts));
+    if ((b - a + 1) * (d - c + 1) > 400) continue;
+    for (let x = a; x <= b; x++) for (let y = c; y <= d; y++) {
+      const key = zz + "/" + x + "/" + y; want.add(key);
+      let tl = satTiles.get(key);
+      if (!tl) {
+        const im = document.createElementNS("http://www.w3.org/2000/svg", "image");
+        im.setAttribute("preserveAspectRatio", "none"); im.setAttribute("class", "st");
+        tl = {el: im, z: zz, ok: false, done: false}; satTiles.set(key, tl);
+        im.addEventListener("load", () => { tl.ok = tl.done = true; im.classList.add("on"); if (!satEver) { satEver = true; try { zoom.scaleExtent([1, Math.max(400, satMaxK())]); } catch (e) {} } satSettle(); });
+        im.addEventListener("error", () => { tl.done = true; im.remove(); satSettle(); });   // no imagery at this level: the coarser layer shows
+        im.setAttribute("href", satUrl(zz, x, y));
+        satGroup(zz).append(im);
+      }
+      tl.el.setAttribute("x", ox + x * ts); tl.el.setAttribute("y", oy + y * ts);
+      tl.el.setAttribute("width", ts + pad); tl.el.setAttribute("height", ts + pad);
+    }
+  }
+  satTiles.forEach((tl, key) => { tl.want = want.has(key); if (!tl.want && layers.includes(tl.z)) { tl.el.remove(); satTiles.delete(key); } });
+  clearTimeout(satPrune); satPrune = setTimeout(() => satSettle(true), 2500);
+  satSettle();
+}
+// once the sharp layer has loaded, drop tiles from other zoom levels (kept until then so nothing flashes blank)
+function satSettle(force){
+  const cur = [...satTiles.values()].filter(tl => tl.want);
+  if (!force && cur.some(tl => !tl.done)) return;
+  satTiles.forEach((tl, key) => { if (!tl.want) { tl.el.remove(); satTiles.delete(key); } });
+  satZG.forEach((gz, z) => { if (!gz.childNodes.length) { gz.remove(); satZG.delete(z); } });
+}
+
 function draw(){
   const w = main.clientWidth, h = main.clientHeight;
   svg.attr("viewBox", `0 0 ${w} ${h}`);
   proj = d3.geoMercator().fitExtent([[20,20],[w-20,h-20]], BBOX);
   // planar path: geometry is pre-wound, so skip spherical clipping/winding entirely
   path = d3.geoPath(d3.geoTransform({point(x,y){ const p = proj([x,y]); this.stream.point(p[0], p[1]); }}));
-  drawBase();
+  satReset(); drawBase();
   gTopo.selectAll("path").data(CONTOURS).join("path")
     .attr("class", c => "ct " + (c.v < 0 ? "sea" : c.v % 500 === 0 ? "idx" : "min"))
     .attr("d", c => "M" + c.p.map(q => proj(q).map(v => v.toFixed(1)).join(",")).join("L"))
@@ -1923,6 +1983,7 @@ function drawBase(){
   const lg = document.querySelector(".legend"); if (lg) lg.classList.toggle("has-topo", BASE === "topo");
   const cr = document.getElementById("basecredit"); cr.hidden = BASE === "dark"; cr.textContent = BASE_CREDIT[BASE] || "";
   document.querySelectorAll(".basesw button[data-base]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.base === BASE)));
+  satRender();
   updGE();
 }
 // past the imagery's real detail (~4 km/px), offer the same view in Google Earth at full resolution
@@ -1930,7 +1991,7 @@ const geBtn = document.getElementById("gebtn");
 function updGE(){
   if (!proj || BASE === "dark") { geBtn.hidden = true; return; }
   const t = d3.zoomTransform(wrapEl), w = main.clientWidth, h = main.clientHeight;
-  if (t.k < 3) { geBtn.hidden = true; return; }
+  if (t.k < 3 || (BASE === "satellite" && t.k < satMaxK() * 0.85)) { geBtn.hidden = true; return; }
   const inv = (x, y) => proj.invert([(x - t.x) / t.k, (y - t.y) / t.k]);
   const c = inv(w / 2, h / 2), l = inv(0, h / 2), r = inv(w, h / 2);
   const spanKm = Math.abs(r[0] - l[0]) * 111.32 * Math.cos(c[1] * Math.PI / 180);
@@ -1959,9 +2020,10 @@ applyNogo();
 // one style write per frame: CSS vars counter-scale dots/labels; classes toggle only at thresholds
 let lastLabels = null, lastDeep = null;
 function applyK(){
-  svgEl.style.setProperty("--inv", (Math.pow(k, 0.18) / k).toFixed(5));
-  svgEl.style.setProperty("--inv1", (1 / Math.pow(k, 0.6)).toFixed(5));
-  svgEl.style.setProperty("--invk", (1 / k).toFixed(5));
+  const kc = Math.min(k, 400), dk = k > 400 ? Math.pow(400 / k, 0.3) : 1;   // past the old max zoom, dots ease back to normal size
+  svgEl.style.setProperty("--inv", (Math.pow(kc, 0.18) * dk / k).toPrecision(5));
+  svgEl.style.setProperty("--inv1", (Math.pow(kc, 0.4) * dk / k).toPrecision(5));
+  svgEl.style.setProperty("--invk", (1 / k).toPrecision(5));
   const lab = k >= 3.2, deep = k > 6;
   if (lab !== lastLabels) { svgEl.classList.toggle("labels", lab); lastLabels = lab; }
   if (deep !== lastDeep) { svgEl.classList.toggle("deep", deep); lastDeep = deep; }
@@ -1969,7 +2031,7 @@ function applyK(){
 // Smooth panning: while a gesture runs, the whole map moves as one GPU layer (CSS transform, no repaint);
 // the real SVG transform is committed when the gesture ends, or when zooming far enough to blur.
 let raf = 0, pendingT = null, tc = d3.zoomIdentity, gesturing = false;
-function commitT(t){ svgEl.style.transition = "none"; svgEl.style.transform = ""; svgEl.classList.remove("zooming"); requestAnimationFrame(() => { svgEl.style.transition = ""; }); tc = t; g.attr("transform", t); k = t.k; applyK(); placeLabels(); if (typeof geoRender === "function") geoRender(); }
+function commitT(t){ svgEl.style.transition = "none"; svgEl.style.transform = ""; svgEl.classList.remove("zooming"); requestAnimationFrame(() => { svgEl.style.transition = ""; }); tc = t; g.attr("transform", t); k = t.k; applyK(); placeLabels(); satRender(); if (typeof geoRender === "function") geoRender(); }
 // Mine names: only where they fit. Bigger / producing mines get their name first; the rest appear as you zoom in.
 let labTimer = 0;
 // Mine names: Normal / On hover / Short (ASX code; the selected mine shows its full name)
